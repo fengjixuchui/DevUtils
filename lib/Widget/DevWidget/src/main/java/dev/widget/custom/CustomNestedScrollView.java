@@ -1,45 +1,43 @@
-package dev.widget;
+package dev.widget.custom;
 
 import android.content.Context;
 import android.graphics.Rect;
 import android.support.annotation.Nullable;
+import android.support.v4.widget.NestedScrollView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.widget.ScrollView;
 
 /**
- * detail: 自定义 ScrollView 监听滑动改变
+ * detail: 自定义 NestedScrollView 滑动监听、滑动控制
  * @author Ttt
  * <pre>
- *     推荐使用 {@link CustomNestedScrollView}
+ *     ScrollView 默认位置不是最顶部解决方案
+ *     @see <a href="https://blog.csdn.net/jiaoyaning1210/article/details/51084246"/>
  * </pre>
  */
-@Deprecated
-public class CustomScrollView extends ScrollView {
+public class CustomNestedScrollView extends NestedScrollView {
 
     // 是否允许滑动
     private boolean mIsSlide = true;
-    // 是否监听滑动
-    private boolean mIsSlideListener = true;
     // 滑动监听回调
     private ScrollCallBack mScrollCallBack = null;
 
-    public CustomScrollView(Context context) {
+    public CustomNestedScrollView(Context context) {
         super(context);
     }
 
-    public CustomScrollView(Context context, @Nullable AttributeSet attrs) {
+    public CustomNestedScrollView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
     }
 
-    public CustomScrollView(Context context, @Nullable AttributeSet attrs, int defStyle) {
+    public CustomNestedScrollView(Context context, @Nullable AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
     @Override
     protected void onScrollChanged(int left, int top, int oldLeft, int oldTop) {
         super.onScrollChanged(left, top, oldLeft, oldTop);
-        if (mIsSlideListener && mScrollCallBack != null) {
+        if (mScrollCallBack != null) {
             mScrollCallBack.onScrollChanged(left, top, oldLeft, oldTop);
         }
     }
@@ -72,46 +70,28 @@ public class CustomScrollView extends ScrollView {
     /**
      * 设置是否允许滑动
      * @param isSlide {@code true} yes, {@code false} no
-     * @return {@link CustomScrollView}
+     * @return {@link CustomNestedScrollView}
      */
-    public CustomScrollView setSlide(boolean isSlide) {
+    public CustomNestedScrollView setSlide(boolean isSlide) {
         this.mIsSlide = isSlide;
         return this;
     }
 
     /**
-     * 切换滑动状态
-     * @return {@link CustomScrollView}
+     * 切换滑动控制状态
+     * @return {@link CustomNestedScrollView}
      */
-    public CustomScrollView toggleSlide() {
+    public CustomNestedScrollView toggleSlide() {
         this.mIsSlide = !this.mIsSlide;
         return this;
     }
 
     /**
-     * 是否监听滑动
-     * @return {@code true} yes, {@code false} no
-     */
-    public boolean isSlideListener() {
-        return mIsSlideListener;
-    }
-
-    /**
-     * 设置是否监听滑动
-     * @param slideListener {@code true} yes, {@code false} no
-     * @return {@link CustomScrollView}
-     */
-    public CustomScrollView setSlideListener(boolean slideListener) {
-        this.mIsSlideListener = slideListener;
-        return this;
-    }
-
-    /**
-     * 设置滑动回调
+     * 设置滑动监听回调
      * @param scrollCallBack {@link ScrollCallBack}
-     * @return {@link CustomScrollView}
+     * @return {@link CustomNestedScrollView}
      */
-    public CustomScrollView setScrollCallBack(ScrollCallBack scrollCallBack) {
+    public CustomNestedScrollView setScrollCallBack(ScrollCallBack scrollCallBack) {
         this.mScrollCallBack = scrollCallBack;
         return this;
     }
