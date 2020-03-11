@@ -1729,6 +1729,37 @@ public final class ViewUtils {
     // =================
 
     /**
+     * 判断 View 是否显示 ( 如果存在父级则判断父级 )
+     * <pre>
+     *     需要父布局已展示到 Window 上
+     * </pre>
+     * @param view {@link View}
+     * @return {@code true} yes, {@code false} no
+     */
+    public static boolean isShown(final View view) {
+        return (view != null) ? view.isShown() : false;
+    }
+
+    /**
+     * 判断 View 是否都显示 ( 如果存在父级则判断父级 )
+     * @param views View[]
+     * @return {@code true} yes, {@code false} no
+     */
+    public static boolean isShowns(final View... views) {
+        if (views != null && views.length != 0) {
+            for (int i = 0, len = views.length; i < len; i++) {
+                if (!isShown(views[i])) {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
+    }
+
+    // =
+
+    /**
      * 判断 View 是否显示
      * @param view {@link View}
      * @return {@code true} yes, {@code false} no
