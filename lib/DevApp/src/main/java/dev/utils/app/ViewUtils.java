@@ -2159,27 +2159,7 @@ public final class ViewUtils {
      * @return int[] 0 = 宽度, 1 = 高度
      */
     public static int[] measureView(final View view) {
-        if (view != null) {
-            try {
-                ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-                if (layoutParams == null) {
-                    layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                }
-                int widthSpec = ViewGroup.getChildMeasureSpec(0, 0, layoutParams.width);
-                int height = layoutParams.height;
-                int heightSpec;
-                if (height > 0) {
-                    heightSpec = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY);
-                } else {
-                    heightSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-                }
-                view.measure(widthSpec, heightSpec);
-                return new int[]{view.getMeasuredWidth(), view.getMeasuredHeight()};
-            } catch (Exception e) {
-                LogPrintUtils.eTag(TAG, e, "measureView");
-            }
-        }
-        return new int[]{0, 0};
+        return WidgetUtils.measureView(view);
     }
 
     /**
@@ -2188,11 +2168,7 @@ public final class ViewUtils {
      * @return View 的宽度
      */
     public static int getMeasuredWidth(final View view) {
-        if (view != null) {
-            measureView(view);
-            return view.getMeasuredWidth();
-        }
-        return 0;
+        return WidgetUtils.getMeasuredWidth(view);
     }
 
     /**
@@ -2201,11 +2177,7 @@ public final class ViewUtils {
      * @return View 的高度
      */
     public static int getMeasuredHeight(final View view) {
-        if (view != null) {
-            measureView(view);
-            return view.getMeasuredHeight();
-        }
-        return 0;
+        return WidgetUtils.getMeasuredHeight(view);
     }
 
     /**
@@ -2215,7 +2187,7 @@ public final class ViewUtils {
      * @return {@code true} success, {@code false} fail
      */
     public static boolean measureView(final View view, final int specifiedWidth) {
-        return measureView(view, specifiedWidth, 0);
+        return WidgetUtils.measureView(view, specifiedWidth);
     }
 
     /**
@@ -2226,39 +2198,7 @@ public final class ViewUtils {
      * @return {@code true} success, {@code false} fail
      */
     public static boolean measureView(final View view, final int specifiedWidth, final int specifiedHeight) {
-        try {
-            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
-            // MeasureSpec
-            int widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-            int heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED);
-            // 如果大于 0
-            if (specifiedWidth > 0) {
-                widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(specifiedWidth, View.MeasureSpec.EXACTLY);
-            }
-            // 如果大于 0
-            if (specifiedHeight > 0) {
-                heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(specifiedHeight, View.MeasureSpec.EXACTLY);
-            }
-            // 判断是否存在自定义宽高
-            if (layoutParams != null) {
-                int width = layoutParams.width;
-                int height = layoutParams.height;
-                if (width > 0 && height > 0) {
-                    widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY);
-                    heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY);
-                } else if (width > 0) {
-                    widthMeasureSpec = View.MeasureSpec.makeMeasureSpec(width, View.MeasureSpec.EXACTLY);
-                } else if (height > 0) {
-                    heightMeasureSpec = View.MeasureSpec.makeMeasureSpec(height, View.MeasureSpec.EXACTLY);
-                }
-            }
-            view.measure(widthMeasureSpec, heightMeasureSpec);
-            view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
-            return true;
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "measureView");
-        }
-        return false;
+        return WidgetUtils.measureView(view, specifiedWidth, specifiedHeight);
     }
 
     // ==================

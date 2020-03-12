@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DevWidget">
+        <attr name="dev_maxWidth" format="dimension" />
+        <attr name="dev_maxHeight" format="dimension" />
+        <attr name="dev_slide" format="boolean" />
+    </declare-styleable>
+</resources>
