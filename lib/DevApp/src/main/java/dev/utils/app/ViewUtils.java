@@ -211,6 +211,91 @@ public final class ViewUtils {
         return null;
     }
 
+    /**
+     * 获取 android.R.id.content View
+     * @param activity {@link Activity}
+     * @param <T>      泛型
+     * @return {@link View}
+     */
+    public static <T extends View> T getContentView(final Activity activity) {
+        return ViewUtils.findViewById(activity, android.R.id.content);
+    }
+
+    /**
+     * 获取 android.R.id.content View
+     * @param view {@link View}
+     * @param <T>  泛型
+     * @return {@link View}
+     */
+    public static <T extends View> T getContentView(final View view) {
+        if (view != null) {
+            try {
+                ViewParent parent = view.getParent();
+                while (parent != null && parent instanceof View) {
+                    View root = (View) parent;
+                    if (root.getId() == android.R.id.content) {
+                        return (T) root;
+                    }
+                    parent = parent.getParent();
+                }
+            } catch (Exception e) {
+                LogPrintUtils.eTag(TAG, e, "getContentView");
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取指定 View 根布局 ( 最底层布局 )
+     * @param view {@link View}
+     * @param <T>  泛型
+     * @return {@link View}
+     */
+    public static <T extends View> T getRootParent(final View view) {
+        if (view != null) {
+            try {
+                View root = null;
+                ViewParent parent = view.getParent();
+                while (parent != null && parent instanceof View) {
+                    root = (View) parent;
+                    parent = parent.getParent();
+                }
+                return (T) root;
+            } catch (Exception e) {
+                LogPrintUtils.eTag(TAG, e, "getRootParent");
+            }
+        }
+        return null;
+    }
+
+    /**
+     * 获取是否限制子 View 在其边界内绘制
+     * @param viewGroup {@link ViewGroup}
+     * @return {@code true} yes, {@code false} no
+     */
+    public static boolean getClipChildren(final ViewGroup viewGroup) {
+        if (viewGroup != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+                return viewGroup.getClipChildren();
+            }
+        }
+        return true;
+    }
+
+    /**
+     * 设置是否限制子 View 在其边界内绘制
+     * @param viewGroup    {@link ViewGroup}
+     * @param clipChildren {@code true} yes, {@code false} no
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean setClipChildren(final ViewGroup viewGroup, final boolean clipChildren) {
+        if (viewGroup != null) {
+            viewGroup.setClipChildren(clipChildren);
+            return true;
+        }
+        return false;
+    }
+
     // =
 
     /**
