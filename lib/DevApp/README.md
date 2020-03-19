@@ -2,10 +2,10 @@
 ## Gradle
 
 ```java
-implementation 'com.afkt:DevApp:1.9.1'
+implementation 'com.afkt:DevApp:1.9.2'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:1.9.1'
+implementation 'com.afkt:DevAppX:1.9.2'
 ```
 
 ## 目录结构
@@ -1558,7 +1558,8 @@ DevUtils.openDebug();
 | getTextTopOffsetHeight | 获取字体顶部偏移高度 |
 | getTextWidth | 计算字体宽度 |
 | getCenterRectY | 获取画布中间居中位置 |
-| reckonTextSize | 通过需要的高度, 计算字体大小 |
+| reckonTextSizeByHeight | 通过需要的高度, 计算字体大小 |
+| reckonTextSizeByWidth | 通过需要的宽度, 计算字体大小 ( 最接近该宽度的字体大小 ) |
 | calcTextWidth | 计算第几位超过宽度 |
 | calcTextLine | 计算文本换行行数 |
 | getCompoundDrawables | 获取 CompoundDrawables |
@@ -1608,6 +1609,10 @@ DevUtils.openDebug();
 | getActivity | 获取 View context 所属的 Activity |
 | inflate | 获取 View |
 | getParent | 获取指定 View 父布局 |
+| getContentView | 获取 android.R.id.content View |
+| getRootParent | 获取指定 View 根布局 ( 最底层布局 ) |
+| getClipChildren | 获取是否限制子 View 在其边界内绘制 |
+| setClipChildren | 设置是否限制子 View 在其边界内绘制 |
 | getChildCount | 获取子 View 总数 |
 | getChildAt | 获取指定索引 View |
 | removeAllViews | 移除全部子 View |
@@ -1775,6 +1780,19 @@ DevUtils.openDebug();
 | getForegroundTintList | 获取 View 前景着色颜色 |
 | getForegroundTintMode | 获取 View 前景着色模式 |
 | setColorFilter | View 着色处理 |
+
+
+* **控件工具类 ->** [WidgetUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/WidgetUtils.java)
+
+| 方法 | 注释 |
+| :- | :- |
+| viewMeasure | View Measure |
+| calculateSize | 计算大小 |
+| getSize | 从提供的测量规范中提取大小 |
+| getMode | 从提供的测量规范中提取模式 |
+| measureView | 测量 View |
+| getMeasuredWidth | 获取 View 的宽度 |
+| getMeasuredHeight | 获取 View 的高度 |
 
 
 ## <span id="devutilsappanim">**`dev.utils.app.anim`**</span>
@@ -2168,6 +2186,7 @@ DevUtils.openDebug();
 | requestFocus | View 请求获取焦点 |
 | clearFocus | View 清除焦点 |
 | requestLayoutParent | View 请求更新 |
+| setClipChildren | 设置是否限制子 View 在其边界内绘制 |
 | setLayoutParams | 设置 View LayoutParams |
 | setFocusableInTouchMode | 设置 View 是否在触摸模式下获得焦点 |
 | setFocusable | 设置 View 是否可以获取焦点 |

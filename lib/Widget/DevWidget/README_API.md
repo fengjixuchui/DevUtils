@@ -2,21 +2,23 @@
 ## Gradle
 
 ```java
+implementation 'com.afkt:DevApp:1.9.2'
 implementation 'com.afkt:DevWidget:1.0.0'
 
 // AndroidX
+implementation 'com.afkt:DevAppX:1.9.2'
 implementation 'com.afkt:DevWidgetX:1.0.0'
 ```
 
 ## 目录结构
 
 ```
-- dev              | 根目录
-   - widget        | 自定义 View 根目录
-      - adjust     | 自动调节高度 View
-      - custom     | 自定义 View
-      - function   | 需求功能 View
-      - ui         | UI View
+- dev                                                 | 根目录
+   - widget                                           | 自定义 View 根目录
+      - adjust                                        | 自动调节高度 View
+      - custom                                        | 自定义 View
+      - function                                      | 需求功能 View
+      - ui                                            | UI View
 ```
 
 
@@ -34,12 +36,12 @@ implementation 'com.afkt:DevWidgetX:1.0.0'
 ## API
 
 
-- dev                                      | 根目录
-   - [widget](#devwidget)                  | 自定义 View 根目录
-      - [adjust](#devwidgetadjust)         | 自动调节高度 View
-      - [custom](#devwidgetcustom)         | 自定义 View
-      - [function](#devwidgetfunction)     | 需求功能 View
-      - [ui](#devwidgetui)                 | UI View
+- dev                                                 | 根目录
+   - [widget](#devwidget)                             | 自定义 View 根目录
+      - [adjust](#devwidgetadjust)                    | 自动调节高度 View
+      - [custom](#devwidgetcustom)                    | 自定义 View
+      - [function](#devwidgetfunction)                | 需求功能 View
+      - [ui](#devwidgetui)                            | UI View
 
 
 
