@@ -2,10 +2,10 @@
 ## Gradle
 
 ```java
-implementation 'com.afkt:DevApp:1.9.2'
+implementation 'com.afkt:DevApp:1.9.3'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:1.9.2'
+implementation 'com.afkt:DevAppX:1.9.3'
 ```
 
 ## 目录结构
@@ -142,6 +142,7 @@ DevUtils.openDebug();
 
 | 方法 | 注释 |
 | :- | :- |
+| getWindow | 获取 Window |
 | getActivity | 通过 Context 获取 Activity |
 | isFinishing | 判断 Activity 是否关闭 |
 | isActivityExists | 判断是否存在指定的 Activity |
@@ -458,29 +459,31 @@ DevUtils.openDebug();
 | getVibrateSetting | 获取用户对振动类型的振动设置 |
 
 
-* **状态栏相关工具类 ->** [BarUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/BarUtils.java)
+* **Bar 相关工具类 ->** [BarUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/BarUtils.java)
 
 | 方法 | 注释 |
 | :- | :- |
-| getStatusBarHeight | 获取状态栏高度 |
-| setStatusBarVisibility | 设置状态栏是否显示 |
-| isStatusBarVisible | 判断状态栏是否显示 |
-| setStatusBarLightMode | 设置状态是否高亮模式 |
-| addMarginTopEqualStatusBarHeight | 添加状态栏同等高度到 View 的顶部 |
-| subtractMarginTopEqualStatusBarHeight | 添加状态栏同等高度到 View 的顶部 |
-| setStatusBarColor | 设置状态栏颜色 |
-| setStatusBarAlpha | 设置状态栏透明度 |
-| setStatusBarCustom | 设置自定义状态栏 |
-| setStatusBarColor4Drawer | 设置状态栏的颜色 |
-| setStatusBarAlpha4Drawer | 设置状态栏透明度 |
+| getStatusBarHeight | 获取 StatusBar 高度 |
+| isStatusBarVisible | 判断 StatusBar 是否显示 |
+| setStatusBarVisibility | 设置 StatusBar 是否显示 |
+| setStatusBarLightMode | 设置 StatusBar 是否高亮模式 |
+| isStatusBarLightMode | 获取 StatusBar 是否高亮模式 |
+| addMarginTopEqualStatusBarHeight | 添加 View 向上 StatusBar 同等高度边距 |
+| subtractMarginTopEqualStatusBarHeight | 移除 View 向上 StatusBar 同等高度边距 |
+| setStatusBarColor | 设置 StatusBar 颜色 |
+| setStatusBarCustom | 设置自定义 StatusBar View |
+| setStatusBarColorDrawer | 设置 DrawerLayout StatusBar 颜色 |
+| transparentStatusBar | 设置透明 StatusBar |
 | getActionBarHeight | 获取 ActionBar 高度 |
-| setNotificationBarVisibility | 设置通知栏是否显示 |
-| getNavBarHeight | 获取 NavigationView 高度 |
-| setNavBarVisibility | 设置导航栏是否可见 ( 图标显示 ) |
-| isNavBarVisible | 判断导航栏是否可见 |
-| setNavBarColor | 设置导航栏颜色 |
-| getNavBarColor | 设置导航栏颜色 |
-| isSupportNavBar | 判断是否支持导航栏 |
+| setNotificationBarVisibility | 设置 Notification Bar 是否显示 |
+| getNavBarHeight | 获取 Navigation Bar 高度 |
+| setNavBarVisibility | 设置 Navigation Bar 是否可见 |
+| isNavBarVisible | 判断 Navigation Bar 是否可见 |
+| isSupportNavBar | 判断是否支持 Navigation Bar |
+| setNavBarColor | 设置 Navigation Bar 颜色 |
+| getNavBarColor | 获取 Navigation Bar 颜色 |
+| setNavBarLightMode | 设置 Navigation Bar 是否高亮模式 |
+| isNavBarLightMode | 获取 Navigation Bar 是否高亮模式 |
 
 
 * **亮度相关工具类 ->** [BrightnessUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/BrightnessUtils.java)
@@ -660,6 +663,7 @@ DevUtils.openDebug();
 | reboot | 重启设备 ( 需要 root 权限 ) |
 | rebootToRecovery | 重启引导到 recovery ( 需要 root 权限 ) |
 | rebootToBootloader | 重启引导到 bootloader ( 需要 root 权限 ) |
+| isTablet | 判断是否是平板 |
 
 
 * **Dialog 操作相关工具类 ->** [DialogUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/DialogUtils.java)
@@ -869,6 +873,7 @@ DevUtils.openDebug();
 | 方法 | 注释 |
 | :- | :- |
 | getSystemLanguage | 获取系统语言 |
+| getSystemCountry | 获取系统语言区域 |
 | getSystemPreferredLanguage | 获取系统首选语言 |
 | applyLanguage | 修改系统语言 ( APP 多语言, 单独改变 APP 语言 ) |
 | getSupportLanguages | 获取支持的语言 |
@@ -876,6 +881,12 @@ DevUtils.openDebug();
 | removeSupportLanguage | 移除支持的语言 |
 | isSupportLanguage | 是否支持此语言 |
 | getSupportLanguage | 获取支持语言 |
+| isEn | 判断是否为英文语言环境 |
+| isZh | 判断是否为中文语言环境 |
+| isZhCN | 判断是否为中文简体语言环境 |
+| isZhTW | 判断是否为中文繁体语言环境 |
+| isLanguage | 判断是否为指定语言环境 |
+| isRegion | 判断是否为指定区域语言环境 |
 
 
 * **事件工具类 ->** [ListenerUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/ListenerUtils.java)
@@ -1037,15 +1048,6 @@ DevUtils.openDebug();
 | createNotification | 创建通知栏对象 |
 | obtain | 获取 Led 配置参数 |
 | isEmpty | 判断是否为 null |
-
-
-* **OS 系统相关工具类 ->** [OSUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/OSUtils.java)
-
-| 方法 | 注释 |
-| :- | :- |
-| getRomType | 获取 ROM 类型 |
-| getVersion | 获取 ROM 具体版本号, 如 MIUI 9 8.4.26 获取的是 8.4.26 |
-| getBaseVersion | 获取 ROM 版本, 如 MIUI 9 获取的是 9 |
 
 
 * **路径相关工具类 ->** [PathUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/PathUtils.java)
@@ -1265,6 +1267,33 @@ DevUtils.openDebug();
 | saveRawFormFile | 获取 Raw 资源文件数据并保存到本地 |
 
 
+* **ROM 相关工具类 ->** [ROMUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/ROMUtils.java)
+
+| 方法 | 注释 |
+| :- | :- |
+| isHuawei | 判断 ROM 是否 Huawei ( 华为 ) |
+| isVivo | 判断 ROM 是否 Vivo ( VIVO ) |
+| isXiaomi | 判断 ROM 是否 Xiaomi ( 小米 ) |
+| isOppo | 判断 ROM 是否 Oppo ( OPPO ) |
+| isLeeco | 判断 ROM 是否 Leeco ( 乐视 ) |
+| is360 | 判断 ROM 是否 360 ( 360 ) |
+| isZte | 判断 ROM 是否 Zte ( 中兴 ) |
+| isOneplus | 判断 ROM 是否 Oneplus ( 一加 ) |
+| isNubia | 判断 ROM 是否 Nubia ( 努比亚 ) |
+| isCoolpad | 判断 ROM 是否 Coolpad ( 酷派 ) |
+| isLg | 判断 ROM 是否 Lg ( LG ) |
+| isGoogle | 判断 ROM 是否 Google ( 谷歌 ) |
+| isSamsung | 判断 ROM 是否 Samsung ( 三星 ) |
+| isMeizu | 判断 ROM 是否 Meizu ( 魅族 ) |
+| isLenovo | 判断 ROM 是否 Lenovo ( 联想 ) |
+| isSmartisan | 判断 ROM 是否 Smartisan ( 锤子 ) |
+| isHtc | 判断 ROM 是否 Htc ( HTC ) |
+| isSony | 判断 ROM 是否 Sony ( 索尼 ) |
+| isGionee | 判断 ROM 是否 Gionee ( 金立 ) |
+| isMotorola | 判断 ROM 是否 Motorola ( 摩托罗拉 ) |
+| getRomInfo | 获取 ROM 信息 |
+
+
 * **屏幕相关工具类 ->** [ScreenUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/ScreenUtils.java)
 
 | 方法 | 注释 |
@@ -1285,7 +1314,9 @@ DevUtils.openDebug();
 | getHeightDpi | 获取高度比例 dpi 基准 |
 | getScreenInfo | 获取屏幕信息 |
 | setWindowSecure | 设置禁止截屏 |
+| isFullScreen | 屏幕是否为全屏 |
 | setFullScreen | 设置屏幕为全屏 |
+| setFullScreenNoTitle | 设置屏幕为全屏无标题 |
 | setLandscape | 设置屏幕为横屏 |
 | setPortrait | 设置屏幕为竖屏 |
 | isLandscape | 判断是否横屏 |
@@ -1294,8 +1325,7 @@ DevUtils.openDebug();
 | getScreenRotation | 获取屏幕旋转角度 |
 | isScreenLock | 判断是否锁屏 |
 | isTablet | 判断是否是平板 |
-| getStatusHeight | 获取状态栏的高度 ( 无关 android:theme 获取状态栏高度 ) |
-| getStatusBarHeight | 获取应用区域 TitleBar 高度 ( 顶部灰色 TitleBar 高度, 没有设置 android:theme 的 NoTitleBar 时会显示 ) |
+| getStatusBarHeight | 获取 StatusBar 高度 |
 | setSleepDuration | 设置进入休眠时长 |
 | getSleepDuration | 获取进入休眠时长 |
 | getNavigationBarHeight | 获取底部导航栏高度 |
@@ -2055,6 +2085,7 @@ DevUtils.openDebug();
 | saveRawFormFile | 获取 Raw 资源文件数据并保存到本地 |
 | setWindowSecure | 设置禁止截屏 |
 | setFullScreen | 设置屏幕为全屏 |
+| setFullScreenNoTitle | 设置屏幕为全屏无标题 |
 | setLandscape | 设置屏幕为横屏 |
 | setPortrait | 设置屏幕为竖屏 |
 | toggleScreenOrientation | 切换屏幕方向 |
