@@ -4,8 +4,9 @@ import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.support.annotation.RawRes;
-import android.support.annotation.RequiresPermission;
+
+import androidx.annotation.RawRes;
+import androidx.annotation.RequiresPermission;
 
 import java.io.Closeable;
 

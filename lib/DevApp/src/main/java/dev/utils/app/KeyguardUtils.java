@@ -2,8 +2,9 @@ package dev.utils.app;
 
 import android.app.KeyguardManager;
 import android.os.Build;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.RequiresPermission;
+
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RequiresPermission;
 
 import dev.utils.LogPrintUtils;
 

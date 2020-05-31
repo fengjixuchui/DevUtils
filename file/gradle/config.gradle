@@ -38,9 +38,9 @@ ext {
             // ===========
 
             // 版本号
-            dev_app_versionCode                     : 193,
+            dev_app_versionCode                     : 194,
             // 版本名
-            dev_app_versionName                     : '1.9.3',
+            dev_app_versionName                     : '1.9.4',
 
             // 版本号
             dev_assist_versionCode                  : 103,
@@ -48,14 +48,14 @@ ext {
             dev_assist_versionName                  : '1.0.3',
 
             // 版本号
-            dev_java_versionCode                    : 111,
+            dev_java_versionCode                    : 112,
             // 版本名
-            dev_java_version                        : '1.1.1',
+            dev_java_version                        : '1.1.2',
 
             // 版本号
-            dev_widget_versionCode                  : 100,
+            dev_widget_versionCode                  : 101,
             // 版本名
-            dev_widget_versionName                  : '1.0.0',
+            dev_widget_versionName                  : '1.0.1',
 
             // 版本号
             dev_environment_versionCode             : 100,
@@ -124,8 +124,8 @@ ext {
                     // fastjson https://github.com/alibaba/fastjson
                     fastjson                     : "com.alibaba:fastjson:1.2.61",
                     // View 注入框架 https://github.com/JakeWharton/butterknife
-                    butterknife                  : "com.jakewharton:butterknife:8.5.1",
-                    butterknife_compiler         : "com.jakewharton:butterknife-compiler:8.5.1",
+                    butterknife                  : "com.jakewharton:butterknife:10.2.1",
+                    butterknife_compiler         : "com.jakewharton:butterknife-compiler:10.2.1",
                     // Android 平台下的图片选择器 https://github.com/LuckSiege/PictureSelector
                     pictureSelector              : "com.github.LuckSiege.PictureSelector:picture_library:v2.2.5",
                     // Android 可伸缩布局 FlexboxLayout ( 支持 RecyclerView 集成 ) https://github.com/google/flexbox-layout
@@ -165,6 +165,8 @@ ext {
                     mpAndroidChart               : "com.github.PhilJay:MPAndroidChart:v3.1.0",
                     // Banner 库 https://github.com/youth5201314/banner
                     banner                       : "com.youth.banner:banner:2.0.8",
+                    // 基于 mmap 的高性能通用 key-value 组件 https://github.com/Tencent/MMKV/blob/master/readme_cn.md
+                    mmkv                         : "com.tencent:mmkv-static:1.1.1",
 
                     // ========
                     // = 其他 =

@@ -4,8 +4,9 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.StateListDrawable;
-import android.support.annotation.ColorRes;
-import android.support.annotation.DrawableRes;
+
+import androidx.annotation.ColorRes;
+import androidx.annotation.DrawableRes;
 
 import dev.utils.LogPrintUtils;
 

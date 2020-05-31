@@ -1,8 +1,6 @@
 package dev.utils.app;
 
 import android.os.Build;
-import android.support.v4.widget.NestedScrollView;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
@@ -10,6 +8,9 @@ import android.widget.HorizontalScrollView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.ScrollView;
+
+import androidx.core.widget.NestedScrollView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import dev.utils.LogPrintUtils;
 import dev.utils.common.NumberUtils;

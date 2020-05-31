@@ -32,10 +32,11 @@ import android.os.PowerManager;
 import android.os.Vibrator;
 import android.os.storage.StorageManager;
 import android.provider.Settings;
-import android.support.annotation.RequiresPermission;
 import android.telephony.TelephonyManager;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+
+import androidx.annotation.RequiresPermission;
 
 import java.io.File;
 import java.util.List;

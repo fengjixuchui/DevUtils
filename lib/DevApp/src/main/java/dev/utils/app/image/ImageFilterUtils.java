@@ -11,8 +11,9 @@ import android.renderscript.Allocation;
 import android.renderscript.Element;
 import android.renderscript.RenderScript;
 import android.renderscript.ScriptIntrinsicBlur;
-import android.support.annotation.IntRange;
-import android.support.annotation.RequiresApi;
+
+import androidx.annotation.IntRange;
+import androidx.annotation.RequiresApi;
 
 import dev.DevUtils;
 import dev.utils.LogPrintUtils;

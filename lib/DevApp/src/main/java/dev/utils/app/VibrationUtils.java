@@ -1,7 +1,8 @@
 package dev.utils.app;
 
 import android.os.Vibrator;
-import android.support.annotation.RequiresPermission;
+
+import androidx.annotation.RequiresPermission;
 
 import dev.utils.LogPrintUtils;
 

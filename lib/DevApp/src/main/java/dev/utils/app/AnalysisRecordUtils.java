@@ -1,7 +1,8 @@
 package dev.utils.app;
 
-import android.support.annotation.IntDef;
 import android.text.TextUtils;
+
+import androidx.annotation.IntDef;
 
 import java.io.File;
 import java.lang.annotation.Retention;

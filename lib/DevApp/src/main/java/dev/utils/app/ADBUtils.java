@@ -2,8 +2,9 @@ package dev.utils.app;
 
 import android.content.Intent;
 import android.os.Build;
-import android.support.annotation.IntRange;
 import android.text.TextUtils;
+
+import androidx.annotation.IntRange;
 
 import java.io.File;
 import java.text.SimpleDateFormat;

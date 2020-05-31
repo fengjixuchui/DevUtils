@@ -5,7 +5,8 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.Keep;
+
+import androidx.annotation.Keep;
 
 import dev.utils.LogPrintUtils;
 import dev.utils.app.AppUtils;

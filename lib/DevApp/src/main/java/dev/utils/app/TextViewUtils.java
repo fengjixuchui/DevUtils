@@ -6,8 +6,6 @@ import android.graphics.Rect;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.ColorInt;
-import android.support.annotation.RequiresApi;
 import android.text.Html;
 import android.text.InputFilter;
 import android.text.TextPaint;
@@ -18,6 +16,9 @@ import android.text.method.TransformationMethod;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
+
+import androidx.annotation.ColorInt;
+import androidx.annotation.RequiresApi;
 
 import java.util.ArrayList;
 import java.util.List;
