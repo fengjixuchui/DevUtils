@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.chad.library.adapter.base.listener.OnItemChildClickListener;
 
 import java.util.Arrays;
 import java.util.List;
@@ -97,6 +98,8 @@ public class MainActivity extends BaseActivity {
                 DevLogger.d(builder.toString());
                 // 拒绝了则再次请求处理
                 PermissionUtils.againRequest(MainActivity.this, this, deniedList);
+                // Toast
+                ToastUtils.showLong("请开启读写手机存储权限.");
             }
         }).request(this);
     }
@@ -110,7 +113,7 @@ public class MainActivity extends BaseActivity {
         final ButtonAdapter buttonAdapter = new ButtonAdapter(ButtonValue.getMainButtonValues());
         vid_bvr_recy.setLayoutManager(new LinearLayoutManager(this));
         vid_bvr_recy.setAdapter(buttonAdapter);
-        buttonAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+        buttonAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
                 ButtonValue buttonValue = buttonAdapter.getItem(position);
