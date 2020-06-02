@@ -7,6 +7,8 @@ import android.webkit.WebSettings;
 
 import androidx.multidex.MultiDexApplication;
 
+import com.tencent.mmkv.MMKV;
+
 import afkt.project.R;
 import afkt.project.base.config.AppConfig;
 import afkt.project.base.config.PathConfig;
@@ -29,6 +31,7 @@ import dev.utils.common.DateUtils;
 import dev.utils.common.FileRecordUtils;
 import dev.utils.common.assist.TimeCounter;
 import dev.widget.StateLayout;
+import me.jessyan.autosize.AutoSizeConfig;
 
 /**
  * detail: Base Application
@@ -120,6 +123,8 @@ public class BaseApplication extends MultiDexApplication {
         initCrash();
         // 初始化 WebView 辅助类全局配置
         initWebViewBuilder();
+        // 初始化其他 lib
+        initOthers();
     }
 
     /**
@@ -197,5 +202,19 @@ public class BaseApplication extends MultiDexApplication {
                     }
                 });
         WebViewAssist.setGlobalBuilder(builder);
+    }
+
+    /**
+     * 初始化其他 lib
+     */
+    private void initOthers() {
+        // 初始化 MMKV
+        String rootDir = MMKV.initialize(this);
+        DevLogger.d("MMKV rootDir: " + rootDir);
+
+        // https://github.com/JessYanCoding/AndroidAutoSize/blob/master/demo-subunits/src/main/java/me/jessyan/autosize/demo/subunits/BaseApplication.java
+        // 可不调用, 默认开启 DP 转换
+        AutoSizeConfig.getInstance().getUnitsManager()
+                .setSupportDP(true);
     }
 }
