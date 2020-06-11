@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:1.9.4'
+implementation 'com.afkt:DevAppX:1.9.5'
 ```
 
 ## 目录结构
@@ -1226,6 +1226,7 @@ DevUtils.openDebug();
 | getColorDrawable | 获取指定颜色 Drawable |
 | getBitmap | 获取 Bitmap |
 | getDimension | 获取 Dimension |
+| getDimensionInt | 获取 Dimension |
 | getBoolean | 获取 Boolean |
 | getInteger | 获取 Integer |
 | getAnimation | 获取 Animation |

@@ -12,6 +12,7 @@ import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.framework.mvp.ArticleMVPActivity;
 import afkt.project.framework.mvvm.ArticleMVVMActivity;
+import afkt.project.model.item.ButtonList;
 import afkt.project.model.item.ButtonValue;
 import afkt.project.ui.activity.AccessibilityListenerServiceActivity;
 import afkt.project.ui.activity.ActivityResultCallBackActivity;
@@ -74,7 +75,7 @@ public class ModuleActivity extends BaseToolbarActivity {
     public void initValues() {
         super.initValues();
         // 初始化布局管理器、适配器
-        final ButtonAdapter buttonAdapter = new ButtonAdapter(ButtonValue.getModuleButtonValues(getModuleType()));
+        final ButtonAdapter buttonAdapter = new ButtonAdapter(ButtonList.getModuleButtonValues(getModuleType()));
         vid_bvr_recy.setLayoutManager(new LinearLayoutManager(this));
         vid_bvr_recy.setAdapter(buttonAdapter);
         buttonAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
@@ -255,6 +256,9 @@ public class ModuleActivity extends BaseToolbarActivity {
                         break;
                     case ButtonValue.BTN_CORNER_LABEL_VIEW: // 自定义角标 View
                         SkipUtils.startActivity(CornerLabelActivity.class, buttonValue);
+                        break;
+                    case ButtonValue.BTN_VIEW_ASSIST: // View 填充辅助类
+                        SkipUtils.startActivity(ButtonItemActivity.class, buttonValue);
                         break;
                     default:
                         ToastTintUtils.warning("未处理 " + buttonValue.text + " 事件");

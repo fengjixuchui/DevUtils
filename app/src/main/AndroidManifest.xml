@@ -81,6 +81,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
 
+        <!-- Button -->
+
+        <activity
+            android:name=".ui.ButtonItemActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
         <!-- 事件 / 广播监听 ( 网络状态、屏幕旋转等 ) -->
 
         <activity
@@ -341,6 +349,22 @@
 
         <activity
             android:name=".ui.activity.CornerLabelActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- ViewAssist Activity -->
+
+        <activity
+            android:name=".ui.activity.ViewAssistActivity"
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+
+        <!-- ViewAssist RecyclerView Loading -->
+
+        <activity
+            android:name=".ui.activity.ViewAssistRecyclerViewLoadActivity"
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />

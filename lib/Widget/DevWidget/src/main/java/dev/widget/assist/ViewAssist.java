@@ -28,9 +28,9 @@ public final class ViewAssist {
     }
 
     // 标记 Tag
-    private String    tag;
+    private String    mTag;
     // 包裹 View
-    private ViewGroup wrapper;
+    private ViewGroup mWrapper;
 
     /**
      * 传入包裹 View
@@ -50,20 +50,20 @@ public final class ViewAssist {
     public static ViewAssist wrap(ViewGroup wrapper, String tag) {
         if (wrapper == null) return null;
         ViewAssist assist = new ViewAssist();
-        assist.wrapper = wrapper;
-        assist.tag = tag;
+        assist.mWrapper = wrapper;
+        assist.mTag = tag;
         return assist;
     }
 
     // =
 
-    private Object                    data;
-    private HashMap<String, Object>   mapDatas    = new HashMap<>();
-    private HashMap<Integer, Adapter> mapAdapters = new HashMap<>();
-    private SparseArray<View>         typeViews   = new SparseArray<>(3);
-    private int                       currentType = -1;
-    private View                      currentView;
-    private Listener                  listener;
+    private Object                    mData;
+    private HashMap<String, Object>   mMapDatas    = new HashMap<>();
+    private HashMap<Integer, Adapter> mMapAdapters = new HashMap<>();
+    private SparseArray<View>         mTypeViews   = new SparseArray<>(3);
+    private int                       mCurrentType = -1;
+    private View                      mCurrentView;
+    private Listener                  mListener;
 
     public interface Adapter {
 
@@ -85,17 +85,22 @@ public final class ViewAssist {
     // = 对外公开方法 =
     // ================
 
-    // Type: 加载中、加载失败、空数据
-    public static final int TYPE_LOADING     = 1;
-    public static final int TYPE_LOAD_FAILED = 2;
-    public static final int TYPE_EMPTY_DATA  = 3;
+    // Type: 操作中、失败、成功、空数据
+    public static final int TYPE_ING        = 1;
+    public static final int TYPE_FAILED     = 2;
+    public static final int TYPE_SUCCESS    = 3;
+    public static final int TYPE_EMPTY_DATA = 4;
 
-    public void showLoading() {
-        showType(TYPE_LOADING);
+    public void showIng() {
+        showType(TYPE_ING);
     }
 
-    public void showLoadFailed() {
-        showType(TYPE_LOAD_FAILED);
+    public void showFailed() {
+        showType(TYPE_FAILED);
+    }
+
+    public void showSuccess() {
+        showType(TYPE_SUCCESS);
     }
 
     public void showEmptyData() {
@@ -107,40 +112,40 @@ public final class ViewAssist {
      * @param type Type
      */
     public void showType(int type) {
-        if (wrapper == null) return;
-        Adapter adapter = mapAdapters.get(type);
+        if (mWrapper == null) return;
+        Adapter adapter = mMapAdapters.get(type);
         if (adapter != null) {
             View view = getView(type);
             if (view != null) {
                 visible();
-                int oldType = currentType;
-                currentType = type;
-                currentView = view;
-                typeViews.put(type, view);
+                int oldType = mCurrentType;
+                mCurrentType = type;
+                mCurrentView = view;
+                mTypeViews.put(type, view);
                 // 添加 View
-                if (wrapper.indexOfChild(view) == -1) {
-                    wrapper.removeAllViews();
-                    wrapper.addView(view);
+                if (mWrapper.indexOfChild(view) == -1) {
+                    mWrapper.removeAllViews();
+                    mWrapper.addView(view);
                 }
                 adapter.onBindView(this, view, type);
 
-                if (listener != null) {
-                    listener.onChange(this, type, oldType);
+                if (mListener != null) {
+                    mListener.onChange(this, type, oldType);
                 }
                 return;
             }
         }
         //gone();
-        currentType = type;
-        currentView = null;
-        wrapper.removeAllViews();
-        if (listener != null) {
-            listener.onNotFound(this, type);
+        mCurrentType = type;
+        mCurrentView = null;
+        mWrapper.removeAllViews();
+        if (mListener != null) {
+            mListener.onNotFound(this, type);
         }
     }
 
     public ViewAssist notifyDataSetChanged() {
-        showType(currentType);
+        showType(mCurrentType);
         return this;
     }
 
@@ -149,12 +154,12 @@ public final class ViewAssist {
     // ============
 
     public ViewAssist gone() {
-        if (wrapper != null) wrapper.setVisibility(View.GONE);
+        if (mWrapper != null) mWrapper.setVisibility(View.GONE);
         return this;
     }
 
     public ViewAssist visible() {
-        if (wrapper != null) wrapper.setVisibility(View.VISIBLE);
+        if (mWrapper != null) mWrapper.setVisibility(View.VISIBLE);
         return this;
     }
 
@@ -166,7 +171,7 @@ public final class ViewAssist {
      */
     public ViewAssist register(int type, Adapter adapter) {
         if (adapter == null) return this;
-        mapAdapters.put(type, adapter);
+        mMapAdapters.put(type, adapter);
         return this;
     }
 
@@ -186,19 +191,35 @@ public final class ViewAssist {
      * @return {@link ViewAssist}
      */
     public ViewAssist unregister(int type, boolean remove) {
-        typeViews.remove(type);
-        mapAdapters.remove(type);
+        mTypeViews.remove(type);
+        mMapAdapters.remove(type);
         boolean removeView = false;
-        if (remove && type == currentType) {
-            if (wrapper != null) wrapper.removeAllViews();
-            currentType = -1;
-            currentView = null;
+        if (remove && type == mCurrentType) {
+            if (mWrapper != null) mWrapper.removeAllViews();
+            mCurrentType = -1;
+            mCurrentView = null;
             //gone();
             removeView = true;
         }
-        if (listener != null) {
-            listener.onRemove(this, type, removeView);
+        if (mListener != null) {
+            mListener.onRemove(this, type, removeView);
         }
+        return this;
+    }
+
+    /**
+     * 重置处理
+     * @return {@link ViewAssist}
+     */
+    public ViewAssist reset() {
+        //gone();
+        if (mWrapper != null) mWrapper.removeAllViews();
+        mData = null;
+        mMapDatas.clear();
+        mMapAdapters.clear();
+        mTypeViews.clear();
+        mCurrentType = -1;
+        mCurrentView = null;
         return this;
     }
 
@@ -207,21 +228,21 @@ public final class ViewAssist {
     // =============
 
     public ViewGroup getWrapper() {
-        return wrapper;
+        return mWrapper;
     }
 
     public String getTag() {
-        return tag;
+        return mTag;
     }
 
     public ViewAssist setTag(String tag) {
-        this.tag = tag;
+        this.mTag = tag;
         return this;
     }
 
     public <T> T getData() {
         try {
-            return (T) data;
+            return (T) mData;
         } catch (Exception e) {
             LogPrintUtils.e(e);
         }
@@ -229,13 +250,13 @@ public final class ViewAssist {
     }
 
     public ViewAssist setData(Object data) {
-        this.data = data;
+        this.mData = data;
         return this;
     }
 
     public <T> T getData(String key) {
         try {
-            return (T) mapDatas.get(key);
+            return (T) mMapDatas.get(key);
         } catch (Exception e) {
             LogPrintUtils.e(e);
         }
@@ -243,32 +264,34 @@ public final class ViewAssist {
     }
 
     public ViewAssist setData(String key, Object data) {
-        mapDatas.put(key, data);
+        mMapDatas.put(key, data);
         return this;
     }
 
     public <T extends Adapter> T getAdapter(int type) {
-        return (T) mapAdapters.get(type);
+        return (T) mMapAdapters.get(type);
     }
 
     public View getView(int type) {
-        View view = typeViews.get(type);
+        View view = mTypeViews.get(type);
         if (view != null) return view;
-        Adapter adapter = mapAdapters.get(type);
-        if (wrapper == null || adapter == null) return null;
-        return adapter.onCreateView(this, LayoutInflater.from(wrapper.getContext()));
+        Adapter adapter = mMapAdapters.get(type);
+        if (mWrapper == null || adapter == null) return null;
+        view = adapter.onCreateView(this, LayoutInflater.from(mWrapper.getContext()));
+        mTypeViews.put(type, view);
+        return view;
     }
 
     public int getCurrentType() {
-        return currentType;
+        return mCurrentType;
     }
 
     public View getCurrentView() {
-        return currentView;
+        return mCurrentView;
     }
 
     public ViewAssist setListener(Listener listener) {
-        this.listener = listener;
+        this.mListener = listener;
         return this;
     }
 }
