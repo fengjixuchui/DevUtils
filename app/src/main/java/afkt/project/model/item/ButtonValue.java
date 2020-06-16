@@ -87,6 +87,12 @@ public class ButtonValue {
     // OkGoUtils
     public static final int BTN_OKGO = MODULE_LIB + 7;
 
+    // LubanUtils
+    public static final int BTN_LUBAN = MODULE_LIB + 8;
+
+    // GreenDAO
+    public static final int BTN_GREEN_DAO = MODULE_LIB + 9;
+
     // ======
     // = UI =
     // ======
@@ -141,6 +147,12 @@ public class ButtonValue {
 
     // 两个 TextView 显示效果
     public static final int BTN_TEXTVIEW = MODULE_UI + 1200;
+
+    // RecyclerView 吸附效果
+    public static final int BTN_ITEM_STICKY = MODULE_UI + 1300;
+
+    // RecyclerView 滑动删除、上下滑动
+    public static final int BTN_RECY_ITEM_SLIDE = MODULE_UI + 1400;
 
     // ============
     // = 其他功能 =

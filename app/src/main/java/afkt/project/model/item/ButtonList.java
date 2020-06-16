@@ -98,6 +98,8 @@ public class ButtonList {
         lists.add(new ButtonValue(BTN_ZXING, "ZXingQRCodeUtils"));
         lists.add(new ButtonValue(BTN_PICTURE_SELECTOR, "PictureSelectorUtils"));
         lists.add(new ButtonValue(BTN_OKGO, "OkGoUtils"));
+        lists.add(new ButtonValue(BTN_LUBAN, "LubanUtils"));
+        lists.add(new ButtonValue(BTN_GREEN_DAO, "GreenDAO"));
         return lists;
     }
 
@@ -138,6 +140,8 @@ public class ButtonList {
         lists.add(new ButtonValue(BTN_QRCODE_SCAN, "二维码扫描解析"));
         lists.add(new ButtonValue(BTN_CAPTURE_PICTURE, "CapturePictureUtils 截图工具类"));
         lists.add(new ButtonValue(BTN_TEXTVIEW, "两个 TextView 显示效果"));
+        lists.add(new ButtonValue(BTN_ITEM_STICKY, "RecyclerView 吸附效果"));
+        lists.add(new ButtonValue(BTN_RECY_ITEM_SLIDE, "RecyclerView 滑动删除、上下滑动"));
         return lists;
     }
 

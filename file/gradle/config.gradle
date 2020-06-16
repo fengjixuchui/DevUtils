@@ -99,6 +99,7 @@ ext {
                     multidex         : "androidx.multidex:multidex:2.0.1",
                     constraint_layout: "androidx.constraintlayout:constraintlayout:1.1.3",
                     viewpager2       : "androidx.viewpager2:viewpager2:1.0.0",
+                    sqlite           : "androidx.sqlite:sqlite:2.0.1",
             ],
             'lib'     : [
                     // Gson https://github.com/google/gson
@@ -146,12 +147,21 @@ ext {
                     pickerview                   : "com.contrarywind:Android-PickerView:4.1.9", // https://blog.csdn.net/qq_22393017/article/details/58099486
                     // 图片缩放 https://github.com/chrisbanes/PhotoView
                     photoview                    : "com.github.chrisbanes:PhotoView:2.3.0",
+                    // RecyclerView 实现顶部吸附效果 https://github.com/Gavin-ZYX/StickyDecoration
+                    stickyDecoration             : "com.gavin.com.library:stickyDecoration:1.5.2",
                     // 动画库 https://github.com/airbnb/lottie-android
                     lottie                       : "com.airbnb.android:lottie:3.4.0", // https://www.jianshu.com/p/9a2136ecbc7b
                     // 下拉刷新框架 https://github.com/scwang90/SmartRefreshLayout
-                    smartrefreshlayout           : "com.scwang.smartrefresh:SmartRefreshLayout:1.1.2",
+                    smartrefreshlayout           : "com.scwang.smart:refresh-layout-kernel:2.0.1",
+                    smartrefresh_header_classics : "com.scwang.smart:refresh-header-classics:2.0.1", // 经典刷新头
+                    smartrefresh_header_radar    : "com.scwang.smart:refresh-header-radar:2.0.1", // 雷达刷新头
+                    smartrefresh_header_falsify  : "com.scwang.smart:refresh-header-falsify:2.0.1", // 虚拟刷新头
+                    smartrefresh_header_material : "com.scwang.smart:refresh-header-material:2.0.1", // 谷歌刷新头
+                    smartrefresh_header_two_level: "com.scwang.smart:refresh-header-two-level:2.0.1", // 二级刷新头
+                    smartrefresh_footer_ball     : "com.scwang.smart:refresh-footer-ball:2.0.1", // 球脉冲加载
+                    smartrefresh_footer_classics : "com.scwang.smart:refresh-footer-classics:2.0.1", // 经典加载
                     // 下拉刷新框架 ( 横向 ) https://github.com/scwang90/SmartRefreshHorizontal
-                    smartrefreshHorizontal       : "com.scwang.smartrefresh:SmartRefreshHorizontal:1.1.0",
+                    smartrefreshHorizontal       : "com.scwang.smart:refresh-layout-horizontal:2.0.0",
                     // RecyclerView Adapter https://github.com/CymChad/BaseRecyclerViewAdapterHelper
                     baserecyclerviewadapterhelper: "com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.4",
                     // 文件下载库 https://github.com/lingochamp/FileDownloader/blob/master/README-zh.md
@@ -172,6 +182,10 @@ ext {
                     autosize                     : "me.jessyan:autosize:1.2.1",
                     // GreenDAO ORM 框架 https://github.com/greenrobot/greenDAO
                     greenDAO                     : "org.greenrobot:greendao:3.3.0",
+                    // SQLCipher for Android https://github.com/sqlcipher/android-database-sqlcipher
+                    sqlcipher                    : "net.zetetic:android-database-sqlcipher:4.4.0",
+                    // Luban 鲁班图片压缩 https://github.com/Curzibn/Luban
+                    luban                        : "top.zibin:Luban:1.1.8",
 
                     // ========
                     // = 其他 =

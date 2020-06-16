@@ -7,9 +7,11 @@ android {
         applicationId "afkt.project"
     }
 
-    // data binding
-    buildFeatures {
-        dataBinding = true
+    // https://greenrobot.org/greendao/documentation/
+    // https://greenrobot.org/greendao/documentation/javadoc/
+    greendao {
+        // https://greenrobot.org/greendao/documentation/modelling-entities/
+        schemaVersion 1
     }
 }
 
@@ -88,6 +90,8 @@ dependencies {
     implementation deps.lib.pictureSelector
     // 下拉刷新框架 https://github.com/scwang90/SmartRefreshLayout
     implementation deps.lib.smartrefreshlayout
+    // 下拉刷新框架 ( 横向 ) https://github.com/scwang90/SmartRefreshHorizontal
+    implementation deps.lib.smartrefreshHorizontal
     // RecyclerView Adapter https://github.com/CymChad/BaseRecyclerViewAdapterHelper
     implementation deps.lib.baserecyclerviewadapterhelper
     // 二维码 ZXing https://github.com/zxing/zxing
@@ -99,4 +103,10 @@ dependencies {
     debugImplementation deps.lib.leakcanary
     // GreenDAO ORM 框架 https://github.com/greenrobot/greenDAO
     implementation deps.lib.greenDAO
+    // SQLCipher for Android https://github.com/sqlcipher/android-database-sqlcipher
+    implementation deps.lib.sqlcipher
+    // Luban 鲁班图片压缩 https://github.com/Curzibn/Luban
+    implementation deps.lib.luban
+    // RecyclerView 实现顶部吸附效果 https://github.com/Gavin-ZYX/StickyDecoration
+    implementation deps.lib.stickyDecoration
 }

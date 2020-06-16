@@ -2,7 +2,6 @@ package afkt.project.ui;
 
 import android.view.View;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,6 +28,7 @@ import afkt.project.ui.activity.FlowLikeActivity;
 import afkt.project.ui.activity.FunctionActivity;
 import afkt.project.ui.activity.GPUFilterACVActivity;
 import afkt.project.ui.activity.GPUFilterActivity;
+import afkt.project.ui.activity.ItemStickyActivity;
 import afkt.project.ui.activity.LineActivity;
 import afkt.project.ui.activity.ListenerActivity;
 import afkt.project.ui.activity.LoggerActivity;
@@ -39,6 +39,7 @@ import afkt.project.ui.activity.ProgressBarActivity;
 import afkt.project.ui.activity.QRCodeCreateActivity;
 import afkt.project.ui.activity.QRCodeImageActivity;
 import afkt.project.ui.activity.QRCodeScanActivity;
+import afkt.project.ui.activity.RecyItemSlideActivity;
 import afkt.project.ui.activity.ScanShapeActivity;
 import afkt.project.ui.activity.ScreenInfoActivity;
 import afkt.project.ui.activity.SignActivity;
@@ -76,7 +77,6 @@ public class ModuleActivity extends BaseToolbarActivity {
         super.initValues();
         // 初始化布局管理器、适配器
         final ButtonAdapter buttonAdapter = new ButtonAdapter(ButtonList.getModuleButtonValues(getModuleType()));
-        vid_bvr_recy.setLayoutManager(new LinearLayoutManager(this));
         vid_bvr_recy.setAdapter(buttonAdapter);
         buttonAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
@@ -111,25 +111,16 @@ public class ModuleActivity extends BaseToolbarActivity {
                         SkipUtils.startActivity(EventBusActivity.class, buttonValue);
                         break;
                     case ButtonValue.BTN_GLIDE: // GlideUtils
-                        ToastTintUtils.info("具体请查看: lib\\DevOther\\other\\" + buttonValue.text);
-                        break;
                     case ButtonValue.BTN_IMAGE_LOADER: // ImageLoaderUtils
-                        ToastTintUtils.info("具体请查看: lib\\DevOther\\other\\" + buttonValue.text);
-                        break;
                     case ButtonValue.BTN_GSON: // GsonUtils
-                        ToastTintUtils.info("具体请查看: lib\\DevOther\\other\\" + buttonValue.text);
-                        break;
                     case ButtonValue.BTN_FASTJSON: // FastjsonUtils
-                        ToastTintUtils.info("具体请查看: lib\\DevOther\\other\\" + buttonValue.text);
-                        break;
                     case ButtonValue.BTN_ZXING: // ZXingQRCodeUtils
-                        ToastTintUtils.info("具体请查看: lib\\DevOther\\other\\" + buttonValue.text);
-                        break;
                     case ButtonValue.BTN_PICTURE_SELECTOR: // PictureSelectorUtils
+                    case ButtonValue.BTN_OKGO: // OkGoUtils
+                    case ButtonValue.BTN_LUBAN: // LubanUtils
                         ToastTintUtils.info("具体请查看: lib\\DevOther\\other\\" + buttonValue.text);
                         break;
-                    case ButtonValue.BTN_OKGO: // OkGoUtils
-                        ToastTintUtils.info("具体请查看: lib\\DevOther\\other\\" + buttonValue.text);
+                    case ButtonValue.BTN_GREEN_DAO: // GreenDAO
                         break;
 
                     // ======
@@ -174,6 +165,12 @@ public class ModuleActivity extends BaseToolbarActivity {
                         break;
                     case ButtonValue.BTN_TEXTVIEW: // 两个 TextView 显示效果
                         SkipUtils.startActivity(TextViewActivity.class, buttonValue);
+                        break;
+                    case ButtonValue.BTN_ITEM_STICKY: // RecyclerView 吸附效果
+                        SkipUtils.startActivity(ItemStickyActivity.class, buttonValue);
+                        break;
+                    case ButtonValue.BTN_RECY_ITEM_SLIDE: // RecyclerView 滑动删除、上下滑动
+                        SkipUtils.startActivity(RecyItemSlideActivity.class, buttonValue);
                         break;
 
                     // ============
