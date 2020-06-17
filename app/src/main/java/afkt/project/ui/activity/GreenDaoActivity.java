@@ -6,6 +6,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.scwang.smart.refresh.footer.ClassicsFooter;
+import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
@@ -91,6 +93,8 @@ public class GreenDaoActivity extends BaseToolbarActivity {
                 loadData(false);
             }
         });
+        vid_agd_refresh.setRefreshHeader(new ClassicsHeader(this));
+        vid_agd_refresh.setRefreshFooter(new ClassicsFooter(this));
 
 //        // 不需要刷新和加载
 //        vid_agd_refresh.setEnableRefresh(false);
@@ -185,7 +189,7 @@ public class GreenDaoActivity extends BaseToolbarActivity {
         Note note = new Note();
         note.setDate(new Date());
         note.setText(ChineseUtils.getRandomWord(RandomUtils.getRandom(6, 15)));
-        note.setComment(ChineseUtils.getRandomWord(RandomUtils.getRandom(40, 120)));
+        note.setComment(ChineseUtils.getRandomWord(RandomUtils.getRandom(12, 50)));
         note.setType(NoteType.values()[RandomUtils.getRandom(0, 3)]);
         // 添加数据
         Long noteId = GreenManager.getNoteDao().insert(note);
@@ -195,7 +199,7 @@ public class GreenDaoActivity extends BaseToolbarActivity {
             for (int i = 0, len = RandomUtils.getRandom(1, 5); i < len; i++) {
                 NotePicture notePicture = new NotePicture();
                 notePicture.setNoteId(noteId);
-                notePicture.setPicture("https://picsum.photos/40" + RandomUtils.getRandom(0, 10));
+                notePicture.setPicture(String.format("https://picsum.photos/id/%s/30%s", RandomUtils.getRandom(5, 21), RandomUtils.getRandom(0, 10)));
                 pictures.add(notePicture);
             }
             GreenManager.getNotePictureDao().insertInTx(pictures);
