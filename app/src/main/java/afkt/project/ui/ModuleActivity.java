@@ -31,10 +31,14 @@ import afkt.project.ui.activity.GPUFilterActivity;
 import afkt.project.ui.activity.GreenDaoActivity;
 import afkt.project.ui.activity.ItemStickyActivity;
 import afkt.project.ui.activity.LineActivity;
+import afkt.project.ui.activity.LinearSnapActivity;
+import afkt.project.ui.activity.LinearSnapMAXActivity;
 import afkt.project.ui.activity.ListenerActivity;
 import afkt.project.ui.activity.LoggerActivity;
 import afkt.project.ui.activity.MultiSelectActivity;
 import afkt.project.ui.activity.NotificationServiceActivity;
+import afkt.project.ui.activity.PagerSnapActivity;
+import afkt.project.ui.activity.PagerSnapMAXActivity;
 import afkt.project.ui.activity.PathActivity;
 import afkt.project.ui.activity.ProgressBarActivity;
 import afkt.project.ui.activity.QRCodeCreateActivity;
@@ -173,6 +177,18 @@ public class ModuleActivity extends BaseToolbarActivity {
                         break;
                     case ButtonValue.BTN_RECY_ITEM_SLIDE: // RecyclerView 滑动删除、上下滑动
                         SkipUtils.startActivity(RecyItemSlideActivity.class, buttonValue);
+                        break;
+                    case ButtonValue.BTN_RECY_LINEAR_SNAP: // LinearSnapHelper - RecyclerView
+                        SkipUtils.startActivity(LinearSnapActivity.class, buttonValue);
+                        break;
+                    case ButtonValue.BTN_RECY_LINEAR_SNAP_MAX: // LinearSnapHelper - 无限滑动
+                        SkipUtils.startActivity(LinearSnapMAXActivity.class, buttonValue);
+                        break;
+                    case ButtonValue.BTN_RECY_PAGER_SNAP: // PagerSnapHelper - RecyclerView
+                        SkipUtils.startActivity(PagerSnapActivity.class, buttonValue);
+                        break;
+                    case ButtonValue.BTN_RECY_PAGER_SNAP_MAX: // PagerSnapHelper - 无限滑动
+                        SkipUtils.startActivity(PagerSnapMAXActivity.class, buttonValue);
                         break;
 
                     // ============

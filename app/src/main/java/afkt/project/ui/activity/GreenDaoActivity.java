@@ -6,11 +6,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.scwang.smart.refresh.footer.ClassicsFooter;
-import com.scwang.smart.refresh.header.ClassicsHeader;
-import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.api.RefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnRefreshLoadMoreListener;
+
+import org.greenrobot.greendao.query.DeleteQuery;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -22,12 +21,15 @@ import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.db.GreenManager;
 import afkt.project.db.Note;
 import afkt.project.db.NotePicture;
+import afkt.project.db.NotePictureDao;
 import afkt.project.db.NoteType;
 import afkt.project.ui.adapter.GreenDaoAdapter;
+import afkt.project.ui.widget.BaseRefreshView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import dev.assist.PageAssist;
 import dev.temp.ChineseUtils;
+import dev.utils.app.logger.DevLogger;
 import dev.utils.app.toast.ToastTintUtils;
 import dev.utils.common.RandomUtils;
 
@@ -49,14 +51,7 @@ public class GreenDaoActivity extends BaseToolbarActivity {
 
     // = View =
     @BindView(R.id.vid_agd_refresh)
-    SmartRefreshLayout vid_agd_refresh;
-    @BindView(R.id.vid_agd_recy)
-    RecyclerView       vid_agd_recy;
-    // = Object =
-    // Adapter
-    GreenDaoAdapter greenDaoAdapter;
-    // 请求页数辅助类
-    PageAssist pageAssist = new PageAssist(0, 8);
+    BaseRefreshView vid_agd_refresh;
 
     @Override
     public int getLayoutId() {
@@ -70,8 +65,8 @@ public class GreenDaoActivity extends BaseToolbarActivity {
         ToastTintUtils.info("侧滑可进行删除, 长按拖动位置");
 
         // 初始化布局管理器、适配器
-        greenDaoAdapter = new GreenDaoAdapter();
-        vid_agd_recy.setAdapter(greenDaoAdapter);
+        vid_agd_refresh.setAdapter(new GreenDaoAdapter())
+                .setPageAssist(new PageAssist<>(0, 8));
         // 加载数据
         loadData(true);
     }
@@ -79,8 +74,6 @@ public class GreenDaoActivity extends BaseToolbarActivity {
     @Override
     public void initListeners() {
         super.initListeners();
-        // 不需要阻尼效果
-        vid_agd_refresh.setEnableOverScrollDrag(false);
         // 刷新事件
         vid_agd_refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
@@ -93,16 +86,6 @@ public class GreenDaoActivity extends BaseToolbarActivity {
                 loadData(false);
             }
         });
-        vid_agd_refresh.setRefreshHeader(new ClassicsHeader(this));
-        vid_agd_refresh.setRefreshFooter(new ClassicsFooter(this));
-
-//        // 不需要刷新和加载
-//        vid_agd_refresh.setEnableRefresh(false);
-//        vid_agd_refresh.setEnableLoadMore(false);
-
-        // 需要刷新和加载
-        vid_agd_refresh.setEnableRefresh(true);
-        vid_agd_refresh.setEnableLoadMore(true);
 
         // =================
         // = Item 滑动处理 =
@@ -133,10 +116,11 @@ public class GreenDaoActivity extends BaseToolbarActivity {
              */
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
+                GreenDaoAdapter adapter = vid_agd_refresh.getAdapter();
                 int fromPosition = viewHolder.getAdapterPosition();
                 int toPosition = target.getAdapterPosition();
-                Collections.swap(greenDaoAdapter.getData(), fromPosition, toPosition);
-                greenDaoAdapter.notifyItemMoved(fromPosition, toPosition);
+                Collections.swap(adapter.getData(), fromPosition, toPosition);
+                adapter.notifyItemMoved(fromPosition, toPosition);
                 return true;
             }
 
@@ -149,14 +133,20 @@ public class GreenDaoActivity extends BaseToolbarActivity {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 if (direction == ItemTouchHelper.LEFT || direction == ItemTouchHelper.RIGHT) {
-                    Note note = greenDaoAdapter.getData().remove(position);
-                    greenDaoAdapter.notifyItemRemoved(position);
+                    GreenDaoAdapter adapter = vid_agd_refresh.getAdapter();
+                    Note note = adapter.getData().remove(position);
+                    adapter.notifyItemRemoved(position);
+                    // 删除文章
 //                    GreenManager.getNoteDao().delete(note);
                     GreenManager.getNoteDao().deleteByKey(note.getId());
+                    // 删除文章图片
+                    DeleteQuery<NotePicture> deleteQuery = GreenManager.getNotePictureDao().queryBuilder()
+                            .where(NotePictureDao.Properties.NoteId.eq(note.getId())).buildDelete();
+                    deleteQuery.executeDeleteWithoutDetachingEntities();
                 }
             }
         });
-        itemTouchHelper.attachToRecyclerView(vid_agd_recy);
+        itemTouchHelper.attachToRecyclerView(vid_agd_refresh.getRecyclerView());
     }
 
     @OnClick({R.id.vid_agd_add_btn})
@@ -165,7 +155,7 @@ public class GreenDaoActivity extends BaseToolbarActivity {
         super.onClick(v);
         switch (v.getId()) {
             case R.id.vid_agd_add_btn:
-                if (greenDaoAdapter.getData().isEmpty()) { // 不存在数据
+                if (vid_agd_refresh.getAdapter().getData().isEmpty()) { // 不存在数据
                     randomData(13);
                     // 加载数据
                     loadData(true);
@@ -223,26 +213,70 @@ public class GreenDaoActivity extends BaseToolbarActivity {
      * @param refresh 是否刷新
      */
     private void loadData(boolean refresh) {
+        PageAssist pageAssist = vid_agd_refresh.getPageAssist();
+        GreenDaoAdapter adapter = vid_agd_refresh.getAdapter();
         // 刷新则重置页数
         if (refresh) pageAssist.reset();
 
-        // 请求数据
-        List<Note> notes = GreenManager.getNoteDao().queryBuilder()
-                .offset(pageAssist.getPageNum() * pageAssist.getPageSize())
-                .limit(pageAssist.getPageSize()).list();
+        List<Note> notes = offsetLimitCalculate(refresh);
+
+//        // 正常只需要这个, 没有添加功能则不需要计算偏差值
+//        List<Note> notes = GreenManager.getNoteDao().queryBuilder()
+//                .offset(pageAssist.getPageNum() * pageAssist.getPageSize())
+//                .limit(pageAssist.getPageSize()).list();
 
         // 存在数据则累加页数
         if (!notes.isEmpty()) pageAssist.nextPage();
 
         if (refresh) {
-            greenDaoAdapter.setNewInstance(notes);
+            adapter.setNewInstance(notes);
         } else {
-            greenDaoAdapter.addData(notes);
-            greenDaoAdapter.notifyDataSetChanged();
+            adapter.addData(notes);
+            adapter.notifyDataSetChanged();
         }
 
-        // 刷新、加载成功
-        vid_agd_refresh.finishRefresh()
-                .finishLoadMore();
+        // 结束刷新、加载
+        vid_agd_refresh.finishRefreshOrLoad(refresh);
+    }
+
+    /**
+     * 页数偏移值计算处理
+     * <pre>
+     *     为什么需要特殊计算：
+     *     正常到最后一页没有数据是禁止加载更多
+     *     为了演示 GreenDao 分页实现功能, 显示添加数据按钮并且不限制加载更多功能
+     *     可能导致新增数据 + 原有数据刚好 = 页数 * 每页条数, 导致无法加载下一页
+     * </pre>
+     * @param refresh 是否刷新
+     */
+    private List<Note> offsetLimitCalculate(boolean refresh) {
+        int offset, limit;
+
+        int pageSize = vid_agd_refresh.getPageAssist().getPageSize();
+
+        if (refresh) {
+            offset = 0;
+            limit = pageSize;
+        } else {
+            // 获取当前数据条数
+            int size = vid_agd_refresh.getAdapter().getData().size();
+            // 计算当前数据实际页数
+            int page = size / pageSize;
+            int remainder = size % pageSize;
+
+            if (remainder == 0) {
+                offset = page * pageSize;
+                limit = pageSize;
+            } else {
+                int diff = Math.abs(page * pageSize - size);
+                offset = size;
+                limit = pageSize * 2 - diff;
+            }
+        }
+        DevLogger.dTag(mTag, "offset: " + offset + ", limit: " + limit);
+        // 请求数据
+        return GreenManager.getNoteDao().queryBuilder()
+                .offset(offset)
+                .limit(limit).list();
     }
 }
