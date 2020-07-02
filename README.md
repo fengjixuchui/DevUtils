@@ -11,8 +11,7 @@
 >
 > 该项目尽可能的便于开发人员，快捷、高效开发安全可靠的项目，以及内置部分常用的资源文件，如 color.xml
 
-![module](https://raw.githubusercontent.com/afkT/DevUtils/master/file/DevUtils.png)
-
+![module](https://github.com/afkT/DevUtils/raw/master/art/module.png)
 
 ## Documentation - [Lib](https://github.com/afkT/DevUtils/blob/master/lib)
 
@@ -68,24 +67,30 @@
 
 ```java
 
-// DevApp Android 工具类库 https://github.com/afkT/DevUtils/blob/master/lib/DevApp/README.md
+// DevApp Android 工具类库
 implementation 'com.afkt:DevAppX:1.9.5' // AndroidX
 
-// DevJava Java 工具类库 ( 不依赖 android api ) https://github.com/afkT/DevUtils/blob/master/lib/DevJava/README.md
+// DevJava Java 工具类库 ( 不依赖 android api )
 implementation 'com.afkt:DevJava:1.1.2' // 用于纯 Java 开发，如果依赖了 DevApp 则不需要依赖 DevJava
 
-// DevAssist 快捷功能辅助类库 https://github.com/afkT/DevUtils/blob/master/lib/DevAssist/README.md
+// DevAssist 快捷功能辅助类库
 implementation 'com.afkt:DevAssist:1.0.3'
 
-// DevEnvironment Android 环境配置切换库 https://github.com/afkT/DevUtils/blob/master/lib/Environment
+// DevEnvironment Android 环境配置切换库
 implementation 'com.afkt:DevEnvironment:1.0.0'
 debugAnnotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.0'
 releaseAnnotationProcessor 'com.afkt:DevEnvironmentCompilerRelease:1.0.0'
 //annotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.0'
 
-// DevWidget 自定义 View UI 库 https://github.com/afkT/DevUtils/blob/master/lib/Widget/DevWidget
+// DevWidget 自定义 View UI 库
 implementation 'com.afkt:DevWidgetX:1.0.2' // AndroidX
 ```
+
+## Demo
+
+| [下载 DevUtils APK-Demo](https://github.com/afkT/DevUtils/raw/master/art/app-debug.apk) |
+|:--:|
+| ![apk_qrcode](https://github.com/afkT/DevUtils/raw/master/art/dev_apk_qrcode.png) |
 
 ## License
 

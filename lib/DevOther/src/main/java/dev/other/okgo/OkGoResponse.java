@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import org.json.JSONObject;
 
 /**
- * detail: 请求响应解析基类
+ * detail: 请求响应统一解析类
  * @author Ttt
  * <pre>
  *     主要用于统一解析后台返回 data、message、code 等
@@ -68,25 +68,35 @@ public class OkGoResponse<T> {
     public static final class Builder<T> {
 
         // 返回数据
-        private T         data;
+        public T         data;
         // 返回消息
-        private String    message;
+        public String    message;
         // 返回结果状态 ( 内部定义 )
-        private String    code;
+        public String    code;
         // 是否需要进行 Toast 提示
-        private boolean   toast = true;
+        public boolean   toast = true;
         // 请求结果
-        private boolean   result;
+        public boolean   result;
         // 后台返回原始数据
-        private String    original;
+        public String    original;
         // 请求异常
-        private Throwable exception;
+        public Throwable exception;
 
         public Builder() {
         }
 
+        public Builder(OkGoResponse<T> response) {
+            data = response.data;
+            message = response.message;
+            code = response.code;
+            toast = response.toast;
+            result = response.result;
+            original = response.original;
+            exception = response.exception;
+        }
+
         /**
-         * build BaseResponse 对象
+         * build Response 对象
          * @return {@link OkGoResponse}
          */
         public OkGoResponse<T> build() {
@@ -110,8 +120,9 @@ public class OkGoResponse<T> {
             return this;
         }
 
-        public void setToast(boolean toast) {
+        public Builder<T> setToast(boolean toast) {
             this.toast = toast;
+            return this;
         }
 
         public Builder<T> setResult(boolean result) {

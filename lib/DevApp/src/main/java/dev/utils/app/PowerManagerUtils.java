@@ -21,7 +21,7 @@ public final class PowerManagerUtils {
     // 日志 TAG
     private static final String TAG = PowerManagerUtils.class.getSimpleName();
     // PowerManagerUtils 实例
-    private static PowerManagerUtils sInstance;
+    private volatile static PowerManagerUtils sInstance;
 
     /**
      * 获取 PowerManagerUtils 实例
@@ -29,7 +29,11 @@ public final class PowerManagerUtils {
      */
     public static PowerManagerUtils getInstance() {
         if (sInstance == null) {
-            sInstance = new PowerManagerUtils();
+            synchronized (PowerManagerUtils.class) {
+                if (sInstance == null) {
+                    sInstance = new PowerManagerUtils();
+                }
+            }
         }
         return sInstance;
     }

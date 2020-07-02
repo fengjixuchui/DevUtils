@@ -23,9 +23,18 @@ import okhttp3.OkHttpClient;
  * detail: OkGo 配置相关工具类
  * @author Ttt
  * <pre>
- *     用于初始化 Okhttp 等配置相关方法, 该类可不需要
+ *     用于初始化 OkGo、Okhttp 等配置相关方法
  *     @see <a href="https://github.com/jeasonlzy/okhttp-OkGo"/>
  *     @see <a href="https://github.com/jeasonlzy/okhttp-OkGo/wiki"/>
+ *     OkRx
+ *     @see <a href="https://github.com/jeasonlzy/okhttp-OkGo/wiki/OkRx"/>
+ *     核心类:
+ *     {@link OkGoUtils}: 初始化 OkGo、OkHttp 请求配置信息
+ *     {@link OkGoResponse}: 请求响应统一解析类
+ *     {@link OkGoCallback}: 请求回调统一处理类
+ *     请求拦截 ( 非必须 ) :
+ *     {@link dev.other.okgo.HttpLoggingInterceptor}: 自定义 OkHttp 打印日志拦截器
+ *     {@link com.lzy.okgo.interceptor.HttpLoggingInterceptor}: OkGo 实现 OkHttp 打印日志拦截器
  * </pre>
  */
 public final class OkGoUtils {
@@ -141,7 +150,7 @@ public final class OkGoUtils {
 
     /**
      * 执行请求处理
-     * @param clazz    Activity class
+     * @param clazz    class
      * @param request  {@link Request}
      * @param callback {@link OkGoCallback}
      * @param <T>      泛型
@@ -159,7 +168,7 @@ public final class OkGoUtils {
      *     BaseView 请求方法内调用该方法, 进行设置 Tag 在 Activity#onDestroy 中调用
      *     OkGo.getInstance().cancelTag(tag); 防止内存泄露
      * </pre>
-     * @param tag      Activity class getSimpleName()
+     * @param tag      request tag
      * @param request  {@link Request}
      * @param callback {@link OkGoCallback}
      * @param <T>      泛型
