@@ -11,37 +11,33 @@
 
 * [NDK 下载 | Android Developers](https://developer.android.google.cn/ndk/downloads)
 
-* [迁移到 AndroidX | Android Developers](https://developer.android.google.cn/jetpack/androidx/migrate)
-
 * [Android Studio 中文社区 - 安卓开发者工具集](http://www.android-studio.org)
 
 * [Android OS 在线源代码](https://www.androidos.net.cn)
 
-* [Android - 收藏集](https://www.jianshu.com/p/dad51f6c9c4d)
-
-### 其他
-
-* [使用命令将 Logcat 中的内容输出到文本文件中](https://blog.csdn.net/qq_23174861/article/details/50337503)
-
-* [Android Studio 切换和合并分支 Branch](https://blog.csdn.net/zhang___yong/article/details/78141272)
+* [AliRepo 仓库服务](https://maven.aliyun.com/mvn/search)
 
 * [Maven Repository appcompat-v7](https://mvnrepository.com/artifact/com.android.support/appcompat-v7)
 
-* [Maven Repository com.afkt](https://mvnrepository.com/artifact/com.afkt)
+* [安卓架构文章合集](https://github.com/CameloeAnthony/AndroidArchitectureCollection)
 
-* [AliRepo 仓库服务](https://maven.aliyun.com/mvn/search)
+* [DevNote 大鸡排的博客归档](https://github.com/BolexLiu/DevNote)
+
+* [Android 博客大汇总](https://juejin.im/post/5d60ad5df265da03c42899f1)
 
 ### 功能
 
-#### 混淆
+#### 插件化、热修复
 
-* [恢复混淆代码 DeGuard](http://apk-deguard.com)
+* [360 RePlugin](https://github.com/Qihoo360/RePlugin/blob/master/README_CN.md)
 
-* [ProGuard 最全混淆规则说明](https://www.jianshu.com/p/b471db6a01af)
+* [Tinker](http://www.tinkerpatch.com/Docs/intro)
 
-* [Android ProGuard 混淆模板](https://blog.csdn.net/damnivictory/article/details/73776397)
+* [阿里移动热修复](https://help.aliyun.com/product/51340.html?spm=a2c4g.11186623.6.540.16ae90f9IcZpFb)
 
-* [关于 proguard 你需要知道的全部](https://www.jianshu.com/p/d768f6d1d93b)
+* [Bugly Android 热更新详解](https://bugly.qq.com/docs/user-guide/instruction-manual-android-hotfix-demo/?v=20181014122344)
+
+* [Android 组件化和插件化开发](https://www.cnblogs.com/android-blogs/p/5703355.html)
 
 #### Hook
 
@@ -61,6 +57,16 @@
 
 * [那些年 Android 黑科技 ③ : 干大事不择手段](https://www.jianshu.com/p/8f9b44302139)
 
+#### 混淆
+
+* [恢复混淆代码 DeGuard](http://apk-deguard.com)
+
+* [ProGuard 最全混淆规则说明](https://www.jianshu.com/p/b471db6a01af)
+
+* [Android ProGuard 混淆模板](https://blog.csdn.net/damnivictory/article/details/73776397)
+
+* [关于 proguard 你需要知道的全部](https://www.jianshu.com/p/d768f6d1d93b)
+
 #### 反编译
 
 * [Apktool](https://ibotpeaches.github.io/Apktool)
@@ -72,6 +78,24 @@
 * [apk 反编译 ( 使用 apktool、dex2jar、jd-gui, 进行反编译 apk, 查看 apk 源码 )](https://blog.csdn.net/qq_34801506/article/details/80569293)
 
 * [Android 防重签名和二次打包](https://www.jianshu.com/p/d058191b404a)
+
+#### 保活
+
+* [Android 服务保活 / 常驻](https://github.com/xingda920813/HelloDaemon)
+
+* [Android 进程常驻](https://blog.csdn.net/marswin89/article/details/50917098)
+
+* [Android 进程保活招数概览](https://www.jianshu.com/p/c1a9e3e86666)
+
+* [Android 守护进程的实现方式](https://www.jianshu.com/p/b16631a2fe3c)
+
+#### 屏幕适配
+
+* [Android 屏幕适配方案 ( 出自今日头条 )](https://www.jianshu.com/p/1eeb0d8d1c86)
+
+* [Android 屏幕适配 : 最全面的解决方案](https://www.jianshu.com/p/ec5a1a30694b)
+
+* [Android 屏幕适配方案](https://github.com/JessYanCoding/AndroidAutoSize/blob/master/README-zh.md)
 
 #### 悬浮窗
 
@@ -87,27 +111,19 @@
 
 * [Android 平台 Camera 开发指南](https://mp.weixin.qq.com/s/dTPtjdDquce_m0LYENfAGw)
 
-#### 保活
-
-* [Android 服务保活 / 常驻](https://github.com/xingda920813/HelloDaemon)
-
-* [Android 进程常驻](https://blog.csdn.net/marswin89/article/details/50917098)
-
-* [Android 进程保活招数概览](https://www.jianshu.com/p/c1a9e3e86666)
-
-* [Android 守护进程的实现方式](https://www.jianshu.com/p/b16631a2fe3c)
-
-#### 图片压缩
-
-* [Android 图片压缩 Luban 鲁班压缩](https://www.jianshu.com/p/b16631a2fe3c)
-
-* [Luban](https://github.com/Curzibn/Luban)
-
-#### UI
+#### UI、动画
 
 * [Android 自定义控件进阶篇, 自定义 LayoutManager](https://blog.csdn.net/u012551350/article/details/93971801)
 
+* [Android 自定义 View-Path 基本操作](https://www.jianshu.com/p/726b714da133)
+
 * [自定义控件详解 Paint 画笔路径效果](https://www.cnblogs.com/xqxacm/p/6669596.html)
+
+* [Android 自定义 View 之 Canvas](https://www.jianshu.com/p/fb18c28d6627)
+
+* [Android Canvas 设置绘画时重叠部分的处理模式](https://blog.csdn.net/javalfx/article/details/48319261)
+
+* [Canvas 基础用法 - drawBitmap()、drawText() 详解](https://blog.csdn.net/u014702653/article/details/80342114)
 
 * [Android 利用 Canvas 画各种图形 ( 点、直线、弧、圆、椭圆、文字、矩形、多边形、曲线、圆角矩形 )](https://blog.csdn.net/rhljiayou/article/details/7212620)
 
@@ -115,13 +131,33 @@
 
 * [Android 中的裁剪中 Region.Op 参数的用法](https://blog.csdn.net/eyishion/article/details/53728913)
 
-* [Android Canvas 设置绘画时重叠部分的处理模式](https://blog.csdn.net/javalfx/article/details/48319261)
-
 * [LinearGradient 线性渐变与 SweepGradient 扫描式渐变](https://www.jianshu.com/p/c2b5d7fbf8ca)
 
-* [Canvas 基础用法 - drawBitmap()、drawText() 详解](https://blog.csdn.net/u014702653/article/details/80342114)
+* [Android 矢量图 : 加载本地 SVG 文件并生成 Path 路径](https://www.jianshu.com/p/1fdbcbf3b821)
 
-* [Android 自定义 View 之 Canvas](https://www.jianshu.com/p/fb18c28d6627)
+* [Android 动画 : 转场动画 ( 过度动画 )](https://blog.csdn.net/ss1168805219/article/details/53445063)
+
+* [Material Designer 的低版本兼容实现 ActivityOptionsCompat](https://www.cnblogs.com/tianzhijiexian/p/4087917.html)
+
+#### 功能、效果
+
+* [Android 插件化系列第 动态加载技术之 apk 换肤](https://www.jianshu.com/p/d1c6e67f7889)
+
+* [Android 安全防护 / 检查 Root / 检查 Xposed / 反调试 / 应用多开 / 模拟器检测](https://www.jianshu.com/p/c37b1bdb4757)
+
+* [Toolbar 的正确使用姿势](https://www.jianshu.com/p/05ef48b777cc)
+
+* [AppbarLayout 的简单用法](https://www.jianshu.com/p/bbc703a0015e)
+
+* [Android 详细分析 AppBarLayout 的五种 ScrollFlags](https://www.jianshu.com/p/7caa5f4f49bd)
+
+* [一篇文章学会 Coordinatorlayout + AppbarLayout](https://www.jianshu.com/p/cd93da2b7a24)
+
+* [Android 如何设置顶部状态栏颜色 ( 主题 )](https://blog.csdn.net/qq_36982160/article/details/82350993)
+
+* [Android 实现 SwipeBack ( 右滑退出 ) 效果](https://segmentfault.com/a/1190000002977515#articleHeader0)
+
+* [可垂直跑、可水平跑的跑马灯](https://github.com/sunfusheng/MarqueeView)
 
 * [高仿小米时钟 - 使用 Camera 和 Matrix 实现 3D 效果](https://blog.csdn.net/qq_31715429/article/details/54668668)
 
@@ -133,105 +169,23 @@
 
 * [Android 水波动画帮助类](https://github.com/XunMengWinter/CircularAnim)
 
-* [Android RecyclerView 吸附效果](https://github.com/Gavin-ZYX/StickyDecoration)
-
-* [使用 SearchView 的正确姿势](https://www.imooc.com/article/23246)
-
 * [ViewPager 显示两侧的 View 各显示一点](https://blog.csdn.net/baidu_40389775/article/details/96439385)
-
-* [Android 自定义 View-Path 基本操作](https://www.jianshu.com/p/726b714da133)
-
-* [Android 矢量图 : 加载本地 SVG 文件并生成 Path 路径](https://www.jianshu.com/p/1fdbcbf3b821)
-
-#### 转场动画
-
-* [Android 动画 : 转场动画 ( 过度动画 )](https://blog.csdn.net/ss1168805219/article/details/53445063)
-
-* [Material Designer 的低版本兼容实现 ActivityOptionsCompat](https://www.cnblogs.com/tianzhijiexian/p/4087917.html)
-
-#### 效果
-
-* [AppbarLayout 的简单用法](https://www.jianshu.com/p/bbc703a0015e)
-
-* [Android 详细分析 AppBarLayout 的五种 ScrollFlags](https://www.jianshu.com/p/7caa5f4f49bd)
-
-* [一篇文章学会 Coordinatorlayout + AppbarLayout](https://www.jianshu.com/p/cd93da2b7a24)
-
-* [Toolbar 的正确使用姿势](https://www.jianshu.com/p/05ef48b777cc)
-
-* [Android 实现 SwipeBack ( 右滑退出 ) 效果](https://segmentfault.com/a/1190000002977515#articleHeader0)
-
-* [三次贝塞尔曲线练习之弹性的圆](https://www.jianshu.com/p/791d3a791ec2)
-
-* [Android 多点触控技术, 实现对图片的放大缩小平移, 惯性滑动等功能](https://blog.csdn.net/nugongahou110/article/details/50668925)
-
-* [Android 实现淘宝头条滚动广告的效果](https://www.jianshu.com/p/407d92907681)
-
-* [关于如何实现 Android 透明状态栏的总结](https://www.jianshu.com/p/e89ee0a77bb5)
-
-* [Android标题栏 TitleBar 绝佳解决方案](https://www.jianshu.com/p/617be02dc265)
-
-* [可垂直跑、可水平跑的跑马灯](https://github.com/sunfusheng/MarqueeView)
-
-* [日历控件](https://github.com/huanghaibin-dev/CalendarView)
-
-* [懂得智能配色的 ImageView](https://github.com/DingMouRen/PaletteImageView)
-
-* [让你明明白白的使用 RecyclerView - SnapHelper 详解](https://www.jianshu.com/p/e54db232df62)
-
-#### 屏幕适配
-
-* [Android 屏幕适配方案 ( 出自今日头条 )](https://www.jianshu.com/p/1eeb0d8d1c86)
-
-* [Android 屏幕适配 : 最全面的解决方案](https://www.jianshu.com/p/ec5a1a30694b)
-
-#### 插件化、热修复
-
-* [360 RePlugin](https://github.com/Qihoo360/RePlugin/blob/master/README_CN.md)
-
-* [Android 组件化和插件化开发](https://www.cnblogs.com/android-blogs/p/5703355.html)
-
-* [Tinker](http://www.tinkerpatch.com/Docs/intro)
-
-* [阿里移动热修复](https://help.aliyun.com/product/51340.html?spm=a2c4g.11186623.6.540.16ae90f9IcZpFb)
-
-* [Bugly Android 热更新详解](https://bugly.qq.com/docs/user-guide/instruction-manual-android-hotfix-demo/?v=20181014122344)
-
-#### 其他
-
-* [Android GC 原理探究](https://zhuanlan.zhihu.com/p/24835977)
-
-* [新架构组件 WorkManager](https://juejin.im/post/5af4aa91f265da0b8d41f714)
 
 * [Android EditText 两种方法限制输入两位小数](https://www.jianshu.com/p/dc2419de0abf)
 
-* [玩转 AppBarLayout 更酷炫的顶部栏](https://www.jianshu.com/p/d159f0176576)
-
-* [Android 如何设置顶部状态栏颜色 ( 主题 )](https://blog.csdn.net/qq_36982160/article/details/82350993)
-
-* [Android 安全防护 / 检查 Root / 检查 Xposed / 反调试 / 应用多开 / 模拟器检测](https://www.jianshu.com/p/c37b1bdb4757)
-
-* [Android 插件化系列第 动态加载技术之 apk 换肤](https://www.jianshu.com/p/d1c6e67f7889)
+#### Github
 
 * [励志成为较全的直播技术导航 AnyRTC](https://github.com/DyncLang/DevLiveBook)
 
-* [GitHub 上受欢迎的 Android UI Library](https://hndeveloper.github.io/2017/github-android-ui.html#Header)
+* [Android 优秀开源项目汇总](https://github.com/SenhLinsh/Android-Hot-Libraries)
 
 * [收集 Android 开发中优秀的开源组件库](https://github.com/XXApple/AndroidLibs)
 
-* [Android 优秀开源项目汇总](https://github.com/SenhLinsh/Android-Hot-Libraries)
-
-* [DevNote 大鸡排的博客归档](https://github.com/BolexLiu/DevNote)
-
-* [Android 博客大汇总](https://juejin.im/post/5d60ad5df265da03c42899f1)
-
-* [安卓架构文章合集](https://github.com/CameloeAnthony/AndroidArchitectureCollection)
+* [GitHub 上受欢迎的 Android UI Library](https://hndeveloper.github.io/2017/github-android-ui.html#Header)
 
 * [处于萌芽阶段的 Java 核心知识库](https://github.com/crossoverJie/JCSprout)
 
 * [一份涵盖大部分 Java 程序员所需要掌握的核心知识](https://github.com/Snailclimb/JavaGuide)
-
-* [软件工程技术面试个人指南 interviews](https://www.wanandroid.com/blog/show/2318)
 
 #### 算法、面试
 
@@ -243,16 +197,12 @@
 
 * [Awesome-Android-Interview](https://github.com/JsonChao/Awesome-Android-Interview)
 
-#### 第三方库
+* [软件工程技术面试个人指南 interviews](https://www.wanandroid.com/blog/show/2318)
 
-* [Aria 下载可以很简单](https://github.com/AriaLyy/Aria)
-
-* [Android 屏幕适配方案](https://github.com/JessYanCoding/AndroidAutoSize/blob/master/README-zh.md)
-
-#### 疑难问题
+#### 临时记录
 
 * [RecyclerView 列表使用 Timer 定时器复用错乱的问题](https://blog.csdn.net/qq_26665903/article/details/78033117)
 
-#### 规范
+* [Android Studio 切换和合并分支 Branch](https://blog.csdn.net/zhang___yong/article/details/78141272)
 
-* [编码 5 分钟, 命名 2 小时? 史上最全的 Java 命名规范参考!](https://mp.weixin.qq.com/s?__biz=MzIxNjA5MTM2MA==&mid=2652436955&idx=1&sn=eaa2cb9d3e3730f6a7566028e8667cb2&chksm=8c620654bb158f42c2f3f3f62826eed38589e82185668e984f38a7da90dc91ea5ff8440c523e&scene=126&sessionid=1586394630&key=b6688ee520fd1b6c7a60cea2d66b5dbec48187185fcf27ebe02ecd1aa6e185ac92650444088170684ab9d8a6aac2eb141328da225a51666c01109472cb36103c3dba959a1ba6f38a0faa373cd9228a87&ascene=14&uin=MjYzNjY5MTIzNA%3D%3D&devicetype=Windows+7+x64&version=62090070&lang=zh_CN&exportkey=A5YIpBeyG7wuT8NGyrXGU2Q%3D&pass_ticket=u4da2d5YKGOBypbY2jCbP0B9wJMzn0v7OetyMpDLVvvQHkNPqJzJtr3zMYNUdacs)
+* [使用命令将 Logcat 中的内容输出到文本文件中](https://blog.csdn.net/qq_23174861/article/details/50337503)
