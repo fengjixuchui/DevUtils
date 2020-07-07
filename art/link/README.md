@@ -206,3 +206,5 @@
 * [Android Studio 切换和合并分支 Branch](https://blog.csdn.net/zhang___yong/article/details/78141272)
 
 * [使用命令将 Logcat 中的内容输出到文本文件中](https://blog.csdn.net/qq_23174861/article/details/50337503)
+
+* [编码 5 分钟, 命名 2 小时? 史上最全的 Java 命名规范参考!](https://mp.weixin.qq.com/s?__biz=MzIxNjA5MTM2MA==&mid=2652436955&idx=1&sn=eaa2cb9d3e3730f6a7566028e8667cb2)

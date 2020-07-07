@@ -2,6 +2,7 @@ package afkt.project.base.app;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebSettings;
 
@@ -14,7 +15,6 @@ import afkt.project.base.config.AppConfig;
 import afkt.project.base.config.PathConfig;
 import afkt.project.db.GreenManager;
 import afkt.project.function.http.RetrofitUtils;
-import afkt.project.util.ProjectUtils;
 import dev.DevUtils;
 import dev.assist.WebViewAssist;
 import dev.environment.DevEnvironment;
@@ -22,6 +22,7 @@ import dev.environment.bean.EnvironmentBean;
 import dev.environment.bean.ModuleBean;
 import dev.environment.listener.OnEnvironmentChangeListener;
 import dev.other.GlideUtils;
+import dev.utils.LogPrintUtils;
 import dev.utils.app.ActivityUtils;
 import dev.utils.app.AppCommonUtils;
 import dev.utils.app.AppUtils;
@@ -35,6 +36,7 @@ import dev.utils.app.logger.LogConfig;
 import dev.utils.app.logger.LogLevel;
 import dev.utils.common.DateUtils;
 import dev.utils.common.FileRecordUtils;
+import dev.utils.common.StringUtils;
 import dev.utils.common.assist.TimeCounter;
 import dev.widget.assist.ViewAssist;
 import dev.widget.function.StateLayout;
@@ -59,17 +61,53 @@ public class BaseApplication extends MultiDexApplication {
 
 //        // 初始化工具类 - 可不调用, 在 DevUtils FileProviderDevApp 中已初始化, 无需主动调用
 //        DevUtils.init(this.getApplicationContext());
-        // = 初始化日志配置 =
-        // 设置默认 Logger 配置
-        LogConfig logConfig = new LogConfig();
-        logConfig.logLevel = LogLevel.DEBUG;
-        logConfig.tag = AppConfig.LOG_TAG;
-        logConfig.sortLog = true; // 美化日志, 边框包围
-        logConfig.methodCount = 0;
-        DevLogger.init(logConfig);
+        // 初始化日志配置
+        DevLogger.init(
+                new LogConfig().logLevel(LogLevel.DEBUG)
+                        .tag(AppConfig.LOG_TAG)
+                        .sortLog(true) // 美化日志, 边框包围
+                        .methodCount(0)
+        );
         // 打开 lib 内部日志 - 线上环境, 不调用方法就行
         DevUtils.openLog();
         DevUtils.openDebug();
+
+        // 可进行日志拦截编码
+        // DevLogger.setPrint(new DevLogger.Print());
+        // JCLogUtils.setPrint(new JCLogUtils.Print());
+        LogPrintUtils.setPrint(new LogPrintUtils.Print() {
+            @Override
+            public void printLog(int logType, String tag, String message) {
+                // 防止 null 处理
+                if (message == null) return;
+                // 进行编码处理
+                message = StringUtils.toStrEncode(message, "UTF-8");
+                // 获取日志类型
+                switch (logType) {
+                    case Log.VERBOSE:
+                        Log.v(tag, message);
+                        break;
+                    case Log.DEBUG:
+                        Log.d(tag, message);
+                        break;
+                    case Log.INFO:
+                        Log.i(tag, message);
+                        break;
+                    case Log.WARN:
+                        Log.w(tag, message);
+                        break;
+                    case Log.ERROR:
+                        Log.e(tag, message);
+                        break;
+                    case Log.ASSERT:
+                        Log.wtf(tag, message);
+                        break;
+                    default:
+                        Log.wtf(tag, message);
+                        break;
+                }
+            }
+        });
 
         // ==============
         // = 初始化操作 =
@@ -119,7 +157,7 @@ public class BaseApplication extends MultiDexApplication {
      */
     private void init() {
         // 初始化项目文件夹
-        ProjectUtils.createFolder();
+        PathConfig.createFolder();
         // 插入设备信息
         FileRecordUtils.setInsertInfo(AppCommonUtils.getAppDeviceInfo());
         // 初始化 Glide
@@ -176,7 +214,7 @@ public class BaseApplication extends MultiDexApplication {
             @Override
             public void handleException(Throwable ex) {
                 // 保存日志信息
-                FileRecordUtils.saveErrorLog(ex, PathConfig.SDP_ERROR_PATH, "crash_" + DateUtils.getDateNow() + ".txt");
+                FileRecordUtils.saveErrorLog(ex, PathConfig.AEP_ERROR_PATH, "crash_" + DateUtils.getDateNow() + ".txt");
             }
 
             @Override
