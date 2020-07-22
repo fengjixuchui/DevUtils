@@ -68,29 +68,29 @@
 ```java
 
 // DevApp Android 工具类库
-implementation 'com.afkt:DevAppX:1.9.5' // AndroidX
+implementation 'com.afkt:DevAppX:1.9.6' // AndroidX
 
 // DevJava Java 工具类库 ( 不依赖 android api )
 implementation 'com.afkt:DevJava:1.1.2' // 用于纯 Java 开发，如果依赖了 DevApp 则不需要依赖 DevJava
 
 // DevAssist 快捷功能辅助类库
-implementation 'com.afkt:DevAssist:1.0.3'
+implementation 'com.afkt:DevAssist:1.0.4'
+
+// DevWidget 自定义 View UI 库
+implementation 'com.afkt:DevWidgetX:1.0.2' // AndroidX
 
 // DevEnvironment Android 环境配置切换库
 implementation 'com.afkt:DevEnvironment:1.0.0'
 debugAnnotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.0' // kaptDebug
 releaseAnnotationProcessor 'com.afkt:DevEnvironmentCompilerRelease:1.0.0' // kaptRelease
 //annotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.0' // kapt
-
-// DevWidget 自定义 View UI 库
-implementation 'com.afkt:DevWidgetX:1.0.2' // AndroidX
 ```
 
 ## Demo
 
-| [下载 DevUtils APK-Demo](https://github.com/afkT/DevUtils/raw/master/art/app-debug.apk) |
-|:--:|
-| ![apk_qrcode](https://github.com/afkT/DevUtils/raw/master/art/dev_apk_qrcode.png) |
+| [下载 DevUtils APK-Demo](https://github.com/afkT/DevUtils/raw/master/art/app-debug.apk) | [下载 AppInfoKtx APK-Demo](https://github.com/afkT/DevUtils/raw/master/art/AppInfoKtx-debug.apk) |
+|:--:|:--:|
+| ![apk_qrcode](https://github.com/afkT/DevUtils/raw/master/art/dev_apk_qrcode.png) | ![apk_qrcode](https://github.com/afkT/DevUtils/raw/master/art/appinfo_apk_qrcode.png) |
 
 ## License
 

@@ -38,14 +38,14 @@ ext {
             // ===========
 
             // 版本号
-            dev_app_versionCode                     : 195,
+            dev_app_versionCode                     : 196,
             // 版本名
-            dev_app_versionName                     : '1.9.5',
+            dev_app_versionName                     : '1.9.6',
 
             // 版本号
-            dev_assist_versionCode                  : 103,
+            dev_assist_versionCode                  : 104,
             // 版本名
-            dev_assist_versionName                  : '1.0.3',
+            dev_assist_versionName                  : '1.0.4',
 
             // 版本号
             dev_java_versionCode                    : 112,
@@ -136,6 +136,8 @@ ext {
                     // View 注入框架 https://github.com/JakeWharton/butterknife
                     butterknife                  : "com.jakewharton:butterknife:10.2.1",
                     butterknife_compiler         : "com.jakewharton:butterknife-compiler:10.2.1",
+                    // Kotlin ButterKnife https://github.com/JakeWharton/kotterknife
+                    kotterknife                  : "com.jakewharton:kotterknife:0.1.0-SNAPSHOT",
                     // Android 平台下的图片选择器 https://github.com/LuckSiege/PictureSelector
                     pictureSelector              : "com.github.LuckSiege.PictureSelector:picture_library:v2.2.5", // 2.5.8
                     // Android 可伸缩布局 FlexboxLayout ( 支持 RecyclerView 集成 ) https://github.com/google/flexbox-layout

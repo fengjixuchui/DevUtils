@@ -136,7 +136,7 @@ public class BaseApplication extends MultiDexApplication {
      */
     private void printProInfo(TimeCounter timeCounter) {
         StringBuilder builder = new StringBuilder();
-        builder.append("项目名: " + ResourceUtils.getString(R.string.str_app_name) + " (" + ResourceUtils.getString(R.string.str_app_name_en) + ")");
+        builder.append("项目名: " + ResourceUtils.getString(R.string.str_app_name));
         builder.append("\nSDK: " + Build.VERSION.SDK_INT + "(" + AppCommonUtils.convertSDKVersion(Build.VERSION.SDK_INT) + ")");
         builder.append("\nPackageName: " + AppUtils.getPackageName());
         builder.append("\nVersionCode: " + AppUtils.getAppVersionCode());
@@ -261,7 +261,7 @@ public class BaseApplication extends MultiDexApplication {
      * 初始化其他 lib
      */
     private void initOthers() {
-        // xCrash 提供捕获 java 崩溃，native 崩溃和 ANR 的能力。不需要 root 权限或任何系统权限
+        // xCrash 提供捕获 java 崩溃、native 崩溃和 ANR 的能力, 不需要 root 权限或任何系统权限
         xcrash.XCrash.init(this);
 
         // 初始化 MMKV

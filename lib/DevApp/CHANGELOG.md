@@ -1,6 +1,17 @@
 Change Log
 ==========
 
+Version 1.9.6 *(2020-07-19)*
+----------------------------
+
+* `[Add]` ViewHelper#setPaintFlags、setAntiAliasFlag
+
+* `[Add]` ViewUtils#setPaintFlags、setAntiAliasFlag
+
+* `[Add]` DevLogger#setPrint、LogPrintUtils#setPrint 自定义输出接口
+
+* `[Update]` ClickUtils 变量声明顺序
+
 Version 1.9.5 *(2020-06-08)*
 ----------------------------
 
@@ -238,7 +249,6 @@ Version 1.7.9 *(2019-09-19)*
 
  * `[Add]` ViewUtils#getTag、setTag
 
-
 Version 1.7.8 *(2019-09-12)*
 ----------------------------
  
@@ -249,7 +259,6 @@ Version 1.7.8 *(2019-09-12)*
  * `[Add]` ConvertUtils#convert
 
  * `[Fix]` DialogUtils#showDialog、closeDialog try catch
- 
 
 Version 1.7.7 *(2019-08-25)*
 ----------------------------
@@ -268,7 +277,6 @@ Version 1.7.7 *(2019-08-25)*
  
  * `[Fix]` Reflect2Utils#getDeclaredFieldParent fieldNumber param 判断处理
 
-
 Version 1.7.6 *(2019-08-02)*
 ----------------------------
 
@@ -277,7 +285,6 @@ Version 1.7.6 *(2019-08-02)*
  * `[Add]` ViewUtils#set/getCompoundDrawables、set/getCompoundDrawablePadding
  
  * `[Add]` ImageUtils#setBounds
-
 
 Version 1.0.0~1.7.5 *(2019-07-26)*
 ----------------------------

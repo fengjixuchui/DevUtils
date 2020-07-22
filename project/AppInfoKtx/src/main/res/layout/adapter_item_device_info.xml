@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="@dimen/un_dp_15">
+
+    <TextView
+        android:id="@+id/vid_aidi_key_tv"
+        style="@style/AppTheme.Base_TextView"
+        android:textSize="@dimen/un_sp_14"
+        tools:text="@string/app_name" />
+
+    <TextView
+        android:id="@+id/vid_aidi_value_tv"
+        style="@style/AppTheme.Base_TextView"
+        android:layout_marginTop="@dimen/un_dp_5"
+        android:textSize="@dimen/un_sp_15"
+        tools:text="@string/app_name" />
+</LinearLayout>

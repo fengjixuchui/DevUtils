@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">AccessibilityKtx</string>
+    <string name="accessibility_description">AccessibilityKtx ( DevUtils 无障碍工具 ) 演示</string>
+    <string name="str_activity_tracker">Activity 栈</string>
+    <string name="str_close_floating">关闭悬浮框</string>
+    <string name="str_open_accessibility_tips">请先开启 &quot;AccessibilityKtx&quot; 无障碍辅助功能</string>
+    <string name="str_open_floating_tips">请先开启 &quot;AccessibilityKtx&quot; 悬浮窗权限</string>
+</resources>

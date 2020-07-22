@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:1.9.5'
+implementation 'com.afkt:DevAppX:1.9.6'
 ```
 
 ## 目录结构
@@ -1547,6 +1547,8 @@ DevUtils.openDebug();
 | setTextSizes | 设置多个 TextView 字体大小 |
 | getTextSize | 获取 TextView 字体大小 - px |
 | clearFlags | 清空 flags |
+| setPaintFlags | 设置 TextView flags |
+| setAntiAliasFlag | 设置 TextView 抗锯齿 flags |
 | setBold | 设置 TextView 是否加粗 |
 | setUnderlineText | 设置下划线 |
 | setStrikeThruText | 设置中划线 |
@@ -2128,6 +2130,8 @@ DevUtils.openDebug();
 | setTextSize | 设置字体大小 |
 | setTextSizes | 设置多个 TextView 字体大小 |
 | clearFlags | 清空 flags |
+| setPaintFlags | 设置 TextView flags |
+| setAntiAliasFlag | 设置 TextView 抗锯齿 flags |
 | setBold | 设置 TextView 是否加粗 |
 | setUnderlineText | 设置下划线 |
 | setStrikeThruText | 设置中划线 |
@@ -2526,6 +2530,8 @@ DevUtils.openDebug();
 | wtfTag | 打印 Log.ASSERT |
 | jsonTag | 格式化 JSON 格式数据, 并打印 |
 | xmlTag | 格式化 XML 格式数据, 并打印 |
+| setPrint | 设置日志输出接口 |
+| printLog | 日志打印 |
 
 
 * **日志配置类 ->** [LogConfig.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/logger/LogConfig.java)
@@ -2536,6 +2542,13 @@ DevUtils.openDebug();
 | getDebugLogConfig | 获取 Debug Log 配置 ( 打印线程信息、显示方法总数 3、从 0 开始、不进行排序、默认只打印 ERROR 级别日志 ) |
 | getSortLogConfig | 获取 Log 配置 ( 打印线程信息、显示方法总数 3、从 0 开始、并且美化日志信息、默认打印 DEBUG 级别及以上日志 ) |
 | getLogConfig | 获取 Log 配置 |
+| methodCount | 设置堆栈方法总数 |
+| methodOffset | 设置堆栈方法索引偏移 |
+| outputMethodAll | 设置是否输出全部方法 |
+| displayThreadInfo | 设置是否显示日志线程信息 |
+| sortLog | 设置是否排序日志 |
+| logLevel | 设置日志级别 |
+| tag | 设置 TAG |
 
 
 ## <span id="devutilsapppermission">**`dev.utils.app.permission`**</span>

@@ -1,0 +1,47 @@
+apply {
+    from rootProject.file(files.app_gradle)
+}
+
+android {
+    defaultConfig {
+        applicationId "afkt.app"
+    }
+}
+
+dependencies {
+    implementation project(path: ':DevApp')
+    implementation project(path: ':DevWidget')
+
+    // ============
+    // = 第三方库 =
+    // ============
+
+    // ==============
+    // = 快捷开发库 =
+    // ==============
+
+    // View 注入框架 https://github.com/JakeWharton/butterknife
+    implementation deps.lib.butterknife
+    kapt deps.lib.butterknife_compiler
+    // Gson https://github.com/google/gson
+    implementation deps.lib.gson
+    // Glide 加载框架 https://github.com/bumptech/glide
+    implementation deps.lib.glide
+    kapt deps.lib.glide_compiler
+    // EventBus 事件订阅分发 https://github.com/greenrobot/EventBus
+    implementation deps.lib.eventbus
+    // 今日头条屏幕适配方案终极版 https://github.com/JessYanCoding/AndroidAutoSize/blob/master/README-zh.md
+    implementation deps.lib.autosize
+
+    // ===============================
+    // = 其他第三方库 - 小功能、简约 =
+    // ===============================
+
+    // 加载动画效果 https://github.com/Kyson/WhorlView
+    implementation deps.lib.whorlviewlibrary
+    // RecyclerView Adapter https://github.com/CymChad/BaseRecyclerViewAdapterHelper
+    implementation deps.lib.baserecyclerviewadapterhelper
+    // 下拉刷新框架 https://github.com/scwang90/SmartRefreshLayout
+    implementation deps.lib.smartrefreshlayout
+    implementation deps.lib.smartrefresh_header_classics
+}
