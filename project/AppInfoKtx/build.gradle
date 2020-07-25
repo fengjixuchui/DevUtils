@@ -20,9 +20,6 @@ dependencies {
     // = 快捷开发库 =
     // ==============
 
-    // View 注入框架 https://github.com/JakeWharton/butterknife
-    implementation deps.lib.butterknife
-    kapt deps.lib.butterknife_compiler
     // Gson https://github.com/google/gson
     implementation deps.lib.gson
     // Glide 加载框架 https://github.com/bumptech/glide

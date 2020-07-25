@@ -11,5 +11,5 @@ class SearchEvent(type: TypeEnum, action: ActionEnum) {
 
     val type: TypeEnum = type
     val action: ActionEnum = action
-    var content: String? = null
+    var content: String = ""
 }

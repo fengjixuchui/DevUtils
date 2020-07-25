@@ -2,6 +2,7 @@ package afkt.app.ui.dialog
 
 import afkt.app.R
 import afkt.app.base.Constants
+import afkt.app.databinding.DialogAppSortBinding
 import afkt.app.module.event.SortEvent
 import afkt.app.utils.EventBusUtils
 import afkt.app.utils.ProjectUtils
@@ -9,10 +10,6 @@ import android.app.Dialog
 import android.content.Context
 import android.view.*
 import android.widget.RadioButton
-import android.widget.RadioGroup
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import dev.utils.app.ResourceUtils
 import dev.utils.app.ScreenUtils
 import dev.utils.app.share.SharedUtils
@@ -22,26 +19,17 @@ import dev.utils.app.share.SharedUtils
  * @author Ttt
  */
 class AppSortDialog(context: Context?) :
-    Dialog(context!!, R.style.Theme_Light_FullScreenDialogOperate), View.OnClickListener {
+    Dialog(context!!, R.style.Theme_Light_FullScreenDialogOperate) {
 
-    @JvmField
-    @BindView(R.id.vid_das_radiogroup)
-    var vid_das_radiogroup: RadioGroup? = null
-
-    @OnClick(R.id.vid_das_cancel_tv)
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.vid_das_cancel_tv -> cancel()
-        }
-    }
+    private var binding: DialogAppSortBinding
 
     init {
         window!!.setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
-        this.setContentView(R.layout.dialog_app_sort)
-        ButterKnife.bind(this)
+        binding = DialogAppSortBinding.inflate(layoutInflater)
+        this.setContentView(binding.root)
 
         val params = window!!.attributes
         val screen = ScreenUtils.getScreenWidthHeight()
@@ -67,7 +55,7 @@ class AppSortDialog(context: Context?) :
                 }
                 cancel()
             }
-            vid_das_radiogroup!!.addView(
+            binding.vidDasRadiogroup.addView(
                 itemView,
                 ViewGroup.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT,
@@ -75,6 +63,7 @@ class AppSortDialog(context: Context?) :
                 )
             )
         }
-        vid_das_radiogroup!!.check(ProjectUtils.getAppSortType())
+        binding.vidDasRadiogroup.check(ProjectUtils.getAppSortType())
+        binding.vidDasCancelTv.setOnClickListener { cancel() }
     }
 }

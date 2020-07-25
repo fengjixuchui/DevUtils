@@ -13,12 +13,9 @@ class FileApkItem(
     val name: String,
     // 文件地址
     val uri: String,
-    // 文件MD5
-    val md5: String,
     // APP 信息
     val appInfoBean: AppInfoBean
 ) {
-
     // 文件最后操作时间
     val lastModified: Long = file.lastModified()
 }

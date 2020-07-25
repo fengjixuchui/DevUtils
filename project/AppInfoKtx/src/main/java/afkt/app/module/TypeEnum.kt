@@ -27,7 +27,9 @@ enum class TypeEnum(tag: Int, @StringRes titleId: Int) {
     QUERY_APK(4, R.string.str_query_apk),
 
     // 设置
-    SETTING(5, R.string.str_setting);
+    SETTING(5, R.string.str_setting)
+
+    ;
 
     val tag: Int = tag
 
@@ -42,13 +44,13 @@ enum class TypeEnum(tag: Int, @StringRes titleId: Int) {
          */
         fun get(tag: Int): TypeEnum {
             when (tag) {
-                0 -> return TypeEnum.APP_USER
-                1 -> return TypeEnum.APP_SYSTEM
-                2 -> return TypeEnum.DEVICE_INFO
-                3 -> return TypeEnum.SCREEN_INFO
-                4 -> return TypeEnum.QUERY_APK
-                5 -> return TypeEnum.SETTING
-                else -> return TypeEnum.NONE
+                0 -> return APP_USER
+                1 -> return APP_SYSTEM
+                2 -> return DEVICE_INFO
+                3 -> return SCREEN_INFO
+                4 -> return QUERY_APK
+                5 -> return SETTING
+                else -> return NONE
             }
         }
     }

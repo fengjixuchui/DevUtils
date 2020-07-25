@@ -1,14 +1,13 @@
 package afkt.accessibility.ui.activity
 
 import afkt.accessibility.R
+import afkt.accessibility.databinding.ActivityMainBinding
 import afkt.accessibility.service.AccessibilityListenerService
 import android.annotation.TargetApi
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.view.View
-import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import dev.utils.app.ActivityUtils
 import dev.utils.app.IntentUtils
@@ -23,7 +22,9 @@ import dev.utils.app.toast.ToastUtils
  *     可自行实现其他功能模块, 例如微信抢红包、自动点击等操作
  * </pre>
  */
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity() {
+
+    private lateinit var binding: ActivityMainBinding
 
     // = Object =
 
@@ -31,33 +32,24 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-
-        findViewById<Button>(R.id.vid_am_activity_tracker_btn)
-            .setOnClickListener(this)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         checkOverlayPermission()
-    }
 
-    // ===========
-    // = OnClick =
-    // ===========
-
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.vid_am_activity_tracker_btn -> {
-                if (AccessibilityListenerService.checkAccessibility()) {
-                    startService(
-                        Intent(this@MainActivity, AccessibilityListenerService::class.java)
-                            .putExtra(
-                                AccessibilityListenerService.COMMAND,
-                                AccessibilityListenerService.COMMAND_OPEN
-                            )
-                    )
-                    ActivityUtils.startHomeActivity()
-                } else {
-                    ToastUtils.showLong(R.string.str_open_accessibility_tips)
-                }
+        // Activity 栈
+        binding.vidAmActivityTrackerBtn.setOnClickListener {
+            if (AccessibilityListenerService.checkAccessibility()) {
+                startService(
+                    Intent(this@MainActivity, AccessibilityListenerService::class.java)
+                        .putExtra(
+                            AccessibilityListenerService.COMMAND,
+                            AccessibilityListenerService.COMMAND_OPEN
+                        )
+                )
+                ActivityUtils.startHomeActivity()
+            } else {
+                ToastUtils.showLong(R.string.str_open_accessibility_tips)
             }
         }
     }

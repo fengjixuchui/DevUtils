@@ -1,16 +1,13 @@
 package afkt.app.ui.dialog
 
 import afkt.app.R
+import afkt.app.databinding.DialogQuerySuffixBinding
 import afkt.app.utils.QuerySuffixUtils
 import android.app.Dialog
 import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
-import androidx.recyclerview.widget.RecyclerView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -23,22 +20,9 @@ import dev.utils.app.toast.ToastTintUtils
  * @author Ttt
  */
 class QuerySuffixDialog(context: Context?) :
-    Dialog(context!!, R.style.Theme_Light_FullScreenDialogOperate), View.OnClickListener {
+    Dialog(context!!, R.style.Theme_Light_FullScreenDialogOperate) {
 
-    @JvmField
-    @BindView(R.id.vid_dqs_recycleview)
-    var vid_dqs_recycleview: RecyclerView? = null
-
-    @OnClick(R.id.vid_dqs_close_tv)
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.vid_dqs_close_tv -> {
-                // 提示设置生效
-                ToastTintUtils.success(ResourceUtils.getString(R.string.str_setting_scan_suffix_suc))
-                cancel()
-            }
-        }
-    }
+    private var binding: DialogQuerySuffixBinding
 
     init {
         window!!.setFlags(
@@ -46,8 +30,8 @@ class QuerySuffixDialog(context: Context?) :
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
-        this.setContentView(R.layout.dialog_query_suffix)
-        ButterKnife.bind(this)
+        binding = DialogQuerySuffixBinding.inflate(layoutInflater)
+        this.setContentView(binding.root)
 
         val params = window!!.attributes
         val screen = ScreenUtils.getScreenWidthHeight()
@@ -64,8 +48,14 @@ class QuerySuffixDialog(context: Context?) :
 
         // 初始化适配器并绑定
         var adapter = QuerySuffixAdapter()
-        vid_dqs_recycleview!!.setAdapter(adapter)
+        binding.vidDqsRecycleview.setAdapter(adapter)
         adapter.refreshData()
+
+        binding.vidDqsCloseTv.setOnClickListener {
+            // 提示设置生效
+            ToastTintUtils.success(ResourceUtils.getString(R.string.str_setting_scan_suffix_suc))
+            cancel()
+        }
     }
 
     // ===========

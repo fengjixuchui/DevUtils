@@ -66,7 +66,7 @@ object AppListUtils {
      * 获取指定 Type App 列表
      * @param appType [AppType]
      */
-    fun getAppLists(appType: AppType) {
+    private fun getAppLists(appType: AppType) {
         getAppLists(appType, false)
     }
 
@@ -75,7 +75,7 @@ object AppListUtils {
      * @param appType [AppType]
      * @param refresh 是否刷新
      */
-    fun getAppLists(appType: AppType, refresh: Boolean) {
+    private fun getAppLists(appType: AppType, refresh: Boolean) {
         var state: Boolean? = sMapStates[appType]
         // 加载中则不处理
         if (state != null && state) {

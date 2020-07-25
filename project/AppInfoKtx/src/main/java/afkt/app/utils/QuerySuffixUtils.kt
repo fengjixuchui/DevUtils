@@ -11,9 +11,6 @@ import java.util.*
  */
 object QuerySuffixUtils {
 
-    // 日志 TAG
-    private val TAG = QuerySuffixUtils::class.java.simpleName
-
     /**
      * 默认配置
      */

@@ -47,7 +47,7 @@ class TrackerWindowManager(private val mContext: Context) {
     fun addView() {
         if (mFloatingView == null) {
             mFloatingView = FloatingView(mContext)
-            mFloatingView!!.layoutParams = LAYOUT_PARAMS
+            mFloatingView?.layoutParams = LAYOUT_PARAMS
             mWindowManager.addView(mFloatingView, LAYOUT_PARAMS)
         }
     }

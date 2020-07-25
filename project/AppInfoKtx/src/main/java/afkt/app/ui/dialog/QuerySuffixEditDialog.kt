@@ -1,16 +1,13 @@
 package afkt.app.ui.dialog
 
 import afkt.app.R
+import afkt.app.databinding.DialogQuerySuffixEditBinding
 import afkt.app.utils.QuerySuffixUtils
 import android.app.Dialog
 import android.content.Context
 import android.view.Gravity
 import android.view.View
 import android.view.WindowManager
-import android.widget.EditText
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.OnClick
 import dev.utils.app.HandlerUtils
 import dev.utils.app.KeyBoardUtils
 import dev.utils.app.ScreenUtils
@@ -21,35 +18,9 @@ import dev.utils.app.ScreenUtils
  */
 class QuerySuffixEditDialog(
     context: Context, onClickListener: View.OnClickListener
-) : Dialog(context, R.style.Theme_Light_FullScreenDialogOperate), View.OnClickListener {
+) : Dialog(context, R.style.Theme_Light_FullScreenDialogOperate) {
 
-    @JvmField
-    @BindView(R.id.vid_dqse_edit_text)
-    var vid_dqse_edit_text: EditText? = null
-
-    @OnClick(R.id.vid_dqse_add_tv, R.id.vid_dqse_cancel_tv)
-    override fun onClick(v: View) {
-        when (v.id) {
-            R.id.vid_dqse_add_tv -> {
-                var input = vid_dqse_edit_text!!.text.toString()
-                if (input.isBlank()) {
-                    cancelDialog()
-                    return
-                }
-                input = input.toLowerCase()
-                val maps = QuerySuffixUtils.querySuffixMap
-                if (maps.containsKey(input)) {
-                    cancelDialog()
-                    return
-                }
-                maps[input] = input
-                QuerySuffixUtils.refresh(maps)
-                notifyListener.onClick(v)
-                cancelDialog()
-            }
-            R.id.vid_dqse_cancel_tv -> cancelDialog()
-        }
-    }
+    private var binding: DialogQuerySuffixEditBinding
 
     // 点击通知事件
     val notifyListener: View.OnClickListener
@@ -60,10 +31,8 @@ class QuerySuffixEditDialog(
             WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
-        this.setContentView(R.layout.dialog_query_suffix_edit)
-        ButterKnife.bind(this)
-
-        notifyListener = onClickListener
+        binding = DialogQuerySuffixEditBinding.inflate(layoutInflater)
+        this.setContentView(binding.root)
 
         val params = window!!.attributes
         val screen = ScreenUtils.getScreenWidthHeight()
@@ -80,13 +49,34 @@ class QuerySuffixEditDialog(
         // 关闭处理
         setOnDismissListener {
             HandlerUtils.postRunnable({ // 关闭输入法
-                KeyBoardUtils.closeKeyboard(vid_dqse_edit_text)
+                KeyBoardUtils.closeKeyboard(binding.vidDqseEditText)
             }, 100)
         }
+
+        notifyListener = onClickListener
+
+        binding.vidDqseAddTv.setOnClickListener {
+            var input = binding.vidDqseEditText.text.toString()
+            if (input.isBlank()) {
+                cancelDialog()
+                return@setOnClickListener
+            }
+            input = input.toLowerCase()
+            val maps = QuerySuffixUtils.querySuffixMap
+            if (maps.containsKey(input)) {
+                cancelDialog()
+                return@setOnClickListener
+            }
+            maps[input] = input
+            QuerySuffixUtils.refresh(maps)
+            notifyListener.onClick(it)
+            cancelDialog()
+        }
+        binding.vidDqseCancelTv.setOnClickListener { cancelDialog() }
     }
 
     fun cancelDialog() {
-        KeyBoardUtils.closeKeyboard(vid_dqse_edit_text)
+        KeyBoardUtils.closeKeyboard(binding.vidDqseEditText)
         if (this.isShowing) cancel()
     }
 }

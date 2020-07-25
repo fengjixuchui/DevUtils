@@ -10,7 +10,7 @@ import android.os.Message
  */
 object SearchUtils {
 
-    private val SEARCH_WHAT = Integer.MAX_VALUE
+    private val WHAT_SEARCH = Integer.MAX_VALUE
 
     // 搜索线程
     private var sSearchRunn: Runnable? = null
@@ -35,7 +35,7 @@ object SearchUtils {
     private fun getSearchRunnable(): Runnable? {
         if (sSearchRunn == null) {
             sSearchRunn = Runnable {
-                sHandler.sendEmptyMessage(SEARCH_WHAT)
+                sHandler.sendEmptyMessage(WHAT_SEARCH)
             }
         }
         return sSearchRunn
@@ -45,7 +45,7 @@ object SearchUtils {
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
             when (msg.what) {
-                SEARCH_WHAT -> EventBusUtils.post(StartSearchEvent())
+                WHAT_SEARCH -> EventBusUtils.post(StartSearchEvent())
             }
         }
     }

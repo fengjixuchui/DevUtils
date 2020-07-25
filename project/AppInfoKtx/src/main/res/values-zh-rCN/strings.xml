@@ -53,8 +53,10 @@
     <string name="str_export_app_msg">导出应用信息</string>
     <string name="str_export_apk_msg">导出安装包信息</string>
     <string name="str_export_app">导出应用</string>
+    <string name="str_export_apk">导出 APK</string>
     <string name="str_share">分享</string>
     <string name="str_refresh">刷新</string>
+    <string name="str_file_exist">文件已存在</string>
     <string name="str_file_not_exist">文件不存在</string>
     <string name="str_app_not_exist">应用不存在</string>
     <string name="str_delete_suc">删除成功</string>

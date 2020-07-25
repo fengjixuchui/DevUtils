@@ -6,7 +6,6 @@ import dev.utils.app.PathUtils
 import dev.utils.app.info.AppInfoUtils
 import dev.utils.app.logger.DevLogger
 import dev.utils.common.DevCommonUtils
-import dev.utils.common.FileUtils
 import dev.utils.common.assist.search.FileBreadthFirstSearchUtils
 import dev.utils.common.thread.DevThreadManager
 import java.io.File
@@ -106,7 +105,6 @@ class ScanSDCardUtils private constructor() {
                 lists.add(
                     FileApkItem(
                         file, file.name, file.path,
-                        FileUtils.getFileMD5ToHexString(file),
                         appInfoBean
                     )
                 )
@@ -115,13 +113,13 @@ class ScanSDCardUtils private constructor() {
         return lists
     }
 
-    class ApkListsComparator : Comparator<FileApkItem> {
-        override fun compare(a: FileApkItem, b: FileApkItem): Int {
-            return if (a != null && b != null) {
-                if (a.lastModified === b.lastModified) {
+    private class ApkListsComparator : Comparator<FileApkItem> {
+        override fun compare(a_apk: FileApkItem, b_apk: FileApkItem): Int {
+            return if (a_apk != null && b_apk != null) {
+                if (a_apk.lastModified === b_apk.lastModified) {
                     0 // 安装时间相等
                 } else { // 近期安装的在最前面
-                    if (a.lastModified > b.lastModified) -1 else 1
+                    if (a_apk.lastModified > b_apk.lastModified) -1 else 1
                 }
             } else 0
         }

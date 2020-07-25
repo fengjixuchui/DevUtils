@@ -89,16 +89,16 @@ class FloatingView : LinearLayout {
         EventBusUtils.unregister(this)
     }
 
-    var preP: Point? = null
-    var curP: Point? = null
+    private var preP: Point = Point()
+    private var curP: Point = Point()
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> preP = Point(event.rawX.toInt(), event.rawY.toInt())
             MotionEvent.ACTION_MOVE -> {
                 curP = Point(event.rawX.toInt(), event.rawY.toInt())
-                val dx: Int = curP!!.x - preP!!.x
-                val dy: Int = curP!!.y - preP!!.y
+                val dx: Int = curP.x - preP.x
+                val dy: Int = curP.y - preP.y
                 val layoutParams = this.layoutParams as WindowManager.LayoutParams
                 layoutParams.x += dx
                 layoutParams.y += dy
@@ -112,10 +112,10 @@ class FloatingView : LinearLayout {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: ActivityChangedEvent) {
         event?.let {
-            var packageName = it.packageName
-            var className = it.className
+            val packageName = it.packageName
+            val className = it.className
 
-            var trimName =
+            val trimName =
                 if (className.startsWith(packageName)) className.substring(packageName.length) else className
 
             DevLogger.dTag(TAG, "%s -> %s", packageName, trimName)

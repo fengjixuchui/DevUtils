@@ -6,19 +6,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import butterknife.Unbinder
 import dev.utils.LogPrintUtils
 
 abstract class BaseFragment : Fragment() {
 
     protected var mRootView: View? = null
 
-    protected var unbinder: Unbinder? = null
-
     override fun onDestroy() {
         super.onDestroy()
         EventBusUtils.unregister(this)
-        unbinder?.unbind()
     }
 
     override fun onCreateView(
@@ -35,7 +31,7 @@ abstract class BaseFragment : Fragment() {
         } catch (e: Exception) {
             LogPrintUtils.e(e)
         }
-        layoutInit(mRootView, container, savedInstanceState)
+        readArguments()
         if (isRegister()) EventBusUtils.register(this)
         return mRootView
     }
@@ -43,15 +39,12 @@ abstract class BaseFragment : Fragment() {
     // 获取 Layout
     abstract fun layoutId(): Int
 
-    // Layout View 初始化
-    abstract fun layoutInit(
-        view: View?,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    )
-
     // 是否注册 EventBus
     open fun isRegister(): Boolean {
         return true
+    }
+
+    // 读取传参数据
+    open fun readArguments() {
     }
 }

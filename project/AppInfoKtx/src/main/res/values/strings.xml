@@ -53,8 +53,10 @@
     <string name="str_export_app_msg">export app info</string>
     <string name="str_export_apk_msg">export apk info</string>
     <string name="str_export_app">export app</string>
+    <string name="str_export_apk">export apk</string>
     <string name="str_share">share</string>
     <string name="str_refresh">refresh</string>
+    <string name="str_file_exist">file already exists</string>
     <string name="str_file_not_exist">file not exist</string>
     <string name="str_app_not_exist">app not exist</string>
     <string name="str_delete_suc">delete suc</string>

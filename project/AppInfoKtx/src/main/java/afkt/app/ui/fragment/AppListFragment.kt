@@ -3,6 +3,7 @@ package afkt.app.ui.fragment
 import afkt.app.R
 import afkt.app.base.BaseFragment
 import afkt.app.base.Constants
+import afkt.app.databinding.FragmentAppBinding
 import afkt.app.module.ActionEnum
 import afkt.app.module.TypeEnum
 import afkt.app.module.event.*
@@ -10,13 +11,9 @@ import afkt.app.ui.adapter.AppListAdapter
 import afkt.app.utils.AppListUtils
 import afkt.app.utils.AppSearchUtils
 import afkt.app.utils.EventBusUtils
-import afkt.app.widget.BaseRefreshView
 import android.os.Bundle
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.tt.whorlviewlibrary.WhorlView
 import dev.utils.app.ListViewUtils
@@ -43,65 +40,65 @@ class AppListFragment : BaseFragment() {
 
     // = View =
 
-    @JvmField
-    @BindView(R.id.vid_fa_refresh)
-    var baseRefreshView: BaseRefreshView? = null
+    private lateinit var binding: FragmentAppBinding
 
-    @JvmField
-    @BindView(R.id.vid_fa_state)
-    var stateLayout: StateLayout? = null
-
-    var whorlView: WhorlView? = null
+    private var whorlView: WhorlView? = null
 
     // = Object =
 
-    var type: TypeEnum? = null
-    var searchContent: String = ""
+    private var type: TypeEnum? = null
+    private var searchContent: String = ""
 
     override fun layoutId(): Int {
         return R.layout.fragment_app
     }
 
-    override fun layoutInit(view: View?, container: ViewGroup?, savedInstanceState: Bundle?) {
-        ButterKnife.bind(this, view!!)
+    override fun readArguments() {
+        super.readArguments()
+
         var value = arguments?.getInt(Constants.Key.KEY_VALUE)
         type = value?.let { TypeEnum.get(it) }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding = FragmentAppBinding.bind(view)
 
         whorlView = ViewUtils.findViewById(
-            stateLayout!!.getView(ViewAssist.TYPE_ING),
+            binding.vidFaState.getView(ViewAssist.TYPE_ING),
             R.id.vid_sli_load_view
         )
         // 设置监听
-        stateLayout!!.setListener(object : StateLayout.Listener {
+        binding.vidFaState.setListener(object : StateLayout.Listener {
             override fun onRemove(layout: StateLayout, type: Int, removeView: Boolean) {
             }
 
             override fun onNotFound(layout: StateLayout, type: Int) {
                 if (type == ViewAssist.TYPE_SUCCESS) {
-                    ViewUtils.reverseVisibilitys(true, baseRefreshView, stateLayout)
+                    ViewUtils.reverseVisibilitys(true, binding.vidFaRefresh, binding.vidFaState)
                     whorlView?.stop()
-                    baseRefreshView?.finishRefresh()
+                    binding.vidFaRefresh.finishRefresh()
                 }
             }
 
             override fun onChange(layout: StateLayout, type: Int, oldType: Int, view: View) {
                 if (ViewUtils.reverseVisibilitys(
                         type == ViewAssist.TYPE_SUCCESS,
-                        baseRefreshView, stateLayout
+                        binding.vidFaRefresh, binding.vidFaState
                     )
                 ) {
                     whorlView?.stop()
-                    baseRefreshView?.finishRefresh()
+                    binding.vidFaRefresh.finishRefresh()
                 } else {
                     if (type == ViewAssist.TYPE_ING) {
-                        if (!whorlView!!.isCircling()) {
+                        if (whorlView != null && !whorlView!!.isCircling()) {
                             whorlView?.start()
                         }
                     } else {
                         whorlView?.stop()
                         // 无数据处理
                         if (type == ViewAssist.TYPE_EMPTY_DATA) {
-                            baseRefreshView?.finishRefresh()
+                            binding.vidFaRefresh.finishRefresh()
                             var tips = if (searchContent.isEmpty()) {
                                 ResourceUtils.getString(R.string.str_search_noresult_tips_1)
                             } else {
@@ -118,10 +115,10 @@ class AppListFragment : BaseFragment() {
                 }
             }
         })
-        stateLayout!!.showIng()
+        binding.vidFaState.showIng()
 
         // 设置刷新事件
-        baseRefreshView?.setOnRefreshListener(OnRefreshListener {
+        binding.vidFaRefresh.setOnRefreshListener(OnRefreshListener {
             type?.let { AppListUtils.getAppLists(it, true) }
         })
     }
@@ -151,10 +148,10 @@ class AppListFragment : BaseFragment() {
                     AppSearchUtils.filterAppList(event.lists, searchContent)
                 }
                 if (lists.isEmpty()) {
-                    stateLayout?.showEmptyData()
+                    binding.vidFaState.showEmptyData()
                 } else {
-                    baseRefreshView?.setAdapter(AppListAdapter(lists))
-                    stateLayout?.showSuccess()
+                    binding.vidFaRefresh.setAdapter(AppListAdapter(lists))
+                    binding.vidFaState.showSuccess()
                 }
             }
         }
@@ -176,7 +173,7 @@ class AppListFragment : BaseFragment() {
                 }
                 ActionEnum.CONTENT -> { // 搜索输入内容
                     if (it == type) {
-                        searchContent = event.content.toString()
+                        searchContent = event.content
                         AppListUtils.getAppLists(it) // 加载列表
                     }
                 }
@@ -187,15 +184,15 @@ class AppListFragment : BaseFragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: RefreshEvent) {
         event.type?.let {
-            if (it == type) baseRefreshView?.smartRefreshLayout?.autoRefresh()
+            if (it == type) binding.vidFaRefresh.smartRefreshLayout?.autoRefresh()
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: TopEvent) {
         event.type?.let {
-            if (it == type) ListViewUtils.smoothScrollToTop(baseRefreshView?.recyclerView)
-            //ListViewUtils.scrollToTop(baseRefreshView?.recyclerView)
+            if (it == type) ListViewUtils.smoothScrollToTop(binding.vidFaRefresh.recyclerView)
+            //ListViewUtils.scrollToTop(binding.vidFaRefresh.recyclerView)
         }
     }
 }

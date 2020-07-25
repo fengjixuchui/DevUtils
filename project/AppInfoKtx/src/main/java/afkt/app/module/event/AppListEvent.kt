@@ -10,7 +10,6 @@ import dev.utils.app.info.AppInfoBean
 class AppListEvent(appType: AppInfoBean.AppType, lists: ArrayList<AppInfoBean>) {
 
     val type: TypeEnum
-    val appType: AppInfoBean.AppType = appType
     val lists: ArrayList<AppInfoBean> = lists
 
     init {
