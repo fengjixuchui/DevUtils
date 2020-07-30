@@ -874,18 +874,18 @@ public final class ViewUtils {
      *     blocksDescendants : ViewGroup 会覆盖子类控件而直接获得焦点
      *     android:descendantFocusability="blocksDescendants"
      * </pre>
-     * @param view         {@link ViewGroup}
+     * @param viewGroup    {@link ViewGroup}
      * @param focusability {@link ViewGroup#FOCUS_BEFORE_DESCENDANTS}、{@link ViewGroup#FOCUS_AFTER_DESCENDANTS}、{@link ViewGroup#FOCUS_BLOCK_DESCENDANTS}
      * @param <T>          泛型
      * @return {@link ViewGroup}
      */
-    public static <T extends ViewGroup> T setDescendantFocusability(final T view, final int focusability) {
+    public static <T extends ViewGroup> T setDescendantFocusability(final T viewGroup, final int focusability) {
         try {
-            if (view != null) view.setDescendantFocusability(focusability);
+            if (viewGroup != null) viewGroup.setDescendantFocusability(focusability);
         } catch (Exception e) {
             LogPrintUtils.eTag(TAG, e, "setDescendantFocusability");
         }
-        return view;
+        return viewGroup;
     }
 
     /**

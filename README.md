@@ -35,19 +35,19 @@
 
 - [Change Log](https://github.com/afkT/DevUtils/blob/master/lib/DevJava/CHANGELOG.md)
 
+### DevWidget - 自定义 View UI 库
+
+- [README - API](https://github.com/afkT/DevUtils/blob/master/lib/DevWidget/README_API.md)
+
+- [Preview README](https://github.com/afkT/DevUtils/blob/master/lib/DevWidget)
+
+- [Change Log](https://github.com/afkT/DevUtils/blob/master/lib/DevWidget/CHANGELOG.md)
+
 ### DevEnvironment - Android 环境配置切换库
 
 - [README - API](https://github.com/afkT/DevUtils/blob/master/lib/Environment)
 
 - [Change Log](https://github.com/afkT/DevUtils/blob/master/lib/Environment/DevEnvironment/CHANGELOG.md)
-
-### DevWidget - 自定义 View UI 库
-
-- [README - API](https://github.com/afkT/DevUtils/blob/master/lib/Widget/DevWidget/README_API.md)
-
-- [Preview README](https://github.com/afkT/DevUtils/blob/master/lib/Widget/DevWidget)
-
-- [Change Log](https://github.com/afkT/DevUtils/blob/master/lib/Widget/DevWidget/CHANGELOG.md)
 
 
 ## Other

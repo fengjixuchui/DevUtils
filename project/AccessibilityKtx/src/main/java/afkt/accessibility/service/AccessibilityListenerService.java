@@ -31,6 +31,7 @@ public final class AccessibilityListenerService extends AccessibilityService {
 
     // 日志 TAG
     private static final String TAG = AccessibilityService.class.getSimpleName();
+
     // 当前服务所持对象
     private static AccessibilityListenerService sSelf;
 
@@ -211,10 +212,10 @@ public final class AccessibilityListenerService extends AccessibilityService {
     // = 新增 =
     // ========
 
-    private TrackerWindowManager mTrackerWindowManager;
-    public static final String COMMAND = "COMMAND";
-    public static final String COMMAND_OPEN = "COMMAND_OPEN";
-    public static final String COMMAND_CLOSE = "COMMAND_CLOSE";
+    private             TrackerWindowManager mTrackerWindowManager;
+    public static final String               COMMAND       = "COMMAND";
+    public static final String               COMMAND_OPEN  = "COMMAND_OPEN";
+    public static final String               COMMAND_CLOSE = "COMMAND_CLOSE";
 
     private void initTrackerWindowManager() {
         if (mTrackerWindowManager == null)
