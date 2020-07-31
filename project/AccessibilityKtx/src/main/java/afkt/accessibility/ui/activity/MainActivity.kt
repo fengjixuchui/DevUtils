@@ -41,11 +41,11 @@ class MainActivity : AppCompatActivity() {
         binding.vidAmActivityTrackerBtn.setOnClickListener {
             if (AccessibilityListenerService.checkAccessibility()) {
                 startService(
-                    Intent(this@MainActivity, AccessibilityListenerService::class.java)
-                        .putExtra(
-                            AccessibilityListenerService.COMMAND,
-                            AccessibilityListenerService.COMMAND_OPEN
-                        )
+                        Intent(this@MainActivity, AccessibilityListenerService::class.java)
+                                .putExtra(
+                                        AccessibilityListenerService.COMMAND,
+                                        AccessibilityListenerService.COMMAND_OPEN
+                                )
                 )
                 ActivityUtils.startHomeActivity()
             } else {
@@ -66,8 +66,8 @@ class MainActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!Settings.canDrawOverlays(this)) {
                 startActivityForResult(
-                    IntentUtils.getManageOverlayPermissionIntent(),
-                    REQUEST_CODE
+                        IntentUtils.getManageOverlayPermissionIntent(),
+                        REQUEST_CODE
                 )
                 ToastUtils.showLong(R.string.str_open_floating_tips)
             }

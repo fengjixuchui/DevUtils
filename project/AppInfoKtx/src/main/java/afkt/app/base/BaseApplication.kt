@@ -30,11 +30,11 @@ class BaseApplication : MultiDexApplication() {
         if (BuildConfig.DEBUG) {
             // 初始化 Logger 配置
             DevLogger.init(
-                LogConfig()
-                    .logLevel(LogLevel.DEBUG)
-                    .tag(AppConfig.LOG_TAG)
-                    .sortLog(true)
-                    .methodCount(0)
+                    LogConfig()
+                            .logLevel(LogLevel.DEBUG)
+                            .tag(AppConfig.LOG_TAG)
+                            .sortLog(true)
+                            .methodCount(0)
             )
             // 打开 lib 内部日志 - 线上环境, 不调用方法就行
             DevUtils.openLog()
@@ -59,8 +59,8 @@ class BaseApplication : MultiDexApplication() {
             override fun handleException(ex: Throwable?) {
                 // 保存日志信息
                 FileRecordUtils.saveErrorLog(
-                    ex, PathConfig.AEP_ERROR_PATH,
-                    "crash_" + DateUtils.getDateNow() + ".txt"
+                        ex, PathConfig.AEP_ERROR_PATH,
+                        "crash_" + DateUtils.getDateNow() + ".txt"
                 )
             }
 
@@ -89,8 +89,8 @@ class BaseApplication : MultiDexApplication() {
                 }
             }
         })
-            .register(ViewAssist.TYPE_ING, R.layout.state_layout_ing)
-            .register(ViewAssist.TYPE_EMPTY_DATA, R.layout.state_layout_no_data)
+                .register(ViewAssist.TYPE_ING, R.layout.state_layout_ing)
+                .register(ViewAssist.TYPE_EMPTY_DATA, R.layout.state_layout_no_data)
         // 设置全局配置
         StateLayout.setGlobal(global)
     }

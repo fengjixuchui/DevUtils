@@ -89,11 +89,11 @@ class InfoFragment : BaseFragment() {
                     if (adapter?.data != null) {
                         val content: String? = DeviceInfoBean.jsonString(adapter?.data)
                         var fileName =
-                            if (TypeEnum.DEVICE_INFO == it) "device_info.txt" else "screen_info.txt"
+                                if (TypeEnum.DEVICE_INFO == it) "device_info.txt" else "screen_info.txt"
                         // 导出数据
                         var result = FileUtils.saveFile(
-                            FileUtils.getFile(PathConfig.AEP_PATH, fileName),
-                            content?.toByteArray()
+                                FileUtils.getFile(PathConfig.AEP_PATH, fileName),
+                                content?.toByteArray()
                         )
                         if (result) {
                             ToastTintUtils.success(ResourceUtils.getString(R.string.str_export_suc))

@@ -15,7 +15,7 @@ import dev.utils.app.toast.ToastTintUtils
  * @author Ttt
  */
 class KeyValueAdapter(data: MutableList<KeyValueBean>) :
-    BaseQuickAdapter<KeyValueBean, BaseViewHolder>(R.layout.adapter_item_key_value, data) {
+        BaseQuickAdapter<KeyValueBean, BaseViewHolder>(R.layout.adapter_item_key_value, data) {
 
     init {
         setOnItemClickListener(object : OnItemClickListener {
@@ -36,7 +36,7 @@ class KeyValueAdapter(data: MutableList<KeyValueBean>) :
 
     override fun convert(holder: BaseViewHolder, item: KeyValueBean) {
         holder.setText(R.id.vid_aikv_key_tv, item.key)
-            .setText(R.id.vid_aikv_value_tv, item.value)
+                .setText(R.id.vid_aikv_value_tv, item.value)
     }
 
     // =

@@ -65,8 +65,8 @@ class AppListFragment : BaseFragment() {
         binding = FragmentAppBinding.bind(view)
 
         whorlView = ViewUtils.findViewById(
-            binding.vidFaState.getView(ViewAssist.TYPE_ING),
-            R.id.vid_sli_load_view
+                binding.vidFaState.getView(ViewAssist.TYPE_ING),
+                R.id.vid_sli_load_view
         )
         // 设置监听
         binding.vidFaState.setListener(object : StateLayout.Listener {
@@ -83,9 +83,9 @@ class AppListFragment : BaseFragment() {
 
             override fun onChange(layout: StateLayout, type: Int, oldType: Int, view: View) {
                 if (ViewUtils.reverseVisibilitys(
-                        type == ViewAssist.TYPE_SUCCESS,
-                        binding.vidFaRefresh, binding.vidFaState
-                    )
+                                type == ViewAssist.TYPE_SUCCESS,
+                                binding.vidFaRefresh, binding.vidFaState
+                        )
                 ) {
                     whorlView?.stop()
                     binding.vidFaRefresh.finishRefresh()
@@ -103,12 +103,12 @@ class AppListFragment : BaseFragment() {
                                 ResourceUtils.getString(R.string.str_search_noresult_tips_1)
                             } else {
                                 ResourceUtils.getString(
-                                    R.string.str_search_noresult_tips,
-                                    HtmlUtils.addHtmlColor(searchContent, "#359AFF")
+                                        R.string.str_search_noresult_tips,
+                                        HtmlUtils.addHtmlColor(searchContent, "#359AFF")
                                 )
                             }
                             TextViewUtils.setHtmlText(
-                                view.findViewById<TextView>(R.id.vid_slnd_tips_tv), tips
+                                    view.findViewById<TextView>(R.id.vid_slnd_tips_tv), tips
                             )
                         }
                     }

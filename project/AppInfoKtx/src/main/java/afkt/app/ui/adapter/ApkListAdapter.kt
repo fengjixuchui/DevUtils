@@ -21,7 +21,7 @@ import dev.utils.common.FileUtils
  * @author Ttt
  */
 class ApkListAdapter(data: MutableList<FileApkItem>?) :
-    BaseQuickAdapter<FileApkItem, BaseViewHolder>(R.layout.adapter_item_app, data) {
+        BaseQuickAdapter<FileApkItem, BaseViewHolder>(R.layout.adapter_item_app, data) {
 
     init {
         setOnItemClickListener(object : OnItemClickListener {
@@ -42,17 +42,17 @@ class ApkListAdapter(data: MutableList<FileApkItem>?) :
     override fun convert(holder: BaseViewHolder, item: FileApkItem) {
         var appInfoBean = item.appInfoBean
         holder.setText(R.id.vid_aia_name_tv, appInfoBean.appName)
-            .setText(R.id.vid_aia_pack_tv, appInfoBean.appPackName)
-            .setImageDrawable(R.id.vid_aia_igview, appInfoBean.appIcon)
+                .setText(R.id.vid_aia_pack_tv, appInfoBean.appPackName)
+                .setImageDrawable(R.id.vid_aia_igview, appInfoBean.appIcon)
 
         var vid_aia_name_tv: TextView = holder.getView(R.id.vid_aia_name_tv)
         var vid_aia_pack_tv: TextView = holder.getView(R.id.vid_aia_pack_tv)
         if (FileUtils.isFileExists(item.uri)) {
             ViewHelper.get().setAntiAliasFlag(vid_aia_name_tv)
-                .setAntiAliasFlag(vid_aia_pack_tv)
+                    .setAntiAliasFlag(vid_aia_pack_tv)
         } else {
             ViewHelper.get().setStrikeThruText(vid_aia_name_tv)
-                .setStrikeThruText(vid_aia_pack_tv)
+                    .setStrikeThruText(vid_aia_pack_tv)
         }
     }
 

@@ -40,10 +40,10 @@ object PathConfig {
     fun createFolder() {
         // 默认创建的文件夹路径
         FileUtils.createFolderByPaths(
-            AEP_APPMSG_PATH,
-            AEP_APKMSG_PATH,
-            AEP_APK_PATH,
-            AEP_ERROR_PATH
+                AEP_APPMSG_PATH,
+                AEP_APKMSG_PATH,
+                AEP_APK_PATH,
+                AEP_ERROR_PATH
         )
     }
 }

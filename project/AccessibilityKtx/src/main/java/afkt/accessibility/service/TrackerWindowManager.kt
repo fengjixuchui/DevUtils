@@ -34,8 +34,8 @@ class TrackerWindowManager(private val mContext: Context) {
             }
             params.format = PixelFormat.RGBA_8888
             params.flags =
-                (WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
-                        or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
+                    (WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                            or WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE)
             LAYOUT_PARAMS = params
         }
     }

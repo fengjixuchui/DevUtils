@@ -18,7 +18,7 @@ import dev.utils.app.toast.ToastTintUtils
  * @author Ttt
  */
 class AppListAdapter(data: MutableList<AppInfoBean>?) :
-    BaseQuickAdapter<AppInfoBean, BaseViewHolder>(R.layout.adapter_item_app, data) {
+        BaseQuickAdapter<AppInfoBean, BaseViewHolder>(R.layout.adapter_item_app, data) {
 
     init {
         setOnItemClickListener(object : OnItemClickListener {
@@ -38,7 +38,7 @@ class AppListAdapter(data: MutableList<AppInfoBean>?) :
 
     override fun convert(holder: BaseViewHolder, item: AppInfoBean) {
         holder.setText(R.id.vid_aia_name_tv, item.appName)
-            .setText(R.id.vid_aia_pack_tv, item.appPackName)
-            .setImageDrawable(R.id.vid_aia_igview, item.appIcon)
+                .setText(R.id.vid_aia_pack_tv, item.appPackName)
+                .setImageDrawable(R.id.vid_aia_igview, item.appIcon)
     }
 }

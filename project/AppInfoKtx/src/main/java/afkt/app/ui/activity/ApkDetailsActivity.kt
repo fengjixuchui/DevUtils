@@ -47,7 +47,7 @@ class ApkDetailsActivity : AppCompatActivity(), View.OnClickListener {
     fun init() {
         try {
             apkInfoItem =
-                AppInfoUtils.getApkInfoItem(intent.getStringExtra(Constants.Key.KEY_APK_URI))
+                    AppInfoUtils.getApkInfoItem(intent.getStringExtra(Constants.Key.KEY_APK_URI))
         } catch (e: Exception) {
             DevLogger.e(e)
         }
@@ -73,9 +73,9 @@ class ApkDetailsActivity : AppCompatActivity(), View.OnClickListener {
         // 获取 APP 信息
         val appInfoBean = apkInfoItem!!.appInfoBean
         ViewHelper.get()
-            .setImageDrawable(binding.vidAadAppIgview, appInfoBean.appIcon) // 设置 app 图标
-            .setText(binding.vidAadNameTv, appInfoBean.appName) // 设置 app 名
-            .setText(binding.vidAadVnameTv, appInfoBean.versionName) // 设置 app 版本
+                .setImageDrawable(binding.vidAadAppIgview, appInfoBean.appIcon) // 设置 app 图标
+                .setText(binding.vidAadNameTv, appInfoBean.appName) // 设置 app 名
+                .setText(binding.vidAadVnameTv, appInfoBean.versionName) // 设置 app 版本
 
         binding.vidAadRecy.adapter = KeyValueAdapter(apkInfoItem!!.listKeyValues)
         binding.vidAadInstallTv.setOnClickListener(this)
@@ -97,23 +97,23 @@ class ApkDetailsActivity : AppCompatActivity(), View.OnClickListener {
                             AppUtils.installApp(sourceDir) // 安装 APK
                         } else {
                             PermissionUtils.permission(
-                                Manifest.permission.REQUEST_INSTALL_PACKAGES
+                                    Manifest.permission.REQUEST_INSTALL_PACKAGES
                             ).callBack(object : PermissionUtils.PermissionCallBack {
                                 override fun onGranted() {
                                     AppUtils.installApp(sourceDir) // 安装 APK
                                 }
 
                                 override fun onDenied(
-                                    grantedList: List<String>,
-                                    deniedList: List<String>,
-                                    notFoundList: List<String>
+                                        grantedList: List<String>,
+                                        deniedList: List<String>,
+                                        notFoundList: List<String>
                                 ) {
                                     var builder = StringBuilder()
-                                        .append("申请通过的权限" + Arrays.toString(grantedList.toTypedArray()))
-                                        .append(StringUtils.NEW_LINE_STR)
-                                        .append("拒绝的权限" + deniedList.toString())
-                                        .append(StringUtils.NEW_LINE_STR)
-                                        .append("未找到的权限" + notFoundList.toString())
+                                            .append("申请通过的权限" + Arrays.toString(grantedList.toTypedArray()))
+                                            .append(StringUtils.NEW_LINE_STR)
+                                            .append("拒绝的权限" + deniedList.toString())
+                                            .append(StringUtils.NEW_LINE_STR)
+                                            .append("未找到的权限" + notFoundList.toString())
                                     if (deniedList.isNotEmpty()) {
                                         DevLogger.d(builder.toString())
                                         ToastTintUtils.info(ResourceUtils.getString(R.string.str_install_request_tips))

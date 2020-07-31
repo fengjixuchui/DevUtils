@@ -53,8 +53,8 @@ class ScanSDCardUtils private constructor() {
             }
 
             override fun OnEndListener(
-                rootFileItem: FileBreadthFirstSearchUtils.FileItem?,
-                startTime: Long, endTime: Long
+                    rootFileItem: FileBreadthFirstSearchUtils.FileItem?,
+                    startTime: Long, endTime: Long
             ) {
                 var diff = endTime - startTime
                 DevLogger.d("搜索耗时: " + diff + " ms")
@@ -65,7 +65,7 @@ class ScanSDCardUtils private constructor() {
             }
         })
         utils.setQueueSameTimeNumber(DevThreadManager.getInstance(2).calcThreads)
-            .setDelayTime(100L)
+                .setDelayTime(100L)
     }
 
     /**
@@ -103,10 +103,10 @@ class ScanSDCardUtils private constructor() {
             val appInfoBean = AppInfoUtils.getAppInfoBeanToPath(file.path)
             appInfoBean?.let {
                 lists.add(
-                    FileApkItem(
-                        file, file.name, file.path,
-                        appInfoBean
-                    )
+                        FileApkItem(
+                                file, file.name, file.path,
+                                appInfoBean
+                        )
                 )
             }
         }

@@ -8,13 +8,13 @@ import java.io.File
  * @author Ttt
  */
 class FileApkItem(
-    val file: File,
-    // 文件名字 ( 前缀.后缀 )
-    val name: String,
-    // 文件地址
-    val uri: String,
-    // APP 信息
-    val appInfoBean: AppInfoBean
+        val file: File,
+        // 文件名字 ( 前缀.后缀 )
+        val name: String,
+        // 文件地址
+        val uri: String,
+        // APP 信息
+        val appInfoBean: AppInfoBean
 ) {
     // 文件最后操作时间
     val lastModified: Long = file.lastModified()

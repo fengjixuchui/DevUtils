@@ -16,7 +16,7 @@ import dev.utils.app.toast.ToastTintUtils
  * @author Ttt
  */
 class InfoAdapter(data: MutableList<DeviceInfoItem>?) :
-    BaseQuickAdapter<DeviceInfoItem, BaseViewHolder>(R.layout.adapter_item_device_info, data) {
+        BaseQuickAdapter<DeviceInfoItem, BaseViewHolder>(R.layout.adapter_item_device_info, data) {
 
     init {
         setOnItemClickListener(object : OnItemClickListener {
@@ -34,6 +34,6 @@ class InfoAdapter(data: MutableList<DeviceInfoItem>?) :
 
     override fun convert(holder: BaseViewHolder, item: DeviceInfoItem) {
         holder.setText(R.id.vid_aidi_value_tv, item.value)
-            .setText(R.id.vid_aidi_key_tv, ResourceUtils.getString(item.resId))
+                .setText(R.id.vid_aidi_key_tv, ResourceUtils.getString(item.resId))
     }
 }
