@@ -26,11 +26,11 @@ class BaseApplication : MultiDexApplication() {
         if (BuildConfig.DEBUG) {
             // 初始化 Logger 配置
             DevLogger.init(
-                    LogConfig()
-                            .logLevel(LogLevel.DEBUG)
-                            .tag(TAG)
-                            .sortLog(true)
-                            .methodCount(0)
+                LogConfig()
+                    .logLevel(LogLevel.DEBUG)
+                    .tag(TAG)
+                    .sortLog(true)
+                    .methodCount(0)
             )
             // 打开 lib 内部日志 - 线上环境, 不调用方法就行
             DevUtils.openLog()
@@ -46,8 +46,8 @@ class BaseApplication : MultiDexApplication() {
     private fun initService() {
         AccessibilityListenerService.setAccessibilityListener(object : AccessibilityListener() {
             override fun onAccessibilityEvent(
-                    event: AccessibilityEvent,
-                    service: AccessibilityListenerService
+                event: AccessibilityEvent,
+                service: AccessibilityListenerService
             ) {
                 // 打印 Event 信息
 //                AccessibilityUtils.printAccessibilityEvent(event)
@@ -59,10 +59,10 @@ class BaseApplication : MultiDexApplication() {
                         val className = it.className
                         if (!TextUtils.isEmpty(packageName) && !TextUtils.isEmpty(className)) {
                             EventBusUtils.post(
-                                    ActivityChangedEvent(
-                                            it.packageName.toString(),
-                                            it.className.toString()
-                                    )
+                                ActivityChangedEvent(
+                                    it.packageName.toString(),
+                                    it.className.toString()
+                                )
                             )
                         }
                     }
@@ -102,16 +102,16 @@ class BaseApplication : MultiDexApplication() {
         info?.let {
             if (it.childCount == 0) {
                 builder
-                        .append(StringUtils.NEW_LINE_STR)
-                        .append(StringUtils.appendSpace(index) + "child widget: " + it.className)
-                        .append(StringUtils.NEW_LINE_STR)
-                        .append(StringUtils.appendSpace(index) + "showDialog: " + it.canOpenPopup())
-                        .append(StringUtils.NEW_LINE_STR)
-                        .append(StringUtils.appendSpace(index) + "windowId: " + it.windowId)
-                        .append(StringUtils.NEW_LINE_STR)
-                        .append(StringUtils.appendSpace(index) + "Text: " + it.text)
-                        .append(StringUtils.NEW_LINE_STR)
-                        .append(StringUtils.appendSpace(index) + "itViewId: " + it.viewIdResourceName)
+                    .append(StringUtils.NEW_LINE_STR)
+                    .append(StringUtils.appendSpace(index) + "child widget: " + it.className)
+                    .append(StringUtils.NEW_LINE_STR)
+                    .append(StringUtils.appendSpace(index) + "showDialog: " + it.canOpenPopup())
+                    .append(StringUtils.NEW_LINE_STR)
+                    .append(StringUtils.appendSpace(index) + "windowId: " + it.windowId)
+                    .append(StringUtils.NEW_LINE_STR)
+                    .append(StringUtils.appendSpace(index) + "Text: " + it.text)
+                    .append(StringUtils.NEW_LINE_STR)
+                    .append(StringUtils.appendSpace(index) + "itViewId: " + it.viewIdResourceName)
             } else {
                 for (i in 0 until it.childCount) {
                     track(it.getChild(i), builder, index + 1)

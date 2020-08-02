@@ -56,8 +56,8 @@ class ScanSDCardFragment : BaseFragment() {
         binding = FragmentAppBinding.bind(view)
 
         whorlView = ViewUtils.findViewById(
-                binding.vidFaState.getView(ViewAssist.TYPE_ING),
-                R.id.vid_sli_load_view
+            binding.vidFaState.getView(ViewAssist.TYPE_ING),
+            R.id.vid_sli_load_view
         )
         // 设置监听
         binding.vidFaState.setListener(object : StateLayout.Listener {
@@ -74,9 +74,9 @@ class ScanSDCardFragment : BaseFragment() {
 
             override fun onChange(layout: StateLayout, type: Int, oldType: Int, view: View) {
                 if (ViewUtils.reverseVisibilitys(
-                                type == ViewAssist.TYPE_SUCCESS,
-                                binding.vidFaRefresh, binding.vidFaState
-                        )
+                        type == ViewAssist.TYPE_SUCCESS,
+                        binding.vidFaRefresh, binding.vidFaState
+                    )
                 ) {
                     whorlView?.stop()
                     binding.vidFaRefresh.finishRefresh()
@@ -94,12 +94,12 @@ class ScanSDCardFragment : BaseFragment() {
                                 ResourceUtils.getString(R.string.str_search_noresult_tips_1)
                             } else {
                                 ResourceUtils.getString(
-                                        R.string.str_search_noresult_tips,
-                                        HtmlUtils.addHtmlColor(searchContent, "#359AFF")
+                                    R.string.str_search_noresult_tips,
+                                    HtmlUtils.addHtmlColor(searchContent, "#359AFF")
                                 )
                             }
                             TextViewUtils.setHtmlText(
-                                    view.findViewById<TextView>(R.id.vid_slnd_tips_tv), tips
+                                view.findViewById<TextView>(R.id.vid_slnd_tips_tv), tips
                             )
                         }
                     }
@@ -115,16 +115,16 @@ class ScanSDCardFragment : BaseFragment() {
 
         var itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
             override fun getMovementFlags(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
             ): Int {
                 return makeMovementFlags(0, ItemTouchHelper.LEFT or ItemTouchHelper.RIGHT)
             }
 
             override fun onMove(
-                    recyclerView: RecyclerView,
-                    viewHolder: RecyclerView.ViewHolder,
-                    target: RecyclerView.ViewHolder
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
             ): Boolean {
                 return false
             }
@@ -239,24 +239,24 @@ class ScanSDCardFragment : BaseFragment() {
      */
     fun requestReadWrite(refresh: Boolean) {
         PermissionUtils.permission(
-                Manifest.permission.READ_EXTERNAL_STORAGE,
-                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
         ).callBack(object : PermissionUtils.PermissionCallBack {
             override fun onGranted() {
                 ScanSDCardUtils.instance.query(refresh) // 扫描 SDCard
             }
 
             override fun onDenied(
-                    grantedList: List<String>,
-                    deniedList: List<String>,
-                    notFoundList: List<String>
+                grantedList: List<String>,
+                deniedList: List<String>,
+                notFoundList: List<String>
             ) {
                 var builder = StringBuilder()
-                        .append("申请通过的权限" + Arrays.toString(grantedList.toTypedArray()))
-                        .append(StringUtils.NEW_LINE_STR)
-                        .append("拒绝的权限" + deniedList.toString())
-                        .append(StringUtils.NEW_LINE_STR)
-                        .append("未找到的权限" + notFoundList.toString())
+                    .append("申请通过的权限" + Arrays.toString(grantedList.toTypedArray()))
+                    .append(StringUtils.NEW_LINE_STR)
+                    .append("拒绝的权限" + deniedList.toString())
+                    .append(StringUtils.NEW_LINE_STR)
+                    .append("未找到的权限" + notFoundList.toString())
                 if (deniedList.isNotEmpty()) {
                     DevLogger.d(builder.toString())
                     ToastTintUtils.info(ResourceUtils.getString(R.string.str_read_write_request_tips))

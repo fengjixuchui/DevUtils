@@ -20,9 +20,9 @@ object AppSearchUtils {
         var filter = ArrayList<AppInfoBean>()
         for (item in lists) {
             if (DevCommonUtils.isContains(
-                            true,
-                            searchContent, item.appName, item.appPackName
-                    )
+                    true,
+                    searchContent, item.appName, item.appPackName
+                )
             ) {
                 filter.add(item)
             }
@@ -39,9 +39,9 @@ object AppSearchUtils {
         var filter = ArrayList<FileApkItem>()
         for (item in lists) {
             if (DevCommonUtils.isContains(
-                            true,
-                            searchContent, item.appInfoBean.appName, item.appInfoBean.appPackName
-                    )
+                    true,
+                    searchContent, item.appInfoBean.appName, item.appInfoBean.appPackName
+                )
             ) {
                 filter.add(item)
             }

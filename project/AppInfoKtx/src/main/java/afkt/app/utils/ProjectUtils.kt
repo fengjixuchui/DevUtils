@@ -71,31 +71,31 @@ object ProjectUtils {
         lists.add(DeviceInfoItem(R.string.str_info_screen_size, ScreenUtils.getScreenSize()))
         // 手机总空间
         lists.add(
-                DeviceInfoItem(
-                        R.string.str_info_sdcard_total,
-                        SDCardUtils.getAllBlockSizeFormat()
-                )
+            DeviceInfoItem(
+                R.string.str_info_sdcard_total,
+                SDCardUtils.getAllBlockSizeFormat()
+            )
         )
         // 手机可用空间
         lists.add(
-                DeviceInfoItem(
-                        R.string.str_info_sdcard_available,
-                        SDCardUtils.getAvailableBlocksFormat()
-                )
+            DeviceInfoItem(
+                R.string.str_info_sdcard_available,
+                SDCardUtils.getAvailableBlocksFormat()
+            )
         )
         // 手机总内存
         lists.add(
-                DeviceInfoItem(
-                        R.string.str_info_memory_total,
-                        MemoryUtils.getTotalMemoryFormat()
-                )
+            DeviceInfoItem(
+                R.string.str_info_memory_total,
+                MemoryUtils.getTotalMemoryFormat()
+            )
         )
         // 手机可用内存
         lists.add(
-                DeviceInfoItem(
-                        R.string.str_info_memory_available,
-                        MemoryUtils.getMemoryAvailableFormat()
-                )
+            DeviceInfoItem(
+                R.string.str_info_memory_available,
+                MemoryUtils.getMemoryAvailableFormat()
+            )
         )
         // 设备版本号
         lists.add(DeviceInfoItem(R.string.str_info_id, Build.ID))
@@ -115,10 +115,10 @@ object ProjectUtils {
         lists.add(DeviceInfoItem(R.string.str_info_baseband_version, DeviceUtils.getBaseband_Ver()))
         // 内核版本
         lists.add(
-                DeviceInfoItem(
-                        R.string.str_info_linuxcode_version,
-                        DeviceUtils.getLinuxCore_Ver()
-                )
+            DeviceInfoItem(
+                R.string.str_info_linuxcode_version,
+                DeviceUtils.getLinuxCore_Ver()
+            )
         )
         // 序列号
         lists.add(DeviceInfoItem(R.string.str_info_serial, Build.SERIAL))
@@ -138,10 +138,10 @@ object ProjectUtils {
         supportedAbis?.let { lists.add(DeviceInfoItem(R.string.str_info_supported_abis, it)) }
         // CPU 数量
         lists.add(
-                DeviceInfoItem(
-                        R.string.str_info_cpu_number,
-                        CPUUtils.getCoresNumbers().toString()
-                )
+            DeviceInfoItem(
+                R.string.str_info_cpu_number,
+                CPUUtils.getCoresNumbers().toString()
+            )
         )
         // CPU 最高 HZ
         lists.add(DeviceInfoItem(R.string.str_info_cpu_max, CPUUtils.getMaxCpuFreq()))
@@ -179,17 +179,17 @@ object ProjectUtils {
         lists.add(DeviceInfoItem(R.string.str_info_screen_size, ScreenUtils.getScreenSize()))
         // 屏幕高度
         lists.add(
-                DeviceInfoItem(
-                        R.string.str_info_height_pixels,
-                        ScreenUtils.getScreenHeight().toString()
-                )
+            DeviceInfoItem(
+                R.string.str_info_height_pixels,
+                ScreenUtils.getScreenHeight().toString()
+            )
         )
         // 屏幕宽度
         lists.add(
-                DeviceInfoItem(
-                        R.string.str_info_width_pixels,
-                        ScreenUtils.getScreenWidth().toString()
-                )
+            DeviceInfoItem(
+                R.string.str_info_width_pixels,
+                ScreenUtils.getScreenWidth().toString()
+            )
         )
         // X 轴 dpi
         lists.add(DeviceInfoItem(R.string.str_info_xdpi, ScreenUtils.getXDpi().toString()))
@@ -199,24 +199,24 @@ object ProjectUtils {
         lists.add(DeviceInfoItem(R.string.str_info_density, ScreenUtils.getDensity().toString()))
         // 屏幕密度 dpi
         lists.add(
-                DeviceInfoItem(
-                        R.string.str_info_density_dpi,
-                        ScreenUtils.getDensityDpi().toString()
-                )
+            DeviceInfoItem(
+                R.string.str_info_density_dpi,
+                ScreenUtils.getDensityDpi().toString()
+            )
         )
         // 屏幕缩放密度
         lists.add(
-                DeviceInfoItem(
-                        R.string.str_info_scaled_density,
-                        ScreenUtils.getScaledDensity().toString()
-                )
+            DeviceInfoItem(
+                R.string.str_info_scaled_density,
+                ScreenUtils.getScaledDensity().toString()
+            )
         )
         // 高度 dpi 基准
         lists.add(
-                DeviceInfoItem(
-                        R.string.str_info_height_dpi,
-                        ScreenUtils.getHeightDpi().toString()
-                )
+            DeviceInfoItem(
+                R.string.str_info_height_dpi,
+                ScreenUtils.getHeightDpi().toString()
+            )
         )
         // 宽度 dpi 基准
         lists.add(DeviceInfoItem(R.string.str_info_width_dpi, ScreenUtils.getWidthDpi().toString()))

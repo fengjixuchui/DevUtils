@@ -37,19 +37,19 @@ class FloatingView : LinearLayout {
     }
 
     constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(
-            context,
-            attrs,
-            defStyleAttr
+        context,
+        attrs,
+        defStyleAttr
     ) {
         init()
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     constructor(
-            context: Context?,
-            attrs: AttributeSet?,
-            defStyleAttr: Int,
-            defStyleRes: Int
+        context: Context?,
+        attrs: AttributeSet?,
+        defStyleAttr: Int,
+        defStyleRes: Int
     ) : super(context, attrs, defStyleAttr, defStyleRes) {
         init()
     }
@@ -70,11 +70,11 @@ class FloatingView : LinearLayout {
             ToastUtils.showLong(R.string.str_close_floating)
 
             context.startService(
-                    Intent(context, AccessibilityListenerService::class.java)
-                            .putExtra(
-                                    AccessibilityListenerService.COMMAND,
-                                    AccessibilityListenerService.COMMAND_CLOSE
-                            )
+                Intent(context, AccessibilityListenerService::class.java)
+                    .putExtra(
+                        AccessibilityListenerService.COMMAND,
+                        AccessibilityListenerService.COMMAND_CLOSE
+                    )
             )
         })
     }
@@ -116,13 +116,13 @@ class FloatingView : LinearLayout {
             val className = it.className
 
             val trimName =
-                    if (className.startsWith(packageName)) className.substring(packageName.length) else className
+                if (className.startsWith(packageName)) className.substring(packageName.length) else className
 
             DevLogger.dTag(TAG, "%s -> %s", packageName, trimName)
 
             ViewHelper.get()
-                    .setText(packageNameTv, packageName)
-                    .setText(classNameTv, trimName)
+                .setText(packageNameTv, packageName)
+                .setText(classNameTv, trimName)
         }
     }
 }

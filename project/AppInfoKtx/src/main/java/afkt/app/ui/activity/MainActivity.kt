@@ -67,9 +67,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         setSupportActionBar(binding.vidAmToolbar)
         // 设置切换动画事件等
         val toggle = ActionBarDrawerToggle(
-                MainActivity@ this, binding.vidAmDrawerLayout, binding.vidAmToolbar,
-                R.string.str_navigation_drawer_open,
-                R.string.str_navigation_drawer_close
+            MainActivity@ this, binding.vidAmDrawerLayout, binding.vidAmToolbar,
+            R.string.str_navigation_drawer_open,
+            R.string.str_navigation_drawer_close
         )
         binding.vidAmDrawerLayout.addDrawerListener(toggle)
         toggle.syncState()
@@ -79,26 +79,26 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     fun initFragments() {
         mFragments.putAll(
-                mapOf(
-                        // 用户应用信息
-                        TypeEnum.APP_USER to AppListFragment.get(TypeEnum.APP_USER),
-                        // 系统应用信息
-                        TypeEnum.APP_SYSTEM to AppListFragment.get(TypeEnum.APP_SYSTEM),
-                        // 设备信息
-                        TypeEnum.DEVICE_INFO to InfoFragment.get(TypeEnum.DEVICE_INFO),
-                        // 屏幕信息
-                        TypeEnum.SCREEN_INFO to InfoFragment.get(TypeEnum.SCREEN_INFO),
-                        // 扫描 SDK
-                        TypeEnum.QUERY_APK to ScanSDCardFragment(),
-                        // 设置
-                        TypeEnum.SETTING to SettingFragment()
-                )
+            mapOf(
+                // 用户应用信息
+                TypeEnum.APP_USER to AppListFragment.get(TypeEnum.APP_USER),
+                // 系统应用信息
+                TypeEnum.APP_SYSTEM to AppListFragment.get(TypeEnum.APP_SYSTEM),
+                // 设备信息
+                TypeEnum.DEVICE_INFO to InfoFragment.get(TypeEnum.DEVICE_INFO),
+                // 屏幕信息
+                TypeEnum.SCREEN_INFO to InfoFragment.get(TypeEnum.SCREEN_INFO),
+                // 扫描 SDK
+                TypeEnum.QUERY_APK to ScanSDCardFragment(),
+                // 设置
+                TypeEnum.SETTING to SettingFragment()
+            )
         )
 
         val transaction: FragmentTransaction = supportFragmentManager.beginTransaction()
         for (item in mFragments.values) {
             transaction.add(R.id.vid_am_linear, item, item.toString())
-                    .hide(item)
+                .hide(item)
         }
         transaction.commit()
     }
@@ -226,7 +226,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         menu.clear()
         when (mFragmentType) {
             TypeEnum.DEVICE_INFO, TypeEnum.SCREEN_INFO -> menuInflater.inflate(
-                    R.menu.bar_menu_device, menu
+                R.menu.bar_menu_device, menu
             )
             TypeEnum.APP_USER, TypeEnum.APP_SYSTEM, TypeEnum.QUERY_APK -> {
                 menuInflater.inflate(R.menu.bar_menu_apps, menu)

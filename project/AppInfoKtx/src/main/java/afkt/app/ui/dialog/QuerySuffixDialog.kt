@@ -20,14 +20,14 @@ import dev.utils.app.toast.ToastTintUtils
  * @author Ttt
  */
 class QuerySuffixDialog(context: Context?) :
-        Dialog(context!!, R.style.Theme_Light_FullScreenDialogOperate) {
+    Dialog(context!!, R.style.Theme_Light_FullScreenDialogOperate) {
 
     private var binding: DialogQuerySuffixBinding
 
     init {
         window!!.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE or WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN)
         binding = DialogQuerySuffixBinding.inflate(layoutInflater)
@@ -63,15 +63,15 @@ class QuerySuffixDialog(context: Context?) :
     // ===========
 
     class QuerySuffixAdapter :
-            BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_item_query_suffix, ArrayList()) {
+        BaseQuickAdapter<String, BaseViewHolder>(R.layout.adapter_item_query_suffix, ArrayList()) {
 
         init {
             addChildClickViewIds(R.id.vid_aiqs_framelayout)
             setOnItemChildClickListener(object : OnItemChildClickListener {
                 override fun onItemChildClick(
-                        adapter: BaseQuickAdapter<*, *>,
-                        view: View,
-                        position: Int
+                    adapter: BaseQuickAdapter<*, *>,
+                    view: View,
+                    position: Int
                 ) {
                     var item: String = data[position]
                     if (item.isEmpty()) {
@@ -89,10 +89,10 @@ class QuerySuffixDialog(context: Context?) :
 
         override fun convert(holder: BaseViewHolder, item: String) {
             holder.setText(R.id.vid_aiqs_suffix_tv, item)
-                    .setImageResource(
-                            R.id.vid_aiqs_igview,
-                            if (item.isEmpty()) R.drawable.icon_add else R.drawable.icon_close
-                    )
+                .setImageResource(
+                    R.id.vid_aiqs_igview,
+                    if (item.isEmpty()) R.drawable.icon_add else R.drawable.icon_close
+                )
         }
 
         // =

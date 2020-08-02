@@ -17,7 +17,7 @@ import dev.utils.app.ScreenUtils
  * @author Ttt
  */
 class QuerySuffixEditDialog(
-        context: Context, onClickListener: View.OnClickListener
+    context: Context, onClickListener: View.OnClickListener
 ) : Dialog(context, R.style.Theme_Light_FullScreenDialogOperate) {
 
     private var binding: DialogQuerySuffixEditBinding
@@ -27,8 +27,8 @@ class QuerySuffixEditDialog(
 
     init {
         window!!.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         window!!.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN or WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE)
         binding = DialogQuerySuffixEditBinding.inflate(layoutInflater)

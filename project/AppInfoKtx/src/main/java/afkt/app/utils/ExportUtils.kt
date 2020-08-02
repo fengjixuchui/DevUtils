@@ -54,16 +54,16 @@ object ExportUtils {
             val path = if (isApp) PathConfig.AEP_APPMSG_PATH else PathConfig.AEP_APKMSG_PATH
             // 应用名_包名_版本名.txt
             var fileName =
-                    appInfoBean.appName + "_" + appInfoBean.appPackName + "_" + appInfoBean.versionName + ".txt"
+                appInfoBean.appName + "_" + appInfoBean.appPackName + "_" + appInfoBean.versionName + ".txt"
             // 导出数据
             var result = FileUtils.saveFile(
-                    FileUtils.getFile(path, fileName),
-                    info?.toByteArray()
+                FileUtils.getFile(path, fileName),
+                info?.toByteArray()
             )
             if (result) {
                 ToastTintUtils.success(
-                        ResourceUtils.getString(R.string.str_export_suc)
-                                + " " + path + fileName
+                    ResourceUtils.getString(R.string.str_export_suc)
+                            + " " + path + fileName
                 )
             } else {
                 ToastTintUtils.error(ResourceUtils.getString(R.string.str_export_fail))
@@ -99,13 +99,13 @@ object ExportUtils {
         DevThreadManager.getInstance(3).execute {
             // 应用名_包名_版本名.apk
             var fileName =
-                    appInfoBean.appName + "_" + appInfoBean.appPackName + "_" + appInfoBean.versionName + ".apk"
+                appInfoBean.appName + "_" + appInfoBean.appPackName + "_" + appInfoBean.versionName + ".apk"
 
             val destFile = FileUtils.getFile(PathConfig.AEP_APK_PATH, fileName)
             val destPath = destFile.absolutePath
             if (destFile.exists()) {
                 ToastTintUtils.success(
-                        ResourceUtils.getString(R.string.str_export_suc) + " " + destPath
+                    ResourceUtils.getString(R.string.str_export_suc) + " " + destPath
                 )
                 callback?.let { HandlerUtils.postRunnable { it.onExport(destFile) } }
                 return@execute
@@ -114,11 +114,11 @@ object ExportUtils {
             ToastTintUtils.normal(ResourceUtils.getString(R.string.str_export_ing))
             // 导出应用
             var result = FileUtils.copyFile(
-                    appInfoBean.sourceDir, destPath, true
+                appInfoBean.sourceDir, destPath, true
             )
             if (result) {
                 ToastTintUtils.success(
-                        ResourceUtils.getString(R.string.str_export_suc) + " " + destPath
+                    ResourceUtils.getString(R.string.str_export_suc) + " " + destPath
                 )
                 callback?.let { HandlerUtils.postRunnable { it.onExport(destFile) } }
             } else {

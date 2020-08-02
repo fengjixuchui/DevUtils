@@ -19,14 +19,14 @@ import dev.utils.app.share.SharedUtils
  * @author Ttt
  */
 class AppSortDialog(context: Context?) :
-        Dialog(context!!, R.style.Theme_Light_FullScreenDialogOperate) {
+    Dialog(context!!, R.style.Theme_Light_FullScreenDialogOperate) {
 
     private var binding: DialogAppSortBinding
 
     init {
         window!!.setFlags(
-                WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
         )
         binding = DialogAppSortBinding.inflate(layoutInflater)
         this.setContentView(binding.root)
@@ -56,11 +56,11 @@ class AppSortDialog(context: Context?) :
                 cancel()
             }
             binding.vidDasRadiogroup.addView(
-                    itemView,
-                    ViewGroup.LayoutParams(
-                            ViewGroup.LayoutParams.MATCH_PARENT,
-                            ViewGroup.LayoutParams.WRAP_CONTENT
-                    )
+                itemView,
+                ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+                )
             )
         }
         binding.vidDasRadiogroup.check(ProjectUtils.getAppSortType())

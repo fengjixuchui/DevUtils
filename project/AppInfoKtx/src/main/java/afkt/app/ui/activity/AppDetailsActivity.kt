@@ -39,7 +39,7 @@ class AppDetailsActivity : AppCompatActivity(), View.OnClickListener {
     fun init() {
         try {
             appInfoItem =
-                    AppInfoUtils.getAppInfoItem(getIntent().getStringExtra(Constants.Key.KEY_PACKNAME))
+                AppInfoUtils.getAppInfoItem(getIntent().getStringExtra(Constants.Key.KEY_PACKNAME))
         } catch (e: Exception) {
             DevLogger.e(e)
         }
@@ -65,47 +65,47 @@ class AppDetailsActivity : AppCompatActivity(), View.OnClickListener {
         // 获取 APP 信息
         val appInfoBean = appInfoItem!!.appInfoBean
         ViewHelper.get()
-                .setImageDrawable(binding.vidAadAppIgview, appInfoBean.appIcon) // 设置 app 图标
-                .setText(binding.vidAadNameTv, appInfoBean.appName) // 设置 app 名
-                .setText(binding.vidAadVnameTv, appInfoBean.versionName) // 设置 app 版本
+            .setImageDrawable(binding.vidAadAppIgview, appInfoBean.appIcon) // 设置 app 图标
+            .setText(binding.vidAadNameTv, appInfoBean.appName) // 设置 app 名
+            .setText(binding.vidAadVnameTv, appInfoBean.versionName) // 设置 app 版本
 
         var lists = appInfoItem!!.listKeyValues
         lists.add(
-                0,
-                KeyValueBean.get(
-                        R.string.str_app_market,
-                        ResourceUtils.getString(R.string.str_goto_app_market)
-                )
+            0,
+            KeyValueBean.get(
+                R.string.str_app_market,
+                ResourceUtils.getString(R.string.str_goto_app_market)
+            )
         )
         lists.add(
-                1,
-                KeyValueBean.get(
-                        R.string.str_app_details_setting,
-                        ResourceUtils.getString(R.string.str_goto_app_details_setting)
-                )
+            1,
+            KeyValueBean.get(
+                R.string.str_app_details_setting,
+                ResourceUtils.getString(R.string.str_goto_app_details_setting)
+            )
         )
         binding.vidAadRecy.adapter =
-                KeyValueAdapter(lists).setListener(object : KeyValueAdapter.Listener {
-                    override fun onItemClick(item: KeyValueBean, position: Int): Boolean {
-                        return when (position) {
-                            0 -> {
-                                if (!AppUtils.launchAppDetails(appInfoBean.appPackName, "")) {
-                                    ToastTintUtils.error(ResourceUtils.getString(R.string.str_operate_fail))
-                                }
-                                true
+            KeyValueAdapter(lists).setListener(object : KeyValueAdapter.Listener {
+                override fun onItemClick(item: KeyValueBean, position: Int): Boolean {
+                    return when (position) {
+                        0 -> {
+                            if (!AppUtils.launchAppDetails(appInfoBean.appPackName, "")) {
+                                ToastTintUtils.error(ResourceUtils.getString(R.string.str_operate_fail))
                             }
-                            1 -> {
-                                if (AppUtils.isInstalledApp(appInfoBean.appPackName)) {
-                                    AppUtils.launchAppDetailsSettings(appInfoBean.appPackName)
-                                } else {
-                                    ToastTintUtils.error(ResourceUtils.getString(R.string.str_app_not_exist))
-                                }
-                                true
-                            }
-                            else -> false
+                            true
                         }
+                        1 -> {
+                            if (AppUtils.isInstalledApp(appInfoBean.appPackName)) {
+                                AppUtils.launchAppDetailsSettings(appInfoBean.appPackName)
+                            } else {
+                                ToastTintUtils.error(ResourceUtils.getString(R.string.str_app_not_exist))
+                            }
+                            true
+                        }
+                        else -> false
                     }
-                })
+                }
+            })
         binding.vidAadOpenAppTv.setOnClickListener(this)
         binding.vidAadUninstallTv.setOnClickListener(this)
     }
