@@ -8,10 +8,10 @@ import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.ui.widget.BaseTextView;
 import butterknife.BindView;
-import dev.temp.ChineseUtils;
 import dev.utils.app.TextViewUtils;
 import dev.utils.app.helper.QuickHelper;
 import dev.utils.app.toast.ToastTintUtils;
+import dev.utils.common.ChineseUtils;
 import dev.utils.common.RandomUtils;
 
 /**
@@ -34,7 +34,7 @@ public class TextCalcActivity extends BaseToolbarActivity {
 
         for (int i = 0; i < 15; i++) {
             // 随机字符串
-            String text = ChineseUtils.getRandomWord(RandomUtils.getRandom(100)) + RandomUtils.getRandomLetters(RandomUtils.getRandom(20));
+            String text = ChineseUtils.randomWord(RandomUtils.getRandom(100)) + RandomUtils.getRandomLetters(RandomUtils.getRandom(20));
             String randomText = RandomUtils.getRandom(text.toCharArray(), text.length());
 
             BaseTextView view = QuickHelper.get(new BaseTextView(this))

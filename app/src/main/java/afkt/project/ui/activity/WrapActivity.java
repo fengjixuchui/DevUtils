@@ -11,10 +11,10 @@ import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.ui.widget.BaseTextView;
 import butterknife.BindView;
-import dev.temp.ChineseUtils;
 import dev.utils.app.ResourceUtils;
 import dev.utils.app.ShapeUtils;
 import dev.utils.app.helper.QuickHelper;
+import dev.utils.common.ChineseUtils;
 import dev.utils.common.RandomUtils;
 import dev.widget.ui.WrapView;
 
@@ -74,7 +74,7 @@ public class WrapActivity extends BaseToolbarActivity {
 
         for (int i = 1; i <= 20; i++) {
             // 随机字符串
-            String text = ChineseUtils.getRandomWord(RandomUtils.getRandom(7)) + RandomUtils.getRandomLetters(RandomUtils.getRandom(5));
+            String text = ChineseUtils.randomWord(RandomUtils.getRandom(7)) + RandomUtils.getRandomLetters(RandomUtils.getRandom(5));
             String randomText = i + "." + RandomUtils.getRandom(text.toCharArray(), text.length());
             vid_aw_wrapview.addView(createView(randomText, layoutParams, drawable));
         }

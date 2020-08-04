@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import afkt.project.model.bean.CommodityEvaluateBean;
-import dev.temp.ChineseUtils;
+import dev.utils.common.ChineseUtils;
 import dev.utils.common.RandomUtils;
 
 /**
@@ -24,7 +24,7 @@ public class EvaluateItem {
 
     public EvaluateItem() {
         // 随机字符串
-        String text = ChineseUtils.getRandomWord(RandomUtils.getRandom(50)) + RandomUtils.getRandomLetters(RandomUtils.getRandom(10));
+        String text = ChineseUtils.randomWord(RandomUtils.getRandom(50)) + RandomUtils.getRandomLetters(RandomUtils.getRandom(10));
         String randomText = RandomUtils.getRandom(text.toCharArray(), text.length());
 
         evaluateContent = randomText;

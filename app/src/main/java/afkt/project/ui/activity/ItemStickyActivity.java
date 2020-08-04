@@ -15,10 +15,10 @@ import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.model.bean.ItemStickyBean;
 import afkt.project.ui.adapter.ItemStickyAdapter;
 import butterknife.BindView;
-import dev.temp.ChineseUtils;
 import dev.utils.app.ResourceUtils;
 import dev.utils.app.SizeUtils;
 import dev.utils.app.helper.ViewHelper;
+import dev.utils.common.ChineseUtils;
 import dev.utils.common.DateUtils;
 import dev.utils.common.RandomUtils;
 
@@ -110,37 +110,37 @@ public class ItemStickyActivity extends BaseToolbarActivity {
         long time = System.currentTimeMillis();
 
         for (int i = 0; i < 8; i++) {
-            lists.add(new ItemStickyBean(ChineseUtils.getRandomWord(RandomUtils.getRandom(3, 12)), time));
+            lists.add(new ItemStickyBean(ChineseUtils.randomWord(RandomUtils.getRandom(3, 12)), time));
         }
 
         time -= DateUtils.DAY;
         for (int i = 0; i < 5; i++) {
-            lists.add(new ItemStickyBean(ChineseUtils.getRandomWord(RandomUtils.getRandom(3, 12)), time));
+            lists.add(new ItemStickyBean(ChineseUtils.randomWord(RandomUtils.getRandom(3, 12)), time));
         }
 
         time -= DateUtils.DAY * 3;
         for (int i = 0; i < 4; i++) {
-            lists.add(new ItemStickyBean(ChineseUtils.getRandomWord(RandomUtils.getRandom(3, 12)), time));
+            lists.add(new ItemStickyBean(ChineseUtils.randomWord(RandomUtils.getRandom(3, 12)), time));
         }
 
         time -= DateUtils.DAY * 2;
         for (int i = 0; i < 6; i++) {
-            lists.add(new ItemStickyBean(ChineseUtils.getRandomWord(RandomUtils.getRandom(3, 12)), time));
+            lists.add(new ItemStickyBean(ChineseUtils.randomWord(RandomUtils.getRandom(3, 12)), time));
         }
 
         time -= DateUtils.DAY;
         for (int i = 0; i < 7; i++) {
-            lists.add(new ItemStickyBean(ChineseUtils.getRandomWord(RandomUtils.getRandom(3, 12)), time));
+            lists.add(new ItemStickyBean(ChineseUtils.randomWord(RandomUtils.getRandom(3, 12)), time));
         }
 
         time -= DateUtils.DAY * 10;
         for (int i = 0; i < 7; i++) {
-            lists.add(new ItemStickyBean(ChineseUtils.getRandomWord(RandomUtils.getRandom(3, 12)), time));
+            lists.add(new ItemStickyBean(ChineseUtils.randomWord(RandomUtils.getRandom(3, 12)), time));
         }
 
         time -= DateUtils.DAY * 4;
         for (int i = 0; i < 10; i++) {
-            lists.add(new ItemStickyBean(ChineseUtils.getRandomWord(RandomUtils.getRandom(3, 12)), time));
+            lists.add(new ItemStickyBean(ChineseUtils.randomWord(RandomUtils.getRandom(3, 12)), time));
         }
         return lists;
     }
