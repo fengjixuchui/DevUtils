@@ -1,4 +1,4 @@
-package dev.other;
+package dev.other.picture;
 
 import android.content.Intent;
 import android.text.TextUtils;
@@ -27,14 +27,6 @@ import dev.utils.LogPrintUtils;
  *     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
  *     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
  *     <uses-permission android:name="android.permission.CAMERA" />
- *     <p></p>
- *     Android uCrop
- *     @see <a href="https://github.com/Yalantis/uCrop"/>
- *     // 使用裁剪功能需要加入
- *     <activity
- *             android:name="com.yalantis.ucrop.UCropActivity"
- *             android:screenOrientation="portrait"
- *             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
  * </pre>
  */
 public final class PictureSelectorUtils {
@@ -188,20 +180,19 @@ public final class PictureSelectorUtils {
     public static String getLocalMediaPath(final LocalMedia localMedia, final boolean original) {
         if (localMedia != null) {
             if (original) return localMedia.getPath();
-//            // 判断资源类型
-//            switch (localMedia.getMimeType()) {
-//                case PictureConfig.TYPE_IMAGE: // 图片
-//                    if (localMedia.isCompressed()) { // 是否压缩图片
-//                        return localMedia.getCompressPath();
-//                    } else if (localMedia.isCut()) { // 是否裁减图片
-//                        return localMedia.getCutPath();
-//                    } else { // 获取原图
-//                        return localMedia.getPath();
-//                    }
-//                case PictureConfig.TYPE_VIDEO: // 视频
-//                case PictureConfig.TYPE_AUDIO: // 音频
-//                    return localMedia.getPath();
-//            }
+            // 判断资源类型
+            String mimeType = localMedia.getMimeType();
+            if (PictureMimeType.isHasImage(mimeType)) { // 图片
+                if (localMedia.isCompressed()) { // 是否压缩图片
+                    return localMedia.getCompressPath();
+                } else if (localMedia.isCut()) { // 是否裁减图片
+                    return localMedia.getCutPath();
+                } else { // 获取原图
+                    return localMedia.getPath();
+                }
+            } else {
+                return localMedia.getPath();
+            }
         }
         return null;
     }
@@ -265,25 +256,26 @@ public final class PictureSelectorUtils {
 
             // 多选 or 单选 PictureConfig.MULTIPLE or PictureConfig.SINGLE
             pictureSelectionModel.selectionMode(picConfig.selectionMode)
-                    .previewImage(true) // 是否可预览图片 true or false
-                    .previewVideo(true) // 是否可以预览视频 true or false
-                    .enablePreviewAudio(true) // 是否可播放音频 true or false
+                    .imageEngine(GlideEngine.createGlideEngine())
+                    .isPreviewImage(true) // 是否可预览图片 true or false
+                    .isPreviewVideo(true) // 是否可以预览视频 true or false
+                    .isEnablePreviewAudio(true) // 是否可播放音频 true or false
                     .isZoomAnim(true) // 图片列表点击 缩放效果 默认 true
-                    .previewEggs(true) // 预览图片时是否增强左右滑动图片体验 ( 图片滑动一半即可看到上一张是否选中 ) true or false
+                    .isPreviewEggs(true) // 预览图片时是否增强左右滑动图片体验 ( 图片滑动一半即可看到上一张是否选中 ) true or false
                     .imageSpanCount(picConfig.imageSpanCount)// 每行显示个数 int
                     .minSelectNum(picConfig.minSelectNum) // 最小选择数量 int
                     .maxSelectNum(picConfig.maxSelectNum) // 最大图片选择数量 int
                     .isCamera(picConfig.isCamera) // 是否显示拍照按钮 true or false
                     .isGif(picConfig.isGif) // 是否显示 Gif true or false
                     // = 压缩相关 =
-                    .compress(picConfig.isCompress) // 是否压缩 true or false
+                    .isCompress(picConfig.isCompress) // 是否压缩 true or false
                     .minimumCompressSize(picConfig.minimumCompressSize) // 小于 xxkb 的图片不压缩
                     .withAspectRatio(picConfig.withAspectRatio[0], picConfig.withAspectRatio[1]) // 裁剪比例 如 16:9 3:2 3:4 1:1 可自定义
                     // = 裁减相关 =
                     // 判断是否显示圆形裁减
                     .circleDimmedLayer(isCircleCrop)
                     // = 裁减配置 =
-                    .enableCrop(isCrop) // 是否裁剪 true or false
+                    .isEnableCrop(isCrop) // 是否裁剪 true or false
                     .freeStyleCropEnabled(isCrop) // 裁剪框是否可拖拽 true or false
                     .showCropFrame(isCircleCrop ? false : isCrop) // 是否显示裁剪矩形边框 圆形裁剪时建议设为 false
                     .showCropGrid(isCircleCrop ? false : isCrop) // 是否显示裁剪矩形网格 圆形裁剪时建议设为 false
