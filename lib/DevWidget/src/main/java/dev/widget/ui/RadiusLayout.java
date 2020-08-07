@@ -8,7 +8,7 @@ import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import dev.widget.utils.RadiusUtils;
+import dev.widget.utils.RadiusAttrs;
 
 /**
  * detail: 自定义圆角 View
@@ -21,27 +21,27 @@ import dev.widget.utils.RadiusUtils;
  *     app:dev_radius_right_bottom=""
  * </pre>
  */
-public class RadiusView extends FrameLayout {
+public class RadiusLayout extends FrameLayout {
 
-    private RadiusUtils mRadiusUtils;
+    private RadiusAttrs mRadiusAttrs;
 
-    public RadiusView(Context context) {
+    public RadiusLayout(Context context) {
         super(context);
         initAttrs(context, null);
     }
 
-    public RadiusView(Context context, AttributeSet attrs) {
+    public RadiusLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         initAttrs(context, attrs);
     }
 
-    public RadiusView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public RadiusLayout(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         initAttrs(context, attrs);
     }
 
     @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-    public RadiusView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    public RadiusLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
         initAttrs(context, attrs);
     }
@@ -52,33 +52,33 @@ public class RadiusView extends FrameLayout {
      * @param attrs   {@link AttributeSet}
      */
     private void initAttrs(Context context, AttributeSet attrs) {
-        mRadiusUtils = new RadiusUtils(context, attrs);
+        mRadiusAttrs = new RadiusAttrs(context, attrs);
         setWillNotDraw(false);
     }
 
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
-        mRadiusUtils.onSizeChanged(w, h);
+        mRadiusAttrs.onSizeChanged(w, h);
     }
 
     @Override
     public void draw(Canvas canvas) {
         canvas.save();
-        canvas.clipPath(mRadiusUtils.getPath());
+        canvas.clipPath(mRadiusAttrs.getPath());
         super.draw(canvas);
         canvas.restore();
     }
 
     @Override
     protected Parcelable onSaveInstanceState() {
-        return mRadiusUtils.onSaveInstanceState(super.onSaveInstanceState());
+        return mRadiusAttrs.onSaveInstanceState(super.onSaveInstanceState());
     }
 
     @Override
     protected void onRestoreInstanceState(Parcelable state) {
-        super.onRestoreInstanceState(mRadiusUtils.onRestoreInstanceState(state));
-        mRadiusUtils.onSizeChanged(getWidth(), getHeight());
+        super.onRestoreInstanceState(mRadiusAttrs.onRestoreInstanceState(state));
+        mRadiusAttrs.onSizeChanged(getWidth(), getHeight());
     }
 
     // ===========
@@ -88,10 +88,10 @@ public class RadiusView extends FrameLayout {
     /**
      * 设置圆角值
      * @param radius 圆角值
-     * @return {@link RadiusView}
+     * @return {@link RadiusLayout}
      */
-    public RadiusView setRadius(float radius) {
-        mRadiusUtils.setRadius(radius);
+    public RadiusLayout setRadius(float radius) {
+        mRadiusAttrs.setRadius(radius);
         postInvalidate();
         return this;
     }
@@ -99,10 +99,10 @@ public class RadiusView extends FrameLayout {
     /**
      * 设置左上圆角值
      * @param radiusLeftTop 左上圆角值
-     * @return {@link RadiusView}
+     * @return {@link RadiusLayout}
      */
-    public RadiusView setRadiusLeftTop(float radiusLeftTop) {
-        mRadiusUtils.setRadiusLeftTop(radiusLeftTop);
+    public RadiusLayout setRadiusLeftTop(float radiusLeftTop) {
+        mRadiusAttrs.setRadiusLeftTop(radiusLeftTop);
         postInvalidate();
         return this;
     }
@@ -110,10 +110,10 @@ public class RadiusView extends FrameLayout {
     /**
      * 设置左下圆角值
      * @param radiusLeftBottom 左下圆角值
-     * @return {@link RadiusView}
+     * @return {@link RadiusLayout}
      */
-    public RadiusView setRadiusLeftBottom(float radiusLeftBottom) {
-        mRadiusUtils.setRadiusLeftBottom(radiusLeftBottom);
+    public RadiusLayout setRadiusLeftBottom(float radiusLeftBottom) {
+        mRadiusAttrs.setRadiusLeftBottom(radiusLeftBottom);
         postInvalidate();
         return this;
     }
@@ -121,10 +121,10 @@ public class RadiusView extends FrameLayout {
     /**
      * 设置右上圆角值
      * @param radiusRightTop 右上圆角值
-     * @return {@link RadiusView}
+     * @return {@link RadiusLayout}
      */
-    public RadiusView setRadiusRightTop(float radiusRightTop) {
-        mRadiusUtils.setRadiusRightTop(radiusRightTop);
+    public RadiusLayout setRadiusRightTop(float radiusRightTop) {
+        mRadiusAttrs.setRadiusRightTop(radiusRightTop);
         postInvalidate();
         return this;
     }
@@ -132,10 +132,10 @@ public class RadiusView extends FrameLayout {
     /**
      * 设置右下圆角值
      * @param radiusRightBottom 右下圆角值
-     * @return {@link RadiusView}
+     * @return {@link RadiusLayout}
      */
-    public RadiusView setRadiusRightBottom(float radiusRightBottom) {
-        mRadiusUtils.setRadiusRightBottom(radiusRightBottom);
+    public RadiusLayout setRadiusRightBottom(float radiusRightBottom) {
+        mRadiusAttrs.setRadiusRightBottom(radiusRightBottom);
         postInvalidate();
         return this;
     }
@@ -145,10 +145,10 @@ public class RadiusView extends FrameLayout {
     /**
      * 设置左上、左下圆角值
      * @param radiusLeft 左边圆角值
-     * @return {@link RadiusView}
+     * @return {@link RadiusLayout}
      */
-    public RadiusView setRadiusLeft(int radiusLeft) {
-        mRadiusUtils.setRadiusLeft(radiusLeft);
+    public RadiusLayout setRadiusLeft(int radiusLeft) {
+        mRadiusAttrs.setRadiusLeft(radiusLeft);
         postInvalidate();
         return this;
     }
@@ -156,10 +156,10 @@ public class RadiusView extends FrameLayout {
     /**
      * 设置右上、右下圆角值
      * @param radiusRight 右边圆角值
-     * @return {@link RadiusView}
+     * @return {@link RadiusLayout}
      */
-    public RadiusView setRadiusRight(int radiusRight) {
-        mRadiusUtils.setRadiusRight(radiusRight);
+    public RadiusLayout setRadiusRight(int radiusRight) {
+        mRadiusAttrs.setRadiusRight(radiusRight);
         postInvalidate();
         return this;
     }
@@ -167,10 +167,10 @@ public class RadiusView extends FrameLayout {
     /**
      * 设置左上、右上圆角值
      * @param radiusTop 上边圆角值
-     * @return {@link RadiusView}
+     * @return {@link RadiusLayout}
      */
-    public RadiusView setRadiusTop(int radiusTop) {
-        mRadiusUtils.setRadiusTop(radiusTop);
+    public RadiusLayout setRadiusTop(int radiusTop) {
+        mRadiusAttrs.setRadiusTop(radiusTop);
         postInvalidate();
         return this;
     }
@@ -178,10 +178,10 @@ public class RadiusView extends FrameLayout {
     /**
      * 设置左下、右下圆角值
      * @param radiusBottom 下边圆角值
-     * @return {@link RadiusView}
+     * @return {@link RadiusLayout}
      */
-    public RadiusView setRadiusBottom(int radiusBottom) {
-        mRadiusUtils.setRadiusBottom(radiusBottom);
+    public RadiusLayout setRadiusBottom(int radiusBottom) {
+        mRadiusAttrs.setRadiusBottom(radiusBottom);
         postInvalidate();
         return this;
     }
@@ -193,7 +193,7 @@ public class RadiusView extends FrameLayout {
      * @return 圆角值
      */
     public float getRadius() {
-        return mRadiusUtils.getRadius();
+        return mRadiusAttrs.getRadius();
     }
 
     /**
@@ -201,7 +201,7 @@ public class RadiusView extends FrameLayout {
      * @return 左上圆角值
      */
     public float getRadiusLeftTop() {
-        return mRadiusUtils.getRadiusLeftTop();
+        return mRadiusAttrs.getRadiusLeftTop();
     }
 
     /**
@@ -209,7 +209,7 @@ public class RadiusView extends FrameLayout {
      * @return 左下圆角值
      */
     public float getRadiusLeftBottom() {
-        return mRadiusUtils.getRadiusLeftBottom();
+        return mRadiusAttrs.getRadiusLeftBottom();
     }
 
     /**
@@ -217,7 +217,7 @@ public class RadiusView extends FrameLayout {
      * @return 右上圆角值
      */
     public float getRadiusRightTop() {
-        return mRadiusUtils.getRadiusRightTop();
+        return mRadiusAttrs.getRadiusRightTop();
     }
 
     /**
@@ -225,6 +225,6 @@ public class RadiusView extends FrameLayout {
      * @return 右下圆角值
      */
     public float getRadiusRightBottom() {
-        return mRadiusUtils.getRadiusRightBottom();
+        return mRadiusAttrs.getRadiusRightBottom();
     }
 }

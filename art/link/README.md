@@ -187,6 +187,8 @@
 
 * [一份涵盖大部分 Java 程序员所需要掌握的核心知识](https://github.com/Snailclimb/JavaGuide)
 
+* [安卓学习笔记 GcsSloop / AndroidNote](https://github.com/GcsSloop/AndroidNote)
+
 #### 算法、面试
 
 * [Android 校招面试指南](https://github.com/LRH1993/android_interview)

@@ -26,9 +26,10 @@ import com.luck.picture.lib.widget.longimage.SubsamplingScaleImageView;
 import dev.other.R;
 
 /**
+ * detail: Glide 加载引擎
  * @author：luck
  * @date：2019-11-13 17:02
- * @describe：Glide加载引擎
+ * @describe：Glide 加载引擎
  */
 public class GlideEngine implements ImageEngine {
 
@@ -177,7 +178,6 @@ public class GlideEngine implements ImageEngine {
                 });
     }
 
-
     /**
      * 加载 gif
      * @param context   上下文
@@ -208,7 +208,6 @@ public class GlideEngine implements ImageEngine {
                 .apply(new RequestOptions().placeholder(R.drawable.picture_image_placeholder))
                 .into(imageView);
     }
-
 
     private GlideEngine() {
     }

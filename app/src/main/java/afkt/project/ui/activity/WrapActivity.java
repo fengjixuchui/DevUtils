@@ -70,7 +70,7 @@ public class WrapActivity extends BaseToolbarActivity {
         // LayoutParams
         ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         // 设置点击效果
-        GradientDrawable drawable = ShapeUtils.newBuilder(30f, R.color.color_88).build().getDrawable();
+        GradientDrawable drawable = ShapeUtils.newShape(30f, ResourceUtils.getColor(R.color.color_88)).getDrawable();
 
         for (int i = 1; i <= 20; i++) {
             // 随机字符串
