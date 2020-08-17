@@ -17,10 +17,10 @@ import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.model.bean.ACVFileBean;
 import afkt.project.ui.adapter.GPUFilterACVAdapter;
-import afkt.project.ui.widget.BaseImageView;
 import afkt.project.util.GPUFilterUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
+import dev.base.widget.BaseImageView;
 import dev.other.picture.PictureSelectorUtils;
 import dev.utils.app.HandlerUtils;
 import dev.utils.app.ResourceUtils;
@@ -61,8 +61,8 @@ public class GPUFilterACVActivity extends BaseToolbarActivity {
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
 
         // 设置滤镜线程
         filterThread = new Runnable() {

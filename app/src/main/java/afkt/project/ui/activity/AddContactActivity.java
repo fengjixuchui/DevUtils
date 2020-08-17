@@ -21,10 +21,10 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
-import afkt.project.ui.widget.BaseEditText;
-import afkt.project.ui.widget.BaseTextView;
 import butterknife.BindView;
 import butterknife.OnClick;
+import dev.base.widget.BaseEditText;
+import dev.base.widget.BaseTextView;
 import dev.utils.app.ActivityUtils;
 import dev.utils.app.DialogUtils;
 import dev.utils.app.EditTextUtils;
@@ -67,8 +67,8 @@ public class AddContactActivity extends BaseToolbarActivity {
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
     }
 
     @OnClick({R.id.vid_aac_add_btn})

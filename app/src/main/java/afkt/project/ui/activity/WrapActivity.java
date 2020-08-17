@@ -9,8 +9,8 @@ import android.view.ViewGroup;
 
 import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
-import afkt.project.ui.widget.BaseTextView;
 import butterknife.BindView;
+import dev.base.widget.BaseTextView;
 import dev.utils.app.ResourceUtils;
 import dev.utils.app.ShapeUtils;
 import dev.utils.app.helper.QuickHelper;
@@ -46,15 +46,15 @@ public class WrapActivity extends BaseToolbarActivity {
                 .setOnClicks(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        initValues();
+                        initValue();
                     }
                 }).getView();
         vid_bt_toolbar.addView(view);
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
 
         vid_aw_wrapview
                 // 设置最大行数

@@ -10,10 +10,10 @@ import java.util.List;
 
 import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
-import afkt.project.ui.widget.BaseImageView;
 import afkt.project.util.ProjectUtils;
 import butterknife.BindView;
 import butterknife.OnClick;
+import dev.base.widget.BaseImageView;
 import dev.utils.app.FlashlightUtils;
 import dev.utils.app.ViewUtils;
 import dev.utils.app.camera1.CameraAssist;
@@ -74,8 +74,8 @@ public class ScanShapeActivity extends BaseToolbarActivity {
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
         // 设置扫描类型
         ProjectUtils.refShape(vid_ass_scanview, ScanShapeView.Shape.Square);
     }

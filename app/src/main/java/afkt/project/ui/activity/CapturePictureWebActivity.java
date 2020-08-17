@@ -8,8 +8,8 @@ import android.webkit.WebView;
 import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.base.config.PathConfig;
-import afkt.project.ui.widget.BaseTextView;
 import butterknife.BindView;
+import dev.base.widget.BaseTextView;
 import dev.utils.app.CapturePictureUtils;
 import dev.utils.app.ResourceUtils;
 import dev.utils.app.helper.QuickHelper;
@@ -58,8 +58,8 @@ public class CapturePictureWebActivity extends BaseToolbarActivity {
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
         // 加载网页
         vid_acp_webview.loadUrl("https://www.csdn.net/");
     }

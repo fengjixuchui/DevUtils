@@ -54,6 +54,7 @@ class ScanSDCardFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAppBinding.bind(view)
+        binding.vidFaRefresh.setEnableLoadMore(false)
 
         whorlView = ViewUtils.findViewById(
             binding.vidFaState.getView(ViewAssist.TYPE_ING),
@@ -131,7 +132,7 @@ class ScanSDCardFragment : BaseFragment() {
 
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 if (direction == ItemTouchHelper.LEFT || direction == ItemTouchHelper.RIGHT) {
-                    var adapter: ApkListAdapter? = binding.vidFaRefresh.getAdapterT()
+                    var adapter: ApkListAdapter? = binding.vidFaRefresh.getAdapter()
                     try {
                         val position = viewHolder.adapterPosition
                         FileUtils.deleteFile(adapter?.getItem(position)?.uri)
@@ -147,7 +148,7 @@ class ScanSDCardFragment : BaseFragment() {
                 }
             }
         })
-        itemTouchHelper.attachToRecyclerView(binding.vidFaRefresh.recyclerView)
+        itemTouchHelper.attachToRecyclerView(binding.vidFaRefresh.getRecyclerView())
     }
 
     // ============
@@ -207,21 +208,21 @@ class ScanSDCardFragment : BaseFragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: RefreshEvent) {
         event.type?.let {
-            if (it == type) binding.vidFaRefresh.smartRefreshLayout?.autoRefresh()
+            if (it == type) binding.vidFaRefresh.getRefreshLayout()?.autoRefresh()
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: TopEvent) {
         event.type?.let {
-            if (it == type) ListViewUtils.smoothScrollToTop(binding.vidFaRefresh.recyclerView)
+            if (it == type) ListViewUtils.smoothScrollToTop(binding.vidFaRefresh.getRecyclerView())
             //ListViewUtils.scrollToTop(binding.vidFaRefresh.recyclerView)
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: FileDeleteEvent) {
-        binding.vidFaRefresh.recyclerView?.adapter?.notifyDataSetChanged()
+        binding.vidFaRefresh.getRecyclerView()?.adapter?.notifyDataSetChanged()
     }
 
     // =

@@ -23,7 +23,6 @@ import java.util.List;
 
 import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
-import afkt.project.ui.widget.BaseImageView;
 import afkt.project.util.ProjectUtils;
 import afkt.project.util.zxing.PreviewCallback;
 import afkt.project.util.zxing.decode.DecodeConfig;
@@ -32,6 +31,7 @@ import afkt.project.util.zxing.decode.DecodeResult;
 import afkt.project.util.zxing.decode.DecodeThread;
 import butterknife.BindView;
 import butterknife.OnClick;
+import dev.base.widget.BaseImageView;
 import dev.other.ZXingQRCodeUtils;
 import dev.other.picture.PictureSelectorUtils;
 import dev.utils.app.FlashlightUtils;
@@ -116,8 +116,8 @@ public class QRCodeScanActivity extends BaseToolbarActivity implements DecodeRes
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
 
         // ================
         // = 初始化辅助类 =

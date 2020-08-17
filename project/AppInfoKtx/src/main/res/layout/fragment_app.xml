@@ -4,7 +4,7 @@
     android:layout_marginTop="?attr/actionBarSize"
     android:background="@android:color/white">
 
-    <afkt.app.ui.widget.BaseRefreshView
+    <dev.base.widget.BaseRefreshView
         android:id="@+id/vid_fa_refresh"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

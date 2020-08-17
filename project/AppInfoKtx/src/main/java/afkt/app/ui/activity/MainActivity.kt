@@ -58,7 +58,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
 
     fun init() {
         initFragments()
-        initListeners()
+        initListener()
         // 设置标题
         binding.vidAmNavView.setCheckedItem(getNavItemId())
         binding.vidAmToolbar.setTitle(DISPLAY_FRAGMENT_TYPE.titleId)
@@ -140,7 +140,7 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    fun initListeners() {
+    fun initListener() {
         // 设置 NavigationView Item 点击事件
         binding.vidAmNavView.setNavigationItemSelectedListener { item ->
             when (item.itemId) {

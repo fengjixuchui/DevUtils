@@ -63,6 +63,7 @@ class AppListFragment : BaseFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentAppBinding.bind(view)
+        binding.vidFaRefresh.setEnableLoadMore(false)
 
         whorlView = ViewUtils.findViewById(
             binding.vidFaState.getView(ViewAssist.TYPE_ING),
@@ -184,15 +185,17 @@ class AppListFragment : BaseFragment() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: RefreshEvent) {
         event.type?.let {
-            if (it == type) binding.vidFaRefresh.smartRefreshLayout?.autoRefresh()
+            if (it == type) binding.vidFaRefresh.getRefreshLayout()?.autoRefresh()
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: TopEvent) {
         event.type?.let {
-            if (it == type) ListViewUtils.smoothScrollToTop(binding.vidFaRefresh.recyclerView)
-            //ListViewUtils.scrollToTop(binding.vidFaRefresh.recyclerView)
+            if (it == type) {
+                ListViewUtils.smoothScrollToTop(binding.vidFaRefresh.getRecyclerView())
+                //ListViewUtils.scrollToTop(binding.vidFaRefresh.getRecyclerView())
+            }
         }
     }
 }

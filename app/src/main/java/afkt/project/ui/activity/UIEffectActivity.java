@@ -16,11 +16,11 @@ import java.util.List;
 import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.model.item.TabItem;
-import afkt.project.ui.widget.BaseButton;
-import afkt.project.ui.widget.BaseTextView;
 import afkt.project.util.assist.TabLayoutAssist;
 import butterknife.BindView;
 import butterknife.OnClick;
+import dev.base.widget.BaseButton;
+import dev.base.widget.BaseTextView;
 import dev.utils.app.HandlerUtils;
 import dev.utils.app.ResourceUtils;
 import dev.utils.app.ShapeUtils;
@@ -77,8 +77,8 @@ public class UIEffectActivity extends BaseToolbarActivity {
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
 
         // 默认选中
         ViewHelper.get().setSelected(true, vid_aue_1_0_tv).setSelected(false, vid_aue_1_1_tv);

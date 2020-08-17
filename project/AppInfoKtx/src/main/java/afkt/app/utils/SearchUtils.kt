@@ -32,13 +32,13 @@ object SearchUtils {
 
     // =
 
-    private fun getSearchRunnable(): Runnable? {
+    private fun getSearchRunnable(): Runnable {
         if (sSearchRunn == null) {
             sSearchRunn = Runnable {
                 sHandler.sendEmptyMessage(WHAT_SEARCH)
             }
         }
-        return sSearchRunn
+        return sSearchRunn as Runnable
     }
 
     private val sHandler: Handler = object : Handler() {

@@ -24,10 +24,10 @@ import afkt.project.db.NotePicture;
 import afkt.project.db.NotePictureDao;
 import afkt.project.db.NoteType;
 import afkt.project.ui.adapter.GreenDaoAdapter;
-import afkt.project.ui.widget.BaseRefreshView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import dev.assist.PageAssist;
+import dev.base.widget.BaseRefreshView;
 import dev.utils.app.logger.DevLogger;
 import dev.utils.app.toast.ToastTintUtils;
 import dev.utils.common.ChineseUtils;
@@ -59,8 +59,8 @@ public class GreenDaoActivity extends BaseToolbarActivity {
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
 
         ToastTintUtils.info("侧滑可进行删除, 长按拖动位置");
 
@@ -72,8 +72,8 @@ public class GreenDaoActivity extends BaseToolbarActivity {
     }
 
     @Override
-    public void initListeners() {
-        super.initListeners();
+    public void initListener() {
+        super.initListener();
         // 刷新事件
         vid_agd_refresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override

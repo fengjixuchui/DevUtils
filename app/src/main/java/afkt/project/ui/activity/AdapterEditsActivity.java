@@ -13,8 +13,8 @@ import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.model.item.EvaluateItem;
 import afkt.project.ui.adapter.EditsAdapter;
-import afkt.project.ui.widget.BaseTextView;
 import butterknife.BindView;
+import dev.base.widget.BaseTextView;
 import dev.utils.app.ResourceUtils;
 import dev.utils.app.helper.QuickHelper;
 import dev.utils.app.helper.ViewHelper;
@@ -71,8 +71,8 @@ public class AdapterEditsActivity extends BaseToolbarActivity {
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
 
         List<EvaluateItem> lists = new ArrayList<>();
         for (int i = 0; i < 6; i++) {

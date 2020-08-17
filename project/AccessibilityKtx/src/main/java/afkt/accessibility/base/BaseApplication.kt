@@ -81,7 +81,7 @@ class BaseApplication : MultiDexApplication() {
                         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                             val lists = service.windows
                             for (info in lists) {
-                                info.let { track(it.root, builder, 0) }
+                                info?.let { track(it.root, builder, 0) }
                             }
                         }
                     }

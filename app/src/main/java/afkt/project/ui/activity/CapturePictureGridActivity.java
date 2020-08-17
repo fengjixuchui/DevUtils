@@ -13,8 +13,8 @@ import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.base.config.PathConfig;
 import afkt.project.model.bean.AdapterBean;
 import afkt.project.ui.widget.AutoGridView;
-import afkt.project.ui.widget.BaseTextView;
 import butterknife.BindView;
+import dev.base.widget.BaseTextView;
 import dev.utils.app.CapturePictureUtils;
 import dev.utils.app.ResourceUtils;
 import dev.utils.app.ViewUtils;
@@ -66,8 +66,8 @@ public class CapturePictureGridActivity extends BaseToolbarActivity {
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
 
         List<AdapterBean> lists = AdapterBean.newAdapterBeanList(15);
         // 设置适配器

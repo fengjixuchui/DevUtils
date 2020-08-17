@@ -13,8 +13,8 @@ import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.model.bean.CommodityEvaluateBean;
 import afkt.project.ui.adapter.MultiSelectAdapter;
-import afkt.project.ui.widget.BaseTextView;
 import butterknife.BindView;
+import dev.base.widget.BaseTextView;
 import dev.utils.app.ResourceUtils;
 import dev.utils.app.ViewUtils;
 import dev.utils.app.helper.QuickHelper;
@@ -53,8 +53,8 @@ public class MultiSelectActivity extends BaseToolbarActivity {
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
 
         List<CommodityEvaluateBean> lists = new ArrayList<>();
         for (int i = 0; i < 15; i++) {

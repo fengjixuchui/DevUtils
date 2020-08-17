@@ -54,6 +54,7 @@ class InfoFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         binding = FragmentInfoBinding.bind(view)
         binding.root.setEnableRefresh(false)
+            .setEnableLoadMore(false)
     }
 
     // ============
@@ -63,7 +64,7 @@ class InfoFragment : BaseFragment() {
     @Subscribe(threadMode = ThreadMode.BACKGROUND, sticky = true)
     fun onEvent(event: FragmentEvent) {
         event.type?.let {
-            if (it == type && binding.root.adapter == null) {
+            if (it == type && binding.root.getAdapter<InfoAdapter>() == null) {
                 when (it) {
                     TypeEnum.DEVICE_INFO -> ProjectUtils.getDeviceInfos()
                     TypeEnum.SCREEN_INFO -> ProjectUtils.getScreenInfos()
@@ -84,8 +85,8 @@ class InfoFragment : BaseFragment() {
     fun onEvent(event: ExportEvent) {
         event.type?.let {
             if (it == type) {
-                if (binding.root.adapter != null) {
-                    var adapter: InfoAdapter? = binding.root.getAdapterT()
+                if (binding.root.getAdapter<InfoAdapter>() != null) {
+                    var adapter: InfoAdapter? = binding.root.getAdapter()
                     if (adapter?.data != null) {
                         val content: String? = DeviceInfoBean.jsonString(adapter?.data)
                         var fileName =

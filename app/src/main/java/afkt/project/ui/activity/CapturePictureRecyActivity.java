@@ -15,8 +15,8 @@ import afkt.project.R;
 import afkt.project.base.app.BaseToolbarActivity;
 import afkt.project.base.config.PathConfig;
 import afkt.project.model.bean.AdapterBean;
-import afkt.project.ui.widget.BaseTextView;
 import butterknife.BindView;
+import dev.base.widget.BaseTextView;
 import dev.utils.app.CapturePictureUtils;
 import dev.utils.app.ResourceUtils;
 import dev.utils.app.ViewUtils;
@@ -68,8 +68,8 @@ public class CapturePictureRecyActivity extends BaseToolbarActivity {
     }
 
     @Override
-    public void initValues() {
-        super.initValues();
+    public void initValue() {
+        super.initValue();
 
 //        vid_acp_recy.setLayoutManager(new LinearLayoutManager(this));
 //        vid_acp_recy.setLayoutManager(new LinearLayoutManager(this, LinearLayout.HORIZONTAL, false));
