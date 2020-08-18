@@ -1366,20 +1366,29 @@ DevUtils.openDebug();
 | :- | :- |
 | getDrawable | 获取 GradientDrawable |
 | setDrawable | 设置 Drawable 背景 |
-| newBuilder | 创建新的 Shape Builder 对象 |
-| newBuilderToLeft | 创建新的 Shape Builder 对象 |
-| newBuilderToRight | 创建新的 Shape Builder 对象 |
-| newBuilderToGradient | 创建渐变的 Shape Builder 对象 |
-| build | build ShapeUtils 对象 |
-| setRadius | 设置圆角 |
-| setRadiusLeft | 设置圆角 |
-| setRadiusRight | 设置圆角 |
-| setCornerRadii | 设置圆角 ( 统一处理方法 ) |
-| setColor | 设置背景色 ( 填充铺满 ) |
-| setStroke | 设置边框颜色 |
-| setSize | 设置大小 |
-| setPadding | 设置边距 |
 | getOrientation | 获取渐变角度 |
+| newShape | 创建 Shape |
+| setAlpha | 设置透明度 |
+| setShape | 设置形状类型 |
+| setInnerRadius | 设置内环半径 |
+| setInnerRadiusRatio | 设置内环半径相对于环的宽度比例 |
+| setThickness | 设置环厚度 |
+| setThicknessRatio | 设置环厚度相对于环的宽度比例 |
+| setColor | 设置背景填充颜色 |
+| setStroke | 设置描边 |
+| setCornerRadius | 设置圆角 |
+| setCornerRadiusLeft | 设置 leftTop、leftBottom 圆角 |
+| setCornerRadiusRight | 设置 rightTop、rightBottom 圆角 |
+| setCornerRadiusTop | 设置 leftTop、rightTop 圆角 |
+| setCornerRadiusBottom | 设置 leftBottom、rightBottom 圆角 |
+| setColors | 设置渐变颜色 |
+| setGradientType | 设置渐变类型 |
+| setOrientation | 设置渐变角度 |
+| setGradientCenter | 设置渐变中心坐标值 |
+| setGradientRadius | 设置渐变色半径 |
+| setUseLevel | 是否使用 LevelListDrawable |
+| setPadding | 设置内边距 |
+| setSize | 设置 shape drawable 宽高 |
 
 
 * **Shell 命令工具类 ->** [ShellUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/ShellUtils.java)
@@ -2027,6 +2036,7 @@ DevUtils.openDebug();
 | get | 获取单例 DevHelper |
 | viewHelper | 获取 ViewHelper |
 | devHelper | 获取 DevHelper |
+| quickHelper | 获取 QuickHelper |
 | postRunnable | 在主线程 Handler 中执行任务 |
 | removeRunnable | 在主线程 Handler 中清除任务 |
 | startTimer | 运行定时器 |
@@ -2100,6 +2110,7 @@ DevUtils.openDebug();
 | getView | 获取 View |
 | viewHelper | 获取 ViewHelper |
 | devHelper | 获取 DevHelper |
+| quickHelper | 获取 QuickHelper |
 | postRunnable | 在主线程 Handler 中执行任务 |
 | removeRunnable | 在主线程 Handler 中清除任务 |
 | setHint | 设置 Hint 文本 |
@@ -2277,6 +2288,7 @@ DevUtils.openDebug();
 | get | 获取单例 ViewHelper |
 | viewHelper | 获取 ViewHelper |
 | devHelper | 获取 DevHelper |
+| quickHelper | 获取 QuickHelper |
 | postRunnable | 在主线程 Handler 中执行任务 |
 | removeRunnable | 在主线程 Handler 中清除任务 |
 | setHint | 设置 Hint 文本 |
