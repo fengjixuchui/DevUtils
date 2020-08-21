@@ -12,7 +12,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import dev.base.able.IDevBase
 import dev.base.utils.assist.DevBaseAssist
-import dev.utils.LogPrintUtils
 
 /**
  * detail: Fragment 抽象基类
@@ -24,8 +23,8 @@ abstract class AbstractDevBaseFragment : Fragment(), IDevBase {
     // = Object =
     // ==========
 
-    @JvmField // 日志 TAG
-    protected var mTag = AbstractDevBaseFragment::class.java.simpleName
+    @JvmField // 日志 TAG - 根据使用习惯命名大写
+    protected var TAG = AbstractDevBaseFragment::class.java.simpleName
 
     @JvmField // Context
     protected var mContext: Context? = null
@@ -46,10 +45,10 @@ abstract class AbstractDevBaseFragment : Fragment(), IDevBase {
     override fun onAttach(context: Context) {
         super.onAttach(context)
         // 获取当前类名
-        mTag = this.javaClass.simpleName
+        TAG = this.javaClass.simpleName
         // 设置数据
         mDevBaseAssist
-            .setTag(mTag)
+            .setTag(TAG)
             .setContext(context)
             .printLog("onAttach")
         // 获取 Context
@@ -77,12 +76,16 @@ abstract class AbstractDevBaseFragment : Fragment(), IDevBase {
             val parent = mContentView!!.parent as ViewGroup
             // 删除已经在显示的 View 防止切回来不加载一片空白
             parent?.removeView(mContentView)
+            mContentView = null
         }
         // View 初始化处理
-        layoutInit(inflater, container)
-        // 触发初始化方法
-        onInit(mContentView, container, savedInstanceState)
+        contentInit(inflater, container)
         return mContentView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mDevBaseAssist.printLog("onViewCreated")
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -127,11 +130,26 @@ abstract class AbstractDevBaseFragment : Fragment(), IDevBase {
             .setCurrentVisible(false)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        mDevBaseAssist
+            .printLog("onDestroyView")
+            .setCurrentVisible(false)
+    }
+
     override fun onDestroy() {
         super.onDestroy()
         mDevBaseAssist
             .printLog("onDestroy")
             .setCurrentVisible(false)
+    }
+
+    // ==================
+    // = IDevBaseConfig =
+    // ==================
+
+    override fun isActivityManager(): Boolean {
+        return false
     }
 
     // ===================
@@ -143,36 +161,19 @@ abstract class AbstractDevBaseFragment : Fragment(), IDevBase {
      * @param inflater  [LayoutInflater]
      * @param container [ViewGroup]
      */
-    private fun layoutInit(inflater: LayoutInflater, container: ViewGroup?) {
+    private fun contentInit(inflater: LayoutInflater, container: ViewGroup?) {
         if (mContentView != null) return
         // 使用 contentId()
         if (contentId() != 0) {
             try {
                 mContentView = inflater.inflate(contentId(), container, false)
             } catch (e: Exception) {
-                LogPrintUtils.eTag(mTag, e, "layoutInit - contentId")
+                mDevBaseAssist.printLog(e, "contentInit - contentId")
             }
         }
         // 如果 View 等于 null, 则使用 contentView()
         if (mContentView == null) mContentView = contentView()
     }
-
-    // ================
-    // = 对外提供方法 =
-    // ================
-
-    /**
-     * onCreateView 初始化触发方法
-     * 需在此方法中调用 initMethodOrder
-     * @param view               [View]
-     * @param container          [ViewGroup]
-     * @param savedInstanceState [Bundle]
-     */
-    protected abstract fun onInit(
-        view: View?,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    )
 
     // ==================
     // = IDevBaseMethod =

@@ -6,26 +6,26 @@ import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import android.widget.PopupWindow
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
 import dev.base.able.IDevBase
 import dev.base.utils.assist.DevBaseAssist
-import dev.utils.LogPrintUtils
 import dev.utils.app.ActivityUtils
 
 /**
  * detail: Activity 抽象基类
  * @author Ttt
  */
-abstract class AbstractbsDevBaseActivity : AppCompatActivity(), IDevBase {
+abstract class AbstractDevBaseActivity : AppCompatActivity(), IDevBase {
 
     // ==========
     // = Object =
     // ==========
 
-    @JvmField // 日志 TAG
-    protected var mTag = AbstractbsDevBaseActivity::class.java.simpleName
+    @JvmField // 日志 TAG - 根据使用习惯命名大写
+    protected var TAG = AbstractDevBaseActivity::class.java.simpleName
 
     @JvmField // Context
     protected var mContext: Context? = null
@@ -46,20 +46,20 @@ abstract class AbstractbsDevBaseActivity : AppCompatActivity(), IDevBase {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         // 获取当前类名
-        mTag = this.javaClass.simpleName
+        TAG = this.javaClass.simpleName
         // 设置数据
         mDevBaseAssist
-            .setTag(mTag)
+            .setTag(TAG)
             .setContext(this)
             .printLog("onCreate")
             .setCurrentVisible(true)
         // 获取 Context、Activity
         mContext = this
         mActivity = this
-        // 保存 Activity
-        ActivityUtils.getManager().addActivity(this)
+        // 记录 Activity
+        if (isActivityManager()) ActivityUtils.getManager().addActivity(this)
         // Content View 初始化处理
-        layoutInit()
+        contentInit(LayoutInflater.from(this), null)
         // 设置 Content View
         mContentView?.let { setContentView(it) }
     }
@@ -105,7 +105,7 @@ abstract class AbstractbsDevBaseActivity : AppCompatActivity(), IDevBase {
             .printLog("onDestroy")
             .setCurrentVisible(false)
         // 移除当前 Activity
-        ActivityUtils.getManager().removeActivity(this)
+        if (isActivityManager()) ActivityUtils.getManager().removeActivity(this)
     }
 
     /**
@@ -117,24 +117,31 @@ abstract class AbstractbsDevBaseActivity : AppCompatActivity(), IDevBase {
         mDevBaseAssist.printLog("onBackPressed")
     }
 
+    // ==================
+    // = IDevBaseConfig =
+    // ==================
+
+    override fun isActivityManager(): Boolean {
+        return true
+    }
+
     // ===================
     // = IDevBaseContent =
     // ===================
 
     /**
      * 布局初始化处理
+     * @param inflater  [LayoutInflater]
+     * @param container [ViewGroup]
      */
-    private fun layoutInit() {
+    private fun contentInit(inflater: LayoutInflater, container: ViewGroup?) {
         if (mContentView != null) return
         // 使用 contentId()
         if (contentId() != 0) {
             try {
-                mContentView =
-                    (getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater).inflate(
-                        contentId(), null
-                    )
+                mContentView = inflater.inflate(contentId(), container, false)
             } catch (e: Exception) {
-                LogPrintUtils.eTag(mTag, e, "layoutInit - contentId")
+                mDevBaseAssist.printLog(e, "contentInit - contentId")
             }
         }
         // 如果 View 等于 null, 则使用 contentView()
