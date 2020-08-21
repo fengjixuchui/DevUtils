@@ -1,17 +1,14 @@
-package dev.base.mvp;
+package dev.base.expand.content;
 
 import android.os.Bundle;
 
-import dev.base.activity.DevBaseActivity;
+import dev.base.expand.mvp.MVP;
 
 /**
- * detail: MVP Activity 基类
+ * detail: Content MVP Activity 基类
  * @author Ttt
- * <pre>
- *     需要自己实现 Contract( 契约类 ) 用来管理 View 与 Presenter 的交互
- * </pre>
  */
-public abstract class DevBaseMVPActivity<P extends MVP.Presenter> extends DevBaseActivity implements MVP.IView {
+public abstract class DevBaseContentMVPActivity<P extends MVP.Presenter> extends DevBaseContentActivity implements MVP.IView {
 
     // MVP Presenter
     protected P mPresenter;

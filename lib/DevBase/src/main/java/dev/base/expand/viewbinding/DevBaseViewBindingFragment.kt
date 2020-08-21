@@ -1,4 +1,4 @@
-package dev.base.viewbinding
+package dev.base.expand.viewbinding
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -34,6 +34,10 @@ abstract class DevBaseViewBindingFragment<VB : ViewBinding> : DevBaseFragment(),
         super.onDestroyView()
         if (isDetachBinding()) _binding = null
     }
+
+    // =======================
+    // = IDevBaseViewBinding =
+    // =======================
 
     override fun viewBinding(inflater: LayoutInflater, container: ViewGroup?): VB {
         return ViewBindingUtils.viewBindingJavaClass(

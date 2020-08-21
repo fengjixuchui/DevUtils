@@ -1,4 +1,4 @@
-package dev.base.viewbinding
+package dev.base.expand.viewbinding
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -22,6 +22,10 @@ abstract class DevBaseViewBindingActivity<VB : ViewBinding> : DevBaseActivity(),
         // ViewBinding 初始化处理
         binding = viewBinding(layoutInflater, null)
     }
+
+    // =======================
+    // = IDevBaseViewBinding =
+    // =======================
 
     override fun viewBinding(inflater: LayoutInflater, container: ViewGroup?): VB {
         return ViewBindingUtils.viewBindingJavaClass(
