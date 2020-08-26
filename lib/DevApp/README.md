@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:1.9.7'
+implementation 'com.afkt:DevAppX:1.9.8'
 ```
 
 ## 目录结构
@@ -793,6 +793,7 @@ DevUtils.openDebug();
 | :- | :- |
 | getIntent | 获取 Intent |
 | isIntentAvailable | 判断 Intent 是否可用 |
+| getCategoryLauncherIntent | 获取 CATEGORY_LAUNCHER Intent |
 | getInstallAppIntent | 获取安装 APP( 支持 8.0) 的意图 |
 | getUninstallAppIntent | 获取卸载 APP 的意图 |
 | getLaunchAppIntent | 获取打开 APP 的意图 |

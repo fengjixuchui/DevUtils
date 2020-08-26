@@ -12,10 +12,6 @@ dependencies {
     implementation project(path: ':DevBase')
     implementation project(path: ':DevWidget')
 
-    // ============
-    // = 第三方库 =
-    // ============
-
     // ==============
     // = 快捷开发库 =
     // ==============
