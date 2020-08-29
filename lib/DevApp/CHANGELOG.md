@@ -1,6 +1,20 @@
 Change Log
 ==========
 
+Version 2.0.0 *(2020-08-29)*
+----------------------------
+
+* `[Add]` FileUtils#canRead、canWrite、canReadWrite
+
+Version 1.9.9 *(2020-08-27)*
+----------------------------
+
+* `[Fix]` UriUtils#getFilePathByUri 方法新增 Android Q 适配操作
+
+* `[Add]` ContentResolverUtils#getDisplayNameColumn
+
+* `[Add]` UriUtils#copyByUri
+
 Version 1.9.8 *(2020-08-23)*
 ----------------------------
 

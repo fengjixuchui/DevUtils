@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:1.9.8'
+implementation 'com.afkt:DevAppX:2.0.0'
 ```
 
 ## 目录结构
@@ -42,11 +42,11 @@ implementation 'com.afkt:DevAppX:1.9.8'
 
 ## 使用
 
-> ##### ~~只需要在 Application 中调用 `DevUtils.init()` 进行初始化就行~~ , 在 DevUtils FileProviderDevApp 中已初始化 , 无需主动调用
+> ##### ~~只需要在 Application 中调用 `DevUtils.init()` 进行初始化~~ , 在 DevUtils FileProviderDevApp 中已初始化 , 无需主动调用
 
 ## 事项
 
-- 内部存在两个日志工具类 (工具类内部调用)，对外使用 [DevLogger](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/utils_readme/logger/DevLogger.md)
+- 内部存在两个日志工具类 ( 工具类内部调用 )，对外使用 [DevLogger](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/utils_readme/logger/DevLogger.md)
 
 ```java
 // 整个工具类内部日志信息，都通过以下两个工具类输出打印，并且通过 DevUtils.openLog() 控制开关
@@ -59,7 +59,7 @@ JCLogUtils
 
 - 开启日志
 ```java
-// 打开 lib 内部日志 - 线上 (release) 环境，不调用方法就行
+// 打开 lib 内部日志 - 线上 (release) 环境，不调用方法
 DevUtils.openLog();
 // 标示 debug 模式
 DevUtils.openDebug();
@@ -573,6 +573,7 @@ DevUtils.openDebug();
 | 方法 | 注释 |
 | :- | :- |
 | getDataColumn | 获取 Uri Cursor 对应条件的数据行 data 字段 |
+| getDisplayNameColumn | 获取 Uri Cursor 对应条件的数据行 display_name 字段 |
 | delete | 删除多媒体资源 |
 | update | 更新多媒体资源 |
 | deleteDocument | 删除文件 |
@@ -1626,6 +1627,7 @@ DevUtils.openDebug();
 | getUriForFileToName | 获取 FileProvider File Path Uri ( 自动添加包名 ${applicationId} ) |
 | isUriExists | 判断 Uri 路径资源是否存在 |
 | getMediaUri | 通过 File 获取 Media Uri |
+| copyByUri | 通过 Uri 复制文件 |
 | getFilePathByUri | 通过 Uri 获取文件路径 |
 | isExternalStorageDocument | 判读 Uri authority 是否为 ExternalStorage Provider |
 | isDownloadsDocument | 判读 Uri authority 是否为 Downloads Provider |
@@ -3467,6 +3469,9 @@ DevUtils.openDebug();
 | isFile | 判断是否文件 |
 | isDirectory | 判断是否文件夹 |
 | isHidden | 判断是否隐藏文件 |
+| canRead | 文件是否可读 |
+| canWrite | 文件是否可写 |
+| canReadWrite | 文件是否可读写 |
 | getFileLastModified | 获取文件最后修改的毫秒时间戳 |
 | getFileCharsetSimple | 获取文件编码格式 |
 | getFileLines | 获取文件行数 |

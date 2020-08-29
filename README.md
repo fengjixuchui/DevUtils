@@ -1,15 +1,15 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-afkT-blue.svg)](https://github.com/afkT)
 [![GitHub license](https://img.shields.io/github/license/afkT/DevUtils.svg)](https://github.com/afkT/DevUtils/blob/master/LICENSE)
-[![Bintray](https://img.shields.io/badge/DevUtils-1.9.8-brightgreen.svg)](https://bintray.com/afkt/maven/DevAppX)
+[![Bintray](https://img.shields.io/badge/DevUtils-2.0.0-brightgreen.svg)](https://bintray.com/afkt/maven/DevAppX)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
 [![Utils](https://img.shields.io/badge/utils-160+-ff69b4.svg)](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/README.md)
 
-# About (持续更新，目前含160+工具类)
+# About ( 持续更新，目前含 160+ 工具类 )
 
 > DevUtils 是一个 Android 工具库，主要根据不同功能模块，封装快捷使用的工具类及 API 方法调用
 >
-> 该项目尽可能的便于开发人员，快捷、高效开发安全可靠的项目，以及内置部分常用的资源文件，如 color.xml
+> 该项目尽可能的便于开发人员，快捷、高效开发安全可靠的项目。
 
 ![module](https://github.com/afkT/DevUtils/raw/master/art/module.png)
 
@@ -66,10 +66,10 @@
 ```java
 
 // DevApp Android 工具类库
-implementation 'com.afkt:DevAppX:1.9.8'
+implementation 'com.afkt:DevAppX:2.0.0'
 
 // DevJava Java 工具类库 ( 不依赖 android api )
-implementation 'com.afkt:DevJava:1.1.3' // 用于纯 Java 开发，如果依赖了 DevApp 则不需要依赖 DevJava
+implementation 'com.afkt:DevJava:1.1.4' // 用于纯 Java 开发，如果依赖了 DevApp 则不需要依赖 DevJava
 
 // DevAssist 快捷功能辅助类库
 implementation 'com.afkt:DevAssist:1.0.4'
