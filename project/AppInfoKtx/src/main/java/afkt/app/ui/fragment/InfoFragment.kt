@@ -39,7 +39,7 @@ class InfoFragment : BaseFragment() {
 
     private var type: TypeEnum? = null
 
-    override fun layoutId(): Int {
+    override fun baseLayoutId(): Int {
         return R.layout.fragment_info
     }
 

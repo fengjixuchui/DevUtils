@@ -9,7 +9,7 @@ android {
 dependencies {
     implementation project(path: ':DevApp')
     implementation project(path: ':DevAssist')
-    implementation project(path: ':DevBase')
+    implementation project(path: ':DevBase2')
     implementation project(path: ':DevWidget')
 
     // ==============

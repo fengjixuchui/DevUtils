@@ -10,7 +10,8 @@ import dev.utils.LogPrintUtils
 
 abstract class BaseFragment : Fragment() {
 
-    protected var mRootView: View? = null
+    @JvmField // Content View
+    protected var mContentView: View? = null
 
     override fun onDestroy() {
         super.onDestroy()
@@ -22,22 +23,23 @@ abstract class BaseFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        if (mRootView != null) {
-            val parent = mRootView?.parent as ViewGroup
-            parent?.removeView(mRootView)
+        if (mContentView != null) {
+            val parent = mContentView!!.parent as ViewGroup
+            parent?.removeView(mContentView)
+            mContentView = null
         }
         try {
-            mRootView = inflater.inflate(layoutId(), container, false)
+            mContentView = inflater.inflate(baseLayoutId(), container, false)
         } catch (e: Exception) {
             LogPrintUtils.e(e)
         }
         readArguments()
         if (isRegister()) EventBusUtils.register(this)
-        return mRootView
+        return mContentView
     }
 
     // 获取 Layout
-    abstract fun layoutId(): Int
+    abstract fun baseLayoutId(): Int
 
     // 是否注册 EventBus
     open fun isRegister(): Boolean {

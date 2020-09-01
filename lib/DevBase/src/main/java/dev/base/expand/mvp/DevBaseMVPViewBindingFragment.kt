@@ -1,9 +1,6 @@
 package dev.base.expand.mvp
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import dev.base.expand.viewbinding.DevBaseViewBindingFragment
 
@@ -15,23 +12,15 @@ abstract class DevBaseMVPViewBindingFragment<P : MVP.Presenter<out MVP.IView, ou
     DevBaseViewBindingFragment<VB>() {
 
     // MVP Presenter
-    lateinit var mPresenter: P
+    lateinit var presenter: P
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+    override fun onCreate(savedInstanceState: Bundle?) {
         // 创建 MVP 模式的 Presenter
-        mPresenter = createPresenter()
-        // 底层初始化操作
-        return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        // 取消 MVP 各个模块间的关联
-        mPresenter.detachView()
+        presenter = createPresenter()
+        // lifecycle
+        presenter?.let { lifecycle.addObserver(it) }
+        // 初始化操作
+        super.onCreate(savedInstanceState)
     }
 
     /**

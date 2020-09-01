@@ -1,8 +1,6 @@
 package dev.base.activity
 
-import android.app.Activity
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -27,17 +25,11 @@ abstract class AbstractDevBaseActivity : AppCompatActivity(), IDevBase {
     @JvmField // 日志 TAG - 根据使用习惯命名大写
     protected var TAG = AbstractDevBaseActivity::class.java.simpleName
 
-    @JvmField // Context
-    protected var mContext: Context? = null
-
-    @JvmField // Activity
-    protected var mActivity: Activity? = null
-
     @JvmField // Content View
     protected var mContentView: View? = null
 
     @JvmField // DevBase 合并相同代码辅助类
-    protected var mAssist = DevBaseAssist()
+    protected var assist = DevBaseAssist()
 
     // ============
     // = 生命周期 =
@@ -48,14 +40,11 @@ abstract class AbstractDevBaseActivity : AppCompatActivity(), IDevBase {
         // 获取当前类名
         TAG = this.javaClass.simpleName
         // 设置数据
-        mAssist
+        assist
             .setTag(TAG)
             .setContext(this)
             .printLog("onCreate")
             .setCurrentVisible(true)
-        // 获取 Context、Activity
-        mContext = this
-        mActivity = this
         // 记录 Activity
         if (isActivityManager()) ActivityUtils.getManager().addActivity(this)
         // Content View 初始化处理
@@ -66,42 +55,42 @@ abstract class AbstractDevBaseActivity : AppCompatActivity(), IDevBase {
 
     override fun onStart() {
         super.onStart()
-        mAssist
+        assist
             .printLog("onStart")
             .setCurrentVisible(true)
     }
 
     override fun onRestart() {
         super.onRestart()
-        mAssist
+        assist
             .printLog("onRestart")
             .setCurrentVisible(true)
     }
 
     override fun onResume() {
         super.onResume()
-        mAssist
+        assist
             .printLog("onResume")
             .setCurrentVisible(true)
     }
 
     override fun onPause() {
         super.onPause()
-        mAssist
+        assist
             .printLog("onPause")
             .setCurrentVisible(false)
     }
 
     override fun onStop() {
         super.onStop()
-        mAssist
+        assist
             .printLog("onStop")
             .setCurrentVisible(false)
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        mAssist
+        assist
             .printLog("onDestroy")
             .setCurrentVisible(false)
         // 移除当前 Activity
@@ -114,7 +103,7 @@ abstract class AbstractDevBaseActivity : AppCompatActivity(), IDevBase {
      */
     override fun onBackPressed() {
         super.onBackPressed()
-        mAssist.printLog("onBackPressed")
+        assist.printLog("onBackPressed")
     }
 
     // ==================
@@ -136,16 +125,16 @@ abstract class AbstractDevBaseActivity : AppCompatActivity(), IDevBase {
      */
     private fun contentInit(inflater: LayoutInflater, container: ViewGroup?) {
         if (mContentView != null) return
-        // 使用 contentId()
-        if (contentId() != 0) {
+        // 使用 baseContentId()
+        if (baseContentId() != 0) {
             try {
-                mContentView = inflater.inflate(contentId(), container, false)
+                mContentView = inflater.inflate(baseContentId(), container, false)
             } catch (e: Exception) {
-                mAssist.printLog(e, "contentInit - contentId")
+                assist.printLog(e, "contentInit - baseContentId")
             }
         }
-        // 如果 View 等于 null, 则使用 contentView()
-        if (mContentView == null) mContentView = contentView()
+        // 如果 View 等于 null, 则使用 baseContentView()
+        if (mContentView == null) mContentView = baseContentView()
     }
 
     // ==================
@@ -157,19 +146,19 @@ abstract class AbstractDevBaseActivity : AppCompatActivity(), IDevBase {
     // ==============
 
     override fun initView() {
-        mAssist.printLog("initView")
+        assist.printLog("initView")
     }
 
     override fun initValue() {
-        mAssist.printLog("initValue")
+        assist.printLog("initValue")
     }
 
     override fun initListener() {
-        mAssist.printLog("initListener")
+        assist.printLog("initListener")
     }
 
     override fun initOther() {
-        mAssist.printLog("initOther")
+        assist.printLog("initOther")
     }
 
     // =======================
@@ -177,50 +166,50 @@ abstract class AbstractDevBaseActivity : AppCompatActivity(), IDevBase {
     // =======================
 
     override fun isCurrentVisible(): Boolean {
-        return mAssist.isCurrentVisible()
+        return assist.isCurrentVisible()
     }
 
     override fun showToast(text: String?, vararg formatArgs: Any) {
-        mAssist.showToast(text, formatArgs)
+        assist.showToast(text, formatArgs)
     }
 
     override fun showToast(resId: Int, vararg formatArgs: Any) {
-        mAssist.showToast(resId, formatArgs)
+        assist.showToast(resId, formatArgs)
     }
 
     override fun getDevPopupWindow(): PopupWindow? {
-        return mAssist.getDevPopupWindow()
+        return assist.getDevPopupWindow()
     }
 
     override fun <T : PopupWindow?> setDevPopupWindow(popupWindow: T): T {
-        return mAssist.setDevPopupWindow(popupWindow)
+        return assist.setDevPopupWindow(popupWindow)
     }
 
     override fun <T : PopupWindow?> setDevPopupWindow(isClose: Boolean, popupWindow: T): T {
-        return mAssist.setDevPopupWindow(isClose, popupWindow)
+        return assist.setDevPopupWindow(isClose, popupWindow)
     }
 
     override fun getDevDialog(): Dialog? {
-        return mAssist.getDevDialog()
+        return assist.getDevDialog()
     }
 
     override fun <T : Dialog?> setDevDialog(dialog: T): T {
-        return mAssist.setDevDialog(dialog)
+        return assist.setDevDialog(dialog)
     }
 
     override fun <T : Dialog?> setDevDialog(isClose: Boolean, dialog: T): T {
-        return mAssist.setDevDialog(isClose, dialog)
+        return assist.setDevDialog(isClose, dialog)
     }
 
     override fun getDevDialogFragment(): DialogFragment? {
-        return mAssist.getDevDialogFragment()
+        return assist.getDevDialogFragment()
     }
 
     override fun <T : DialogFragment?> setDevDialogFragment(dialog: T): T {
-        return mAssist.setDevDialogFragment(dialog)
+        return assist.setDevDialogFragment(dialog)
     }
 
     override fun <T : DialogFragment?> setDevDialogFragment(isClose: Boolean, dialog: T): T {
-        return mAssist.setDevDialogFragment(isClose, dialog)
+        return assist.setDevDialogFragment(isClose, dialog)
     }
 }
