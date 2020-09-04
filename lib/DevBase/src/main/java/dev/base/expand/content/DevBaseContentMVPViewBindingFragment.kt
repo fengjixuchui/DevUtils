@@ -1,14 +1,15 @@
-package dev.base.expand.mvp
+package dev.base.expand.content
 
 import android.os.Bundle
-import dev.base.fragment.DevBaseFragment
+import androidx.viewbinding.ViewBinding
+import dev.base.expand.mvp.MVP
 
 /**
- * detail: MVP Fragment 基类
+ * detail: Content MVP Fragment ViewBinding 基类
  * @author Ttt
  */
-abstract class DevBaseMVPFragment<P : MVP.Presenter<out MVP.IView, out MVP.IModel>> :
-    DevBaseFragment() {
+abstract class DevBaseContentMVPViewBindingFragment<P : MVP.Presenter<out MVP.IView, out MVP.IModel>, VB : ViewBinding> :
+    DevBaseContentViewBindingFragment<VB>() {
 
     // MVP Presenter
     lateinit var presenter: P

@@ -1,4 +1,4 @@
-package dev.base.expand.viewbinding
+package dev.base.expand.content
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,14 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewbinding.ViewBinding
 import dev.base.able.IDevBaseViewBinding
-import dev.base.fragment.DevBaseFragment
 import dev.base.utils.ViewBindingUtils
 
 /**
- * detail: Fragment ViewBinding 基类
+ * detail: Content Fragment ViewBinding 基类
  * @author Ttt
  */
-abstract class DevBaseViewBindingFragment<VB : ViewBinding> : DevBaseFragment(),
+abstract class DevBaseContentViewBindingFragment<VB : ViewBinding> : DevBaseContentFragment(),
     IDevBaseViewBinding<VB> {
 
     private var _binding: VB? = null
@@ -57,5 +56,9 @@ abstract class DevBaseViewBindingFragment<VB : ViewBinding> : DevBaseFragment(),
             getBindingView(),
             javaClass
         )
+    }
+
+    final override fun getBindingView(): View? {
+        return layoutView
     }
 }

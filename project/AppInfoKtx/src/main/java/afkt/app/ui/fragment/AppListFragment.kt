@@ -26,10 +26,10 @@ import dev.widget.function.StateLayout
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class AppListFragment : BaseFragment() {
+class AppListFragment : BaseFragment<FragmentAppBinding>() {
 
     companion object {
-        fun get(type: TypeEnum): BaseFragment {
+        fun get(type: TypeEnum): BaseFragment<FragmentAppBinding> {
             val fragment = AppListFragment()
             val bundle = Bundle()
             bundle.putInt(Constants.Key.KEY_VALUE, type.tag)
@@ -40,8 +40,6 @@ class AppListFragment : BaseFragment() {
 
     // = View =
 
-    private lateinit var binding: FragmentAppBinding
-
     private var whorlView: WhorlView? = null
 
     // = Object =
@@ -49,7 +47,7 @@ class AppListFragment : BaseFragment() {
     private var type: TypeEnum? = null
     private var searchContent: String = ""
 
-    override fun baseLayoutId(): Int {
+    override fun baseContentId(): Int {
         return R.layout.fragment_app
     }
 
@@ -62,7 +60,6 @@ class AppListFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentAppBinding.bind(view)
         binding.vidFaRefresh.setEnableLoadMore(false)
 
         whorlView = ViewUtils.findViewById(

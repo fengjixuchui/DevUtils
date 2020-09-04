@@ -80,6 +80,10 @@ public final class ViewUtils {
 
     // 日志 TAG
     private static final String TAG = ViewUtils.class.getSimpleName();
+    // MATCH_PARENT
+    public static final int MATCH_PARENT = ViewGroup.LayoutParams.MATCH_PARENT;
+    // WRAP_CONTENT
+    public static final int WRAP_CONTENT = ViewGroup.LayoutParams.WRAP_CONTENT;
 
     /**
      * 获取 Context

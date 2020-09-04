@@ -34,11 +34,9 @@ import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
-class ScanSDCardFragment : BaseFragment() {
+class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
 
     // = View =
-
-    private lateinit var binding: FragmentAppBinding
 
     private var whorlView: WhorlView? = null
 
@@ -47,13 +45,12 @@ class ScanSDCardFragment : BaseFragment() {
     private var type = TypeEnum.QUERY_APK
     private var searchContent: String = ""
 
-    override fun baseLayoutId(): Int {
+    override fun baseContentId(): Int {
         return R.layout.fragment_app
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentAppBinding.bind(view)
         binding.vidFaRefresh.setEnableLoadMore(false)
 
         whorlView = ViewUtils.findViewById(

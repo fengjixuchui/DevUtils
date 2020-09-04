@@ -21,10 +21,10 @@ import dev.utils.common.FileUtils
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class InfoFragment : BaseFragment() {
+class InfoFragment : BaseFragment<FragmentInfoBinding>() {
 
     companion object {
-        fun get(type: TypeEnum): BaseFragment {
+        fun get(type: TypeEnum): BaseFragment<FragmentInfoBinding> {
             val fragment = InfoFragment()
             val bundle = Bundle()
             bundle.putInt(Constants.Key.KEY_VALUE, type.tag)
@@ -33,13 +33,11 @@ class InfoFragment : BaseFragment() {
         }
     }
 
-    private lateinit var binding: FragmentInfoBinding
-
     // = Object =
 
     private var type: TypeEnum? = null
 
-    override fun baseLayoutId(): Int {
+    override fun baseContentId(): Int {
         return R.layout.fragment_info
     }
 
@@ -52,7 +50,6 @@ class InfoFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding = FragmentInfoBinding.bind(view)
         binding.root.setEnableRefresh(false)
             .setEnableLoadMore(false)
     }
