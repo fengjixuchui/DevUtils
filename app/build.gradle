@@ -16,6 +16,22 @@ android {
 
         targetGenDir 'src/main/java'
     }
+
+    sourceSets {
+        main {
+            // https://www.jianshu.com/p/f5a49d54e16e
+            // 优化 res 资源管理, 使用 sourceSets 资源分包
+            res.srcDirs = [
+                    'src/main/res', // 全局通用资源文件
+                    'src/main/res-base', // Base 基础资源
+                    'src/main/res-framework', // Framework 架构
+                    'src/main/res-function', // 其他功能
+                    'src/main/res-lib', // Lib 框架
+                    'src/main/res-ui', // UI 效果
+                    'src/main/res-ui-widget', // DevWidget UI 库
+            ]
+        }
+    }
 }
 
 dependencies {
@@ -75,6 +91,8 @@ dependencies {
     kapt deps.lib.glide_compiler
     // EventBus 事件订阅分发 https://github.com/greenrobot/EventBus
     implementation deps.lib.eventbus
+    // LiveEventBus 消息总线 https://github.com/JeremyLiao/LiveEventBus
+    implementation deps.lib.live_eventbus
     // 基于 mmap 的高性能通用 key-value 组件 https://github.com/Tencent/MMKV/blob/master/readme_cn.md
     implementation deps.lib.mmkv
     // 今日头条屏幕适配方案终极版 https://github.com/JessYanCoding/AndroidAutoSize/blob/master/README-zh.md

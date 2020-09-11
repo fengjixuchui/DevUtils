@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.ColorInt;
@@ -23,6 +22,7 @@ import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.snackbar.SnackbarContentLayout;
 
 import java.lang.ref.WeakReference;
 
@@ -175,6 +175,32 @@ public final class SnackbarUtils {
     }
 
     /**
+     * 获取 Snackbar.SnackbarLayout ( FrameLayout )
+     * @return {@link Snackbar.SnackbarLayout}
+     */
+    public Snackbar.SnackbarLayout getSnackbarLayout() {
+        try {
+            return (Snackbar.SnackbarLayout) getSnackbarView();
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "getSnackbarLayout");
+        }
+        return null;
+    }
+
+    /**
+     * 获取 SnackbarContentLayout ( LinearLayout ( messageView、actionView ) )
+     * @return {@link SnackbarContentLayout}
+     */
+    public SnackbarContentLayout getSnackbarContentLayout() {
+        try {
+            return (SnackbarContentLayout) getSnackbarLayout().getChildAt(0);
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "getSnackbarContentLayout");
+        }
+        return null;
+    }
+
+    /**
      * 向 Snackbar 布局中添加 View ( Google 不建议, 复杂的布局应该使用 DialogFragment 进行展示 )
      * @param layoutId R.layout.id
      * @param index    添加索引
@@ -204,11 +230,6 @@ public final class SnackbarUtils {
         Snackbar snackbar = getSnackbar();
         if (snackbar != null && view != null) {
             try {
-                // 设置新建布局参数
-                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-                // 设置新建 View 在 Snackbar 内垂直居中显示
-                params.gravity = Gravity.CENTER_VERTICAL;
-                view.setLayoutParams(params);
                 ((Snackbar.SnackbarLayout) snackbar.getView()).addView(view, index);
             } catch (Exception e) {
                 LogPrintUtils.eTag(TAG, e, "addView");
@@ -239,7 +260,7 @@ public final class SnackbarUtils {
      * @return {@link SnackbarUtils}
      */
     public SnackbarUtils setAction(@StringRes final int resId, final Object... formatArgs) {
-        return setAction(null, resId, formatArgs);
+        return setAction(ClickUtils.EMPTY_CLICK, resId, formatArgs);
     }
 
     /**
@@ -267,7 +288,7 @@ public final class SnackbarUtils {
      * @return {@link SnackbarUtils}
      */
     public SnackbarUtils setAction(final String text, final Object... formatArgs) {
-        return setAction(null, text, formatArgs);
+        return setAction(ClickUtils.EMPTY_CLICK, text, formatArgs);
     }
 
     /**
@@ -1482,11 +1503,11 @@ public final class SnackbarUtils {
      */
     private SnackbarUtils setLayoutGravity(final View view, final int gravity) {
         try {
-            FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(
+            FrameLayout.LayoutParams layoutParams = new FrameLayout.LayoutParams(
                     view.getLayoutParams().width, view.getLayoutParams().height
             );
-            params.gravity = gravity;
-            view.setLayoutParams(params);
+            layoutParams.gravity = gravity;
+            view.setLayoutParams(layoutParams);
         } catch (Exception e) {
             LogPrintUtils.eTag(TAG, e, "setLayoutGravity");
         }
@@ -1504,11 +1525,11 @@ public final class SnackbarUtils {
     private SnackbarUtils setMargin(final View view, final int[] margin,
                                     final int topMargin, final int bottomMargin) {
         try {
-            ViewGroup.LayoutParams params = view.getLayoutParams();
-            ((ViewGroup.MarginLayoutParams) params).setMargins(
+            ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
+            ((ViewGroup.MarginLayoutParams) layoutParams).setMargins(
                     margin[0], topMargin, margin[2], bottomMargin
             );
-            view.setLayoutParams(params);
+            view.setLayoutParams(layoutParams);
         } catch (Exception e) {
             LogPrintUtils.eTag(TAG, e, "setMargin");
         }

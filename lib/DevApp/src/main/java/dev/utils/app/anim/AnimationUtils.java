@@ -161,16 +161,25 @@ public final class AnimationUtils {
 
     /**
      * 取消动画
+     * @param view {@link View}
+     * @return {@link Animation}
+     */
+    public static Animation cancelAnimation(final View view) {
+        return cancelAnimation(getAnimation(view));
+    }
+
+    /**
+     * 取消动画
      * @param animation {@link Animation}
      * @param <T>       泛型
      * @return {@link Animation}
      */
-    public static <T extends Animation> T cancel(final T animation) {
+    public static <T extends Animation> T cancelAnimation(final T animation) {
         if (animation != null) {
             try {
                 animation.cancel();
             } catch (Exception e) {
-                LogPrintUtils.eTag(TAG, e, "cancel");
+                LogPrintUtils.eTag(TAG, e, "cancelAnimation");
             }
         }
         return animation;

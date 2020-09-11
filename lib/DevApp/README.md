@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:2.0.0'
+implementation 'com.afkt:DevAppX:2.0.1'
 ```
 
 ## 目录结构
@@ -338,6 +338,7 @@ DevUtils.openDebug();
 | isO_MR1 | 是否在 8.1 版本及以上 |
 | isP | 是否在 9.0 版本及以上 |
 | isQ | 是否在 10.0 版本及以上 |
+| isR | 是否在 11.0 版本及以上 |
 | convertSDKVersion | 转换 SDK 版本 convertSDKVersion(14) = Android 4.0.0-2 |
 
 
@@ -542,6 +543,7 @@ DevUtils.openDebug();
 | 方法 | 注释 |
 | :- | :- |
 | addTouchArea | 增加控件的触摸范围, 最大范围只能是父布局所包含的的区域 |
+| setCheckViewId | 设置全局是否校验 viewId |
 | setGlobalIntervalTime | 设置全局双击间隔时间 |
 | get | 获取对应功能模块点击辅助类 |
 | remove | 移除对应功能模块点击辅助类 |
@@ -1459,6 +1461,8 @@ DevUtils.openDebug();
 | getSnackbarView | 获取 Snackbar View |
 | getTextView | 获取 Snackbar TextView(snackbar_text) |
 | getActionButton | 获取 Snackbar Action Button(snackbar_action) |
+| getSnackbarLayout | 获取 Snackbar.SnackbarLayout ( FrameLayout ) |
+| getSnackbarContentLayout | 获取 SnackbarContentLayout ( LinearLayout ( messageView、actionView ) ) |
 | addView | 向 Snackbar 布局中添加 View ( Google 不建议, 复杂的布局应该使用 DialogFragment 进行展示 ) |
 | setCallback | 设置 Snackbar 展示完成、隐藏完成 的监听 |
 | setAction | 设置 Action 按钮文字内容及点击监听 |
@@ -3706,11 +3710,14 @@ DevUtils.openDebug();
 
 | 方法 | 注释 |
 | :- | :- |
+| calcScale | 计算比例 ( 商 ) |
+| calcScaleToMath | 计算比例 ( 被除数 ( 最大值 ) / 除数 ( 最小值 ) ) |
 | calcScaleToWidth | 计算缩放比例 - 根据宽度比例转换高度 |
 | calcScaleToHeight | 计算缩放比例 - 根据高度比例转换宽度 |
 | calcWidthHeightToScale | 通过宽度、高度根据对应的比例, 转换成对应的比例宽度高度 - 智能转换 |
 | calcWidthToScale | 以宽度为基准, 转换对应比例的高度 |
 | calcHeightToScale | 以高度为基准, 转换对应比例的宽度 |
+| calcXY | 计算 XY 比 |
 
 
 * **流操作工具类 ->** [StreamUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/common/StreamUtils.java)
@@ -3752,7 +3759,8 @@ DevUtils.openDebug();
 | appendSpace | 追加空格 |
 | appendTab | 追加 Tab |
 | appendLine | 追加换行 |
-| forString | 循环追加字符串 |
+| forString | 循环指定数量字符串 |
+| forJoint | 循环追加 |
 | colonSplit | 冒号分割处理 |
 | toCheckValue | 检查字符串 |
 | toCheckValues | 检查字符串 - 多个值 |
