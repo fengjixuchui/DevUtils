@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:2.0.1'
+implementation 'com.afkt:DevAppX:2.0.2'
 ```
 
 ## 目录结构
@@ -731,8 +731,8 @@ DevUtils.openDebug();
 | addTextChangedListener | 添加输入监听事件 |
 | removeTextChangedListener | 移除输入监听事件 |
 | setKeyListener | 设置 KeyListener |
-| getLettersKeyListener | 获取 DigitsKeyListener ( 限制只能输入字母, 默认弹出英文输入法 ) |
-| getNumberAndLettersKeyListener | 获取 DigitsKeyListener ( 限制只能输入字母和数字, 默认弹出英文输入法 ) |
+| getLettersKeyListener | 获取 DigitsKeyListener ( 限制只能输入字母, 默认弹出英文软键盘 ) |
+| getNumberAndLettersKeyListener | 获取 DigitsKeyListener ( 限制只能输入字母和数字, 默认弹出英文软键盘 ) |
 | getNumberKeyListener | 获取 DigitsKeyListener ( 限制只能输入数字, 默认弹出数字列表 ) |
 | createDigitsKeyListener | 创建 DigitsKeyListener |
 
@@ -755,8 +755,14 @@ DevUtils.openDebug();
 | 方法 | 注释 |
 | :- | :- |
 | getMainHandler | 获取主线程 Handler |
+| isMainThread | 当前线程是否主线程 |
 | postRunnable | 在主线程 Handler 中执行任务 |
 | removeRunnable | 在主线程 Handler 中清除任务 |
+| getRunnableMaps | 获取 Key Runnable Map |
+| clearRunnableMaps | 清空 Key Runnable Map |
+| containsKey | 判断 Map 是否存储 key Runnable |
+| put | 通过 Key 存储 Runnable |
+| remove | 通过 Key 移除 Runnable |
 
 
 * **ImageView 工具类 ->** [ImageViewUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/ImageViewUtils.java)
@@ -845,6 +851,7 @@ DevUtils.openDebug();
 | 方法 | 注释 |
 | :- | :- |
 | setDelayMillis | 设置延迟时间 |
+| setSoftInputMode | 设置 Window 软键盘是否显示 |
 | openKeyboard | 打开软键盘 |
 | closeKeyboard | 关闭软键盘 |
 | closeKeyBoardSpecial | 关闭软键盘 - 特殊处理 |
@@ -1808,7 +1815,7 @@ DevUtils.openDebug();
 | getAnimation | 获取动画 |
 | clearAnimation | 清空动画 |
 | startAnimation | 启动动画 |
-| cancel | 取消动画 |
+| cancelAnimation | 取消动画 |
 | setBackground | 设置背景图片 |
 | setBackgroundColor | 设置背景颜色 |
 | setBackgroundResource | 设置背景资源 |
@@ -1854,7 +1861,7 @@ DevUtils.openDebug();
 | getAnimation | 获取动画 |
 | clearAnimation | 清空动画 |
 | startAnimation | 启动动画 |
-| cancel | 取消动画 |
+| cancelAnimation | 取消动画 |
 | getRotateAnimation | 获取一个旋转动画 |
 | getRotateAnimationByCenter | 获取一个根据视图自身中心点旋转的动画 |
 | getAlphaAnimation | 获取一个透明度渐变动画 |
@@ -2269,6 +2276,7 @@ DevUtils.openDebug();
 | setAnimation | 设置动画 |
 | clearAnimation | 清空动画 |
 | startAnimation | 启动动画 |
+| cancelAnimation | 取消动画 |
 | setOnClicks | 设置点击事件 |
 | setOnLongClicks | 设置长按事件 |
 | setOnTouchs | 设置触摸事件 |
@@ -2455,6 +2463,7 @@ DevUtils.openDebug();
 | setAnimation | 设置动画 |
 | clearAnimation | 清空动画 |
 | startAnimation | 启动动画 |
+| cancelAnimation | 取消动画 |
 | setOnClicks | 设置点击事件 |
 | setOnLongClicks | 设置长按事件 |
 | setOnTouchs | 设置触摸事件 |
@@ -2538,7 +2547,7 @@ DevUtils.openDebug();
 | soften | 柔化效果处理 |
 | sharpen | 锐化效果处理 |
 | emboss | 浮雕效果处理 |
-| toGray | 转为灰度图片 |
+| gray | 转为灰度图片 |
 | saturation | 饱和度处理 |
 | lum | 亮度处理 |
 | hue | 色相处理 |
@@ -2685,7 +2694,6 @@ DevUtils.openDebug();
 | :- | :- |
 | getKey | 获取 key |
 | getValue | 获取 value |
-| toString | toString |
 | get | 通过 resId 设置 key, 并且初始化 KeyValueBean |
 
 
@@ -3160,7 +3168,7 @@ DevUtils.openDebug();
 
 | 方法 | 注释 |
 | :- | :- |
-| toHexAlpha | 获取十六进制透明度字符串 |
+| hexAlpha | 获取十六进制透明度字符串 |
 | getARGB | 返回一个颜色 ARGB 色值数组 ( 返回十进制 ) |
 | alpha | 返回一个颜色中的透明度值 ( 返回十进制 ) |
 | alphaPercent | 返回一个颜色中的透明度百分比值 |
@@ -3203,7 +3211,6 @@ DevUtils.openDebug();
 | getHue | 获取颜色色调 |
 | getSaturation | 获取颜色饱和度 |
 | getBrightness | 获取颜色亮度 |
-| toString | toString |
 | handleColor | 处理 color |
 
 
@@ -3297,7 +3304,7 @@ DevUtils.openDebug();
 | get12Hour | 获取时 - 12 |
 | getMinute | 获取分 |
 | getSecond | 获取秒 |
-| convertTime | 转换时间处理, 小于 10, 则自动补充 0x |
+| timeAddZero | 时间补 0 处理 ( 小于 10, 则自动补充 0x ) |
 | isLeapYear | 判断是否闰年 |
 | getMonthDayNumberAll | 根据年份、月份, 获取对应的天数 ( 完整天数, 无判断是否属于未来日期 ) |
 | getYearMonthNumber | 根据年份, 获取对应的月份 |
@@ -3345,14 +3352,20 @@ DevUtils.openDebug();
 | isStartsWith | 判断内容, 是否属于特定字符串开头 - 对比大小写 |
 | isEndsWith | 判断内容, 是否属于特定字符串结尾 - 对比大小写 |
 | isSpace | 判断字符串是否为 null 或全为空白字符 |
-| toClearSpace | 清空字符串全部空格 |
-| toClearSpaceTrim | 清空字符串前后所有空格 |
+| clearSpace | 清空字符串全部空格 |
+| clearTab | 清空字符串全部 Tab |
+| clearLine | 清空字符串全部换行符 |
+| clearSpaceTrim | 清空字符串前后全部空格 |
+| clearTabTrim | 清空字符串前后全部 Tab |
+| clearLineTrim | 清空字符串前后全部换行符 |
+| clearSpaceTabLine | 清空字符串全部空格、Tab、换行符 |
+| clearSpaceTabLineTrim | 清空字符串前后全部空格、Tab、换行符 |
 | appendSpace | 追加空格 |
 | appendTab | 追加 Tab |
 | appendLine | 追加换行 |
-| toCheckValue | 检查字符串 |
-| toCheckValues | 检查字符串 - 多个值 |
-| toCheckValuesSpace | 检查字符串 - 多个值 ( 删除前后空格对比判断 ) |
+| checkValue | 检查字符串 |
+| checkValues | 检查字符串 - 多个值 |
+| checkValuesSpace | 检查字符串 - 多个值 ( 删除前后空格对比判断 ) |
 | getFormatString | 获取格式化后的字符串 |
 | getAutoFormatString | 获取自动数量格式化后的字符串 ( 可变参数 ) |
 | getAutoFormatString2 | 获取自动数量格式化后的字符串 ( 可变参数 ) |
@@ -3364,12 +3377,12 @@ DevUtils.openDebug();
 | subSymbolHide | 裁剪符号处理 |
 | subSetSymbol | 裁剪内容, 设置符号处理 |
 | substring | 裁剪字符串 |
-| toReplaceSEWith | 替换 ( 删除 - 替换成 "") 字符串中符合 特定标记字符的 startsWith - endsWith |
-| toReplaceStartsWith | 替换开头字符串 |
-| toReplaceEndsWith | 替换结尾字符串 |
-| toClearSEWiths | 这个方法功能主要把字符符合标记的 头部和尾部都替换成 "" |
-| toClearStartsWith | 清空属于特定字符串开头的字段 |
-| toClearEndsWith | 清空属于特定字符串结尾的字段 |
+| replaceSEWith | 替换 ( 删除 - 替换成 "") 字符串中符合 特定标记字符的 startsWith - endsWith |
+| replaceStartsWith | 替换开头字符串 |
+| replaceEndsWith | 替换结尾字符串 |
+| clearSEWiths | 这个方法功能主要把字符符合标记的 头部和尾部都替换成 "" |
+| clearStartsWith | 清空属于特定字符串开头的字段 |
+| clearEndsWith | 清空属于特定字符串结尾的字段 |
 | replaceAll | 替换字符串 |
 | replaceAllToNull | 替换字符串 |
 | replaceAlls | 替换字符串 |
@@ -3505,7 +3518,7 @@ DevUtils.openDebug();
 | copyDir | 复制目录 |
 | moveDir | 移动目录 |
 | deleteDir | 删除目录 |
-| deleteAllInDir | 删除目录下所有东西 |
+| deleteAllInDir | 删除目录下所有文件 |
 | deleteFilesInDir | 删除目录下所有文件 |
 | deleteFilesInDirWithFilter | 删除目录下所有过滤的文件 |
 | listFilesInDir | 获取目录下所有文件 - 不递归进子目录 |
@@ -3550,9 +3563,9 @@ DevUtils.openDebug();
 | splitParams | 拆分参数 |
 | joinParams | 拼接请求参数 - value(String) |
 | joinParamsObj | 拼接请求参数 - value(Object) |
-| toConvertObjToMS | 进行转换对象处理 ( 请求发送对象 ) |
-| toConvertObjToMO | 进行转换对象处理 ( 请求发送对象 ) |
-| toUrlEncode | 进行 URL 编码, 默认 UTF-8 |
+| convertObjToMS | 进行转换对象处理 ( 请求发送对象 ) |
+| convertObjToMO | 进行转换对象处理 ( 请求发送对象 ) |
+| urlEncode | 进行 URL 编码, 默认 UTF-8 |
 
 
 * **HttpURLConnection 网络工具类 ->** [HttpURLConnectionUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/common/HttpURLConnectionUtils.java)
@@ -3600,8 +3613,8 @@ DevUtils.openDebug();
 | equals | 判断两个值是否一样 |
 | toggle | 切换保存状态 |
 | isNullToValue | 判断指定 key 的 value 是否为 null |
-| containsKey | 判断 Map 是否存储了 key |
-| containsValue | 判断 Map 是否存储了 value |
+| containsKey | 判断 Map 是否存储 key |
+| containsValue | 判断 Map 是否存储 value |
 | putToList | 添加一条数据 - (Value) List<T> |
 | removeToList | 移除一条数据 - (Value) List<T> |
 | removeToLists | 移除多条数据 - (Value) List<T> |
@@ -3612,6 +3625,7 @@ DevUtils.openDebug();
 
 | 方法 | 注释 |
 | :- | :- |
+| addZero | 补 0 处理 ( 小于 10, 则自动补充 0x ) |
 | percentI | 计算百分比值 ( 最大 100%) |
 | percentD | 计算百分比值 ( 最大 100%) |
 | percentL | 计算百分比值 ( 最大 100%) |
@@ -3754,33 +3768,39 @@ DevUtils.openDebug();
 | countMatches2 | 统计字符串匹配个数 |
 | isSpace | 判断字符串是否为 null 或全为空白字符 |
 | getBytes | 字符串 转 byte[] |
-| toClearSpace | 清空字符串全部空格 |
-| toClearSpaceTrim | 清空字符串前后所有空格 |
+| clearSpace | 清空字符串全部空格 |
+| clearTab | 清空字符串全部 Tab |
+| clearLine | 清空字符串全部换行符 |
+| clearSpaceTrim | 清空字符串前后全部空格 |
+| clearTabTrim | 清空字符串前后全部 Tab |
+| clearLineTrim | 清空字符串前后全部换行符 |
+| clearSpaceTabLine | 清空字符串全部空格、Tab、换行符 |
+| clearSpaceTabLineTrim | 清空字符串前后全部空格、Tab、换行符 |
 | appendSpace | 追加空格 |
 | appendTab | 追加 Tab |
 | appendLine | 追加换行 |
 | forString | 循环指定数量字符串 |
 | forJoint | 循环追加 |
 | colonSplit | 冒号分割处理 |
-| toCheckValue | 检查字符串 |
-| toCheckValues | 检查字符串 - 多个值 |
-| toCheckValuesSpace | 检查字符串 - 多个值 ( 删除前后空格对比判断 ) |
+| checkValue | 检查字符串 |
+| checkValues | 检查字符串 - 多个值 |
+| checkValuesSpace | 检查字符串 - 多个值 ( 删除前后空格对比判断 ) |
 | getFormatString | 获取格式化后的字符串 |
 | getAutoFormatString | 获取自动数量格式化后的字符串 ( 可变参数 ) |
 | getAutoFormatString2 | 获取自动数量格式化后的字符串 ( 可变参数 ) |
 | appends | StringBuilder 拼接处理 |
 | appendsIgnoreLast | StringBuilder 拼接处理 ( 最后一个不追加间隔 ) |
-| toGBKEncode | 字符串进行 GBK 编码 |
-| toGBK2312Encode | 字符串进行 GBK2312 编码 |
-| toUTF8Encode | 字符串进行 UTF-8 编码 |
-| toStrEncode | 进行字符串编码 |
-| toUrlEncode | 进行 URL 编码, 默认 UTF-8 |
-| toUrlDecode | 进行 URL 解码, 默认 UTF-8 |
-| toASCII | 将字符串转移为 ASCII 码 |
-| toUnicode | 将字符串转移为 Unicode 码 |
-| toUnicodeString | 将字符数组转移为 Unicode 码 |
-| toDBC | 转化为半角字符 |
-| toSBC | 转化为全角字符 如: a = ａ, A = Ａ |
+| gbkEncode | 字符串进行 GBK 编码 |
+| gbk2312Encode | 字符串进行 GBK2312 编码 |
+| utf8Encode | 字符串进行 UTF-8 编码 |
+| strEncode | 进行字符串编码 |
+| urlEncode | 进行 URL 编码, 默认 UTF-8 |
+| urlDecode | 进行 URL 解码, 默认 UTF-8 |
+| ascii | 将字符串转移为 ASCII 码 |
+| unicode | 将字符串转移为 Unicode 码 |
+| unicodeString | 将字符数组转移为 Unicode 码 |
+| dbc | 转化为半角字符 |
+| sbc | 转化为全角字符 如: a = ａ, A = Ａ |
 | checkChineseToString | 检测字符串是否全是中文 |
 | isChinese | 判定输入汉字 |
 | upperFirstLetter | 首字母大写 |
@@ -3797,12 +3817,12 @@ DevUtils.openDebug();
 | subSymbolHide | 裁剪符号处理 |
 | subSetSymbol | 裁剪内容, 设置符号处理 |
 | substring | 裁剪字符串 |
-| toReplaceSEWith | 替换 ( 删除 - 替换成 "") 字符串中符合 特定标记字符的 startsWith - endsWith |
-| toReplaceStartsWith | 替换开头字符串 |
-| toReplaceEndsWith | 替换结尾字符串 |
-| toClearSEWiths | 这个方法功能主要把字符符合标记的 头部和尾部都替换成 "" |
-| toClearStartsWith | 清空属于特定字符串开头的字段 |
-| toClearEndsWith | 清空属于特定字符串结尾的字段 |
+| replaceSEWith | 替换 ( 删除 - 替换成 "") 字符串中符合 特定标记字符的 startsWith - endsWith |
+| replaceStartsWith | 替换开头字符串 |
+| replaceEndsWith | 替换结尾字符串 |
+| clearSEWiths | 这个方法功能主要把字符符合标记的 头部和尾部都替换成 "" |
+| clearStartsWith | 清空属于特定字符串开头的字段 |
+| clearEndsWith | 清空属于特定字符串结尾的字段 |
 | replaceAll | 替换字符串 |
 | replaceAllToNull | 替换字符串 |
 | replaceAlls | 替换字符串 |
