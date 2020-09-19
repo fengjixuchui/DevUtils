@@ -13,7 +13,7 @@ import dev.utils.JCLogUtils;
  * <pre>
  *     // 升序
  *     Arrays.sort(arrays);
- *     // 降序 - 只能对对象数组降序
+ *     // 降序 ( 只能对对象数组降序 )
  *     Arrays.sort(arrays, Collections.reverseOrder());
  * </pre>
  */
@@ -1019,9 +1019,9 @@ public final class ArrayUtils {
         return get(booleans, length(booleans) - 1);
     }
 
-    // ===================
-    // = 数据获取 - 特殊 =
-    // ===================
+    // ============
+    // = 数据获取 =
+    // ============
 
     /**
      * 根据指定值获取 value 所在位置 + 偏移量的值

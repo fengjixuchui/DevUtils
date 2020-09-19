@@ -1962,7 +1962,7 @@ DevUtils.openDebug();
 
 | 方法 | 注释 |
 | :- | :- |
-| obtain | 获取 DevCache - 默认缓存文件名 |
+| obtain | 获取 DevCache ( 默认缓存文件名 ) |
 | put | 保存 String 数据到缓存中 |
 | getAsString | 读取 String 数据 |
 | getAsJSONObject | 读取 JSONObject 数据 |

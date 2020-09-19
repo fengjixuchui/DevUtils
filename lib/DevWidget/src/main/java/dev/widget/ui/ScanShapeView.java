@@ -112,7 +112,7 @@ public class ScanShapeView extends View {
     private float   mBorderMargin = 0;
     // 边框宽度
     private float   mBorderWidth;
-    // 扫描区域块 - 绘制的宽 (x), 高 (y) - 默认 700x700
+    // 扫描区域块 ( 默认 700x700 ) - 绘制的宽 (x), 高 (y)
     private PointF  mPointF       = new PointF(700, 700);
 
     // =======================
@@ -132,7 +132,7 @@ public class ScanShapeView extends View {
     // = 环形相关 =
     // ============
 
-    // 环形画笔, 0 - 外环, 1 - 中间环, 2 - 外环
+    // 环形画笔, [] { 0 - 外环, 1 - 中间环, 2 - 外环 }
     private Paint[]   mAnnulusPaints  = new Paint[3];
     // 三个环宽度
     private float[]   mAnnulusWidths  = new float[3];
@@ -445,7 +445,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 设置是否拐角圆角 ( 主要是控制绘制边框的线 ) - 部分特殊使用
+     * 设置是否拐角圆角 ( 主要是控制绘制边框的线 )
      * @param cornerEffect 拐角角度大小
      * @return {@link ScanShapeView}
      */
@@ -911,16 +911,16 @@ public class ScanShapeView extends View {
     // ==========
 
     /**
-     * 获取六边形线条动画 - 线条宽度
-     * @return 六边形线条动画 - 线条宽度
+     * 获取六边形线条动画 ( 线条宽度 )
+     * @return 六边形线条动画 ( 线条宽度 )
      */
     public float getLineWidthToHexagon() {
         return mLinePaintToHexagon.getStrokeWidth();
     }
 
     /**
-     * 设置六边形线条动画 - 线条宽度
-     * @param lineWidthToHexagon 六边形线条动画 - 线条宽度
+     * 设置六边形线条动画 ( 线条宽度 )
+     * @param lineWidthToHexagon 六边形线条动画 ( 线条宽度 )
      * @return {@link ScanShapeView}
      */
     public ScanShapeView setLineWidthToHexagon(float lineWidthToHexagon) {
@@ -932,16 +932,16 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 获取六边形线条动画 - 线条边距
-     * @return 六边形线条动画 - 线条边距
+     * 获取六边形线条动画 ( 线条边距 )
+     * @return 六边形线条动画 ( 线条边距 )
      */
     public float getLineMarginToHexagon() {
         return mLineMarginToHexagon;
     }
 
     /**
-     * 设置六边形线条动画 - 线条边距
-     * @param lineMarginToHexagon 六边形线条动画 - 线条边距
+     * 设置六边形线条动画 ( 线条边距 )
+     * @param lineMarginToHexagon 六边形线条动画 ( 线条边距 )
      * @return {@link ScanShapeView}
      */
     public ScanShapeView setLineMarginToHexagon(float lineMarginToHexagon) {
@@ -1053,7 +1053,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 获取环形对应的环是否绘制 0 - 外环, 1 - 中间环, 2 - 外环
+     * 获取环形对应的环是否绘制
      * @return 环形对应的环是否绘制
      */
     public boolean[] getAnnulusDraws() {
@@ -1061,7 +1061,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 设置环形对应的环是否绘制 0 - 外环, 1 - 中间环, 2 - 外环
+     * 设置环形对应的环是否绘制
      * @param annulusDraws 环形对应的环是否绘制
      * @return {@link ScanShapeView}
      */
@@ -1083,7 +1083,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 获取环形对应的环绘制颜色 0 - 外环, 1 - 中间环, 2 - 外环
+     * 获取环形对应的环绘制颜色
      * @return 环形对应的环绘制颜色
      */
     public int[] getAnnulusColors() {
@@ -1091,7 +1091,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 设置环形对应的环绘制颜色 0 - 外环, 1 - 中间环, 2 - 外环
+     * 设置环形对应的环绘制颜色
      * @param annulusColors 环形对应的环绘制颜色
      * @return {@link ScanShapeView}
      */
@@ -1115,7 +1115,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 获取环形对应的环绘制长度 0 - 外环, 1 - 中间环, 2 - 外环
+     * 获取环形对应的环绘制长度
      * @return 环形对应的环绘制长度
      */
     public int[] getAnnulusLengths() {
@@ -1123,7 +1123,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 设置环形对应的环绘制长度 0 - 外环, 1 - 中间环, 2 - 外环
+     * 设置环形对应的环绘制长度
      * @param annulusLengths 环形对应的环绘制长度
      * @return {@link ScanShapeView}
      */
@@ -1145,7 +1145,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 获取环形对应的环绘制宽度 0 - 外环, 1 - 中间环, 2 - 外环
+     * 获取环形对应的环绘制宽度
      * @return 环形对应的环绘制宽度
      */
     public float[] getAnnulusWidths() {
@@ -1153,7 +1153,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 设置环形对应的环绘制宽度 0 - 外环, 1 - 中间环, 2 - 外环
+     * 设置环形对应的环绘制宽度
      * @param annulusWidths 环形对应的环绘制宽度
      * @return {@link ScanShapeView}
      */
@@ -1180,7 +1180,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 获取环形对应的环绘制边距 0 - 外环, 1 - 中间环, 2 - 外环
+     * 获取环形对应的环绘制边距
      * @return 环形对应的环绘制边距
      */
     public float[] getAnnulusMargins() {
@@ -1188,7 +1188,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 设置环形对应的环绘制边距 0 - 外环, 1 - 中间环, 2 - 外环
+     * 设置环形对应的环绘制边距
      * @param annulusMargins 环形对应的环绘制边距
      * @return {@link ScanShapeView}
      */
@@ -1239,7 +1239,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 获取扫描区域左边边距 ( 左右相等 ) = (View 宽度 - 扫描区域宽度 ) / 2
+     * 获取扫描区域左边边距 ( 左右相等 ) = ( View 宽度 - 扫描区域宽度 ) / 2
      * @return 扫描区域左边边距
      */
     private float getRegionMarginLeft() {
@@ -1247,7 +1247,7 @@ public class ScanShapeView extends View {
     }
 
     /**
-     * 获取扫描区域向上边距 ( 上下相等 ) = (View 宽度 - 扫描区域宽度 ) / 2
+     * 获取扫描区域向上边距 ( 上下相等 ) = ( View 宽度 - 扫描区域宽度 ) / 2
      * @return 扫描区域向上边距
      */
     private float getRegionMarginTop() {
@@ -1902,11 +1902,11 @@ public class ScanShapeView extends View {
      * </pre>
      */
     private void refLineColorToHexagon() {
-        // 获取红色 - 色值
+        // 获取红色色值
         mLineRed = Color.red(mLineColorToHexagon);
-        // 获取绿色 - 色值
+        // 获取绿色色值
         mLineGreen = Color.green(mLineColorToHexagon);
-        // 获取蓝色 - 色值
+        // 获取蓝色色值
         mLineBlue = Color.blue(mLineColorToHexagon);
         // 透明度 0 线条
         mLineTran00Color = Color.argb(0, mLineRed, mLineGreen, mLineBlue);
