@@ -224,3 +224,5 @@
 * [使用命令将 Logcat 中的内容输出到文本文件中](https://blog.csdn.net/qq_23174861/article/details/50337503)
 
 * [编码 5 分钟, 命名 2 小时? 史上最全的 Java 命名规范参考!](https://mp.weixin.qq.com/s?__biz=MzIxNjA5MTM2MA==&mid=2652436955&idx=1&sn=eaa2cb9d3e3730f6a7566028e8667cb2)
+
+* [Cz 工具集使用介绍 - 规范 Git 提交说明 ( ChangeLog )](https://blog.csdn.net/weixin_33890526/article/details/91393527)
