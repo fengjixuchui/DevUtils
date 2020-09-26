@@ -209,7 +209,7 @@
 
 * [Kotlin 的 final、open 和 const 修饰符](https://www.cnblogs.com/nicolas2019/p/10937956.html)
 
-* [Kotlin 教程——史上最全面、最详细的学习教程](https://www.cnblogs.com/Jetictors/p/9227498.html)
+* [Kotlin 教程 - 史上最全面、最详细的学习教程](https://www.cnblogs.com/Jetictors/p/9227498.html)
 
 * [Kotlin 从入门到进阶](https://www.jianshu.com/p/f98dcd2da323)
 

@@ -1,4 +1,4 @@
-package afkt.project.db;
+package gen.greendao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

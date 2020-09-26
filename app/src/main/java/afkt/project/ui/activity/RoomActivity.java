@@ -22,7 +22,7 @@ import afkt.project.database.green.GreenManager;
 import afkt.project.database.green.bean.Note;
 import afkt.project.database.green.bean.NotePicture;
 import afkt.project.database.green.bean.NoteType;
-import afkt.project.databinding.ActivityGreenDaoBinding;
+import afkt.project.databinding.ActivityRoomBinding;
 import afkt.project.ui.adapter.GreenDaoAdapter;
 import dev.assist.PageAssist;
 import dev.utils.app.logger.DevLogger;
@@ -32,24 +32,20 @@ import dev.utils.common.RandomUtils;
 import gen.greendao.NotePictureDao;
 
 /**
- * detail: GreenDao 使用
+ * detail: Room 使用
  * @author Ttt
  * <pre>
- *     官方文档
- *     @see <a href="https://greenrobot.org/greendao/documentation/modelling-entities"/>
- *     SQL 语句写到累了? 试试 GreenDAO
- *     @see <a href="https://www.jianshu.com/p/11bdd9d761e6"/>
- *     Android GreenDao 数据库
- *     @see <a href="https://www.jianshu.com/p/26c60d59e76d"/>
- *     Android ORM 框架 : GreenDao 使用详解 ( 进阶篇 )
- *     @see <a href="https://blog.csdn.net/speedystone/article/details/74193053"/>
+ *     Room VS GreenDao
+ *     @see <a href="https://www.jianshu.com/p/5eab05820e9f"/>
+ *     Room 持久性库
+ *     @see <a href="https://developer.android.com/training/data-storage/room"/>
  * </pre>
  */
-public class GreenDaoActivity extends BaseActivity<ActivityGreenDaoBinding> {
+public class RoomActivity extends BaseActivity<ActivityRoomBinding> {
 
     @Override
     public int baseLayoutId() {
-        return R.layout.activity_green_dao;
+        return R.layout.activity_room;
     }
 
     @Override
@@ -59,7 +55,7 @@ public class GreenDaoActivity extends BaseActivity<ActivityGreenDaoBinding> {
         ToastTintUtils.info("侧滑可进行删除, 长按拖动位置");
 
         // 初始化布局管理器、适配器
-        binding.vidAgdRefresh.setAdapter(new GreenDaoAdapter())
+        binding.vidArRefresh.setAdapter(new GreenDaoAdapter())
                 .setPageAssist(new PageAssist<>(0, 8));
         // 加载数据
         loadData(true);
@@ -69,7 +65,7 @@ public class GreenDaoActivity extends BaseActivity<ActivityGreenDaoBinding> {
     public void initListener() {
         super.initListener();
         // 刷新事件
-        binding.vidAgdRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
+        binding.vidArRefresh.setOnRefreshLoadMoreListener(new OnRefreshLoadMoreListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 loadData(true);
@@ -110,7 +106,7 @@ public class GreenDaoActivity extends BaseActivity<ActivityGreenDaoBinding> {
              */
             @Override
             public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
-                GreenDaoAdapter adapter = binding.vidAgdRefresh.getAdapter();
+                GreenDaoAdapter adapter = binding.vidArRefresh.getAdapter();
                 int fromPosition = viewHolder.getAdapterPosition();
                 int toPosition = target.getAdapterPosition();
                 Collections.swap(adapter.getData(), fromPosition, toPosition);
@@ -127,7 +123,7 @@ public class GreenDaoActivity extends BaseActivity<ActivityGreenDaoBinding> {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getAdapterPosition();
                 if (direction == ItemTouchHelper.LEFT || direction == ItemTouchHelper.RIGHT) {
-                    GreenDaoAdapter adapter = binding.vidAgdRefresh.getAdapter();
+                    GreenDaoAdapter adapter = binding.vidArRefresh.getAdapter();
                     Note note = adapter.getData().remove(position);
                     adapter.notifyItemRemoved(position);
                     // 删除文章
@@ -140,12 +136,12 @@ public class GreenDaoActivity extends BaseActivity<ActivityGreenDaoBinding> {
                 }
             }
         });
-        itemTouchHelper.attachToRecyclerView(binding.vidAgdRefresh.getRecyclerView());
+        itemTouchHelper.attachToRecyclerView(binding.vidArRefresh.getRecyclerView());
 
-        binding.vidAgdAddBtn.setOnClickListener(new View.OnClickListener() {
+        binding.vidArAddBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (binding.vidAgdRefresh.getAdapter().getData().isEmpty()) { // 不存在数据
+                if (binding.vidArRefresh.getAdapter().getData().isEmpty()) { // 不存在数据
                     randomData(13);
                     // 加载数据
                     loadData(true);
@@ -203,8 +199,8 @@ public class GreenDaoActivity extends BaseActivity<ActivityGreenDaoBinding> {
      * @param refresh 是否刷新
      */
     private void loadData(boolean refresh) {
-        PageAssist pageAssist = binding.vidAgdRefresh.getPageAssist();
-        GreenDaoAdapter adapter = binding.vidAgdRefresh.getAdapter();
+        PageAssist pageAssist = binding.vidArRefresh.getPageAssist();
+        GreenDaoAdapter adapter = binding.vidArRefresh.getAdapter();
         // 刷新则重置页数
         if (refresh) pageAssist.reset();
 
@@ -226,7 +222,7 @@ public class GreenDaoActivity extends BaseActivity<ActivityGreenDaoBinding> {
         }
 
         // 结束刷新、加载
-        binding.vidAgdRefresh.finishRefreshOrLoad(refresh);
+        binding.vidArRefresh.finishRefreshOrLoad(refresh);
     }
 
     /**
@@ -242,14 +238,14 @@ public class GreenDaoActivity extends BaseActivity<ActivityGreenDaoBinding> {
     private List<Note> offsetLimitCalculate(boolean refresh) {
         int offset, limit;
 
-        int pageSize = binding.vidAgdRefresh.getPageAssist().getPageSize();
+        int pageSize = binding.vidArRefresh.getPageAssist().getPageSize();
 
         if (refresh) {
             offset = 0;
             limit = pageSize;
         } else {
             // 获取当前数据条数
-            int size = binding.vidAgdRefresh.getAdapter().getData().size();
+            int size = binding.vidArRefresh.getAdapter().getData().size();
             // 计算当前数据实际页数
             int page = size / pageSize;
             int remainder = size % pageSize;

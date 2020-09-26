@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:2.0.3'
+implementation 'com.afkt:DevAppX:2.0.4'
 ```
 
 ## 目录结构
@@ -3057,6 +3057,32 @@ DevUtils.openDebug();
 | adjustDouble | 获取自己想要的数据格式 |
 
 
+* **日历工具类 ->** [CalendarUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/common/CalendarUtils.java)
+
+| 方法 | 注释 |
+| :- | :- |
+| isSupportLunar | 是否支持农历年份计算 |
+| isSupportSolar | 是否支持公历年份计算 |
+| solarToLunar | 公历转农历 |
+| lunarToSolar | 农历转公历 |
+| getLunarYearDays | 获取农历年份总天数 |
+| getLunarLeapDays | 获取农历年份闰月天数 |
+| getLunarLeapMonth | 获取农历年份哪个月是闰月 |
+| getLunarMonthDays | 获取农历年份与月份总天数 |
+| getLunarGanZhi | 获取干支历 |
+| getLunarMonthChinese | 获取农历中文月份 |
+| getLunarDayChinese | 获取农历中文天数 |
+| getSolarTermsIndex | 获取二十四节气 ( 公历 ) 索引 |
+| getSolarTerms | 获取二十四节气 ( 公历 ) |
+| getSolarTermsDate | 获取二十四节气 ( 公历 ) 时间 |
+| isFestival | 校验是否相同节日 |
+| getFestival | 获取符合条件的节日信息 |
+| getSolarFestival | 获取公历符合条件的节日信息 |
+| getLunarFestival | 获取农历符合条件的节日信息 |
+| getFestivalHook | 获取节日 Hook 接口 |
+| setFestivalHook | 设置节日 Hook 接口 |
+
+
 * **中文工具类 ->** [ChineseUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/common/ChineseUtils.java)
 
 | 方法 | 注释 |
@@ -3326,6 +3352,9 @@ DevUtils.openDebug();
 | isInDate | 判断时间是否在 [startTime, endTime] 区间, 注意时间格式要一致 |
 | getEndTimeDiffHHmm | 获取指定时间距离该时间第二天的指定时段的时间 ( 判断凌晨情况 ) |
 | getEndTimeDiff | 获取指定时间距离该时间第二天的指定时段的时间差 ( 判断凌晨情况 ) |
+| getZodiac | 获取生肖 |
+| getConstellation | 获取星座 |
+| getConstellationDate | 获取星座日期 |
 
 
 * **开发常用方法工具类 ->** [DevCommonUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/common/DevCommonUtils.java)

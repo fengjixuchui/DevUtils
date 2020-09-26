@@ -1,4 +1,4 @@
-package afkt.project.db;
+package afkt.project.database.green.bean;
 
 import org.greenrobot.greendao.converter.PropertyConverter;
 

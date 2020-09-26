@@ -1,9 +1,15 @@
-package afkt.project.db;
+package afkt.project.database.green;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import org.greenrobot.greendao.database.Database;
+
+import dev.utils.app.logger.DevLogger;
+import gen.greendao.DaoMaster;
+import gen.greendao.DaoSession;
+import gen.greendao.NoteDao;
+import gen.greendao.NotePictureDao;
 
 /**
  * detail: GreenDao 管理类
@@ -59,6 +65,7 @@ public final class GreenManager {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            DevLogger.dTag(TAG, "oldVersion: " + oldVersion + ", newVersion: " + newVersion);
 //            super.onUpgrade(db, oldVersion, newVersion);
             MigrationHelper.migrate(db, NoteDao.class, NotePictureDao.class);
         }

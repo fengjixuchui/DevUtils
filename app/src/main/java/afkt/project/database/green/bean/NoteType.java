@@ -1,4 +1,4 @@
-package afkt.project.db;
+package afkt.project.database.green.bean;
 
 /**
  * detail: 便签类型
