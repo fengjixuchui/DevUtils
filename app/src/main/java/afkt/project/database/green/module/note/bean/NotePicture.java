@@ -1,4 +1,4 @@
-package afkt.project.database.green.bean;
+package afkt.project.database.green.module.note.bean;
 
 import org.greenrobot.greendao.annotation.Entity;
 import org.greenrobot.greendao.annotation.Generated;
@@ -6,7 +6,8 @@ import org.greenrobot.greendao.annotation.Id;
 import org.greenrobot.greendao.annotation.NotNull;
 
 /**
- * detail: 便签图片资源
+ * detail: Note 图片资源
+ * @author Ttt
  */
 @Entity
 public class NotePicture {
@@ -15,6 +16,7 @@ public class NotePicture {
     private Long   id;
     @NotNull
     private String picture;
+    // 对应的 note id ( 外键 )
     private Long   noteId;
 
 

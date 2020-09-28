@@ -1,4 +1,4 @@
-package afkt.project.database.green.bean;
+package afkt.project.database.green.module.note.bean;
 
 import org.greenrobot.greendao.DaoException;
 import org.greenrobot.greendao.annotation.Convert;
@@ -18,10 +18,11 @@ import gen.greendao.DaoSession;
 import gen.greendao.NoteDao;
 import gen.greendao.NotePictureDao;
 
-
 /**
- * 默认表名为实体类名, 可以自定义表名 nameInDb
+ * detail: Note 实体类
+ * @author Ttt
  * <pre>
+ *     默认表名为实体类名, 可以自定义表名 nameInDb
  *     @see <a href="https://greenrobot.org/greendao/documentation/modelling-entities"/>
  * </pre>
  */

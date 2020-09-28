@@ -68,9 +68,9 @@ class BaseApplication : MultiDexApplication() {
                     }
                 }
 
-                // ================
+                // ===============
                 // = 打印事件信息 =
-                // ================
+                // ===============
 
                 val print = false
                 if (print) { // 开发时打印, 用于获取事件节点信息

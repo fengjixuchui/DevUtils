@@ -50,9 +50,9 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
         binding.vidFsAppsortTv.setText(appSortArys!![ProjectUtils.getAppSortType()])
     }
 
-    // ============
+    // ===========
     // = 事件相关 =
-    // ============
+    // ===========
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: SortEvent) {

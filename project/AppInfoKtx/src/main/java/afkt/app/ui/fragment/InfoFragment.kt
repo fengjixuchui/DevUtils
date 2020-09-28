@@ -54,9 +54,9 @@ class InfoFragment : BaseFragment<FragmentInfoBinding>() {
             .setEnableLoadMore(false)
     }
 
-    // ============
+    // ===========
     // = 事件相关 =
-    // ============
+    // ===========
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND, sticky = true)
     fun onEvent(event: FragmentEvent) {

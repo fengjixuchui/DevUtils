@@ -148,9 +148,9 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
         itemTouchHelper.attachToRecyclerView(binding.vidFaRefresh.getRecyclerView())
     }
 
-    // ============
+    // ===========
     // = 事件相关 =
-    // ============
+    // ===========
 
     @Subscribe(threadMode = ThreadMode.BACKGROUND, sticky = true)
     fun onEvent(event: FragmentEvent) {

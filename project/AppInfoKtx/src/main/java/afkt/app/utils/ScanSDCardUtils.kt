@@ -90,9 +90,9 @@ class ScanSDCardUtils private constructor() {
         utils.query(PathUtils.getSDCard().sdCardPath)
     }
 
-    // ============
+    // ===========
     // = 内部方法 =
-    // ============
+    // ===========
 
     /**
      * 转换处理

@@ -13,9 +13,9 @@ dependencies {
     implementation project(path: ':DevBase2')
     implementation project(path: ':DevWidget')
 
-    // ==============
+    // =============
     // = 快捷开发库 =
-    // ==============
+    // =============
 
     // Gson https://github.com/google/gson
     implementation deps.lib.gson
@@ -27,9 +27,9 @@ dependencies {
     // 今日头条屏幕适配方案终极版 https://github.com/JessYanCoding/AndroidAutoSize/blob/master/README-zh.md
     implementation deps.lib.autosize
 
-    // ===============================
+    // =============================
     // = 其他第三方库 - 小功能、简约 =
-    // ===============================
+    // =============================
 
     // 下拉刷新框架 https://github.com/scwang90/SmartRefreshLayout
     implementation deps.lib.smartrefreshlayout

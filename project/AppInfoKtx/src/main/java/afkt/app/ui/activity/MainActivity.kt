@@ -287,9 +287,9 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    // ============
+    // ===========
     // = 事件相关 =
-    // ============
+    // ===========
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: StartSearchEvent) {
