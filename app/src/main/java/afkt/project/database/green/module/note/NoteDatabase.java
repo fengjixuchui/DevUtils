@@ -101,9 +101,9 @@ public final class NoteDatabase extends GreenDatabase {
         return mDaoSession;
     }
 
-    // ==============
+    // =============
     // = 数据库升级 =
-    // ==============
+    // =============
 
     /**
      * detail: DB 升级 Helper
