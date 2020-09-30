@@ -11,44 +11,48 @@ import android.content.res.Resources;
 import android.content.res.XmlResourceParser;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.NinePatchDrawable;
 import android.util.DisplayMetrics;
+import android.view.Menu;
+import android.view.ViewGroup;
+import android.view.animation.Animation;
 
 import androidx.annotation.AnimRes;
 import androidx.annotation.AnimatorRes;
 import androidx.annotation.AnyRes;
 import androidx.annotation.ArrayRes;
 import androidx.annotation.BoolRes;
+import androidx.annotation.ColorInt;
 import androidx.annotation.ColorRes;
 import androidx.annotation.DimenRes;
 import androidx.annotation.DrawableRes;
 import androidx.annotation.IntegerRes;
 import androidx.annotation.RawRes;
 import androidx.annotation.StringRes;
+import androidx.core.content.ContextCompat;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
 import java.util.List;
 
 import dev.DevUtils;
 import dev.utils.LogPrintUtils;
+import dev.utils.app.assist.ResourceAssist;
 import dev.utils.app.info.ApkInfoItem;
 import dev.utils.app.info.AppInfoBean;
 import dev.utils.app.info.AppInfoUtils;
-import dev.utils.common.CloseUtils;
 import dev.utils.common.FileUtils;
 
 /**
  * detail: APK Resource 工具类
  * @author JiZhi-Error <a href="https://github.com/JiZhi-Error"/>
  * @author Ttt
+ * <pre>
+ *     从 APK 中读取 Resources ( 可实现换肤、组件化工具类 )
+ * </pre>
  */
 public final class ResourcePluginUtils {
 
@@ -58,14 +62,12 @@ public final class ResourcePluginUtils {
     // 日志 TAG
     private static final String TAG = ResourcePluginUtils.class.getSimpleName();
 
-    // APK Resources
-    private Resources   mResources;
-    // 包名
-    private String      mPackageName;
+    // Resources 辅助类
+    private ResourceAssist mResourceAssist = ResourceAssist.EMPTY_IMPL;
     // APK 文件路径
-    private String      mAPKPath;
+    private String         mAPKPath;
     // APK 信息 Item
-    private ApkInfoItem mApkInfoItem;
+    private ApkInfoItem    mApkInfoItem;
 
     // =======================
     // = invokeByPackageName =
@@ -90,8 +92,8 @@ public final class ResourcePluginUtils {
                                                                 final Context context) {
         DisplayMetrics metrics = null;
         Configuration config = null;
-        if (context != null) {
-            Resources resources = context.getResources();
+        Resources resources = ResourceAssist.staticResources(context);
+        if (resources != null) {
             metrics = resources.getDisplayMetrics();
             config = resources.getConfiguration();
         }
@@ -126,7 +128,6 @@ public final class ResourcePluginUtils {
         return invokeByAPKPath(apkPath, DevUtils.getContext());
     }
 
-
     /**
      * 通过 APK 文件获取 APK Resources
      * @param apkPath APK 文件路径
@@ -136,8 +137,8 @@ public final class ResourcePluginUtils {
     public static final ResourcePluginUtils invokeByAPKPath(final String apkPath, final Context context) {
         DisplayMetrics metrics = null;
         Configuration config = null;
-        if (context != null) {
-            Resources resources = context.getResources();
+        Resources resources = ResourceAssist.staticResources(context);
+        if (resources != null) {
             metrics = resources.getDisplayMetrics();
             config = resources.getConfiguration();
         }
@@ -166,8 +167,9 @@ public final class ResourcePluginUtils {
                 PackageInfo packageInfo = AppUtils.getPackageManager().getPackageArchiveInfo(
                         apkPath, PackageManager.GET_ACTIVITIES
                 );
-                utils.mPackageName = packageInfo.packageName;
-                utils.mResources = resources;
+                utils.mResourceAssist = ResourceAssist.get(
+                        resources, packageInfo.packageName
+                );
             } catch (Exception e) {
                 LogPrintUtils.eTag(TAG, e, "invokeByAPKPath - apkPath: " + apkPath);
             }
@@ -180,11 +182,19 @@ public final class ResourcePluginUtils {
     // ===============
 
     /**
+     * 获取 Resources 辅助类
+     * @return {@link ResourceAssist}
+     */
+    public ResourceAssist getResourceAssist() {
+        return mResourceAssist;
+    }
+
+    /**
      * 获取 Resources
      * @return {@link Resources}
      */
     public Resources getResources() {
-        return mResources;
+        return mResourceAssist.getResources();
     }
 
     /**
@@ -192,7 +202,7 @@ public final class ResourcePluginUtils {
      * @return APK 包名
      */
     public String getPackageName() {
-        return mPackageName;
+        return mResourceAssist.getPackageName();
     }
 
     /**
@@ -214,30 +224,14 @@ public final class ResourcePluginUtils {
         return mApkInfoItem;
     }
 
-    /**
-     * 获取 AssetManager
-     * @return {@link AssetManager}
-     */
-    public AssetManager getAssets() {
-        try {
-            return mResources.getAssets();
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getAssets");
-        }
-        return null;
-    }
+    // =
 
     /**
      * 获取 DisplayMetrics
      * @return {@link DisplayMetrics}
      */
     public DisplayMetrics getDisplayMetrics() {
-        try {
-            return mResources.getDisplayMetrics();
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getDisplayMetrics");
-        }
-        return null;
+        return mResourceAssist.getDisplayMetrics();
     }
 
     /**
@@ -245,535 +239,15 @@ public final class ResourcePluginUtils {
      * @return {@link Configuration}
      */
     public Configuration getConfiguration() {
-        try {
-            return mResources.getConfiguration();
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getConfiguration");
-        }
-        return null;
-    }
-
-    // ===========
-    // = 资源获取 =
-    // ===========
-
-    /**
-     * 获取 ColorStateList
-     * @param resName resource Name
-     * @return {@link ColorStateList}
-     */
-    public ColorStateList getColorStateList(final String resName) {
-        return getColorStateList(getColorId(resName));
+        return mResourceAssist.getConfiguration();
     }
 
     /**
-     * 获取 ColorStateList
-     * @param id resource identifier of a {@link ColorStateList}
-     * @return {@link ColorStateList}
+     * 获取 AssetManager
+     * @return {@link AssetManager}
      */
-    public ColorStateList getColorStateList(@ColorRes final int id) {
-        try {
-            return mResources.getColorStateList(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getColorStateList");
-        }
-        return null;
-    }
-
-    /**
-     * 获取 String
-     * @param resName resource Name
-     * @return String
-     */
-    public String getString(final String resName) {
-        return getString(getStringId(resName));
-    }
-
-    /**
-     * 获取 String
-     * @param id R.string.id
-     * @return String
-     */
-    public String getString(@StringRes final int id) {
-        try {
-            return mResources.getString(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getString");
-        }
-        return null;
-    }
-
-    /**
-     * 获取 String
-     * @param resName    resource Name
-     * @param formatArgs 格式化参数
-     * @return String
-     */
-    public String getString(final String resName, final Object... formatArgs) {
-        return getString(getStringId(resName), formatArgs);
-    }
-
-    /**
-     * 获取 String
-     * @param id         R.string.id
-     * @param formatArgs 格式化参数
-     * @return String
-     */
-    public String getString(@StringRes final int id, final Object... formatArgs) {
-        try {
-            return mResources.getString(id, formatArgs);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getString");
-        }
-        return null;
-    }
-
-    /**
-     * 获取 Color
-     * @param resName resource Name
-     * @return Color
-     */
-    public int getColor(final String resName) {
-        return getColor(getColorId(resName));
-    }
-
-    /**
-     * 获取 Color
-     * @param colorId R.color.id
-     * @return Color
-     */
-    public int getColor(@ColorRes final int colorId) {
-        try {
-            return mResources.getColor(colorId);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getColor");
-        }
-        return -1;
-    }
-
-    /**
-     * 获取 Drawable
-     * @param resName resource Name
-     * @return {@link Drawable}
-     */
-    public Drawable getDrawable(final String resName) {
-        return getDrawable(getDrawableId(resName));
-    }
-
-    /**
-     * 获取 Drawable
-     * @param drawableId R.drawable.id
-     * @return {@link Drawable}
-     */
-    public Drawable getDrawable(@DrawableRes final int drawableId) {
-        try {
-            return mResources.getDrawable(drawableId);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getDrawable");
-        }
-        return null;
-    }
-
-    /**
-     * 获取 .9 Drawable
-     * @param resName resource Name
-     * @return .9 {@link NinePatchDrawable}
-     */
-    public NinePatchDrawable getNinePatchDrawable(final String resName) {
-        return getNinePatchDrawable(getDrawableId(resName));
-    }
-
-    /**
-     * 获取 .9 Drawable
-     * @param drawableId R.drawable.id
-     * @return .9 {@link NinePatchDrawable}
-     */
-    public NinePatchDrawable getNinePatchDrawable(@DrawableRes final int drawableId) {
-        try {
-            return (NinePatchDrawable) getDrawable(drawableId);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getNinePatchDrawable");
-        }
-        return null;
-    }
-
-
-    /**
-     * 获取 Bitmap
-     * @param resName resource Name
-     * @return {@link Bitmap}
-     */
-    public Bitmap getBitmap(final String resName) {
-        return getBitmap(getDrawableId(resName));
-    }
-
-    /**
-     * 获取 Bitmap
-     * @param resId resource identifier
-     * @return {@link Bitmap}
-     */
-    public Bitmap getBitmap(final int resId) {
-        try {
-            return BitmapFactory.decodeResource(mResources, resId);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getBitmap");
-        }
-        return null;
-    }
-
-    /**
-     * 获取 Bitmap
-     * @param resName resource Name
-     * @param options {@link BitmapFactory.Options}
-     * @return {@link Bitmap}
-     */
-    public Bitmap getBitmap(final String resName, final BitmapFactory.Options options) {
-        return getBitmap(getDrawableId(resName), options);
-    }
-
-    /**
-     * 获取 Bitmap
-     * @param resId   resource identifier
-     * @param options {@link BitmapFactory.Options}
-     * @return {@link Bitmap}
-     */
-    public Bitmap getBitmap(final int resId, final BitmapFactory.Options options) {
-        try {
-            return BitmapFactory.decodeResource(mResources, resId, options);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getBitmap");
-        }
-        return null;
-    }
-
-    /**
-     * 获取 Dimension
-     * @param resName resource Name
-     * @return Dimension
-     */
-    public float getDimension(final String resName) {
-        return getDimension(getDimenId(resName));
-    }
-
-    /**
-     * 获取 Dimension
-     * @param id resource identifier
-     * @return Dimension
-     */
-    public float getDimension(@DimenRes final int id) {
-        try {
-            return mResources.getDimension(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getDimension");
-        }
-        return 0f;
-    }
-
-    /**
-     * 获取 Dimension
-     * @param resName resource Name
-     * @return Dimension
-     */
-    public int getDimensionInt(final String resName) {
-        return getDimensionInt(getDimenId(resName));
-    }
-
-    /**
-     * 获取 Dimension
-     * @param id resource identifier
-     * @return Dimension
-     */
-    public int getDimensionInt(@DimenRes final int id) {
-        return (int) getDimension(id);
-    }
-
-    /**
-     * 获取 Boolean
-     * @param resName resource Name
-     * @return Boolean
-     */
-    public boolean getBoolean(final String resName) {
-        return getBoolean(getBoolId(resName));
-    }
-
-    /**
-     * 获取 Boolean
-     * @param id resource identifier
-     * @return Boolean
-     */
-    public boolean getBoolean(@BoolRes final int id) {
-        try {
-            return mResources.getBoolean(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getBoolean");
-        }
-        return false;
-    }
-
-    /**
-     * 获取 Integer
-     * @param resName resource Name
-     * @return Integer
-     */
-    public int getInteger(final String resName) {
-        return getInteger(getIntegerId(resName));
-    }
-
-    /**
-     * 获取 Integer
-     * @param id resource identifier
-     * @return Integer
-     */
-    public int getInteger(@IntegerRes final int id) {
-        try {
-            return mResources.getInteger(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getInteger");
-        }
-        return -1;
-    }
-
-    /**
-     * 获取 int[]
-     * @param resName resource Name
-     * @return int[]
-     */
-    public int[] getIntegerArray(final String resName) {
-        return getIntegerArray(getIntegerArrayId(resName));
-    }
-
-    /**
-     * 获取 int[]
-     * @param id resource identifier
-     * @return int[]
-     */
-    public int[] getIntegerArray(@ArrayRes final int id) {
-        try {
-            return mResources.getIntArray(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getIntArray");
-        }
-        return null;
-    }
-
-    /**
-     * 获取 String[]
-     * @param resName resource Name
-     * @return String[]
-     */
-    public String[] getStringArray(final String resName) {
-        return getStringArray(getStringArrayId(resName));
-    }
-
-    /**
-     * 获取 String[]
-     * @param id resource identifier
-     * @return String[]
-     */
-    public String[] getStringArray(@ArrayRes final int id) {
-        try {
-            return mResources.getStringArray(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getStringArray");
-        }
-        return null;
-    }
-
-    /**
-     * 获取 CharSequence[]
-     * @param id resource identifier
-     * @return CharSequence[]
-     */
-    public CharSequence[] getTextArray(@ArrayRes final int id) {
-        try {
-            return mResources.getTextArray(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getTextArray");
-        }
-        return null;
-    }
-
-    /**
-     * 获取 Animation
-     * @param id resource identifier
-     * @return XmlResourceParser
-     */
-    public XmlResourceParser getAnimation(@AnimatorRes @AnimRes final int id) {
-        try {
-            return mResources.getAnimation(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getAnimation");
-        }
-        return null;
-    }
-
-    /**
-     * 获取给定资源标识符的全名
-     * @param id resource identifier
-     * @return Integer
-     */
-    public String getResourceName(@AnyRes final int id) {
-        try {
-            return mResources.getResourceName(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getResourceName");
-        }
-        return null;
-    }
-
-    // =
-
-    /**
-     * 获取 layout id
-     * @param resName layout xml fileName
-     * @return layout id
-     */
-    public int getLayoutId(final String resName) {
-        return getIdentifier(resName, "layout");
-    }
-
-    /**
-     * 获取 drawable id
-     * @param resName drawable name
-     * @return drawable id
-     */
-    public int getDrawableId(final String resName) {
-        return getIdentifier(resName, "drawable");
-    }
-
-    /**
-     * 获取 mipmap id
-     * @param resName mipmap name
-     * @return mipmap id
-     */
-    public int getMipmapId(final String resName) {
-        return getIdentifier(resName, "mipmap");
-    }
-
-    /**
-     * 获取 menu id
-     * @param resName menu name
-     * @return menu id
-     */
-    public int getMenuId(final String resName) {
-        return getIdentifier(resName, "menu");
-    }
-
-    /**
-     * 获取 raw id
-     * @param resName raw name
-     * @return raw id
-     */
-    public int getRawId(final String resName) {
-        return getIdentifier(resName, "raw");
-    }
-
-    /**
-     * 获取 anim id
-     * @param resName anim xml fileName
-     * @return anim id
-     */
-    public int getAnimId(final String resName) {
-        return getIdentifier(resName, "anim");
-    }
-
-    /**
-     * 获取 color id
-     * @param resName color name
-     * @return color id
-     */
-    public int getColorId(final String resName) {
-        return getIdentifier(resName, "color");
-    }
-
-    /**
-     * 获取 dimen id
-     * @param resName dimen name
-     * @return dimen id
-     */
-    public int getDimenId(final String resName) {
-        return getIdentifier(resName, "dimen");
-    }
-
-    /**
-     * 获取 attr id
-     * @param resName attr name
-     * @return attr id
-     */
-    public int getAttrId(final String resName) {
-        return getIdentifier(resName, "attr");
-    }
-
-    /**
-     * 获取 style id
-     * @param resName style name
-     * @return style id
-     */
-    public int getStyleId(final String resName) {
-        return getIdentifier(resName, "style");
-    }
-
-    /**
-     * 获取 styleable id
-     * @param resName styleable name
-     * @return styleable id
-     */
-    public int getStyleableId(final String resName) {
-        return getIdentifier(resName, "styleable");
-    }
-
-    /**
-     * 获取 id
-     * @param resName id name
-     * @return id
-     */
-    public int getId(final String resName) {
-        return getIdentifier(resName, "id");
-    }
-
-    /**
-     * 获取 string id
-     * @param resName string name
-     * @return string id
-     */
-    public int getStringId(final String resName) {
-        return getIdentifier(resName, "string");
-    }
-
-    /**
-     * 获取 string array id
-     * @param resName string array name
-     * @return string array id
-     */
-    public int getStringArrayId(final String resName) {
-        return getIdentifier(resName, "string-array");
-    }
-
-    /**
-     * 获取 bool id
-     * @param resName bool name
-     * @return bool id
-     */
-    public int getBoolId(final String resName) {
-        return getIdentifier(resName, "bool");
-    }
-
-    /**
-     * 获取 integer id
-     * @param resName integer name
-     * @return integer id
-     */
-    public int getIntegerId(final String resName) {
-        return getIdentifier(resName, "integer");
-    }
-
-    /**
-     * 获取 integer array id
-     * @param resName integer array name
-     * @return integer array id
-     */
-    public int getIntegerArrayId(final String resName) {
-        return getIdentifier(resName, "integer-array");
+    public AssetManager getAssets() {
+        return mResourceAssist.getAssets();
     }
 
     /**
@@ -783,15 +257,627 @@ public final class ResourcePluginUtils {
      * @return 资源 id
      */
     public int getIdentifier(final String resName, final String defType) {
-        try {
-            return mResources.getIdentifier(resName, defType, mPackageName);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getIdentifier - " + resName + " " + defType + ": " + mPackageName);
-        }
-        return 0;
+        return mResourceAssist.getIdentifier(resName, defType);
+    }
+
+    /**
+     * 获取给定资源标识符的全名
+     * @param id resource identifier
+     * @return Integer
+     */
+    public String getResourceName(@AnyRes final int id) {
+        return mResourceAssist.getResourceName(id);
+    }
+
+    // ===========
+    // = 资源获取 =
+    // ===========
+
+    /**
+     * 获取 String id
+     * @param resName resource name
+     * @return String id
+     */
+    public int getStringId(final String resName) {
+        return mResourceAssist.getStringId(resName);
+    }
+
+    /**
+     * 获取 String
+     * @param resName resource name
+     * @return String
+     */
+    public String getString(final String resName) {
+        return mResourceAssist.getString(resName);
+    }
+
+    /**
+     * 获取 String
+     * @param resName    resource name
+     * @param formatArgs 格式化参数
+     * @return String
+     */
+    public String getString(final String resName, final Object... formatArgs) {
+        return mResourceAssist.getString(resName, formatArgs);
+    }
+
+    /**
+     * 获取 String
+     * @param id R.string.id
+     * @return String
+     */
+    public String getString(@StringRes final int id) {
+        return mResourceAssist.getString(id);
+    }
+
+    /**
+     * 获取 String
+     * @param id         R.string.id
+     * @param formatArgs 格式化参数
+     * @return String
+     */
+    public String getString(@StringRes final int id, final Object... formatArgs) {
+        return mResourceAssist.getString(id, formatArgs);
     }
 
     // =
+
+    /**
+     * 获取 Dimension id
+     * @param resName resource name
+     * @return Dimension id
+     */
+    public int getDimenId(final String resName) {
+        return mResourceAssist.getDimenId(resName);
+    }
+
+    /**
+     * 获取 Dimension
+     * @param resName resource name
+     * @return Dimension
+     */
+    public float getDimension(final String resName) {
+        return mResourceAssist.getDimension(resName);
+    }
+
+    /**
+     * 获取 Dimension
+     * @param resName resource name
+     * @return Dimension
+     */
+    public int getDimensionInt(final String resName) {
+        return mResourceAssist.getDimensionInt(resName);
+    }
+
+    /**
+     * 获取 Dimension
+     * @param id resource identifier
+     * @return Dimension
+     */
+    public float getDimension(@DimenRes final int id) {
+        return mResourceAssist.getDimension(id);
+    }
+
+    /**
+     * 获取 Dimension
+     * @param id resource identifier
+     * @return Dimension
+     */
+    public int getDimensionInt(@DimenRes final int id) {
+        return mResourceAssist.getDimensionInt(id);
+    }
+
+    // =
+
+    /**
+     * 获取 Color id
+     * @param resName resource name
+     * @return Color id
+     */
+    public int getColorId(final String resName) {
+        return mResourceAssist.getColorId(resName);
+    }
+
+    /**
+     * 获取 Color
+     * @param resName resource name
+     * @return Color
+     */
+    public int getColor(final String resName) {
+        return mResourceAssist.getColor(resName);
+    }
+
+    /**
+     * 获取 Color
+     * <pre>
+     *     {@link ContextCompat#getColor(Context, int)}
+     * </pre>
+     * @param colorId R.color.id
+     * @return Color
+     */
+    public int getColor(@ColorRes final int colorId) {
+        return mResourceAssist.getColor(colorId);
+    }
+
+    // =
+
+    /**
+     * 获取 Drawable id
+     * @param resName resource name
+     * @return Drawable id
+     */
+    public int getDrawableId(final String resName) {
+        return mResourceAssist.getDrawableId(resName);
+    }
+
+    /**
+     * 获取 Drawable
+     * @param resName resource name
+     * @return {@link Drawable}
+     */
+    public Drawable getDrawable(final String resName) {
+        return mResourceAssist.getDrawable(resName);
+    }
+
+    /**
+     * 获取 .9 Drawable
+     * @param resName resource name
+     * @return .9 {@link NinePatchDrawable}
+     */
+    public NinePatchDrawable getNinePatchDrawable(final String resName) {
+        return mResourceAssist.getNinePatchDrawable(resName);
+    }
+
+    /**
+     * 获取 Drawable
+     * <pre>
+     *     {@link ContextCompat#getDrawable(Context, int)}
+     * </pre>
+     * @param drawableId R.drawable.id
+     * @return {@link Drawable}
+     */
+    public Drawable getDrawable(@DrawableRes final int drawableId) {
+        return mResourceAssist.getDrawable(drawableId);
+    }
+
+    /**
+     * 获取 .9 Drawable
+     * @param drawableId R.drawable.id
+     * @return .9 {@link NinePatchDrawable}
+     */
+    public NinePatchDrawable getNinePatchDrawable(@DrawableRes final int drawableId) {
+        return mResourceAssist.getNinePatchDrawable(drawableId);
+    }
+
+    // =
+
+    /**
+     * 获取 Bitmap
+     * @param resName resource name
+     * @return {@link Bitmap}
+     */
+    public Bitmap getBitmap(final String resName) {
+        return mResourceAssist.getBitmap(resName);
+    }
+
+    /**
+     * 获取 Bitmap
+     * @param resName resource name
+     * @param options {@link BitmapFactory.Options}
+     * @return {@link Bitmap}
+     */
+    public Bitmap getBitmap(final String resName, final BitmapFactory.Options options) {
+        return mResourceAssist.getBitmap(resName, options);
+    }
+
+    /**
+     * 获取 Bitmap
+     * @param resId resource identifier
+     * @return {@link Bitmap}
+     */
+    public Bitmap getBitmap(final int resId) {
+        return mResourceAssist.getBitmap(resId);
+    }
+
+    /**
+     * 获取 Bitmap
+     * @param resId   resource identifier
+     * @param options {@link BitmapFactory.Options}
+     * @return {@link Bitmap}
+     */
+    public Bitmap getBitmap(final int resId, final BitmapFactory.Options options) {
+        return mResourceAssist.getBitmap(resId, options);
+    }
+
+    // =
+
+    /**
+     * 获取 Mipmap id
+     * @param resName resource name
+     * @return Mipmap id
+     */
+    public int getMipmapId(final String resName) {
+        return mResourceAssist.getMipmapId(resName);
+    }
+
+    /**
+     * 获取 Mipmap Drawable
+     * @param resName resource name
+     * @return {@link Drawable}
+     */
+    public Drawable getDrawableMipmap(final String resName) {
+        return mResourceAssist.getDrawableMipmap(resName);
+    }
+
+    /**
+     * 获取 Mipmap .9 Drawable
+     * @param resName resource name
+     * @return .9 {@link NinePatchDrawable}
+     */
+    public NinePatchDrawable getNinePatchDrawableMipmap(final String resName) {
+        return mResourceAssist.getNinePatchDrawableMipmap(resName);
+    }
+
+    /**
+     * 获取 Mipmap Bitmap
+     * @param resName resource name
+     * @return {@link Bitmap}
+     */
+    public Bitmap getBitmapMipmap(final String resName) {
+        return mResourceAssist.getBitmapMipmap(resName);
+    }
+
+    /**
+     * 获取 Mipmap Bitmap
+     * @param resName resource name
+     * @param options {@link BitmapFactory.Options}
+     * @return {@link Bitmap}
+     */
+    public Bitmap getBitmapMipmap(final String resName, final BitmapFactory.Options options) {
+        return mResourceAssist.getBitmapMipmap(resName, options);
+    }
+
+    // =
+
+    /**
+     * 获取 Anim id
+     * @param resName resource name
+     * @return Anim id
+     */
+    public int getAnimId(final String resName) {
+        return mResourceAssist.getAnimId(resName);
+    }
+
+    /**
+     * 获取 Animation Xml
+     * @param resName resource name
+     * @return {@link XmlResourceParser}
+     */
+    public XmlResourceParser getAnimationXml(final String resName) {
+        return mResourceAssist.getAnimationXml(resName);
+    }
+
+    /**
+     * 获取 Animation Xml
+     * @param id resource identifier
+     * @return {@link XmlResourceParser}
+     */
+    public XmlResourceParser getAnimationXml(@AnimatorRes @AnimRes final int id) {
+        return mResourceAssist.getAnimationXml(id);
+    }
+
+    /**
+     * 获取 Animation
+     * @param resName resource name
+     * @return {@link XmlResourceParser}
+     */
+    public Animation getAnimation(final String resName) {
+        return mResourceAssist.getAnimation(resName);
+    }
+
+    /**
+     * 获取 Animation
+     * @param resName resource name
+     * @param context {@link Context}
+     * @return {@link XmlResourceParser}
+     */
+    public Animation getAnimation(final String resName, final Context context) {
+        return mResourceAssist.getAnimation(resName, context);
+    }
+
+    /**
+     * 获取 Animation
+     * @param id resource identifier
+     * @return {@link XmlResourceParser}
+     */
+    public Animation getAnimation(@AnimatorRes @AnimRes final int id) {
+        return mResourceAssist.getAnimation(id);
+    }
+
+    /**
+     * 获取 Animation
+     * @param id      resource identifier
+     * @param context {@link Context}
+     * @return {@link XmlResourceParser}
+     */
+    public Animation getAnimation(@AnimatorRes @AnimRes final int id, final Context context) {
+        return mResourceAssist.getAnimation(id, context);
+    }
+
+    // =
+
+    /**
+     * 获取 Boolean id
+     * @param resName resource name
+     * @return Boolean id
+     */
+    public int getBooleanId(final String resName) {
+        return mResourceAssist.getBooleanId(resName);
+    }
+
+    /**
+     * 获取 Boolean
+     * @param resName resource name
+     * @return Boolean
+     */
+    public boolean getBoolean(final String resName) {
+        return mResourceAssist.getBoolean(resName);
+    }
+
+    /**
+     * 获取 Boolean
+     * @param id resource identifier
+     * @return Boolean
+     */
+    public boolean getBoolean(@BoolRes final int id) {
+        return mResourceAssist.getBoolean(id);
+    }
+
+    // =
+
+    /**
+     * 获取 Integer id
+     * @param resName resource name
+     * @return Integer id
+     */
+    public int getIntegerId(final String resName) {
+        return mResourceAssist.getIntegerId(resName);
+    }
+
+    /**
+     * 获取 Integer
+     * @param resName resource name
+     * @return Integer
+     */
+    public int getInteger(final String resName) {
+        return mResourceAssist.getInteger(resName);
+    }
+
+    /**
+     * 获取 Integer
+     * @param id resource identifier
+     * @return Integer
+     */
+    public int getInteger(@IntegerRes final int id) {
+        return mResourceAssist.getInteger(id);
+    }
+
+    // =
+
+    /**
+     * 获取 Array id
+     * @param resName resource name
+     * @return Array id
+     */
+    public int getArrayId(final String resName) {
+        return mResourceAssist.getArrayId(resName);
+    }
+
+    /**
+     * 获取 int[]
+     * @param resName resource name
+     * @return int[]
+     */
+    public int[] getIntArray(final String resName) {
+        return mResourceAssist.getIntArray(resName);
+    }
+
+    /**
+     * 获取 String[]
+     * @param resName resource name
+     * @return String[]
+     */
+    public String[] getStringArray(final String resName) {
+        return mResourceAssist.getStringArray(resName);
+    }
+
+    /**
+     * 获取 CharSequence[]
+     * @param resName resource name
+     * @return CharSequence[]
+     */
+    public CharSequence[] getTextArray(final String resName) {
+        return mResourceAssist.getTextArray(resName);
+    }
+
+    /**
+     * 获取 int[]
+     * @param id resource identifier
+     * @return int[]
+     */
+    public int[] getIntArray(@ArrayRes final int id) {
+        return mResourceAssist.getIntArray(id);
+    }
+
+    /**
+     * 获取 String[]
+     * @param id resource identifier
+     * @return String[]
+     */
+    public String[] getStringArray(@ArrayRes final int id) {
+        return mResourceAssist.getStringArray(id);
+    }
+
+    /**
+     * 获取 CharSequence[]
+     * @param id resource identifier
+     * @return CharSequence[]
+     */
+    public CharSequence[] getTextArray(@ArrayRes final int id) {
+        return mResourceAssist.getTextArray(id);
+    }
+
+    // =
+
+    /**
+     * 获取 id ( view )
+     * @param resName resource name
+     * @return id
+     */
+    public int getId(final String resName) {
+        return mResourceAssist.getId(resName);
+    }
+
+    /**
+     * 获取 Layout id
+     * <pre>
+     *     {@link android.view.LayoutInflater#inflate(int, ViewGroup)}
+     * </pre>
+     * @param resName resource name
+     * @return Layout id
+     */
+    public int getLayoutId(final String resName) {
+        return mResourceAssist.getLayoutId(resName);
+    }
+
+    /**
+     * 获取 Menu id
+     * <pre>
+     *     {@link android.view.MenuInflater#inflate(int, Menu)}
+     * </pre>
+     * @param resName resource name
+     * @return Menu id
+     */
+    public int getMenuId(final String resName) {
+        return mResourceAssist.getMenuId(resName);
+    }
+
+    /**
+     * 获取 Raw id
+     * @param resName resource name
+     * @return Raw id
+     */
+    public int getRawId(final String resName) {
+        return mResourceAssist.getRawId(resName);
+    }
+
+    /**
+     * 获取 Attr id
+     * @param resName resource name
+     * @return Attr id
+     */
+    public int getAttrId(final String resName) {
+        return mResourceAssist.getAttrId(resName);
+    }
+
+    /**
+     * 获取 Style id
+     * @param resName resource name
+     * @return Style id
+     */
+    public int getStyleId(final String resName) {
+        return mResourceAssist.getStyleId(resName);
+    }
+
+    /**
+     * 获取 Styleable id
+     * @param resName resource name
+     * @return Styleable id
+     */
+    public int getStyleableId(final String resName) {
+        return mResourceAssist.getStyleableId(resName);
+    }
+
+    /**
+     * 获取 Animator id
+     * @param resName resource name
+     * @return Animator id
+     */
+    public int getAnimatorId(final String resName) {
+        return mResourceAssist.getAnimatorId(resName);
+    }
+
+    /**
+     * 获取 Xml id
+     * @param resName resource name
+     * @return Xml id
+     */
+    public int getXmlId(final String resName) {
+        return mResourceAssist.getXmlId(resName);
+    }
+
+    /**
+     * 获取 Interpolator id
+     * @param resName resource name
+     * @return Interpolator id
+     */
+    public int getInterpolatorId(final String resName) {
+        return mResourceAssist.getInterpolatorId(resName);
+    }
+
+    /**
+     * 获取 Plurals id
+     * @param resName resource name
+     * @return Plurals id
+     */
+    public int getPluralsId(final String resName) {
+        return mResourceAssist.getPluralsId(resName);
+    }
+
+    // =
+
+    /**
+     * 获取 ColorStateList
+     * @param resName resource Name
+     * @return {@link ColorStateList}
+     */
+    public ColorStateList getColorStateList(final String resName) {
+        return mResourceAssist.getColorStateList(resName);
+    }
+
+    /**
+     * 获取 ColorStateList
+     * <pre>
+     *     {@link ContextCompat#getColorStateList(Context, int)}
+     * </pre>
+     * @param id resource identifier of a {@link ColorStateList}
+     * @return {@link ColorStateList}
+     */
+    public ColorStateList getColorStateList(@ColorRes final int id) {
+        return mResourceAssist.getColorStateList(id);
+    }
+
+    /**
+     * 获取十六进制颜色值 Drawable
+     * @param color 十六进制颜色值
+     * @return 十六进制颜色值 Drawable
+     */
+    public ColorDrawable getColorDrawable(final String color) {
+        return mResourceAssist.getColorDrawable(color);
+    }
+
+    /**
+     * 获取指定颜色 Drawable
+     * @param color 颜色值
+     * @return 指定颜色 Drawable
+     */
+    public ColorDrawable getColorDrawable(@ColorInt final int color) {
+        return mResourceAssist.getColorDrawable(color);
+    }
+
+    // ================
+    // = AssetManager =
+    // ================
 
     /**
      * 获取 AssetManager 指定资源 InputStream
@@ -799,12 +885,7 @@ public final class ResourcePluginUtils {
      * @return {@link InputStream}
      */
     public InputStream open(final String fileName) {
-        try {
-            return getAssets().open(fileName);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "open");
-        }
-        return null;
+        return mResourceAssist.open(fileName);
     }
 
     /**
@@ -813,12 +894,7 @@ public final class ResourcePluginUtils {
      * @return {@link AssetFileDescriptor}
      */
     public AssetFileDescriptor openFd(final String fileName) {
-        try {
-            return getAssets().openFd(fileName);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "openFd");
-        }
-        return null;
+        return mResourceAssist.openFd(fileName);
     }
 
     /**
@@ -827,12 +903,7 @@ public final class ResourcePluginUtils {
      * @return {@link AssetFileDescriptor}
      */
     public AssetFileDescriptor openNonAssetFd(final String fileName) {
-        try {
-            return getAssets().openNonAssetFd(fileName);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "openNonAssetFd");
-        }
-        return null;
+        return mResourceAssist.openNonAssetFd(fileName);
     }
 
     /**
@@ -841,12 +912,7 @@ public final class ResourcePluginUtils {
      * @return {@link InputStream}
      */
     public InputStream openRawResource(@RawRes final int id) {
-        try {
-            return mResources.openRawResource(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "openRawResource");
-        }
-        return null;
+        return mResourceAssist.openRawResource(id);
     }
 
     /**
@@ -855,12 +921,7 @@ public final class ResourcePluginUtils {
      * @return {@link AssetFileDescriptor}
      */
     public AssetFileDescriptor openRawResourceFd(@RawRes final int id) {
-        try {
-            return mResources.openRawResourceFd(id);
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "openRawResourceFd");
-        }
-        return null;
+        return mResourceAssist.openRawResourceFd(id);
     }
 
     // ===============
@@ -878,19 +939,7 @@ public final class ResourcePluginUtils {
      * @return 文件 byte[] 数据
      */
     public byte[] readBytesFromAssets(final String fileName) {
-        InputStream is = null;
-        try {
-            is = open(fileName);
-            int length = is.available();
-            byte[] buffer = new byte[length];
-            is.read(buffer);
-            return buffer;
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "readBytesFromAssets");
-        } finally {
-            CloseUtils.closeIOQuietly(is);
-        }
-        return null;
+        return mResourceAssist.readBytesFromAssets(fileName);
     }
 
     /**
@@ -899,12 +948,7 @@ public final class ResourcePluginUtils {
      * @return 文件字符串内容
      */
     public String readStringFromAssets(final String fileName) {
-        try {
-            return new String(readBytesFromAssets(fileName), "UTF-8");
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "readStringFromAssets");
-        }
-        return null;
+        return mResourceAssist.readStringFromAssets(fileName);
     }
 
     // =
@@ -915,19 +959,7 @@ public final class ResourcePluginUtils {
      * @return 文件 byte[] 数据
      */
     public byte[] readBytesFromRaw(@RawRes final int resId) {
-        InputStream is = null;
-        try {
-            is = openRawResource(resId);
-            int length = is.available();
-            byte[] buffer = new byte[length];
-            is.read(buffer);
-            return buffer;
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "readBytesFromRaw");
-        } finally {
-            CloseUtils.closeIOQuietly(is);
-        }
-        return null;
+        return mResourceAssist.readBytesFromRaw(resId);
     }
 
     /**
@@ -936,12 +968,7 @@ public final class ResourcePluginUtils {
      * @return 文件字符串内容
      */
     public String readStringFromRaw(@RawRes final int resId) {
-        try {
-            return new String(readBytesFromRaw(resId), "UTF-8");
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "readStringFromRaw");
-        }
-        return null;
+        return mResourceAssist.readStringFromRaw(resId);
     }
 
     // =
@@ -952,24 +979,7 @@ public final class ResourcePluginUtils {
      * @return {@link List <String>}
      */
     public List<String> geFileToListFromAssets(final String fileName) {
-        InputStream is = null;
-        BufferedReader br = null;
-        try {
-            is = open(fileName);
-            br = new BufferedReader(new InputStreamReader(is));
-
-            List<String> lists = new ArrayList<>();
-            String line;
-            while ((line = br.readLine()) != null) {
-                lists.add(line);
-            }
-            return lists;
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "geFileToListFromAssets");
-        } finally {
-            CloseUtils.closeIOQuietly(is, br);
-        }
-        return null;
+        return mResourceAssist.geFileToListFromAssets(fileName);
     }
 
     /**
@@ -978,24 +988,7 @@ public final class ResourcePluginUtils {
      * @return {@link List<String>}
      */
     public List<String> geFileToListFromRaw(@RawRes final int resId) {
-        InputStream is = null;
-        BufferedReader br = null;
-        try {
-            is = openRawResource(resId);
-            br = new BufferedReader(new InputStreamReader(is));
-
-            List<String> lists = new ArrayList<>();
-            String line;
-            while ((line = br.readLine()) != null) {
-                lists.add(line);
-            }
-            return lists;
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "geFileToListFromRaw");
-        } finally {
-            CloseUtils.closeIOQuietly(is, br);
-        }
-        return null;
+        return mResourceAssist.geFileToListFromRaw(resId);
     }
 
     // =
@@ -1007,32 +1000,7 @@ public final class ResourcePluginUtils {
      * @return {@code true} success, {@code false} fail
      */
     public boolean saveAssetsFormFile(final String fileName, final File file) {
-        try {
-            // 获取 Assets 文件
-            InputStream is = open(fileName);
-            // 存入 SDCard
-            FileOutputStream fos = new FileOutputStream(file);
-            // 设置数据缓冲
-            byte[] buffer = new byte[1024];
-            // 创建输入输出流
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            int len;
-            while ((len = is.read(buffer)) != -1) {
-                baos.write(buffer, 0, len);
-            }
-            // 保存数据
-            byte[] bytes = baos.toByteArray();
-            // 写入保存的文件
-            fos.write(bytes);
-            // 关闭流
-            CloseUtils.closeIOQuietly(baos, is);
-            fos.flush();
-            CloseUtils.closeIOQuietly(fos);
-            return true;
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "saveAssetsFormFile");
-        }
-        return false;
+        return mResourceAssist.saveAssetsFormFile(fileName, file);
     }
 
     /**
@@ -1042,31 +1010,6 @@ public final class ResourcePluginUtils {
      * @return {@code true} success, {@code false} fail
      */
     public boolean saveRawFormFile(@RawRes final int resId, final File file) {
-        try {
-            // 获取 raw 文件
-            InputStream is = openRawResource(resId);
-            // 存入 SDCard
-            FileOutputStream fos = new FileOutputStream(file);
-            // 设置数据缓冲
-            byte[] buffer = new byte[1024];
-            // 创建输入输出流
-            ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            int len;
-            while ((len = is.read(buffer)) != -1) {
-                baos.write(buffer, 0, len);
-            }
-            // 保存数据
-            byte[] bytes = baos.toByteArray();
-            // 写入保存的文件
-            fos.write(bytes);
-            // 关闭流
-            CloseUtils.closeIOQuietly(baos, is);
-            fos.flush();
-            CloseUtils.closeIOQuietly(fos);
-            return true;
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "saveRawFormFile");
-        }
-        return false;
+        return mResourceAssist.saveRawFormFile(resId, file);
     }
 }
