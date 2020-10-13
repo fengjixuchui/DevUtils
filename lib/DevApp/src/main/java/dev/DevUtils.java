@@ -41,10 +41,16 @@ import dev.utils.common.FileUtils;
  *     @see <a href="https://github.com/afkT/DevUtils"/>
  *     DevApp Api
  *     @see <a href="https://github.com/afkT/DevUtils/blob/master/lib/DevApp/README.md"/>
- *     DevJava Api
- *     @see <a href="https://github.com/afkT/DevUtils/blob/master/lib/DevJava/README.md"/>
  *     DevAssist Api
  *     @see <a href="https://github.com/afkT/DevUtils/blob/master/lib/DevAssist/README.md"/>
+ *     DevBase README
+ *     @see <a href="https://github.com/afkT/DevUtils/blob/master/lib/DevBase"/>
+ *     DevJava Api
+ *     @see <a href="https://github.com/afkT/DevUtils/blob/master/lib/DevJava/README.md"/>
+ *     DevWidget Api
+ *     @see <a href="https://github.com/afkT/DevUtils/blob/master/lib/DevWidget/README_API.md"/>
+ *     DevEnvironment Api
+ *     @see <a href="https://github.com/afkT/DevUtils/blob/master/lib/Environment"/>
  *     DevOther Api
  *     @see <a href="https://github.com/afkT/DevUtils/blob/master/lib/DevOther/README.md"/>
  * </pre>
@@ -250,27 +256,19 @@ public final class DevUtils {
     // =============
 
     /**
-     * 获取 DevApp 工具类版本
-     * @return DevApp versionName
-     */
-    public static String getDevAppUtilsVersion() {
-        return BuildConfig.VERSION_NAME;
-    }
-
-    /**
      * 获取 DevApp 工具类版本号
      * @return DevApp versionCode
      */
     public static int getDevAppUtilsVersionCode() {
-        return BuildConfig.VERSION_CODE;
+        return BuildConfig.DevApp_VersionCode;
     }
 
     /**
-     * 获取 DevJava 工具类版本
-     * @return DevJava version
+     * 获取 DevApp 工具类版本
+     * @return DevApp versionName
      */
-    public static String getDevJavaUtilsVersion() {
-        return BuildConfig.DevJava_Version;
+    public static String getDevAppUtilsVersion() {
+        return BuildConfig.DevApp_Version;
     }
 
     /**
@@ -279,6 +277,14 @@ public final class DevUtils {
      */
     public static int getDevJavaUtilsVersionCode() {
         return BuildConfig.DevJava_VersionCode;
+    }
+
+    /**
+     * 获取 DevJava 工具类版本
+     * @return DevJava version
+     */
+    public static String getDevJavaUtilsVersion() {
+        return BuildConfig.DevJava_Version;
     }
 
     // =================

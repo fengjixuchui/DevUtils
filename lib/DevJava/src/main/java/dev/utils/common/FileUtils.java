@@ -257,6 +257,68 @@ public final class FileUtils {
     }
 
     /**
+     * Path List 转 File List
+     * @param paths Path List
+     * @return File List
+     */
+    public static List<File> convertFiles(final List<String> paths) {
+        return convertFiles(paths, true);
+    }
+
+    /**
+     * Path List 转 File List
+     * @param paths  Path List
+     * @param ignore 是否忽略 null
+     * @return File List
+     */
+    public static List<File> convertFiles(final List<String> paths, final boolean ignore) {
+        List<File> files = new ArrayList<>();
+        if (paths != null && !paths.isEmpty()) {
+            for (int i = 0, len = paths.size(); i < len; i++) {
+                String path = paths.get(i);
+                if (path == null) {
+                    if (!ignore) files.add(null);
+                    continue;
+                }
+                files.add(new File(path));
+            }
+        }
+        return files;
+    }
+
+    /**
+     * File List 转 Path List
+     * @param files File List
+     * @return Path List
+     */
+    public static List<String> convertPaths(final List<File> files) {
+        return convertPaths(files, true);
+    }
+
+    /**
+     * File List 转 Path List
+     * @param files  File List
+     * @param ignore 是否忽略 null
+     * @return Path List
+     */
+    public static List<String> convertPaths(final List<File> files, final boolean ignore) {
+        List<String> paths = new ArrayList<>();
+        if (files != null && !files.isEmpty()) {
+            for (int i = 0, len = files.size(); i < len; i++) {
+                File file = files.get(i);
+                if (file == null) {
+                    if (!ignore) paths.add(null);
+                    continue;
+                }
+                paths.add(file.getAbsolutePath());
+            }
+        }
+        return paths;
+    }
+
+    // =
+
+    /**
      * 获取文件路径
      * @param file 文件
      * @return 文件路径
@@ -890,7 +952,7 @@ public final class FileUtils {
     }
 
     /**
-     * 字节数转合适内存大小 保留 3 位小数 (%.位数f)
+     * 字节数转合适内存大小 保留 3 位小数
      * @param byteSize 字节数
      * @return 合适内存大小字符串
      */
@@ -899,7 +961,7 @@ public final class FileUtils {
     }
 
     /**
-     * 字节数转合适内存大小 保留 number 位小数 (%.位数f)
+     * 字节数转合适内存大小 保留 number 位小数
      * @param number   保留小数位数
      * @param byteSize 字节数
      * @return 合适内存大小字符串
@@ -1035,18 +1097,20 @@ public final class FileUtils {
      */
     public static boolean saveFile(final File file, final byte[] data) {
         if (file != null && data != null) {
+            FileOutputStream fos = null;
+            BufferedOutputStream bos = null;
             try {
                 // 防止文件夹没创建
                 createFolder(getDirName(file));
                 // 写入文件
-                FileOutputStream fos = new FileOutputStream(file);
-                BufferedOutputStream bos = new BufferedOutputStream(fos);
+                fos = new FileOutputStream(file);
+                bos = new BufferedOutputStream(fos);
                 bos.write(data);
-                bos.close();
-                fos.close();
                 return true;
             } catch (Exception e) {
                 JCLogUtils.eTag(TAG, e, "saveFile");
+            } finally {
+                CloseUtils.closeIOQuietly(bos, fos);
             }
         }
         return false;
@@ -1073,18 +1137,20 @@ public final class FileUtils {
      * @return {@code true} success, {@code false} fail
      */
     public static boolean appendFile(final File file, final byte[] data) {
+        FileOutputStream fos = null;
+        BufferedOutputStream bos = null;
         try {
             // 防止文件夹没创建
             createFolder(getDirName(file));
             // 写入文件
-            FileOutputStream fos = new FileOutputStream(file, true);
-            BufferedOutputStream bos = new BufferedOutputStream(fos);
+            fos = new FileOutputStream(file, true);
+            bos = new BufferedOutputStream(fos);
             bos.write(data);
-            bos.close();
-            fos.close();
             return true;
         } catch (Exception e) {
             JCLogUtils.eTag(TAG, e, "appendFile");
+        } finally {
+            CloseUtils.closeIOQuietly(bos, fos);
         }
         return false;
     }
@@ -1107,15 +1173,17 @@ public final class FileUtils {
      */
     public static byte[] readFileBytes(final File file) {
         if (file != null && file.exists()) {
+            FileInputStream fis = null;
             try {
-                FileInputStream fis = new FileInputStream(file);
+                fis = new FileInputStream(file);
                 int length = fis.available();
                 byte[] buffer = new byte[length];
                 fis.read(buffer);
-                fis.close();
                 return buffer;
             } catch (Exception e) {
                 JCLogUtils.eTag(TAG, e, "readFileBytes");
+            } finally {
+                CloseUtils.closeIOQuietly(fis);
             }
         }
         return null;
@@ -1132,10 +1200,11 @@ public final class FileUtils {
                 int length = inputStream.available();
                 byte[] buffer = new byte[length];
                 inputStream.read(buffer);
-                inputStream.close();
                 return buffer;
             } catch (Exception e) {
                 JCLogUtils.eTag(TAG, e, "readFileBytes");
+            } finally {
+                CloseUtils.closeIOQuietly(inputStream);
             }
         }
         return null;
@@ -1183,24 +1252,25 @@ public final class FileUtils {
      */
     public static String readFile(final InputStream inputStream, final String encode) {
         if (inputStream != null) {
+            BufferedReader br = null;
             try {
-                InputStreamReader isr = null;
+                InputStreamReader isr;
                 if (encode != null) {
-                    new InputStreamReader(inputStream, encode);
+                    isr = new InputStreamReader(inputStream, encode);
                 } else {
-                    new InputStreamReader(inputStream);
+                    isr = new InputStreamReader(inputStream);
                 }
-                BufferedReader br = new BufferedReader(isr);
+                br = new BufferedReader(isr);
                 StringBuilder builder = new StringBuilder();
                 String line;
                 while ((line = br.readLine()) != null) {
                     builder.append(line);
                 }
-                isr.close();
-                br.close();
                 return builder.toString();
             } catch (Exception e) {
                 JCLogUtils.eTag(TAG, e, "readFile");
+            } finally {
+                CloseUtils.closeIOQuietly(br);
             }
         }
         return null;
@@ -1243,14 +1313,14 @@ public final class FileUtils {
             }
         }
         // 复制文件
-        int byteread = 0; // 读取的字节数
+        int len = 0; // 读取的字节数
         InputStream is = inputStream;
         OutputStream os = null;
         try {
             os = new FileOutputStream(destFile);
             byte[] buffer = new byte[1024];
-            while ((byteread = is.read(buffer)) != -1) {
-                os.write(buffer, 0, byteread);
+            while ((len = is.read(buffer)) != -1) {
+                os.write(buffer, 0, len);
             }
             return true;
         } catch (Exception e) {
@@ -1304,15 +1374,15 @@ public final class FileUtils {
             }
         }
         // 复制文件
-        int byteread = 0; // 读取的字节数
+        int len = 0; // 读取的字节数
         InputStream is = null;
         OutputStream os = null;
         try {
             is = new FileInputStream(srcFile);
             os = new FileOutputStream(destFile);
             byte[] buffer = new byte[1024];
-            while ((byteread = is.read(buffer)) != -1) {
-                os.write(buffer, 0, byteread);
+            while ((len = is.read(buffer)) != -1) {
+                os.write(buffer, 0, len);
             }
             return true;
         } catch (Exception e) {
@@ -1326,7 +1396,7 @@ public final class FileUtils {
     /**
      * 复制文件夹
      * @param srcFolderPath  待复制的文件夹地址
-     * @param destFolderPath 目标文件夹地址
+     * @param destFolderPath 存储目标文件夹地址
      * @param overlay        如果目标文件存在, 是否覆盖
      * @return {@code true} success, {@code false} fail
      */
@@ -1337,7 +1407,7 @@ public final class FileUtils {
     /**
      * 复制文件夹
      * @param srcFolderPath  待复制的文件夹地址
-     * @param destFolderPath 目标文件夹地址
+     * @param destFolderPath 存储目标文件夹地址
      * @param sourcePath     源文件地址 ( 用于保递归留记录 )
      * @param overlay        如果目标文件存在, 是否覆盖
      * @return {@code true} success, {@code false} fail
@@ -1420,7 +1490,7 @@ public final class FileUtils {
     /**
      * 移动 ( 剪切 ) 文件夹
      * @param srcFilePath  待移动的文件夹地址
-     * @param destFilePath 目标文件夹地址
+     * @param destFilePath 存储目标文件夹地址
      * @param overlay      如果目标文件存在, 是否覆盖
      * @return {@code true} success, {@code false} fail
      */
