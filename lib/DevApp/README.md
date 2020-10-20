@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:2.0.6'
+implementation 'com.afkt:DevAppX:2.0.7'
 ```
 
 ## 目录结构
@@ -64,6 +64,16 @@ JCLogUtils
 DevUtils.openLog();
 // 标示 debug 模式
 DevUtils.openDebug();
+```
+
+- 如果出现 ```Failed to resolve: DevAppX-x.x.x``` 可在根目录 build.gradle 添加
+```java
+allprojects {
+    repositories {
+        // bintray maven 出现 Failed to resolve: DevAppX-x.x.x 可考虑加上这句
+        maven { url 'https://dl.bintray.com/afkt/maven' }
+    }
+}
 ```
 
 - 工具类部分模块配置与使用 - [Use and Config](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/utils_readme/USE_CONFIG.md)
@@ -3982,8 +3992,8 @@ DevUtils.openDebug();
 | underScoreCaseToCamelCase | 下划线命名转为驼峰命名 |
 | camelCaseToUnderScoreCase | 驼峰命名法转为下划线命名 |
 | sqliteEscape | 字符串数据库字符转义 |
-| converHideMobile | 转换手机号 |
-| converSymbolHide | 转换符号处理 |
+| convertHideMobile | 转换手机号 |
+| convertSymbolHide | 转换符号处理 |
 | subEllipsize | 裁剪超出的内容, 并且追加符号 ( 如 ...) |
 | subSymbolHide | 裁剪符号处理 |
 | subSetSymbol | 裁剪内容 ( 设置符号处理 ) |

@@ -19,7 +19,6 @@ public class NotePicture {
     // 对应的 note id ( 外键 )
     private Long   noteId;
 
-
     @Generated(hash = 1669203543)
     public NotePicture(Long id, @NotNull String picture, Long noteId) {
         this.id = id;

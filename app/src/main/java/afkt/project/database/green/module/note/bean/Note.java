@@ -62,7 +62,6 @@ public class Note {
     @Transient // 数据库不创建该字段
     private String tempStr;
 
-
     /**
      * Used to resolve relations
      */
