@@ -46,7 +46,7 @@ class BaseApplication : MultiDexApplication() {
     private fun initService() {
         AccessibilityListenerService.setAccessibilityListener(object : AccessibilityListener() {
             override fun onAccessibilityEvent(
-                event: AccessibilityEvent,
+                event: AccessibilityEvent?,
                 service: AccessibilityListenerService
             ) {
                 // 打印 Event 信息

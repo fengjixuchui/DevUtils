@@ -3024,11 +3024,10 @@ allprojects {
 ## <span id="devutilsappshare">**`dev.utils.app.share`**</span>
 
 
-* **SPUtils 工具类 ( 单独使用 ) ->** [SharedUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/share/SharedUtils.java)
+* **SPUtils 快捷工具类 ->** [SharedUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/share/SharedUtils.java)
 
 | 方法 | 注释 |
 | :- | :- |
-| init | 初始化操作 ( 内部已调用 ) |
 | put | 保存数据 |
 | putAll | 保存 Map 集合 ( 只能是 Integer、Long、Boolean、Float、String、Set) |
 | get | 根据 key 获取数据 |

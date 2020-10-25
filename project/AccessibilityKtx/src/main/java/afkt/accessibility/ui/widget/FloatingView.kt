@@ -110,7 +110,7 @@ class FloatingView : LinearLayout {
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: ActivityChangedEvent) {
+    fun onEvent(event: ActivityChangedEvent?) {
         event?.let {
             val packageName = it.packageName
             val className = it.className
