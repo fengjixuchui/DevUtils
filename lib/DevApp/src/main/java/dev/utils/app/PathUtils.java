@@ -13,16 +13,10 @@ import dev.utils.common.FileUtils;
  * detail: 路径相关工具类
  * @author Ttt
  * <pre>
- *     Android 中的存储路径之内部存储
- *     @see <a href="https://www.jianshu.com/p/c04b8899cf85"/>
- *     Android 中的存储路径之外部存储
- *     @see <a href="https://www.jianshu.com/p/2881260e74d7"/>
  *     处理外部存储中的媒体文件
  *     @see <a href="https://developer.android.google.cn/training/data-storage/files/media"/>
  *     管理分区外部存储访问
  *     @see <a href="https://developer.android.google.cn/training/data-storage/files/external-scoped"/>
- *     Android Q 适配指南
- *     @see <a href="https://juejin.im/post/5ddd2417f265da060a5217ff"/>
  *     <p></p>
  *     内部存储 : /data/data/package/ 目录
  *     外部存储 ( 私有目录 ) : /storage/emulated/0/Android/data/package/ 目录
@@ -79,6 +73,31 @@ public final class PathUtils {
      */
     public static SDCardPath getSDCard() {
         return sSDCardPath;
+    }
+
+    /**
+     * 是否获得 MANAGE_EXTERNAL_STORAGE 权限
+     * @return {@code true} yes, {@code false} no
+     */
+    public static boolean isExternalStorageManager() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+            return Environment.isExternalStorageManager();
+        }
+        return false;
+    }
+
+    /**
+     * 检查是否有 MANAGE_EXTERNAL_STORAGE 权限并跳转设置页面
+     * @return {@code true} yes, {@code false} no
+     */
+    public static boolean checkExternalStorageAndIntentSetting() {
+        if (!isExternalStorageManager()) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+                AppUtils.startActivity(IntentUtils.getManageAppAllFilesAccessPermissionIntent());
+            }
+            return false;
+        }
+        return true;
     }
 
     // =======================================

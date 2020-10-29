@@ -1,5 +1,6 @@
 package dev.utils.app;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Build;
 import android.text.TextUtils;
@@ -23,9 +24,6 @@ import dev.utils.common.StringUtils;
  * <pre>
  *     Awesome ADB 一份超全超详细的 ADB 用法大全
  *     @see <a href="https://github.com/mzlogin/awesome-adb"/>
- *     <p></p>
- *     获取 APP 列表 ( 包名 )
- *     @see <a href="https://blog.csdn.net/henni_719/article/details/62222439"/>
  *     <p></p>
  *     adb shell input
  *     @see <a href="https://blog.csdn.net/soslinken/article/details/49587497"/>
@@ -1590,6 +1588,7 @@ public final class ADBUtils {
      *               重启到 Fastboot 模式 bootloader
      * @return {@code true} success, {@code false} fail
      */
+    @SuppressLint("MissingPermission")
     public static boolean reboot(final String reason) {
         if (StringUtils.isSpace(reason)) return false;
         try {

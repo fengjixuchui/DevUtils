@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:2.0.7'
+implementation 'com.afkt:DevAppX:2.0.8'
 ```
 
 ## 目录结构
@@ -402,6 +402,7 @@ allprojects {
 | isInstalledApp2 | 判断是否安装了 APP |
 | startActivity | Activity 跳转 |
 | startActivityForResult | Activity 跳转回传 |
+| startIntentSenderForResult | Activity 请求权限跳转回传 |
 | registerReceiver | 注册广播监听 |
 | unregisterReceiver | 注销广播监听 |
 | sendBroadcast | 发送广播 |
@@ -822,7 +823,9 @@ allprojects {
 | getLaunchAppInstallPermissionSettingsIntent | 获取 APP 安装权限设置的意图 |
 | getLaunchAppNotificationSettingsIntent | 获取 APP 通知权限设置的意图 |
 | getLaunchAppNotificationListenSettingsIntent | 获取 APP 通知使用权页面 |
-| getManageOverlayPermissionIntent | 获取 APP 悬浮窗口权限详情页的意图 |
+| getManageOverlayPermissionIntent | 获取悬浮窗口权限列表的意图 |
+| getManageAppAllFilesAccessPermissionIntent | 获取 APP 授予所有文件管理权限的意图 |
+| getManageAllFilesAccessPermissionIntent | 获取授予所有文件管理权限列表的意图 |
 | getLaunchAppDetailsSettingsIntent | 获取 APP 具体设置的意图 |
 | getLaunchAppDetailIntent | 获取到应用商店 APP 详情界面的意图 |
 | getShareTextIntent | 获取分享文本的意图 |
@@ -832,7 +835,8 @@ allprojects {
 | getDialIntent | 获取跳至拨号界面意图 |
 | getCallIntent | 获取拨打电话意图 |
 | getSendSmsIntent | 获取发送短信界面的意图 |
-| getCaptureIntent | 获取拍照的意图 |
+| getImageCaptureIntent | 获取图片拍摄的意图 |
+| getVideoCaptureIntent | 获取视频拍摄的意图 |
 | getOpenDocumentIntent | 获取存储访问框架的意图 |
 | getCreateDocumentIntent | 获取创建文件的意图 |
 | getOpenBrowserIntent | 获取打开浏览器的意图 |
@@ -1009,6 +1013,10 @@ allprojects {
 | getVideoSize | 获取本地视频宽高 |
 | getImageWidthHeight | 获取本地图片宽高 |
 | getMediaInfo | 获取多媒体资源信息 |
+| createWriteRequest | 获取用户向应用授予对指定媒体文件组的写入访问权限的请求 |
+| createFavoriteRequest | 获取用户将设备上指定的媒体文件标记为收藏的请求 |
+| createTrashRequest | 获取用户将指定的媒体文件放入设备垃圾箱的请求 |
+| createDeleteRequest | 获取用户立即永久删除指定的媒体文件 ( 而不是先将其放入垃圾箱 ) 的请求 |
 
 
 * **内存信息工具类 ->** [MemoryUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/MemoryUtils.java)
@@ -1081,6 +1089,8 @@ allprojects {
 | getInternal | 获取内部存储路径类 |
 | getAppExternal | 获取应用外部存储路径类 |
 | getSDCard | 获取 SDCard 外部存储路径类 |
+| isExternalStorageManager | 是否获得 MANAGE_EXTERNAL_STORAGE 权限 |
+| checkExternalStorageAndIntentSetting | 检查是否有 MANAGE_EXTERNAL_STORAGE 权限并跳转设置页面 |
 | isSDCardEnable | 判断 SDCard 是否正常挂载 |
 | getSDCardFile | 获取 SDCard 外部存储路径 ( path /storage/emulated/0/ ) |
 | getSDCardPath | 获取 SDCard 外部存储路径 ( path /storage/emulated/0/ ) |
@@ -2302,7 +2312,7 @@ allprojects {
 | flushCloseIO | 将缓冲区数据输出并关闭流 |
 | flushCloseIOQuietly | 安静将缓冲区数据输出并关闭流 |
 | getNetTime | 获取网络时间 ( 默认使用百度链接 ) |
-| waitForEndAsyn | 设置等待一段时间后, 通知方法 ( 异步 ) |
+| waitForEndAsync | 设置等待一段时间后, 通知方法 ( 异步 ) |
 | waitForEnd | 设置等待一段时间后, 通知方法 ( 同步 ) |
 | setAnimationListener | 设置动画事件 |
 
@@ -2485,6 +2495,33 @@ allprojects {
 | closeKeyboard | 关闭软键盘 |
 | closeKeyBoardSpecial | 关闭软键盘 |
 | forceGetViewSize | 在 onCreate 中获取视图的尺寸 ( 需回调 onGetSizeListener 接口, 在 onGetSize 中获取 View 宽高 ) |
+
+
+* **Android 版本适配 Helper 类 ->** [VersionHelper.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/helper/VersionHelper.java)
+
+| 方法 | 注释 |
+| :- | :- |
+| isUriExists | 判断 Uri 路径资源是否存在 |
+| getMediaUri | 通过 File 获取 Media Uri |
+| copyByUri | 通过 Uri 复制文件 |
+| getFilePathByUri | 通过 Uri 获取文件路径 |
+| getUriForFile | 获取 FileProvider File Uri |
+| getUriForPath | 获取 FileProvider File Path Uri |
+| getUriForFileToName | 获取 FileProvider File Path Uri ( 自动添加包名 ${applicationId} ) |
+| createImageUri | 创建图片 Uri |
+| createVideoUri | 创建视频 Uri |
+| createAudioUri | 创建音频 Uri |
+| createMediaUri | 创建预存储 Media Uri |
+| insertImage | 插入一张图片 |
+| insertVideo | 插入一条视频 |
+| insertAudio | 插入一条音频 |
+| insertMedia | 插入一条多媒体资源 |
+| isExternalStorageManager | 是否获得 MANAGE_EXTERNAL_STORAGE 权限 |
+| checkExternalStorageAndIntentSetting | 检查是否有 MANAGE_EXTERNAL_STORAGE 权限并跳转设置页面 |
+| createWriteRequest | 获取用户向应用授予对指定媒体文件组的写入访问权限的请求 |
+| createFavoriteRequest | 获取用户将设备上指定的媒体文件标记为收藏的请求 |
+| createTrashRequest | 获取用户将指定的媒体文件放入设备垃圾箱的请求 |
+| createDeleteRequest | 获取用户立即永久删除指定的媒体文件 ( 而不是先将其放入垃圾箱 ) 的请求 |
 
 
 * **View 链式调用快捷设置 Helper 类 ->** [ViewHelper.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/helper/ViewHelper.java)
@@ -3215,6 +3252,7 @@ allprojects {
 | integersToInts | Integer[] 转换 int[] |
 | charactersToChars | Character[] 转换 char[] |
 | asList | 转换数组为集合 |
+| asListArgs | 转换数组为集合 |
 | equals | 判断两个值是否一样 |
 | arraycopy | 拼接数组 |
 | newarray | 创建指定长度数组 |
@@ -3752,8 +3790,8 @@ allprojects {
 
 | 方法 | 注释 |
 | :- | :- |
-| doGetAsyn | 异步的 Get 请求 |
-| doPostAsyn | 异步的 Post 请求 |
+| doGetAsync | 异步的 Get 请求 |
+| doPostAsync | 异步的 Post 请求 |
 | request | 发送请求 |
 | getNetTime | 获取网络时间 ( 默认使用百度链接 ) |
 
@@ -4080,7 +4118,7 @@ allprojects {
 
 | 方法 | 注释 |
 | :- | :- |
-| waitForEndAsyn | 设置等待一段时间后, 通知方法 ( 异步 ) |
+| waitForEndAsync | 设置等待一段时间后, 通知方法 ( 异步 ) |
 | waitForEnd | 设置等待一段时间后, 通知方法 ( 同步 ) |
 
 

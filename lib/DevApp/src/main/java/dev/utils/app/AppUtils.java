@@ -7,6 +7,7 @@ import android.app.AlarmManager;
 import android.app.AppOpsManager;
 import android.app.KeyguardManager;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.usage.UsageStatsManager;
 import android.content.BroadcastReceiver;
 import android.content.ClipboardManager;
@@ -36,8 +37,6 @@ import android.telephony.TelephonyManager;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
-import androidx.annotation.RequiresPermission;
-
 import java.io.File;
 import java.util.List;
 
@@ -54,6 +53,8 @@ import dev.utils.common.encrypt.EncryptUtils;
  * <pre>
  *     MimeType
  *     @see <a href="https://www.jianshu.com/p/f3fcf033be5c"/>
+ *     存储后缀根据 MIME_TYPE 决定, 值类型 {@link libcore.net.MimeUtils}
+ *     @see <a href="https://www.androidos.net.cn/android/9.0.0_r8/xref/libcore/luni/src/main/java/libcore/net/MimeUtils.java"/>
  *     <p></p>
  *     所需权限
  *     <uses-permission android:name="android.permission.INSTALL_PACKAGES" />
@@ -659,7 +660,7 @@ public final class AppUtils {
      * 判断 APP 是否在前台
      * @return {@code true} yes, {@code false} no
      */
-    @RequiresPermission(android.Manifest.permission.PACKAGE_USAGE_STATS)
+    @SuppressLint("MissingPermission")
     public static boolean isAppForeground() {
         return isAppForeground(getPackageName());
     }
@@ -669,7 +670,7 @@ public final class AppUtils {
      * @param packageName 应用包名
      * @return {@code true} yes, {@code false} no
      */
-    @RequiresPermission(android.Manifest.permission.PACKAGE_USAGE_STATS)
+    @SuppressLint("MissingPermission")
     public static boolean isAppForeground(final String packageName) {
         if (StringUtils.isSpace(packageName)) return false;
         try {
@@ -778,6 +779,25 @@ public final class AppUtils {
      */
     public static boolean startActivityForResult(final ActivityUtils.ResultCallback resultCallback) {
         return ActivityUtils.startActivityForResult(resultCallback);
+    }
+
+    /**
+     * Activity 请求权限跳转回传
+     * @param activity      {@link Activity}
+     * @param pendingIntent {@link PendingIntent}
+     * @param requestCode   请求 code
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean startIntentSenderForResult(final Activity activity, final PendingIntent pendingIntent, final int requestCode) {
+        if (activity == null || pendingIntent == null) return false;
+        try {
+            activity.startIntentSenderForResult(pendingIntent.getIntentSender(), requestCode,
+                    null, 0, 0, 0);
+            return true;
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "startIntentSenderForResult");
+        }
+        return false;
     }
 
     // =======

@@ -9,7 +9,6 @@ import android.provider.Settings;
 import android.text.TextUtils;
 
 import androidx.annotation.RequiresApi;
-import androidx.annotation.RequiresPermission;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -31,7 +30,6 @@ import dev.utils.LogPrintUtils;
  * detail: 设备相关工具类
  * @author Ttt
  * <pre>
- *     @see <a href="http://blog.csdn.net/zhangcanyan/article/details/52817866"/>
  *     android.os.Build.BOARD: 获取设备基板名称
  *     android.os.Build.BOOTLOADER: 获取设备引导程序版本号
  *     android.os.Build.BRAND: 获取设备品牌
@@ -87,7 +85,7 @@ public final class DeviceUtils {
      * @return {@link Map<String, String>}
      */
     public static Map<String, String> getDeviceInfo(final Map<String, String> deviceInfoMap) {
-        // 获取设备信息类的所有申明的字段, 即包括 public、private 和 proteced, 但是不包括父类的申明字段
+        // 获取设备信息类的所有申明的字段, 即包括 public、private 和 protected, 但是不包括父类的申明字段
         Field[] fields = Build.class.getDeclaredFields();
         // 遍历字段
         for (Field field : fields) {
@@ -491,7 +489,7 @@ public final class DeviceUtils {
      * </pre>
      * @return 设备 MAC 地址
      */
-    @RequiresPermission(allOf = {android.Manifest.permission.INTERNET, android.Manifest.permission.ACCESS_WIFI_STATE})
+    @SuppressLint("MissingPermission")
     public static String getMacAddress() {
         String macAddress = getMacAddressByWifiInfo();
         if (!DEFAULT_MAC_ADDRESS.equals(macAddress)) {
@@ -516,7 +514,7 @@ public final class DeviceUtils {
      * 获取 MAC 地址
      * @return MAC 地址
      */
-    @RequiresPermission(android.Manifest.permission.ACCESS_WIFI_STATE)
+    @SuppressLint("MissingPermission")
     private static String getMacAddressByWifiInfo() {
         try {
             @SuppressLint("WifiManagerLeak")
@@ -535,7 +533,7 @@ public final class DeviceUtils {
      * 获取 MAC 地址
      * @return MAC 地址
      */
-    @RequiresPermission(android.Manifest.permission.INTERNET)
+    @SuppressLint("MissingPermission")
     private static String getMacAddressByNetworkInterface() {
         try {
             Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();

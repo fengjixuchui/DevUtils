@@ -3,6 +3,7 @@ package dev.other.retrofit;
 import org.reactivestreams.Publisher;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
@@ -30,8 +31,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
  *     @see <a href="http://gank.io/post/560e15be2dca930e00da1083"/>
  *     这可能是最好的 RxJava 2.x 教程
  *     @see <a href="https://www.jianshu.com/p/0cd258eecf60"/>
- *     关于 RxJava 背压
- *     @see <a href="http://flyou.ren/2017/04/05/%E5%85%B3%E4%BA%8ERxJava%E8%83%8C%E5%8E%8B/?utm_source=tuicool&utm_medium=referral"/>
  * </pre>
  */
 public final class RxJavaManager {
@@ -53,7 +52,7 @@ public final class RxJavaManager {
     }
 
     // 把每一个请求的 Disposable 对象都交给由统一的 CompositeDisposable 对象去管理
-    private final HashMap<String, CompositeDisposable> mManagerMap = new HashMap<>();
+    private final Map<String, CompositeDisposable> mManagerMap = new HashMap<>();
 
     /**
      * 通过 tag 将请求添加到统一管理对象中
@@ -96,7 +95,7 @@ public final class RxJavaManager {
      * 获取 CompositeDisposable Map
      * @return CompositeDisposable Map
      */
-    public HashMap<String, CompositeDisposable> getManagerMap() {
+    public Map<String, CompositeDisposable> getManagerMap() {
         return mManagerMap;
     }
 

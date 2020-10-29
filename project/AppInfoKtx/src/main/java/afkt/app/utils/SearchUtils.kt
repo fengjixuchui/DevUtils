@@ -13,7 +13,7 @@ object SearchUtils {
     private val WHAT_SEARCH = Integer.MAX_VALUE
 
     // 搜索线程
-    private var sSearchRunn: Runnable? = null
+    private var sSearchTask: Runnable? = null
 
     /**
      * 移除搜索任务
@@ -33,12 +33,12 @@ object SearchUtils {
     // =
 
     private fun getSearchRunnable(): Runnable {
-        if (sSearchRunn == null) {
-            sSearchRunn = Runnable {
+        if (sSearchTask == null) {
+            sSearchTask = Runnable {
                 sHandler.sendEmptyMessage(WHAT_SEARCH)
             }
         }
-        return sSearchRunn as Runnable
+        return sSearchTask as Runnable
     }
 
     private val sHandler: Handler = object : Handler() {

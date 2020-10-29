@@ -21,7 +21,6 @@ import dev.utils.LogPrintUtils;
  *     @see <a href="https://www.jianshu.com/p/981e7de2c7be"/>
  *     @see <a href="https://www.jianshu.com/p/f67e950d84f7"/>
  *     @see <a href="https://blog.csdn.net/dd864140130/article/details/51794318"/>
- *     @see <a href="https://nesscurie.github.io/2017/03/07/2.Android%E8%BE%85%E5%8A%A9%E5%8A%9F%E8%83%BD%E5%A4%A7%E8%87%B4%E8%A7%A3%E6%9E%90,%E9%80%9A%E8%BF%87adb%E8%BF%90%E8%A1%8C%E7%BA%AFjava%E4%BB%A3%E7%A0%81%E6%89%93%E5%BC%80%E5%BA%94%E7%94%A8%E7%9A%84%E8%BE%85%E5%8A%A9%E5%8A%9F%E8%83%BD"/>
  *     <p></p>
  *     AccessibilityService 在 API < 18 的时候使用 AccessibilityService
  *     所需权限
@@ -741,11 +740,11 @@ public final class AccessibilityUtils {
 //    disableSelf()	// 禁用当前服务, 也就是在服务可以通过该方法停止运行
 //    getSystemService(String name)	// 获取系统服务
 //    onServiceConnected() // 系统成功绑定该服务时被触发, 也就是当你在设置中开启相应的服务, 系统成功的绑定了该服务时会触发, 通常我们可以在这里做一些初始化操作
-//    getSeviceInfo() // 获取当前服务的配置信息
+//    getServiceInfo() // 获取当前服务的配置信息
 //    setServiceInfo(AccessibilityServiceInfo info) // 设置当前服务的配置信息
-//    onAccessibilityEvent(AccessibilityEvent event) // 有关 AccessibilityEvent 事件的回调函数, 系统通过 sendAccessibiliyEvent() 不断的发送 AccessibilityEvent 到此处
+//    onAccessibilityEvent(AccessibilityEvent event) // 有关 AccessibilityEvent 事件的回调函数, 系统通过 sendAccessibilityEvent() 不断的发送 AccessibilityEvent 到此处
 //    performGlobalAction(int action) // 执行全局操作, 比如回到主页、打开最近等操作
-//    findFoucs(int falg) // 查找拥有特定焦点类型的控件
+//    findFocus(int flag) // 查找拥有特定焦点类型的控件
 //    getRootInActiveWindow() // 如果配置能够获取窗口内容, 则会返回当前活动窗口的根结点
 //    onKeyEvent(KeyEvent event) // 如果允许服务监听按键操作, 该方法是按键事件的回调, 需要注意, 这个过程发生了系统处理按键事件之前
 }

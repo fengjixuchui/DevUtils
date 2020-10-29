@@ -44,9 +44,9 @@ ext {
             // ===========
 
             // 版本号
-            dev_app_versionCode                     : 207,
+            dev_app_versionCode                     : 208,
             // 版本名
-            dev_app_versionName                     : '2.0.7',
+            dev_app_versionName                     : '2.0.8',
 
             // 版本号
             dev_assist_versionCode                  : 104,
@@ -64,9 +64,9 @@ ext {
             dev_base_mvvm_versionName               : '1.0.0',
 
             // 版本号
-            dev_java_versionCode                    : 120,
+            dev_java_versionCode                    : 121,
             // 版本名
-            dev_java_version                        : '1.2.0',
+            dev_java_version                        : '1.2.1',
 
             // 版本号
             dev_widget_versionCode                  : 104,
@@ -233,7 +233,7 @@ ext {
                     // Banner 库 https://github.com/youth5201314/banner
                     banner                       : "com.youth.banner:banner:2.1.0",
                     // 基于 mmap 的高性能通用 key-value 组件 https://github.com/Tencent/MMKV/blob/master/readme_cn.md
-                    mmkv                         : "com.tencent:mmkv-static:1.2.3",
+                    mmkv                         : "com.tencent:mmkv-static:1.2.4",
                     // 今日头条屏幕适配方案终极版 https://github.com/JessYanCoding/AndroidAutoSize/blob/master/README-zh.md
                     autosize                     : "me.jessyan:autosize:1.2.1",
                     // GreenDAO ORM 框架 https://github.com/greenrobot/greenDAO
@@ -249,6 +249,8 @@ ext {
                     // 图片裁剪库 https://github.com/Yalantis/uCrop
                     ucrop                        : "com.github.yalantis:ucrop:2.2.6", // 轻量级通用解决方案
                     ucrop_native                 : "com.github.yalantis:ucrop:2.2.6-native", // 支持本机功能
+                    // XXPermissions 权限请求框架 https://github.com/getActivity/XXPermissions
+                    xxPermissions                : "com.hjq:xxpermissions:8.8",
 
                     // ========
                     // = 其他 =

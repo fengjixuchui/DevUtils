@@ -1,5 +1,6 @@
 package dev.utils.app;
 
+import android.annotation.SuppressLint;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
@@ -13,7 +14,6 @@ import android.provider.MediaStore;
 import android.provider.Settings;
 import android.text.TextUtils;
 
-import androidx.annotation.RequiresPermission;
 import androidx.core.content.FileProvider;
 
 import java.io.File;
@@ -330,25 +330,81 @@ public final class IntentUtils {
     }
 
     /**
-     * 获取 APP 悬浮窗口权限详情页的意图
-     * @return APP 悬浮窗口权限详情页的意图
+     * 获取悬浮窗口权限列表的意图
+     * @return 悬浮窗口权限列表的意图
      */
     public static Intent getManageOverlayPermissionIntent() {
         return getManageOverlayPermissionIntent(false);
     }
 
     /**
-     * 获取 APP 悬浮窗口权限详情页的意图
+     * 获取悬浮窗口权限列表的意图
      * @param isNewTask 是否开启新的任务栈
-     * @return APP 悬浮窗口权限详情页的意图
+     * @return 悬浮窗口权限列表的意图
      */
     public static Intent getManageOverlayPermissionIntent(final boolean isNewTask) {
         try {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION);
-            intent.setData(Uri.parse("package:" + AppUtils.getPackageName()));
             return getIntent(intent, isNewTask);
         } catch (Exception e) {
             LogPrintUtils.eTag(TAG, e, "getManageOverlayPermissionIntent");
+        }
+        return null;
+    }
+
+    /**
+     * 获取 APP 授予所有文件管理权限的意图
+     * @return APP 授予所有文件管理权限的意图
+     */
+    public static Intent getManageAppAllFilesAccessPermissionIntent() {
+        return getManageAppAllFilesAccessPermissionIntent(AppUtils.getPackageName(), false);
+    }
+
+    /**
+     * 获取 APP 授予所有文件管理权限的意图
+     * @param packageName 应用包名
+     * @return APP 授予所有文件管理权限的意图
+     */
+    public static Intent getManageAppAllFilesAccessPermissionIntent(final String packageName) {
+        return getManageAppAllFilesAccessPermissionIntent(packageName, false);
+    }
+
+    /**
+     * 获取 APP 授予所有文件管理权限的意图
+     * @param packageName 应用包名
+     * @param isNewTask   是否开启新的任务栈
+     * @return APP 授予所有文件管理权限的意图
+     */
+    public static Intent getManageAppAllFilesAccessPermissionIntent(final String packageName, final boolean isNewTask) {
+        try {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_APP_ALL_FILES_ACCESS_PERMISSION);
+            intent.setData(Uri.parse("package:" + packageName));
+            return getIntent(intent, isNewTask);
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "getManageAppAllFilesAccessPermissionIntent");
+        }
+        return null;
+    }
+
+    /**
+     * 获取授予所有文件管理权限列表的意图
+     * @return 授予所有文件管理权限列表的意图
+     */
+    public static Intent getManageAllFilesAccessPermissionIntent() {
+        return getManageAllFilesAccessPermissionIntent(false);
+    }
+
+    /**
+     * 获取授予所有文件管理权限列表的意图
+     * @param isNewTask 是否开启新的任务栈
+     * @return 授予所有文件管理权限列表的意图
+     */
+    public static Intent getManageAllFilesAccessPermissionIntent(final boolean isNewTask) {
+        try {
+            Intent intent = new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+            return getIntent(intent, isNewTask);
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "getManageAllFilesAccessPermissionIntent");
         }
         return null;
     }
@@ -637,7 +693,7 @@ public final class IntentUtils {
      * @param phoneNumber 电话号码
      * @return 拨打电话意图
      */
-    @RequiresPermission(android.Manifest.permission.CALL_PHONE)
+    @SuppressLint("MissingPermission")
     public static Intent getCallIntent(final String phoneNumber) {
         return getCallIntent(phoneNumber, false);
     }
@@ -648,7 +704,7 @@ public final class IntentUtils {
      * @param isNewTask   是否开启新的任务栈
      * @return 拨打电话意图
      */
-    @RequiresPermission(android.Manifest.permission.CALL_PHONE)
+    @SuppressLint("MissingPermission")
     public static Intent getCallIntent(final String phoneNumber, final boolean isNewTask) {
         try {
             Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + phoneNumber));
@@ -689,28 +745,55 @@ public final class IntentUtils {
     }
 
     /**
-     * 获取拍照的意图
+     * 获取图片拍摄的意图
      * @param outUri 输出的 uri ( 保存地址 )
-     * @return 拍照的意图
+     * @return 图片拍摄的意图
      */
-    public static Intent getCaptureIntent(final Uri outUri) {
-        return getCaptureIntent(outUri, false);
+    public static Intent getImageCaptureIntent(final Uri outUri) {
+        return getImageCaptureIntent(outUri, false);
     }
 
     /**
-     * 获取拍照的意图
+     * 获取图片拍摄的意图
      * @param outUri    输出的 uri ( 保存地址 )
      * @param isNewTask 是否开启新的任务栈
-     * @return 拍照的意图
+     * @return 图片拍摄的意图
      */
-    public static Intent getCaptureIntent(final Uri outUri, final boolean isNewTask) {
+    public static Intent getImageCaptureIntent(final Uri outUri, final boolean isNewTask) {
         try {
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
             return getIntent(intent, isNewTask);
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getCaptureIntent");
+            LogPrintUtils.eTag(TAG, e, "getImageCaptureIntent");
+        }
+        return null;
+    }
+
+    /**
+     * 获取视频拍摄的意图
+     * @param outUri 输出的 uri ( 保存地址 )
+     * @return 视频拍摄的意图
+     */
+    public static Intent getVideoCaptureIntent(final Uri outUri) {
+        return getVideoCaptureIntent(outUri, false);
+    }
+
+    /**
+     * 获取视频拍摄的意图
+     * @param outUri    输出的 uri ( 保存地址 )
+     * @param isNewTask 是否开启新的任务栈
+     * @return 视频拍摄的意图
+     */
+    public static Intent getVideoCaptureIntent(final Uri outUri, final boolean isNewTask) {
+        try {
+            Intent intent = new Intent(MediaStore.ACTION_VIDEO_CAPTURE);
+            intent.putExtra(MediaStore.EXTRA_OUTPUT, outUri);
+            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            return getIntent(intent, isNewTask);
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "getVideoCaptureIntent");
         }
         return null;
     }
@@ -725,6 +808,9 @@ public final class IntentUtils {
 
     /**
      * 获取存储访问框架的意图
+     * <pre>
+     *     SAF 存储访问框架 Storage Access Framework
+     * </pre>
      * @param type 跳转类型
      * @return 存储访问框架的意图
      */
