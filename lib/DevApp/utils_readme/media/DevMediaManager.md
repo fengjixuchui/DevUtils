@@ -41,7 +41,7 @@
 | onCompletion | 视频播放结束回调 |
 | onBufferingUpdate | MediaPlayer 缓冲更新回调 |
 | onSeekComplete | 滑动加载完成回调 |
-| setMeidaListener | 设置 MediaPlayer 回调事件 |
+| setMediaListener | 设置 MediaPlayer 回调事件 |
 | isNullMediaPlayer | 判断 MediaPlayer 是否为 null |
 | isNotNullMediaPlayer | 判断 MediaPlayer 是否不为 null |
 | getMediaPlayer | 获取 MediaPlayer 对象 |
@@ -77,7 +77,7 @@
 | pausePlayer | 暂停播放 |
 | stopPlayer | 停止播放 |
 | startPlayer | 开始播放 |
-| getSurfaceview | 获取 SurfaceView |
+| getSurfaceView | 获取 SurfaceView |
 | isPlaying | 是否播放中 |
 | isAutoPlay | 判断是否自动播放 |
 | setAutoPlay | 设置自动播放 |
@@ -126,7 +126,7 @@ DevMediaManager.getInstance().stop();
 DevMediaManager.getInstance().pause();
 
 // 设置事件监听
-DevMediaManager.getInstance().setMeidaListener(new DevMediaManager.MediaListener() {
+DevMediaManager.getInstance().setMediaListener(new DevMediaManager.MediaListener() {
     @Override
     public void onPrepared() {
         if (DevMediaManager.getInstance().isNotNullMediaPlayer()) {

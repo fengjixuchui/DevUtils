@@ -3021,7 +3021,7 @@ allprojects {
 | pause | 暂停操作 |
 | stop | 停止操作 ( 销毁 MediaPlayer ) |
 | isIgnoreWhat | 是否忽略错误类型 |
-| setMeidaListener | 设置 MediaPlayer 回调事件 |
+| setMediaListener | 设置 MediaPlayer 回调事件 |
 | isNullMediaPlayer | 判断 MediaPlayer 是否为 null |
 | isNotNullMediaPlayer | 判断 MediaPlayer 是否不为 null |
 | getMediaPlayer | 获取 MediaPlayer 对象 |
@@ -3046,7 +3046,7 @@ allprojects {
 | pausePlayer | 暂停播放 |
 | stopPlayer | 停止播放 |
 | startPlayer | 开始播放 |
-| getSurfaceview | 获取 SurfaceView |
+| getSurfaceView | 获取 SurfaceView |
 | isPlaying | 是否播放中 |
 | isAutoPlay | 判断是否自动播放 |
 | setAutoPlay | 设置自动播放 |

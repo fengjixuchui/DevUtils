@@ -864,16 +864,16 @@ public final class ColorUtils {
         @Override
         public String toString() {
             StringBuilder builder = new StringBuilder();
-            builder.append("key : " + key);
-            builder.append("\nvalue : " + value);
-            builder.append("\nvalueParser : " + valueParser);
-            builder.append("\nalpha : " + alpha);
-            builder.append("\nred : " + red);
-            builder.append("\ngreen : " + green);
-            builder.append("\nblue : " + blue);
-            builder.append("\ngrayLevel : " + grayLevel);
-            builder.append("\nintToRgbString : " + ColorUtils.intToRgbString((int) valueColor));
-            builder.append("\nintToArgbString : " + ColorUtils.intToArgbString((int) valueColor));
+            builder.append("key : ").append(key);
+            builder.append("\nvalue : ").append(value);
+            builder.append("\nvalueParser : ").append(valueParser);
+            builder.append("\nalpha : ").append(alpha);
+            builder.append("\nred : ").append(red);
+            builder.append("\ngreen : ").append(green);
+            builder.append("\nblue : ").append(blue);
+            builder.append("\ngrayLevel : ").append(grayLevel);
+            builder.append("\nintToRgbString : ").append(ColorUtils.intToRgbString((int) valueColor));
+            builder.append("\nintToArgbString : ").append(ColorUtils.intToArgbString((int) valueColor));
             return builder.toString();
         }
 
@@ -964,8 +964,8 @@ public final class ColorUtils {
          * RGB 转换 HSB
          * <pre>
          *     HSB 等于 HSV, 不同的叫法
-         *     java.awt.Color#RGBtoHSB
-         *     android.graphics.Color#RGBToHSV
+         *     {@link java.awt.Color#RGBtoHSB}
+         *     {@link android.graphics.Color#RGBToHSV}
          * </pre>
          * @param r       红色值 [0-255]
          * @param g       绿色值 [0-255]

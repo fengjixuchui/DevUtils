@@ -30,7 +30,7 @@ public final class DevMediaManager implements OnBufferingUpdateListener,
     // MediaPlayer 对象
     private                 MediaPlayer     mMediaPlayer;
     // DevMediaManager 实例
-    private volatile static DevMediaManager sInstance;
+    private static volatile DevMediaManager sInstance;
 
     private DevMediaManager() {
     }
@@ -522,7 +522,7 @@ public final class DevMediaManager implements OnBufferingUpdateListener,
      * @param meidaListener {@link MediaListener} MediaPlayer 回调事件
      * @return {@link DevMediaManager}
      */
-    public DevMediaManager setMeidaListener(final MediaListener meidaListener) {
+    public DevMediaManager setMediaListener(final MediaListener meidaListener) {
         this.mMeidaListener = meidaListener;
         return this;
     }

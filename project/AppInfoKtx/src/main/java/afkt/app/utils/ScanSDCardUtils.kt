@@ -52,7 +52,7 @@ class ScanSDCardUtils private constructor() {
                 return false
             }
 
-            override fun OnEndListener(
+            override fun onEndListener(
                 rootFileItem: FileBreadthFirstSearchUtils.FileItem?,
                 startTime: Long, endTime: Long
             ) {
