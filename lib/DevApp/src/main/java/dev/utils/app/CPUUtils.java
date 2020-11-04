@@ -53,7 +53,7 @@ public final class CPUUtils {
                     // 查找到序列号所在行
                     if (str.indexOf("Serial") > -1) {
                         // 提取序列号
-                        cpuSerialNum = str.substring(str.indexOf(":") + 1).trim();
+                        cpuSerialNum = str.substring(str.indexOf(':') + 1).trim();
                         break;
                     }
                 } else {
@@ -90,8 +90,7 @@ public final class CPUUtils {
             FileReader fr = new FileReader("/proc/cpuinfo");
             BufferedReader br = new BufferedReader(fr);
             String text = br.readLine();
-            String[] array = text.split(":\\s+", 2);
-            return array[1];
+            return text.split(":\\s+", 2)[1];
         } catch (Exception e) {
             LogPrintUtils.eTag(TAG, e, "getCpuModel");
         }
@@ -103,26 +102,27 @@ public final class CPUUtils {
      * @return CPU 最大频率 ( 单位 KHZ)
      */
     public static String getMaxCpuFreq() {
-        String result = "";
         ProcessBuilder cmd;
         InputStream is = null;
         try {
+            StringBuilder builder = new StringBuilder();
             String[] args = {"/system/bin/cat", "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_max_freq"};
             cmd = new ProcessBuilder(args);
             Process process = cmd.start();
             is = process.getInputStream();
             byte[] re = new byte[24];
             while (is.read(re) != -1) {
-                result = result + new String(re);
+                builder.append(new String(re));
             }
-            result = Formatter.formatFileSize(DevUtils.getContext(), Long.parseLong(result.trim()) * 1024) + " Hz";
+            return Formatter.formatFileSize(
+                    DevUtils.getContext(), Long.parseLong(builder.toString().trim()) * 1024
+            ) + " Hz";
         } catch (Exception e) {
             LogPrintUtils.eTag(TAG, e, "getMaxCpuFreq");
-            result = "unknown";
         } finally {
             CloseUtils.closeIOQuietly(is);
         }
-        return result;
+        return "unknown";
     }
 
     /**
@@ -130,26 +130,27 @@ public final class CPUUtils {
      * @return CPU 最小频率 ( 单位 KHZ)
      */
     public static String getMinCpuFreq() {
-        String result = "";
         ProcessBuilder cmd;
         InputStream is = null;
         try {
+            StringBuilder builder = new StringBuilder();
             String[] args = {"/system/bin/cat", "/sys/devices/system/cpu/cpu0/cpufreq/cpuinfo_min_freq"};
             cmd = new ProcessBuilder(args);
             Process process = cmd.start();
             is = process.getInputStream();
             byte[] re = new byte[24];
             while (is.read(re) != -1) {
-                result = result + new String(re);
+                builder.append(new String(re));
             }
-            result = Formatter.formatFileSize(DevUtils.getContext(), Long.parseLong(result.trim()) * 1024) + " Hz";
+            return Formatter.formatFileSize(
+                    DevUtils.getContext(), Long.parseLong(builder.toString().trim()) * 1024
+            ) + " Hz";
         } catch (Exception e) {
             LogPrintUtils.eTag(TAG, e, "getMinCpuFreq");
-            result = "unknown";
         } finally {
             CloseUtils.closeIOQuietly(is);
         }
-        return result;
+        return "unknown";
     }
 
     /**
@@ -157,17 +158,15 @@ public final class CPUUtils {
      * @return CPU 当前频率 ( 单位 KHZ)
      */
     public static String getCurCpuFreq() {
-        String result = "";
         try {
             FileReader fr = new FileReader("/sys/devices/system/cpu/cpu0/cpufreq/scaling_cur_freq");
             BufferedReader br = new BufferedReader(fr);
             String text = br.readLine();
-            result = Formatter.formatFileSize(DevUtils.getContext(), Long.parseLong(text.trim()) * 1024) + " Hz";
+            return Formatter.formatFileSize(DevUtils.getContext(), Long.parseLong(text.trim()) * 1024) + " Hz";
         } catch (Exception e) {
             LogPrintUtils.eTag(TAG, e, "getCurCpuFreq");
-            result = "unknown";
         }
-        return result;
+        return "unknown";
     }
 
     /**

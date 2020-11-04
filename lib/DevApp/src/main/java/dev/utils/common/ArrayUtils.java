@@ -2266,7 +2266,7 @@ public final class ArrayUtils {
      * @param ints int[]
      * @return {@link List<Integer>}
      */
-    public static List<Integer> asListArgs(final int... ints) {
+    public static List<Integer> asListArgsInt(final int... ints) {
         if (ints != null) {
             List<Integer> lists = new ArrayList<>();
             for (int i = 0, len = ints.length; i < len; i++) {
@@ -2282,7 +2282,7 @@ public final class ArrayUtils {
      * @param bytes byte[]
      * @return {@link List<Byte>}
      */
-    public static List<Byte> asListArgs(final byte... bytes) {
+    public static List<Byte> asListArgsByte(final byte... bytes) {
         if (bytes != null) {
             List<Byte> lists = new ArrayList<>();
             for (int i = 0, len = bytes.length; i < len; i++) {
@@ -2298,7 +2298,7 @@ public final class ArrayUtils {
      * @param chars char[]
      * @return {@link List<Character>}
      */
-    public static List<Character> asListArgs(final char... chars) {
+    public static List<Character> asListArgsChar(final char... chars) {
         if (chars != null) {
             List<Character> lists = new ArrayList<>();
             for (int i = 0, len = chars.length; i < len; i++) {
@@ -2314,7 +2314,7 @@ public final class ArrayUtils {
      * @param shorts short[]
      * @return {@link List<Short>}
      */
-    public static List<Short> asListArgs(final short... shorts) {
+    public static List<Short> asListArgsShort(final short... shorts) {
         if (shorts != null) {
             List<Short> lists = new ArrayList<>();
             for (int i = 0, len = shorts.length; i < len; i++) {
@@ -2330,7 +2330,7 @@ public final class ArrayUtils {
      * @param longs long[]
      * @return {@link List<Long>}
      */
-    public static List<Long> asListArgs(final long... longs) {
+    public static List<Long> asListArgsLong(final long... longs) {
         if (longs != null) {
             List<Long> lists = new ArrayList<>();
             for (int i = 0, len = longs.length; i < len; i++) {
@@ -2346,7 +2346,7 @@ public final class ArrayUtils {
      * @param floats float[]
      * @return {@link List<Float>}
      */
-    public static List<Float> asListArgs(final float... floats) {
+    public static List<Float> asListArgsFloat(final float... floats) {
         if (floats != null) {
             List<Float> lists = new ArrayList<>();
             for (int i = 0, len = floats.length; i < len; i++) {
@@ -2362,7 +2362,7 @@ public final class ArrayUtils {
      * @param doubles double[]
      * @return {@link List<Double>}
      */
-    public static List<Double> asListArgs(final double... doubles) {
+    public static List<Double> asListArgsDouble(final double... doubles) {
         if (doubles != null) {
             List<Double> lists = new ArrayList<>();
             for (int i = 0, len = doubles.length; i < len; i++) {
@@ -2378,7 +2378,7 @@ public final class ArrayUtils {
      * @param booleans boolean[]
      * @return {@link List<Boolean>}
      */
-    public static List<Boolean> asListArgs(final boolean... booleans) {
+    public static List<Boolean> asListArgsBoolean(final boolean... booleans) {
         if (booleans != null) {
             List<Boolean> lists = new ArrayList<>();
             for (int i = 0, len = booleans.length; i < len; i++) {

@@ -302,9 +302,7 @@ public final class WifiHotUtils {
             // 获取 Wifi 热点方法
             Method method = mWifiManager.getClass().getMethod("getWifiApConfiguration");
             // 获取配置
-            WifiConfiguration wifiApConfig = (WifiConfiguration) method.invoke(mWifiManager);
-            // 返回配置信息
-            return wifiApConfig;
+            return (WifiConfiguration) method.invoke(mWifiManager);
         } catch (Exception e) {
             LogPrintUtils.eTag(TAG, e, "getWifiApConfiguration");
         }
@@ -508,7 +506,7 @@ public final class WifiHotUtils {
         // 获取网关掩码
         if (ipAddress != null) {
             try {
-                int length = ipAddress.lastIndexOf(".");
+                int length = ipAddress.lastIndexOf('.');
                 // 进行裁剪
                 hsMask = ipAddress.substring(0, length) + ".255";
             } catch (Exception e) {
@@ -525,14 +523,10 @@ public final class WifiHotUtils {
      */
     private String intToString(final int data) {
         StringBuilder builder = new StringBuilder();
-        int b = (data >> 0) & 0xff;
-        builder.append(b + ".");
-        b = (data >> 8) & 0xff;
-        builder.append(b + ".");
-        b = (data >> 16) & 0xff;
-        builder.append(b + ".");
-        b = (data >> 24) & 0xff;
-        builder.append(b);
+        builder.append((data >> 0) & 0xff).append(".");
+        builder.append((data >> 8) & 0xff).append(".");
+        builder.append((data >> 16) & 0xff).append(".");
+        builder.append((data >> 24) & 0xff);
         return builder.toString();
     }
 
