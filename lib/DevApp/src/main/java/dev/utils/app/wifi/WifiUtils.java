@@ -424,7 +424,7 @@ public final class WifiUtils {
      * @return Wifi 热点 SSID
      */
     @SuppressLint("MissingPermission")
-    public static String isConnectAphot() {
+    public static String isConnectAPHot() {
         try {
             // 连接管理
             ConnectivityManager cManager = AppUtils.getConnectivityManager();
@@ -449,7 +449,7 @@ public final class WifiUtils {
                 }
             }
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "isConnectAphot");
+            LogPrintUtils.eTag(TAG, e, "isConnectAPHot");
         }
         return null;
     }
@@ -644,7 +644,7 @@ public final class WifiUtils {
                 // 存在则删除
                 boolean isRemove = mWifiManager.removeNetwork(preWifiConfig.networkId);
                 // 打印结果
-                LogPrintUtils.dTag(TAG, "删除旧的配置信息 - " + preWifiConfig.SSID + ", isRemove: " + isRemove);
+                LogPrintUtils.dTag(TAG, "删除旧的配置信息 %s, isRemove: %s", preWifiConfig.SSID, isRemove);
                 // 保存配置
                 mWifiManager.saveConfiguration();
             }
@@ -656,15 +656,15 @@ public final class WifiUtils {
                     // 获取当前连接的 Wifi 对象
                     WifiInfo wifiInfo = getWifiInfo();
                     // 获取连接的 id
-                    int networdId = wifiInfo.getNetworkId();
+                    int networkId = wifiInfo.getNetworkId();
                     // 禁用网络
-                    boolean isDisable = mWifiManager.disableNetwork(networdId);
+                    boolean isDisable = mWifiManager.disableNetwork(networkId);
                     // 断开之前的连接
                     boolean isDisConnect = mWifiManager.disconnect();
                     // 打印断开连接结果
-                    LogPrintUtils.dTag(TAG, "isDisConnect: " + isDisConnect + ", isDisable: " + isDisable);
+                    LogPrintUtils.dTag(TAG, "isDisConnect: %s, isDisable: %s", isDisConnect, isDisable);
                 } catch (Exception e) {
-                    LogPrintUtils.eTag(TAG, e, "quickConnWifi - 关闭连接出错: " + nId);
+                    LogPrintUtils.eTag(TAG, e, "quickConnWifi 关闭连接出错: %s", nId);
                 }
                 // 开始连接
                 boolean result = mWifiManager.enableNetwork(nId, true);
@@ -673,7 +673,7 @@ public final class WifiUtils {
                     result = mWifiManager.enableNetwork(nId, true);
                 }
                 // 打印结果
-                LogPrintUtils.dTag(TAG, "addNetwork(enableNetwork) - result: " + result);
+                LogPrintUtils.dTag(TAG, "addNetwork(enableNetwork) result: %s", result);
             } else {
                 // 尝试不带引号 SSID 连接
                 connWifiConfig.SSID = formatSSID(connWifiConfig.SSID, false);
@@ -684,15 +684,15 @@ public final class WifiUtils {
                         // 获取当前连接的 Wifi 对象
                         WifiInfo wifiInfo = getWifiInfo();
                         // 获取连接的 id
-                        int networdId = wifiInfo.getNetworkId();
+                        int networkId = wifiInfo.getNetworkId();
                         // 禁用网络
-                        boolean isDisable = mWifiManager.disableNetwork(networdId);
+                        boolean isDisable = mWifiManager.disableNetwork(networkId);
                         // 断开之前的连接
                         boolean isDisConnect = mWifiManager.disconnect();
                         // 打印断开连接结果
-                        LogPrintUtils.dTag(TAG, "isDisConnect: " + isDisConnect + ", isDisable: " + isDisable);
+                        LogPrintUtils.dTag(TAG, "isDisConnect: %s, isDisable: %s", isDisConnect, isDisable);
                     } catch (Exception e) {
-                        LogPrintUtils.eTag(TAG, e, "quickConnWifi - 关闭连接出错: " + nId);
+                        LogPrintUtils.eTag(TAG, e, "quickConnWifi 关闭连接出错: %s", nId);
                     }
                     // 开始连接
                     boolean result = mWifiManager.enableNetwork(nId, true);
@@ -701,13 +701,13 @@ public final class WifiUtils {
                         result = mWifiManager.enableNetwork(nId, true);
                     }
                     // 打印结果
-                    LogPrintUtils.dTag(TAG, "addNetwork(enableNetwork) - result: " + result);
+                    LogPrintUtils.dTag(TAG, "addNetwork(enableNetwork) result: %s", result);
                 }
             }
             // 保存 id
             connWifiConfig.networkId = nId;
             // 连接的 networkId
-            LogPrintUtils.dTag(TAG, "连接的 SSID - networkId: " + nId);
+            LogPrintUtils.dTag(TAG, "连接的 SSID networkId: %s", nId);
             // 返回连接的信息
             return connWifiConfig;
         } catch (Exception e) {
@@ -905,12 +905,12 @@ public final class WifiUtils {
 
     /**
      * 转换 IP 地址
-     * @param inetAddr {@link InetAddress}
+     * @param inetAddress {@link InetAddress}
      * @return IPv4 地址
      * @throws Exception 不属于 IPv4 地址
      */
-    private int inetAddressToInt(final InetAddress inetAddr) throws Exception {
-        byte[] data = inetAddr.getAddress();
+    private int inetAddressToInt(final InetAddress inetAddress) throws Exception {
+        byte[] data = inetAddress.getAddress();
         if (data.length != 4) {
             throw new IllegalArgumentException("Not an IPv4 address");
         }

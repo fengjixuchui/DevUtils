@@ -43,14 +43,14 @@ public final class ScreenSensorAssist {
     // = 常量 =
     // ========
 
-    // 坐标索引常量
-    private final       int DATA_X                  = 0;
-    private final       int DATA_Y                  = 1;
-    private final       int DATA_Z                  = 2;
     // 方向未知常量
-    private final       int ORIENTATION_UNKNOWN     = -1;
+    private final        int ORIENTATION_UNKNOWN     = -1;
+    // 坐标索引常量
+    private static final int DATA_X                  = 0;
+    private static final int DATA_Y                  = 1;
+    private static final int DATA_Z                  = 2;
     // 触发屏幕方向改变回调
-    public static final int CHANGE_ORIENTATION_WHAT = 9919;
+    public static final  int CHANGE_ORIENTATION_WHAT = 9919;
 
     // =======
     // = 变量 =
@@ -73,7 +73,7 @@ public final class ScreenSensorAssist {
                     // 获取角度
                     int rotation = msg.arg1;
                     // =
-                    LogPrintUtils.dTag(TAG, "当前角度: " + rotation);
+                    LogPrintUtils.dTag(TAG, "当前角度: %s", rotation);
                     // 判断角度
                     if (rotation > 45 && rotation < 135) { // 横屏 ( 屏幕对着别人 )
                         LogPrintUtils.dTag(TAG, "切换成横屏 ( 屏幕对着自己 )");
@@ -124,7 +124,7 @@ public final class ScreenSensorAssist {
                             }
                         }
                     } else {
-                        LogPrintUtils.dTag(TAG, "其他角度: " + rotation);
+                        LogPrintUtils.dTag(TAG, "其他角度: %s", rotation);
                     }
                     break;
             }

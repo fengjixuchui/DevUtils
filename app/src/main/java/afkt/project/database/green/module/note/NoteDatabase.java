@@ -129,7 +129,7 @@ public final class NoteDatabase extends AbsGreenDatabase {
 
         @Override
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            DevLogger.dTag(TAG, "oldVersion: " + oldVersion + ", newVersion: " + newVersion);
+            DevLogger.dTag(TAG, "oldVersion: %s, newVersion: %s", oldVersion, newVersion);
             MigrationHelper.migrate(db, NoteDao.class, NotePictureDao.class);
         }
     }

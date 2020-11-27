@@ -29,7 +29,7 @@ public class ViewPagerActivity extends BaseActivity<ActivityViewPagerBinding> {
 
         List<String> lists = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
-            lists.add((i + 1) + "");
+            lists.add(String.valueOf(i + 1));
         }
         binding.vidAvpViewpager.setAdapter(new ViewPagerAdapter(lists));
         binding.vidAvpViewpager.setCurrentItem(lists.size() * 100, false);
@@ -45,7 +45,7 @@ public class ViewPagerActivity extends BaseActivity<ActivityViewPagerBinding> {
 
             @Override
             public void onPageSelected(int index) {
-                DevLogger.dTag(TAG, "索引变动: " + index);
+                DevLogger.dTag(TAG, "索引变动: %s", index);
 
                 if (mLeftScroll) {
                     showToast("往左滑 - 从右往左");

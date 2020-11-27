@@ -97,13 +97,13 @@ public final class ContentResolverUtils {
      * @param uri           {@link Uri}
      * @param where         删除条件
      * @param selectionArgs 删除条件参数
-     * @return 删除条数
+     * @return 删除条数`
      */
     public static int delete(final Uri uri, final String where, final String[] selectionArgs) {
         try {
             return ResourceUtils.getContentResolver().delete(uri, where, selectionArgs);
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "delete where: " + where + ", args: " + Arrays.toString(selectionArgs));
+            LogPrintUtils.eTag(TAG, e, "delete where: %s, args: %s", where, Arrays.toString(selectionArgs));
         }
         return 0;
     }
@@ -120,7 +120,7 @@ public final class ContentResolverUtils {
         try {
             return ResourceUtils.getContentResolver().update(uri, values, where, selectionArgs);
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "update where: " + where + ", args: " + Arrays.toString(selectionArgs));
+            LogPrintUtils.eTag(TAG, e, "update where: %s, args: %s", where, Arrays.toString(selectionArgs));
         }
         return 0;
     }
@@ -230,7 +230,7 @@ public final class ContentResolverUtils {
                 // 返回外部存储 ( 公开目录 ) SDCard 文件地址获取对应的 Uri content://
                 return MediaStore.Files.getContentUri(result[1], ConvertUtils.toLong(result[0]));
             } catch (Exception e) {
-                LogPrintUtils.eTag(TAG, e, "getMediaUri - " + filePath);
+                LogPrintUtils.eTag(TAG, e, "getMediaUri %s", filePath);
             }
         }
         return null;
@@ -294,7 +294,7 @@ public final class ContentResolverUtils {
                 return mediaQuery.getResult(uri, filePath, cursor);
             }
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "mediaQuery - " + filePath);
+            LogPrintUtils.eTag(TAG, e, "mediaQuery %s", filePath);
         } finally {
             CloseUtils.closeIOQuietly(cursor);
         }
@@ -478,7 +478,7 @@ public final class ContentResolverUtils {
 
         @Override
         public String[] getSelectionArgs(Uri uri, String filePath) {
-//            return new String[]{ContentUris.parseId(uri) + ""};
+//            return new String[]{String.valueOf(ContentUris.parseId(uri))};
             return null;
         }
     }

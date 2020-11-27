@@ -1,7 +1,7 @@
 
 [![GitHub](https://img.shields.io/badge/GitHub-afkT-blue.svg)](https://github.com/afkT)
 [![GitHub license](https://img.shields.io/github/license/afkT/DevUtils.svg)](https://github.com/afkT/DevUtils/blob/master/LICENSE)
-[![Bintray](https://img.shields.io/badge/DevUtils-2.0.8-brightgreen.svg)](https://bintray.com/afkt/maven/DevAppX)
+[![Bintray](https://img.shields.io/badge/DevUtils-2.1.0-brightgreen.svg)](https://bintray.com/afkt/maven/DevAppX)
 [![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14)
 [![Utils](https://img.shields.io/badge/utils-160+-ff69b4.svg)](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/README.md)
 
@@ -34,6 +34,12 @@
 - [README](https://github.com/afkT/DevUtils/blob/master/lib/DevBase/README.md)
 
 - [Change Log](https://github.com/afkT/DevUtils/blob/master/lib/DevBase/CHANGELOG.md)
+
+### DevBaseMVVM - MVVM ( ViewDataBinding + ViewModel ) 基类库
+
+- [README](https://github.com/afkT/DevUtils/blob/master/lib/DevBaseMVVM/README.md)
+
+- [Change Log](https://github.com/afkT/DevUtils/blob/master/lib/DevBaseMVVM/CHANGELOG.md)
 
 ### DevJava - Java 工具类库 ( 不依赖 android api )
 
@@ -71,25 +77,28 @@
 ```java
 
 // DevApp Android 工具类库
-implementation 'com.afkt:DevAppX:2.0.8'
+implementation 'com.afkt:DevAppX:2.1.0'
 
 // DevAssist 快捷功能辅助类库
-implementation 'com.afkt:DevAssist:1.0.4'
+implementation 'com.afkt:DevAssist:1.0.5'
 
 // DevBase Base ( Activity、Fragment )、MVP、ViewBinding、ContentLayout 基类库
-implementation 'com.afkt:DevBase:1.0.0'
+implementation 'com.afkt:DevBase:1.0.2'
+
+// DevBaseMVVM MVVM ( ViewDataBinding + ViewModel ) 基类库
+implementation 'com.afkt:DevBaseMVVM:1.0.0'
 
 // DevJava Java 工具类库 ( 不依赖 android api )
-implementation 'com.afkt:DevJava:1.2.1' // 用于纯 Java 开发，如果依赖了 DevApp 则不需要依赖 DevJava
+implementation 'com.afkt:DevJava:1.2.3' // 用于纯 Java 开发，如果依赖了 DevApp 则不需要依赖 DevJava
 
 // DevWidget 自定义 View UI 库
-implementation 'com.afkt:DevWidgetX:1.0.4'
+implementation 'com.afkt:DevWidgetX:1.0.5'
 
 // DevEnvironment Android 环境配置切换库
-implementation 'com.afkt:DevEnvironment:1.0.0'
-debugAnnotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.0' // kaptDebug
-releaseAnnotationProcessor 'com.afkt:DevEnvironmentCompilerRelease:1.0.0' // kaptRelease
-//annotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.0' // kapt
+implementation 'com.afkt:DevEnvironment:1.0.1'
+debugAnnotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.1' // kaptDebug
+releaseAnnotationProcessor 'com.afkt:DevEnvironmentCompilerRelease:1.0.1' // kaptRelease
+//annotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.1' // kapt
 ```
 
 ## APK Demo

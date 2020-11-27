@@ -57,7 +57,7 @@ class ScanSDCardUtils private constructor() {
                 startTime: Long, endTime: Long
             ) {
                 var diff = endTime - startTime
-                DevLogger.d("搜索耗时: " + diff + " ms")
+                DevLogger.d("搜索耗时: $diff ms")
                 var lists = convertList()
                 Collections.sort(lists, ApkListsComparator())
                 data = lists

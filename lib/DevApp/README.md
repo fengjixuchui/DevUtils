@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:2.0.8'
+implementation 'com.afkt:DevAppX:2.1.0'
 ```
 
 ## 目录结构
@@ -87,6 +87,8 @@ allprojects {
 - [View 链式调用快捷设置 Helper 类](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/helper/ViewHelper.java)
 
 - [Dev 工具类链式调用 Helper 类](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/helper/DevHelper.java)
+
+- [Android 版本适配 Helper 类](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/helper/VersionHelper.java)
 
 ## API
 
@@ -258,7 +260,7 @@ allprojects {
 | getIPAddress | 获取 IP 地址 |
 | getMac | 获取 Mac 地址 |
 | getCPU | 获取 CPU 信息 |
-| getMeminfo | 获取内存信息 |
+| getMemInfo | 获取内存信息 |
 | setScreenSize | 设置屏幕大小 |
 | resetScreen | 恢复原分辨率命令 |
 | setDensity | 设置屏幕密度 |
@@ -1032,7 +1034,7 @@ allprojects {
 | getTotalMemoryFormat | 获取总内存大小 ( 格式化 ) |
 | getMemoryAvailable | 获取可用内存大小 |
 | getMemoryAvailableFormat | 获取可用内存大小 ( 格式化 ) |
-| getMemInfoIype | 通过不同 type 获取对应的内存信息 |
+| getMemInfoType | 通过不同 type 获取对应的内存信息 |
 
 
 * **网络管理工具类 ->** [NetWorkUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/NetWorkUtils.java)
@@ -1787,6 +1789,7 @@ allprojects {
 | setClipChildren | 设置是否限制子 View 在其边界内绘制 |
 | getChildCount | 获取子 View 总数 |
 | getChildAt | 获取指定索引 View |
+| getChildAtLast | 获取最后一个索引 View |
 | removeAllViews | 移除全部子 View |
 | getChilds | 获取全部子 View |
 | getLayoutParams | 获取 LayoutParams |
@@ -2848,10 +2851,10 @@ allprojects {
 | isEffective | 获取证书是否过期 |
 | getCertPrincipal | 获取证书发布方 |
 | getCertVersion | 获取证书版本号 |
-| getCertSigalgname | 获取证书算法名称 |
-| getCertSigalgoid | 获取证书算法 OID |
+| getCertSigAlgName | 获取证书算法名称 |
+| getCertSigAlgOID | 获取证书算法 OID |
 | getCertSerialnumber | 获取证书机器码 |
-| getCertDercode | 获取证书 DER 编码 |
+| getCertDERCode | 获取证书 DER 编码 |
 
 
 * **APP 信息实体类 ->** [AppInfoBean.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/info/AppInfoBean.java)
@@ -2892,10 +2895,10 @@ allprojects {
 | isEffective | 获取证书是否过期 |
 | getCertPrincipal | 获取证书发布方 |
 | getCertVersion | 获取证书版本号 |
-| getCertSigalgname | 获取证书算法名称 |
-| getCertSigalgoid | 获取证书算法 OID |
+| getCertSigAlgName | 获取证书算法名称 |
+| getCertSigAlgOID | 获取证书算法 OID |
 | getCertSerialnumber | 获取证书机器码 |
-| getCertDercode | 获取证书 DER 编码 |
+| getCertDERCode | 获取证书 DER 编码 |
 
 
 * **APP 信息获取工具类 ->** [AppInfoUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/info/AppInfoUtils.java)
@@ -2976,33 +2979,26 @@ allprojects {
 ## <span id="devutilsapppermission">**`dev.utils.app.permission`**</span>
 
 
-* **权限常量 ->** [PermissionConstants.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/permission/PermissionConstants.java)
-
-| 方法 | 注释 |
-| :- | :- |
-| getPermissions | 获取权限组 |
-
-
 * **权限请求工具类 ->** [PermissionUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/permission/PermissionUtils.java)
 
 | 方法 | 注释 |
 | :- | :- |
-| permission | 申请权限初始化 |
-| callBack | 设置回调方法 |
-| setRequestPermissionsResult | 设置是否需要在 Activity 的 onRequestPermissionsResult 回调中, 调用 PermissionUtils.onRequestPermissionsResult(this); |
-| request | 请求权限 |
-| onRequestPermissionsResult | 请求权限回调 ( 需要在 Activity 的 onRequestPermissionsResult 回调中, 调用 PermissionUtils.onRequestPermissionsResult(this); ) |
-| notifyPermissionsChange | 刷新权限改变处理 ( 清空已拒绝的权限记录 ) |
 | isGranted | 判断是否授予了权限 |
 | shouldShowRequestPermissionRationale | 获取拒绝权限询问勾选状态 |
 | getDeniedPermissionStatus | 获取拒绝权限询问状态集合 |
-| againRequest | 再次请求处理操作 |
 | canRequestPackageInstalls | 是否存在 APK 安装权限 |
 | getAllPermissionToSet | 获取全部权限 |
 | getAllPermissionToList | 获取全部权限 |
 | getAppPermissionToList | 获取 APP 注册的权限 |
 | getAppPermissionToSet | 获取 APP 注册的权限 |
 | getAppPermission | 获取 APP 注册的权限 |
+| permission | 申请权限初始化 |
+| callBack | 设置回调方法 |
+| setRequestPermissionsResult | 设置是否需要在 Activity 的 onRequestPermissionsResult 回调中, 调用 PermissionUtils.onRequestPermissionsResult(this); |
+| request | 请求权限 |
+| onRequestPermissionsResult | 请求权限回调 ( 需要在 Activity 的 onRequestPermissionsResult 回调中, 调用 PermissionUtils.onRequestPermissionsResult(this); ) |
+| notifyPermissionsChange | 刷新权限改变处理 ( 清空已拒绝的权限记录 ) |
+| againRequest | 再次请求处理操作 |
 
 
 ## <span id="devutilsappplayer">**`dev.utils.app.player`**</span>
@@ -3170,7 +3166,7 @@ allprojects {
 | 方法 | 注释 |
 | :- | :- |
 | createWifiConfigToAp | 创建 Wifi 热点配置 ( 支持 无密码 /WPA2 PSK) |
-| stratWifiAp | 开启 Wifi 热点 |
+| startWifiAp | 开启 Wifi 热点 |
 | closeWifiAp | 关闭 Wifi 热点 |
 | getWifiApState | 获取 Wifi 热点状态 |
 | getWifiApConfiguration | 获取 Wifi 热点配置信息 |
@@ -3212,7 +3208,7 @@ allprojects {
 | getWifiTypeInt | 获取加密类型 |
 | getWifiTypeStr | 获取加密类型 |
 | isConnNull | 判断是否连接为 null ( unknown ssid ) |
-| isConnectAphot | 获取连接的 Wifi 热点 SSID |
+| isConnectAPHot | 获取连接的 Wifi 热点 SSID |
 | getSecurity | 获取 Wifi 加密类型 |
 | isExistsPwd | 判断 Wifi 加密类型, 是否为加密类型 |
 | isExists | 获取指定的 ssid 网络配置 ( 需连接保存过, 才存在 ) |
@@ -3253,16 +3249,24 @@ allprojects {
 | charactersToChars | Character[] 转换 char[] |
 | asList | 转换数组为集合 |
 | asListArgs | 转换数组为集合 |
+| asListArgsInt | 转换数组为集合 |
+| asListArgsByte | 转换数组为集合 |
+| asListArgsChar | 转换数组为集合 |
+| asListArgsShort | 转换数组为集合 |
+| asListArgsLong | 转换数组为集合 |
+| asListArgsFloat | 转换数组为集合 |
+| asListArgsDouble | 转换数组为集合 |
+| asListArgsBoolean | 转换数组为集合 |
 | equals | 判断两个值是否一样 |
-| arraycopy | 拼接数组 |
-| newarray | 创建指定长度数组 |
-| subarray | 从数组上截取一段 |
+| arrayCopy | 拼接数组 |
+| newArray | 创建指定长度数组 |
+| subArray | 从数组上截取一段 |
 | appendToString | 追加数组内容字符串 |
 | getMinimumIndex | 获取数组中最小值索引 |
 | getMaximumIndex | 获取数组中最大值索引 |
 | getMinimum | 获取数组中最小值 |
 | getMaximum | 获取数组中最大值 |
-| sumarray | 计算数组总和 |
+| sumArray | 计算数组总和 |
 
 
 * **资金运算工具类 ->** [BigDecimalUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/common/BigDecimalUtils.java)
@@ -3326,7 +3330,7 @@ allprojects {
 | 方法 | 注释 |
 | :- | :- |
 | newInstance | 根据类获取对象, 不再必须一个无参构造 |
-| getDefaultPrimiticeValue | 获取 Class 原始类型值 |
+| getDefaultPrimitiveValue | 获取 Class 原始类型值 |
 | getClass | 获取 Object Class |
 | isPrimitive | 判断 Class 是否为原始类型 |
 | isCollection | 判断是否 Collection 类型 |
@@ -3755,12 +3759,13 @@ allprojects {
 
 | 方法 | 注释 |
 | :- | :- |
+| addRemovePaddingMargin | 为给定的 Html 移除 padding、margin |
 | addHtmlColor | 为给定的字符串添加 HTML 颜色标记 |
 | addHtmlBold | 为给定的字符串添加 HTML 加粗标记 |
-| addHtmlColorAndBlod | 为给定的字符串添加 HTML 颜色标记并加粗 |
+| addHtmlColorAndBold | 为给定的字符串添加 HTML 颜色标记并加粗 |
 | addHtmlUnderline | 为给定的字符串添加 HTML 下划线 |
-| addHtmlStrikeThruline | 为给定的字符串添加 HTML 中划线 |
-| addHtmlOverline | 为给定的字符串添加 HTML 上划线 |
+| addHtmlStrikeThruLine | 为给定的字符串添加 HTML 中划线 |
+| addHtmlOverLine | 为给定的字符串添加 HTML 上划线 |
 | addHtmlIncline | 为给定的字符串添加 HTML 字体倾斜 |
 | addHtmlSPAN | 为给定的字符串添加 HTML SPAN 标签 |
 | addHtmlP | 为给定的字符串添加 HTML P 标签 |
@@ -4000,12 +4005,16 @@ allprojects {
 | forString | 循环指定数量字符串 |
 | forJoint | 循环追加 |
 | colonSplit | 冒号分割处理 |
+| getString | 获取字符串 ( 判 null ) |
 | checkValue | 检查字符串 |
 | checkValues | 检查字符串 ( 多个值 ) |
 | checkValuesSpace | 检查字符串 ( 多个值, 删除前后空格对比判断 ) |
 | getFormatString | 获取格式化后的字符串 |
 | getAutoFormatString | 获取自动数量格式化后的字符串 ( 可变参数 ) |
 | getAutoFormatString2 | 获取自动数量格式化后的字符串 ( 可变参数 ) |
+| concat | 字符串连接, 将参数列表拼接为一个字符串 |
+| concatSpiltWith | 字符串连接, 将参数列表拼接为一个字符串 |
+| concatSpiltWithIgnoreLast | 字符串连接, 将参数列表拼接为一个字符串 ( 最后一个不追加间隔 ) |
 | appends | StringBuilder 拼接处理 |
 | appendsIgnoreLast | StringBuilder 拼接处理 ( 最后一个不追加间隔 ) |
 | gbkEncode | 字符串进行 GBK 编码 |
@@ -4024,8 +4033,6 @@ allprojects {
 | upperFirstLetter | 首字母大写 |
 | lowerFirstLetter | 首字母小写 |
 | reverse | 反转字符串 |
-| concat | 字符串连接, 将参数列表拼接为一个字符串 |
-| concatSpiltWith | 字符串连接, 将参数列表拼接为一个字符串 |
 | underScoreCaseToCamelCase | 下划线命名转为驼峰命名 |
 | camelCaseToUnderScoreCase | 驼峰命名法转为下划线命名 |
 | sqliteEscape | 字符串数据库字符转义 |
@@ -4422,7 +4429,7 @@ allprojects {
 | 方法 | 注释 |
 | :- | :- |
 | checkBankCard | 校验银行卡卡号是否合法 |
-| getBankCardCheckCode | 从不含校验位的银行卡卡号采用 Luhm 校验算法获取校验位 |
+| getBankCardCheckCode | 从不含校验位的银行卡卡号采用 Luhn 校验算法获取校验位 |
 | getNameOfBank | 通过银行卡的 前六位确定 判断银行开户行及卡种 |
 
 

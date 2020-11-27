@@ -41,12 +41,4 @@ abstract class BaseFragment<VB : ViewBinding> : DevBaseViewBindingFragment<VB>()
     override fun baseContentView(): View? {
         return null
     }
-
-    // =======================
-    // = IDevBaseViewBinding =
-    // =======================
-
-    override fun getBindingView(): View? {
-        return mContentView
-    }
 }

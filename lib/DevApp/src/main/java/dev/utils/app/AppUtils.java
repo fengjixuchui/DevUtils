@@ -273,7 +273,7 @@ public final class AppUtils {
         try {
             return DevUtils.getContext().getPackageManager().getApplicationInfo(packageName, flags);
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getApplicationInfo - " + packageName);
+            LogPrintUtils.eTag(TAG, e, "getApplicationInfo %s", packageName);
         }
         return null;
     }
@@ -297,7 +297,7 @@ public final class AppUtils {
         try {
             return DevUtils.getContext().getPackageManager().getPackageInfo(packageName, flags);
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getPackageInfo - " + packageName);
+            LogPrintUtils.eTag(TAG, e, "getPackageInfo %s", packageName);
         }
         return null;
     }
@@ -321,7 +321,7 @@ public final class AppUtils {
         try {
             return DevUtils.getContext().getSharedPreferences(fileName, mode);
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getSharedPreferences - " + fileName);
+            LogPrintUtils.eTag(TAG, e, "getSharedPreferences %s", fileName);
         }
         return null;
     }
@@ -575,7 +575,7 @@ public final class AppUtils {
             if (signature == null || signature.length == 0) return null;
             return StringUtils.colonSplit(ConvertUtils.toHexString(EncryptUtils.hashTemplate(signature[0].toByteArray(), algorithm)));
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "getAppSignatureHash - packageName: " + packageName + ", algorithm: " + algorithm);
+            LogPrintUtils.eTag(TAG, e, "getAppSignatureHash - packageName: %s, algorithm: %s", packageName, algorithm);
             return null;
         }
     }

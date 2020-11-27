@@ -143,18 +143,18 @@ public class UIEffectActivity extends BaseActivity<ActivityUiEffectBinding> {
                 .setTabChangeListener(new TabLayoutAssist.TabChangeListener() {
                     @Override
                     public void onTabChange(TabItem tabItem, int pos) {
-                        DevLogger.dTag(TAG, "TabItem : " + tabItem.getTitle() + ", pos: " + pos);
+                        DevLogger.dTag(TAG, "TabItem: %s, pos: %s", tabItem.getTitle(), pos);
                         // 设置选中
                         tabLayoutAssist.setSelect(pos);
                     }
                 });
 
         TabLayoutAssist.get(binding.vidAue90Tab)
-                .setListTabs(ArrayUtils.asList(ArrayUtils.subarray(listTabs.toArray(new TabItem[0]), 0, 3)))
+                .setListTabs(ArrayUtils.asList(ArrayUtils.subArray(listTabs.toArray(new TabItem[0]), 0, 3)))
                 .setSelect(0).setTabChangeListener(new TabLayoutAssist.TabChangeListener() {
             @Override
             public void onTabChange(TabItem tabItem, int pos) {
-                DevLogger.dTag(TAG, "TabItem : " + tabItem.getTitle() + ", pos: " + pos);
+                DevLogger.dTag(TAG, "TabItem: %s, pos: %s", tabItem.getTitle(), pos);
             }
         });
     }

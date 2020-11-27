@@ -28,6 +28,7 @@ import dev.environment.annotation.Module;
 import dev.environment.bean.EnvironmentBean;
 import dev.environment.bean.ModuleBean;
 import dev.environment.listener.OnEnvironmentChangeListener;
+import dev.environment.log.LogUtils;
 import dev.environment.type.ParameterizedTypeImpl;
 
 /**
@@ -52,6 +53,7 @@ final class Utils {
     static final String   METHOD_CLEAR_ONENVIRONMENT_CHANGE_LISTENER  = "clearOnEnvironmentChangeListener";
     static final String   METHOD_GET_STORAGE_DIR                      = "getStorageDir";
     static final String   METHOD_DELETE_STORAGE_DIR                   = "deleteStorageDir";
+    static final String   METHOD_IS_ANNOTATION                        = "is%sAnnotation";
     // 变量相关
     static final String   VAR_MODULE_PREFIX                           = "MODULE_";
     static final String   VAR_ENVIRONMENT_PREFIX                      = "ENVIRONMENT_";
@@ -60,6 +62,7 @@ final class Utils {
     static final String   VAR_CONTEXT                                 = "context";
     static final String   VAR_NEW_ENVIRONMENT                         = "newEnvironment";
     static final String   VAR_LISTENER                                = "listener";
+    static final String   VAR_FILE_NAME                               = "fileName";
     // 常量字符串
     static final String   STR_MODULE                                  = "Module";
     static final String   STR_ENVIRONMENT                             = "Environment";
@@ -377,6 +380,40 @@ final class Utils {
                     .addJavadoc("@return {@code true} success, {@code false} fail\n")
                     .build();
             classBuilder.addMethod(setModuleEnvironmentMethod);
+
+            // =
+
+            // public static final Boolean resetModule(final Context context) {}
+            String resetModuleMethodName = METHOD_RESET + moduleName;
+            MethodSpec resetModuleMethod = MethodSpec
+                    .methodBuilder(resetModuleMethodName)
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                    .addParameter(TYPE_NAME_CONTEXT, VAR_CONTEXT, Modifier.FINAL)
+                    .returns(Boolean.class)
+                    .addStatement("return false")
+                    .addJavadoc("重置 $N [ Module ] Selected Environment Bean\n", moduleName)
+                    .addJavadoc("<p>Reset $N [ Module ] Selected Environment Bean\n", moduleName)
+                    .addJavadoc("@param $N {@link Context}\n", VAR_CONTEXT)
+                    .addJavadoc("@return {@code true} success, {@code false} fail\n")
+                    .build();
+            classBuilder.addMethod(resetModuleMethod);
+
+            // =
+
+            // public static final Boolean isModuleAnnotation(final Context context) {}
+            String isModuleAnnotationMethodName = String.format(METHOD_IS_ANNOTATION, moduleName);
+            MethodSpec isModuleAnnotationMethod = MethodSpec
+                    .methodBuilder(isModuleAnnotationMethodName)
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                    .addParameter(TYPE_NAME_CONTEXT, VAR_CONTEXT, Modifier.FINAL)
+                    .returns(Boolean.class)
+                    .addStatement("return true")
+                    .addJavadoc("是否 $N [ Module ] Annotation Environment Bean\n", moduleName)
+                    .addJavadoc("<p>Whether $N [ Module ] Annotation Environment Bean\n", moduleName)
+                    .addJavadoc("@param $N {@link Context}\n", VAR_CONTEXT)
+                    .addJavadoc("@return {@code true} success, {@code false} fail\n")
+                    .build();
+            classBuilder.addMethod(isModuleAnnotationMethod);
         }
     }
 
@@ -442,13 +479,13 @@ final class Utils {
         codeBlockBuilder.add("    if (!file.exists()) file.mkdirs();\n");
         codeBlockBuilder.add("    return file;\n");
         codeBlockBuilder.add("} catch (Exception e) {\n");
-        codeBlockBuilder.add("    e.printStackTrace();\n");
+        codeBlockBuilder.add("    $T.printStackTrace(e);\n", LogUtils.class);
         codeBlockBuilder.add("}\n");
 
-        // public static final File getStorageDir(final Context context) {}
+        // private static final File getStorageDir(final Context context) {}
         MethodSpec getStorageDirMethod = MethodSpec
                 .methodBuilder(METHOD_GET_STORAGE_DIR)
-                .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
                 .addParameter(TYPE_NAME_CONTEXT, VAR_CONTEXT, Modifier.FINAL)
                 .returns(File.class)
                 .addCode(codeBlockBuilder.build())
@@ -475,13 +512,13 @@ final class Utils {
         codeBlockBuilder.add("        return true;\n");
         codeBlockBuilder.add("    }\n");
         codeBlockBuilder.add("} catch (Exception e) {\n");
-        codeBlockBuilder.add("    e.printStackTrace();\n");
+        codeBlockBuilder.add("    $T.printStackTrace(e);\n", LogUtils.class);
         codeBlockBuilder.add("}\n");
 
-        // public static final Boolean deleteStorageDir(final Context context) {}
+        // private static final Boolean deleteStorageDir(final Context context) {}
         MethodSpec deleteStorageDirMethod = MethodSpec
                 .methodBuilder(METHOD_DELETE_STORAGE_DIR)
-                .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
                 .addParameter(TYPE_NAME_CONTEXT, VAR_CONTEXT, Modifier.FINAL)
                 .returns(Boolean.class)
                 .addCode(codeBlockBuilder.build())

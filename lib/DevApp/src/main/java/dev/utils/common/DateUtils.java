@@ -48,11 +48,11 @@ public final class DateUtils {
     // 一天 24 * 60 * 60 秒
     public static final int  DAY_S    = 86400;
     // 秒与毫秒的倍数
-    public static final long SEC      = 1000;
+    public static final long SECOND   = 1000;
     // 分与毫秒的倍数
-    public static final long MIN      = SEC * 60;
+    public static final long MINUTE   = SECOND * 60;
     // 时与毫秒的倍数
-    public static final long HOUR     = MIN * 60;
+    public static final long HOUR     = MINUTE * 60;
     // 天与毫秒的倍数
     public static final long DAY      = HOUR * 24;
     // 周与毫秒的倍数
@@ -1105,16 +1105,23 @@ public final class DateUtils {
     // =============
 
     // 生肖数组
-    private static final String[] ZODIAC             = {"猴", "鸡", "狗", "猪", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊"};
+    private static final String[] ZODIAC = {
+            "猴", "鸡", "狗", "猪", "鼠", "牛", "虎", "兔", "龙", "蛇", "马", "羊"
+    };
+
     // 星座截止天数
-    private static final int[]    CONSTELLATION_DAY  = {20, 19, 21, 21, 21, 22, 23, 23, 23, 24, 23, 22};
+    private static final int[] CONSTELLATION_DAY = {
+            20, 19, 21, 21, 21, 22, 23, 23, 23, 24, 23, 22
+    };
+
     // 星座对应日期
     private static final String[] CONSTELLATION_DATE = {
             "01.20-02.18", "02.19-03.20", "03.21-04.19", "04.20-05.20", "05.21-06.21", "06.22-07.22",
             "07.23-08.22", "08.23-09.22", "09.23-10.23", "10.24-11.22", "11.23-12.21", "12.22-01.19"
     };
+
     // 星座数组
-    private static final String[] CONSTELLATION      = {
+    private static final String[] CONSTELLATION = {
             "水瓶座", "双鱼座", "白羊座", "金牛座", "双子座", "巨蟹座",
             "狮子座", "处女座", "天秤座", "天蝎座", "射手座", "摩羯座"
     };

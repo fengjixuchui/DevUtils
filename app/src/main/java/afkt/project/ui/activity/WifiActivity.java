@@ -21,7 +21,6 @@ import afkt.project.ui.adapter.ButtonAdapter;
 import afkt.project.util.QuickWifiHotUtils;
 import dev.receiver.WifiReceiver;
 import dev.utils.app.logger.DevLogger;
-import dev.utils.app.permission.PermissionConstants;
 import dev.utils.app.permission.PermissionUtils;
 import dev.utils.app.toast.ToastTintUtils;
 import dev.utils.app.toast.ToastUtils;
@@ -107,47 +106,49 @@ public class WifiActivity extends BaseActivity<BaseViewRecyclerviewBinding> {
                             }
                             // = 8.0 特殊处理 =
                             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                PermissionUtils.permission(PermissionConstants.getPermissions(PermissionConstants.LOCATION))
-                                        .callBack(new PermissionUtils.PermissionCallBack() {
+                                PermissionUtils.permission(
+                                        Manifest.permission.ACCESS_FINE_LOCATION,
+                                        Manifest.permission.ACCESS_COARSE_LOCATION
+                                ).callBack(new PermissionUtils.PermissionCallBack() {
+                                    @Override
+                                    public void onGranted() {
+                                        isOpenAPING = true;
+                                        // 设置热点 Wifi 监听
+                                        wifiHotUtils.setOnWifiAPListener(new WifiHotUtils.OnWifiAPListener() {
                                             @Override
-                                            public void onGranted() {
-                                                isOpenAPING = true;
-                                                // 设置热点 Wifi 监听
-                                                wifiHotUtils.setOnWifiAPListener(new WifiHotUtils.OnWifiAPListener() {
-                                                    @Override
-                                                    public void onStarted(WifiConfiguration wifiConfiguration) {
-                                                        String wifiap = "ssid: " + wifiConfiguration.SSID + "\npwd: " + wifiConfiguration.preSharedKey;
-                                                        DevLogger.dTag(TAG, wifiap);
-                                                        ToastTintUtils.success(wifiap);
-                                                        // 表示操作结束
-                                                        isOpenAPING = false;
-                                                    }
-
-                                                    @Override
-                                                    public void onStopped() {
-                                                        DevLogger.dTag(TAG, "关闭热点");
-                                                        // 表示操作结束
-                                                        isOpenAPING = false;
-                                                    }
-
-                                                    @Override
-                                                    public void onFailed(int reason) {
-                                                        DevLogger.dTag(TAG, "热点异常 reason: " + reason);
-                                                        // 表示操作结束
-                                                        isOpenAPING = false;
-                                                    }
-                                                });
-                                                // 密码必须大于等于 8 位
-                                                WifiConfiguration wifiConfiguration = WifiHotUtils.createWifiConfigToAp(wifiHotSSID, wifiHotPwd);
-                                                boolean success = wifiHotUtils.stratWifiAp(wifiConfiguration);
-                                                showToast(success, "打开热点成功", "打开热点失败");
+                                            public void onStarted(WifiConfiguration wifiConfiguration) {
+                                                String wifiap = "ssid: " + wifiConfiguration.SSID + "\npwd: " + wifiConfiguration.preSharedKey;
+                                                DevLogger.dTag(TAG, wifiap);
+                                                ToastTintUtils.success(wifiap);
+                                                // 表示操作结束
+                                                isOpenAPING = false;
                                             }
 
                                             @Override
-                                            public void onDenied(List<String> grantedList, List<String> deniedList, List<String> notFoundList) {
-                                                ToastTintUtils.warning("开启热点需要定位权限");
+                                            public void onStopped() {
+                                                DevLogger.dTag(TAG, "关闭热点");
+                                                // 表示操作结束
+                                                isOpenAPING = false;
                                             }
-                                        }).request(mActivity);
+
+                                            @Override
+                                            public void onFailed(int reason) {
+                                                DevLogger.dTag(TAG, "热点异常 reason: %s", reason);
+                                                // 表示操作结束
+                                                isOpenAPING = false;
+                                            }
+                                        });
+                                        // 密码必须大于等于 8 位
+                                        WifiConfiguration wifiConfiguration = WifiHotUtils.createWifiConfigToAp(wifiHotSSID, wifiHotPwd);
+                                        boolean success = wifiHotUtils.startWifiAp(wifiConfiguration);
+                                        showToast(success, "打开热点成功", "打开热点失败");
+                                    }
+
+                                    @Override
+                                    public void onDenied(List<String> grantedList, List<String> deniedList, List<String> notFoundList) {
+                                        ToastTintUtils.warning("开启热点需要定位权限");
+                                    }
+                                }).request(mActivity);
                                 return;
                             } else if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N) { // 7.0 及以下需要 WRITE_SETTINGS 权限
 //                                // 无法进行申请, 只能跳转到权限页面, 让用户开启
@@ -164,7 +165,7 @@ public class WifiActivity extends BaseActivity<BaseViewRecyclerviewBinding> {
                             // 如果不需要密码, 则设置为非密码
                             //wifiConfiguration = WifiHotUtils.createWifiConfigToAp("TttWifiAp1", null);
                             // 开启热点
-                            boolean success = wifiHotUtils.stratWifiAp(wifiConfiguration); // Android 7.1 以上特殊处理
+                            boolean success = wifiHotUtils.startWifiAp(wifiConfiguration); // Android 7.1 以上特殊处理
                             showToast(success, "打开热点成功", "打开热点失败");
                         }
                         break;
@@ -201,7 +202,7 @@ public class WifiActivity extends BaseActivity<BaseViewRecyclerviewBinding> {
         WifiReceiver.setWifiListener(new WifiReceiver.WifiListener() {
             @Override
             public void onWifiSwitch(boolean isOpenWifi) { // Wifi 开关状态
-                DevLogger.dTag(TAG, "Wifi 是否打开: " + isOpenWifi);
+                DevLogger.dTag(TAG, "Wifi 是否打开: %s", isOpenWifi);
             }
 
             @Override
@@ -264,10 +265,10 @@ public class WifiActivity extends BaseActivity<BaseViewRecyclerviewBinding> {
                 // 判断连接状态
                 switch (what) {
                     case WifiReceiver.CONNECTED: // Wifi 连接成功
-                        DevLogger.dTag(TAG, "连接 Wifi 成功: " + message.obj);
+                        DevLogger.dTag(TAG, "连接 Wifi 成功: %s", message.obj);
                         break;
                     case WifiReceiver.CONNECTING: // Wifi 连接中
-                        DevLogger.dTag(TAG, "连接 Wifi 中: " + message.obj);
+                        DevLogger.dTag(TAG, "连接 Wifi 中: %s", message.obj);
                         break;
                     case WifiReceiver.DISCONNECTED: // Wifi 连接失败、断开
                         DevLogger.dTag(TAG, "连接 Wifi 断开");

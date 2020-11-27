@@ -44,30 +44,30 @@ android {
 }
 
 dependencies {
-    implementation project(path: ':DevApp')
-    implementation project(path: ':DevAssist')
-    implementation project(path: ':DevBase')
-    implementation project(path: ':DevBase2')
-    implementation project(path: ':DevBaseMVVM')
-    implementation project(path: ':DevOther')
-    implementation project(path: ':DevWidget')
-    implementation project(path: ':DevEnvironment')
+    implementation project(':DevApp')
+    implementation project(':DevAssist')
+    implementation project(':DevBase')
+    implementation project(':DevBase2')
+    implementation project(':DevBaseMVVM')
+    implementation project(':DevOther')
+    implementation project(':DevWidget')
+    implementation project(':DevEnvironment')
     kaptDebug project(':DevEnvironmentCompiler') // debugAnnotationProcessor
     kaptRelease project(':DevEnvironmentCompilerRelease') // releaseAnnotationProcessor
 
 //    // Java
-//    implementation 'com.afkt:DevEnvironment:1.0.0'
-//    debugAnnotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.0'
-//    releaseAnnotationProcessor 'com.afkt:DevEnvironmentCompilerRelease:1.0.0'
+//    implementation 'com.afkt:DevEnvironment:1.0.1'
+//    debugAnnotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.1'
+//    releaseAnnotationProcessor 'com.afkt:DevEnvironmentCompilerRelease:1.0.1'
 //    // 如果需要 Release 包，支持通过后台数据动态设置配置信息 则使用 debug compiler lib
-//    // annotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.0'
+//    // annotationProcessor 'com.afkt:DevEnvironmentCompiler:1.0.1'
 //
 //    // Kotlin
-//    implementation 'com.afkt:DevEnvironment:1.0.0'
-//    kaptDebug 'com.afkt:DevEnvironmentCompiler:1.0.0'
-//    kaptRelease 'com.afkt:DevEnvironmentCompilerRelease:1.0.0'
+//    implementation 'com.afkt:DevEnvironment:1.0.1'
+//    kaptDebug 'com.afkt:DevEnvironmentCompiler:1.0.1'
+//    kaptRelease 'com.afkt:DevEnvironmentCompilerRelease:1.0.1'
 //    // 如果需要 Release 包，支持通过后台数据动态设置配置信息 则使用 debug compiler lib
-//    // kapt 'com.afkt:DevEnvironmentCompiler:1.0.0'
+//    // kapt 'com.afkt:DevEnvironmentCompiler:1.0.1'
 
     // =============
     // = 快捷开发库 =

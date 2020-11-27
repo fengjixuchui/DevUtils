@@ -1728,7 +1728,7 @@ public class ScanShapeView extends View {
                     break;
             }
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "drawAnim - " + mShapeType.name());
+            LogPrintUtils.eTag(TAG, e, "drawAnim %s", mShapeType.name());
         }
     }
 
@@ -1806,7 +1806,7 @@ public class ScanShapeView extends View {
                 }
             }
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "animSwitch - " + mShapeType.name());
+            LogPrintUtils.eTag(TAG, e, "animSwitch %s", mShapeType.name());
         }
     }
 
@@ -1835,7 +1835,7 @@ public class ScanShapeView extends View {
                     break;
             }
         } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "isAnimRunning - " + mShapeType.name());
+            LogPrintUtils.eTag(TAG, e, "isAnimRunning %s", mShapeType.name());
         }
         return false;
     }
@@ -2060,7 +2060,7 @@ public class ScanShapeView extends View {
                 break;
             case Annulus: // 环形
                 mAnimToAnnulus = ValueAnimator.ofInt(10, 20);
-                mAnimToAnnulus.setDuration(1l);
+                mAnimToAnnulus.setDuration(1L);
                 mAnimToAnnulus.setRepeatCount(ValueAnimator.INFINITE);
                 mAnimToAnnulus.addListener(new AnimatorListenerAdapter() {
                     @Override

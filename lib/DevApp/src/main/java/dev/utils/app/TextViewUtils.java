@@ -1333,26 +1333,26 @@ public final class TextViewUtils {
      * <pre>
      *     android:includeFontPadding
      * </pre>
-     * @param textView   {@link TextView}
-     * @param includepad 是否保留字体留白间隙区域
-     * @param <T>        泛型
+     * @param textView       {@link TextView}
+     * @param includePadding 是否保留字体留白间隙区域
+     * @param <T>            泛型
      * @return {@link TextView}
      */
-    public static <T extends TextView> T setIncludeFontPadding(final T textView, final boolean includepad) {
+    public static <T extends TextView> T setIncludeFontPadding(final T textView, final boolean includePadding) {
         if (textView != null) {
-            textView.setIncludeFontPadding(includepad);
+            textView.setIncludeFontPadding(includePadding);
         }
         return textView;
     }
 
     /**
      * 设置是否保留字体留白间隙区域
-     * @param view       {@link TextView}
-     * @param includepad 是否保留字体留白间隙区域
+     * @param view           {@link TextView}
+     * @param includePadding 是否保留字体留白间隙区域
      * @return {@link View}
      */
-    public static View setIncludeFontPadding(final View view, final boolean includepad) {
-        setIncludeFontPadding(getTextView(view), includepad);
+    public static View setIncludeFontPadding(final View view, final boolean includePadding) {
+        setIncludeFontPadding(getTextView(view), includePadding);
         return view;
     }
 

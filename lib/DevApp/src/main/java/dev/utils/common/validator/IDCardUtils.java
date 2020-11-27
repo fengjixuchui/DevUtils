@@ -24,7 +24,9 @@ public final class IDCardUtils {
     private static final String TAG = IDCardUtils.class.getSimpleName();
 
     // 加权因子
-    private static final int[]                POWER               = {7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2};
+    private static final int[]                POWER               = {
+            7, 9, 10, 5, 8, 4, 2, 1, 6, 3, 7, 9, 10, 5, 8, 4, 2
+    };
     // 身份证最少位数
     public static final  int                  CHINA_ID_MIN_LENGTH = 15;
     // 身份证最大位数
@@ -133,7 +135,7 @@ public final class IDCardUtils {
             Calendar calendar = Calendar.getInstance();
             if (birthDate != null) calendar.setTime(birthDate);
             // 判断是否有效日期
-            return validateDateSmllerThenNow(calendar.get(Calendar.YEAR),
+            return validateDateSmallerThenNow(calendar.get(Calendar.YEAR),
                     Integer.valueOf(birthCode.substring(2, 4)),
                     Integer.valueOf(birthCode.substring(4, 6)));
         }
@@ -226,7 +228,7 @@ public final class IDCardUtils {
             char[] chars = mid.toCharArray();
             Integer iflag = 8;
             for (char c : chars) {
-                sum = sum + Integer.valueOf(c + "") * iflag;
+                sum = sum + Integer.valueOf(String.valueOf(c)) * iflag;
                 iflag--;
             }
             return (sum % 10 == 0 ? 0 : 10 - sum % 10) == Integer.valueOf(end);
@@ -260,7 +262,7 @@ public final class IDCardUtils {
             char[] chars = mid.toCharArray();
             Integer iflag = 7;
             for (char c : chars) {
-                sum = sum + Integer.valueOf(c + "") * iflag;
+                sum = sum + Integer.valueOf(String.valueOf(c)) * iflag;
                 iflag--;
             }
             if (end.equalsIgnoreCase("A")) {
@@ -331,8 +333,8 @@ public final class IDCardUtils {
         String card = idCard.trim();
         if (validateIdCard18(card)) return true;
         if (validateIdCard15(card)) return true;
-        String[] cardStrs = validateIdCard10(card);
-        return (cardStrs != null && "true".equals(cardStrs[2]));
+        String[] cardArys = validateIdCard10(card);
+        return (cardArys != null && "true".equals(cardArys[2]));
     }
 
     /**
@@ -608,7 +610,7 @@ public final class IDCardUtils {
      * @param dayData   待校验的日期 ( 日 )
      * @return {@code true} yes, {@code false} no
      */
-    private static boolean validateDateSmllerThenNow(final int yearData, final int monthData, final int dayData) {
+    private static boolean validateDateSmallerThenNow(final int yearData, final int monthData, final int dayData) {
         int year = Calendar.getInstance().get(Calendar.YEAR);
         int datePerMonth;
         int MIN = 1930;

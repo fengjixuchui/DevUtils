@@ -58,6 +58,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.ref.WeakReference;
 
 import dev.DevUtils;
+import dev.utils.DevFinal;
 import dev.utils.LogPrintUtils;
 import dev.utils.common.CloseUtils;
 
@@ -110,20 +111,18 @@ public final class SpanUtils {
     public @interface Align {
     }
 
-    // 换行字符串
-    private static final String                             NEW_LINE_STR = System.getProperty("line.separator");
     // 内部 SpannableString 实现类
-    private              SerializableSpannableStringBuilder mBuilder;
+    private SerializableSpannableStringBuilder mBuilder;
     // TextView create setText
-    private              TextView                           mTextView;
+    private TextView                           mTextView;
     // 中转文本
-    private              CharSequence                       mText;
+    private CharSequence                       mText;
 
     // 内部标记应用类型
-    private       int mType;
-    private final int mTypeCharSequence = 0;
-    private final int mTypeImage        = 1;
-    private final int mTypeSpace        = 2;
+    private              int mType;
+    private static final int TYPE_CHAR_SEQUENCE = 0;
+    private static final int TYPE_IMAGE         = 1;
+    private static final int TYPE_SPACE         = 2;
 
     // 默认颜色
     private static final int                 COLOR_DEFAULT = Color.WHITE;
@@ -598,7 +597,7 @@ public final class SpanUtils {
      * @return {@link SpanUtils}
      */
     public SpanUtils append(@NonNull final CharSequence text) {
-        apply(mTypeCharSequence);
+        apply(TYPE_CHAR_SEQUENCE);
         mText = text;
         return this;
     }
@@ -608,8 +607,8 @@ public final class SpanUtils {
      * @return {@link SpanUtils}
      */
     public SpanUtils appendLine() {
-        apply(mTypeCharSequence);
-        mText = NEW_LINE_STR;
+        apply(TYPE_CHAR_SEQUENCE);
+        mText = DevFinal.NEW_LINE_STR;
         return this;
     }
 
@@ -619,8 +618,8 @@ public final class SpanUtils {
      * @return {@link SpanUtils}
      */
     public SpanUtils appendLine(@NonNull final CharSequence text) {
-        apply(mTypeCharSequence);
-        mText = text + NEW_LINE_STR;
+        apply(TYPE_CHAR_SEQUENCE);
+        mText = text + DevFinal.NEW_LINE_STR;
         return this;
     }
 
@@ -648,7 +647,7 @@ public final class SpanUtils {
      * @return {@link SpanUtils}
      */
     public SpanUtils appendImage(@NonNull final Bitmap bitmap, @Align final int align) {
-        apply(mTypeImage);
+        apply(TYPE_IMAGE);
         this.imageBitmap = bitmap;
         this.alignImage = align;
         return this;
@@ -676,7 +675,7 @@ public final class SpanUtils {
      * @return {@link SpanUtils}
      */
     public SpanUtils appendImage(@NonNull final Drawable drawable, @Align final int align) {
-        apply(mTypeImage);
+        apply(TYPE_IMAGE);
         this.imageDrawable = drawable;
         this.alignImage = align;
         return this;
@@ -704,7 +703,7 @@ public final class SpanUtils {
      * @return {@link SpanUtils}
      */
     public SpanUtils appendImage(@NonNull final Uri uri, @Align final int align) {
-        apply(mTypeImage);
+        apply(TYPE_IMAGE);
         this.imageUri = uri;
         this.alignImage = align;
         return this;
@@ -732,7 +731,7 @@ public final class SpanUtils {
      * @return {@link SpanUtils}
      */
     public SpanUtils appendImage(@DrawableRes final int resourceId, @Align final int align) {
-        apply(mTypeImage);
+        apply(TYPE_IMAGE);
         this.imageResourceId = resourceId;
         this.alignImage = align;
         return this;
@@ -756,7 +755,7 @@ public final class SpanUtils {
      * @return {@link SpanUtils}
      */
     public SpanUtils appendSpace(@IntRange(from = 0) final int size, @ColorInt final int color) {
-        apply(mTypeSpace);
+        apply(TYPE_SPACE);
         this.spaceSize = size;
         this.spaceColor = color;
         return this;
@@ -801,11 +800,11 @@ public final class SpanUtils {
      * 应用效果, 并重置配置
      */
     private void applyLast() {
-        if (mType == mTypeCharSequence) {
+        if (mType == TYPE_CHAR_SEQUENCE) {
             updateCharCharSequence();
-        } else if (mType == mTypeImage) {
+        } else if (mType == TYPE_IMAGE) {
             updateImage();
-        } else if (mType == mTypeSpace) {
+        } else if (mType == TYPE_SPACE) {
             updateSpace();
         }
         setDefault();
@@ -1292,14 +1291,14 @@ public final class SpanUtils {
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
                     CloseUtils.closeIOQuietly(is);
                 } catch (Exception e) {
-                    LogPrintUtils.eTag(TAG, e, "Failed to loaded content " + mContentUri);
+                    LogPrintUtils.eTag(TAG, e, "Failed to loaded content %s", mContentUri);
                 }
             } else {
                 try {
                     drawable = ContextCompat.getDrawable(getContext(), mResourceId);
                     drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
                 } catch (Exception e) {
-                    LogPrintUtils.eTag(TAG, e, "Unable to find resource: " + mResourceId);
+                    LogPrintUtils.eTag(TAG, e, "Unable to find resource: %s", mResourceId);
                 }
             }
             return drawable;

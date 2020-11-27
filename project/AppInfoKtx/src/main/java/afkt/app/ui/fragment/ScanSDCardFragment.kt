@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.tt.whorlviewlibrary.WhorlView
+import dev.utils.DevFinal
 import dev.utils.app.ListViewUtils
 import dev.utils.app.ResourceUtils
 import dev.utils.app.TextViewUtils
@@ -27,7 +28,6 @@ import dev.utils.app.permission.PermissionUtils
 import dev.utils.app.toast.ToastTintUtils
 import dev.utils.common.FileUtils
 import dev.utils.common.HtmlUtils
-import dev.utils.common.StringUtils
 import dev.widget.assist.ViewAssist
 import dev.widget.function.StateLayout
 import org.greenrobot.eventbus.Subscribe
@@ -250,11 +250,11 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
                 notFoundList: List<String>
             ) {
                 var builder = StringBuilder()
-                    .append("申请通过的权限" + Arrays.toString(grantedList.toTypedArray()))
-                    .append(StringUtils.NEW_LINE_STR)
-                    .append("拒绝的权限" + deniedList.toString())
-                    .append(StringUtils.NEW_LINE_STR)
-                    .append("未找到的权限" + notFoundList.toString())
+                    .append("申请通过的权限").append(Arrays.toString(grantedList.toTypedArray()))
+                    .append(DevFinal.NEW_LINE_STR)
+                    .append("拒绝的权限").append(deniedList.toString())
+                    .append(DevFinal.NEW_LINE_STR)
+                    .append("未找到的权限").append(notFoundList.toString())
                 if (deniedList.isNotEmpty()) {
                     DevLogger.d(builder.toString())
                     ToastTintUtils.info(ResourceUtils.getString(R.string.str_read_write_request_tips))

@@ -293,7 +293,7 @@ public class QRCodeScanActivity extends BaseActivity<ActivityScanShapeBinding> i
                     }, mDecodeMode, cameraAssist, mPreviewCallback, this);
                 }
             } catch (Exception e) {
-                DevLogger.eTag(TAG, e, "checkPermission - startPreview");
+                DevLogger.eTag(TAG, e, "checkPermission startPreview");
             }
         } else {
             ToastTintUtils.warning("需要摄像头权限预览");
@@ -342,7 +342,7 @@ public class QRCodeScanActivity extends BaseActivity<ActivityScanShapeBinding> i
         // 提示解析成功声音
         mBeepVibrateAssist.playBeepSoundAndVibrate();
         // 打印结果
-        DevLogger.dTag(TAG, "handleDecode - result: " + ZXingQRCodeUtils.getResultData(result));
+        DevLogger.dTag(TAG, "handleDecode result: %s", ZXingQRCodeUtils.getResultData(result));
 
 //        // 回传
 //        Intent resultIntent = new Intent();
@@ -500,7 +500,7 @@ public class QRCodeScanActivity extends BaseActivity<ActivityScanShapeBinding> i
             quit.sendToTarget();
             try {
                 // 进行处理解析数据
-                mDecodeThread.join(200l);
+                mDecodeThread.join(200L);
             } catch (InterruptedException e) {
             }
             // 移除堵塞在队列的消息

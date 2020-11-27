@@ -48,7 +48,7 @@ public final class NetWorkReceiver extends BroadcastReceiver {
         try {
             String action = intent.getAction();
             // 打印当前触发的广播
-            LogPrintUtils.dTag(TAG, "onReceive Action: " + action);
+            LogPrintUtils.dTag(TAG, "onReceive Action: %s", action);
             // 网络连接状态改变时通知
             if (ConnectivityManager.CONNECTIVITY_ACTION.equals(action)) {
                 // 设置连接类型
@@ -154,14 +154,14 @@ public final class NetWorkReceiver extends BroadcastReceiver {
     // =
 
     // 监听通知事件
-    private static NetwordStateListener sListener;
+    private static NetWorkStateListener sListener;
 
     /**
      * 设置监听通知事件
-     * @param listener {@link NetwordStateListener}
+     * @param listener {@link NetWorkStateListener}
      * @return {@link NetWorkReceiver}
      */
-    public static NetWorkReceiver setNetListener(final NetwordStateListener listener) {
+    public static NetWorkReceiver setNetListener(final NetWorkStateListener listener) {
         NetWorkReceiver.sListener = listener;
         return sReceiver;
     }
@@ -170,7 +170,7 @@ public final class NetWorkReceiver extends BroadcastReceiver {
      * detail: 监听通知事件
      * @author Ttt
      */
-    public interface NetwordStateListener {
+    public interface NetWorkStateListener {
 
         /**
          * 网络连接状态改变时通知

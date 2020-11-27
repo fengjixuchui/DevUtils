@@ -230,7 +230,7 @@ public final class JCLogUtils {
                 // 打印信息
                 printLog(DEBUG, tag, message);
             } catch (Exception e) {
-                String errorInfo = "null";
+                String errorInfo = DevFinal.NULL_STR;
                 if (e != null) {
                     Throwable throwable = e.getCause();
                     if (throwable != null) {

@@ -9,8 +9,6 @@ import android.webkit.WebSettings;
 
 import androidx.multidex.MultiDexApplication;
 
-import com.tencent.mmkv.MMKV;
-
 import afkt.project.R;
 import afkt.project.base.config.AppConfig;
 import afkt.project.base.config.PathConfig;
@@ -23,6 +21,7 @@ import dev.environment.bean.ModuleBean;
 import dev.environment.listener.OnEnvironmentChangeListener;
 import dev.other.GlideUtils;
 import dev.other.MMKVUtils;
+import dev.utils.DevFinal;
 import dev.utils.LogPrintUtils;
 import dev.utils.app.ActivityUtils;
 import dev.utils.app.AppCommonUtils;
@@ -268,10 +267,6 @@ public class BaseApplication extends MultiDexApplication {
         // xCrash 提供捕获 java 崩溃、native 崩溃和 ANR 的能力, 不需要 root 权限或任何系统权限
         xcrash.XCrash.init(this);
 
-        // 初始化 MMKV
-        String rootDir = MMKV.initialize(this);
-        DevLogger.d("MMKV rootDir: " + rootDir);
-
         // https://github.com/JessYanCoding/AndroidAutoSize/blob/master/demo-subunits/src/main/java/me/jessyan/autosize/demo/subunits/BaseApplication.java
         // 可不调用, 默认开启 DP 转换
         AutoSizeConfig.getInstance().getUnitsManager()
@@ -298,15 +293,15 @@ public class BaseApplication extends MultiDexApplication {
             public void onScreenshot(Uri contentUri, boolean selfChange, long rowId, String dataPath, long dateTaken) {
                 StringBuilder builder = new StringBuilder();
                 builder.append("截图监听回调");
-                builder.append(StringUtils.NEW_LINE_STR);
+                builder.append(DevFinal.NEW_LINE_STR);
                 builder.append("contentUri: ").append(contentUri);
-                builder.append(StringUtils.NEW_LINE_STR);
+                builder.append(DevFinal.NEW_LINE_STR);
                 builder.append("selfChange: ").append(selfChange);
-                builder.append(StringUtils.NEW_LINE_STR);
+                builder.append(DevFinal.NEW_LINE_STR);
                 builder.append("rowId: ").append(rowId);
-                builder.append(StringUtils.NEW_LINE_STR);
+                builder.append(DevFinal.NEW_LINE_STR);
                 builder.append("dataPath: ").append(dataPath);
-                builder.append(StringUtils.NEW_LINE_STR);
+                builder.append(DevFinal.NEW_LINE_STR);
                 builder.append("dateTaken: ").append(dateTaken).append(" ( ").append(DateUtils.formatTime(dateTaken, DateUtils.yyyyMMddHHmmss)).append(" )");
                 DevLogger.d(builder.toString());
             }

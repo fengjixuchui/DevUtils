@@ -33,6 +33,7 @@ import dev.environment.annotation.Module;
 import dev.environment.bean.EnvironmentBean;
 import dev.environment.bean.ModuleBean;
 import dev.environment.listener.OnEnvironmentChangeListener;
+import dev.environment.log.LogUtils;
 import dev.environment.type.ParameterizedTypeImpl;
 
 /**
@@ -59,8 +60,10 @@ final class Utils {
     static final String   METHOD_NOTIFY_ONENVIRONMENT_CHANGE_LISTENER = "notifyOnEnvironmentChangeListener";
     static final String   METHOD_GET_STORAGE_DIR                      = "getStorageDir";
     static final String   METHOD_DELETE_STORAGE_DIR                   = "deleteStorageDir";
+    static final String   METHOD_DELETE_STORAGE                       = "deleteStorage";
     static final String   METHOD_WRITE_STORAGE                        = "writeStorage";
     static final String   METHOD_READ_STORAGE                         = "readStorage";
+    static final String   METHOD_IS_ANNOTATION                        = "is%sAnnotation";
     // 变量相关
     static final String   VAR_MODULE_PREFIX                           = "MODULE_";
     static final String   VAR_ENVIRONMENT_PREFIX                      = "ENVIRONMENT_";
@@ -75,6 +78,7 @@ final class Utils {
     static final String   VAR_OLD_ENVIRONMENT                         = "oldEnvironment";
     static final String   VAR_NEW_ENVIRONMENT                         = "newEnvironment";
     static final String   VAR_LISTENER                                = "listener";
+    static final String   VAR_FILE_NAME                               = "fileName";
     static final String   VAR_NAME                                    = "name";
     static final String   VAR_VALUE                                   = "value";
     static final String   VAR_ALIAS                                   = "alias";
@@ -84,6 +88,8 @@ final class Utils {
     static final String   STR_ENVIRONMENT_VALUE                       = "EnvironmentValue";
     static final String   STR_RELEASE_ENVIRONMENT                     = "ReleaseEnvironment";
     // 其他
+    static final String   JSON_FILE                                   = "\".json\"";
+    static final String   JSON_FILE_FORMAT                            = "\"%s.json\"";
     static final TypeName TYPE_NAME_CONTEXT                           = ClassName.get("android.content", "Context");
     static final TypeName TYPE_NAME_JSONOBJECT                        = ClassName.get("org.json", "JSONObject");
 
@@ -468,6 +474,68 @@ final class Utils {
                     .addJavadoc("@return {@code true} success, {@code false} fail\n")
                     .build();
             classBuilder.addMethod(setModuleEnvironmentMethod);
+
+            // =
+
+            // 构建 resetModule 实现代码
+            codeBlockBuilder = CodeBlock.builder();
+            codeBlockBuilder.add("if ($N != null && $N($N, $N)) {\n", VAR_CONTEXT, METHOD_DELETE_STORAGE, VAR_CONTEXT,
+                    String.format(JSON_FILE_FORMAT, _getModuleVarName_UpperCase(moduleName)));
+            codeBlockBuilder.add(String.format("    %s = null;\n", VAR_SELECT_ENVIRONMENT + moduleName));
+            codeBlockBuilder.add("    return true;\n");
+            codeBlockBuilder.add("}\n");
+
+            // public static final Boolean resetModule(final Context context) {}
+            String resetModuleMethodName = METHOD_RESET + moduleName;
+            MethodSpec resetModuleMethod = MethodSpec
+                    .methodBuilder(resetModuleMethodName)
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                    .addParameter(TYPE_NAME_CONTEXT, VAR_CONTEXT, Modifier.FINAL)
+                    .returns(Boolean.class)
+                    .addCode(codeBlockBuilder.build())
+                    .addStatement("return false")
+                    .addJavadoc("重置 $N [ Module ] Selected Environment Bean\n", moduleName)
+                    .addJavadoc("<p>Reset $N [ Module ] Selected Environment Bean\n", moduleName)
+                    .addJavadoc("@param $N {@link Context}\n", VAR_CONTEXT)
+                    .addJavadoc("@return {@code true} success, {@code false} fail\n")
+                    .build();
+            classBuilder.addMethod(resetModuleMethod);
+
+            // =
+
+            // 构建 isModuleAnnotation 实现代码
+            codeBlockBuilder = CodeBlock.builder();
+            codeBlockBuilder.add("if ($N == null) return false;\n", VAR_CONTEXT);
+            codeBlockBuilder.add("try {\n");
+            codeBlockBuilder.add("    $T environmentBean = $N($N);\n", EnvironmentBean.class, getModuleEnvironmentMethodName, VAR_CONTEXT);
+            codeBlockBuilder.add("    int hashCode = environmentBean.hashCode();\n");
+            codeBlockBuilder.add("    $T<EnvironmentBean> iterator = $N.getEnvironments().iterator();\n",
+                    Iterator.class, _getModuleVarName_UpperCase(moduleName));
+            codeBlockBuilder.add("    while (iterator.hasNext()) {\n");
+            codeBlockBuilder.add("        EnvironmentBean bean = iterator.next();\n");
+            codeBlockBuilder.add("        if (bean != null && bean.hashCode() == hashCode) {\n");
+            codeBlockBuilder.add("            return true;\n");
+            codeBlockBuilder.add("        }\n");
+            codeBlockBuilder.add("    }\n");
+            codeBlockBuilder.add("} catch (Exception e) {\n");
+            codeBlockBuilder.add("    $T.printStackTrace(e);\n", LogUtils.class);
+            codeBlockBuilder.add("}\n");
+
+            // public static final Boolean isModuleAnnotation(final Context context) {}
+            String isModuleAnnotationMethodName = String.format(METHOD_IS_ANNOTATION, moduleName);
+            MethodSpec isModuleAnnotationMethod = MethodSpec
+                    .methodBuilder(isModuleAnnotationMethodName)
+                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                    .addParameter(TYPE_NAME_CONTEXT, VAR_CONTEXT, Modifier.FINAL)
+                    .returns(Boolean.class)
+                    .addCode(codeBlockBuilder.build())
+                    .addStatement("return false")
+                    .addJavadoc("是否 $N [ Module ] Annotation Environment Bean\n", moduleName)
+                    .addJavadoc("<p>Whether $N [ Module ] Annotation Environment Bean\n", moduleName)
+                    .addJavadoc("@param $N {@link Context}\n", VAR_CONTEXT)
+                    .addJavadoc("@return {@code true} success, {@code false} fail\n")
+                    .build();
+            classBuilder.addMethod(isModuleAnnotationMethod);
         }
     }
 
@@ -492,7 +560,7 @@ final class Utils {
         codeBlockBuilder.add("    try {\n");
         codeBlockBuilder.add("        return $N.add($N);\n", VAR_LISTENER_LIST, VAR_LISTENER);
         codeBlockBuilder.add("    } catch (Exception e) {\n");
-        codeBlockBuilder.add("        e.printStackTrace();\n");
+        codeBlockBuilder.add("        $T.printStackTrace(e);\n", LogUtils.class);
         codeBlockBuilder.add("    }\n");
         codeBlockBuilder.add("}\n");
 
@@ -519,7 +587,7 @@ final class Utils {
         codeBlockBuilder.add("    try {\n");
         codeBlockBuilder.add("        return $N.remove($N);\n", VAR_LISTENER_LIST, VAR_LISTENER);
         codeBlockBuilder.add("    } catch (Exception e) {\n");
-        codeBlockBuilder.add("        e.printStackTrace();\n");
+        codeBlockBuilder.add("        $T.printStackTrace(e);\n", LogUtils.class);
         codeBlockBuilder.add("    }\n");
         codeBlockBuilder.add("}\n");
 
@@ -546,7 +614,7 @@ final class Utils {
         codeBlockBuilder.add("    $N.clear();\n", VAR_LISTENER_LIST);
         codeBlockBuilder.add("    return true;\n");
         codeBlockBuilder.add("} catch (Exception e) {\n");
-        codeBlockBuilder.add("    e.printStackTrace();\n");
+        codeBlockBuilder.add("    $T.printStackTrace(e);\n", LogUtils.class);
         codeBlockBuilder.add("}\n");
 
         // public static final Boolean clearOnEnvironmentChangeListener() {}
@@ -574,7 +642,7 @@ final class Utils {
         codeBlockBuilder.add("        $N.$N($N, $N, $N);\n", VAR_LISTENER, METHOD_ONENVIRONMENT_CHANGED,
                 VAR_MODULE, VAR_OLD_ENVIRONMENT, VAR_NEW_ENVIRONMENT);
         codeBlockBuilder.add("    } catch (Exception e) {\n");
-        codeBlockBuilder.add("        e.printStackTrace();\n");
+        codeBlockBuilder.add("        $T.printStackTrace(e);\n", LogUtils.class);
         codeBlockBuilder.add("    }\n");
         codeBlockBuilder.add("}\n");
 
@@ -607,13 +675,13 @@ final class Utils {
         codeBlockBuilder.add("    if (!file.exists()) file.mkdirs();\n");
         codeBlockBuilder.add("    return file;\n");
         codeBlockBuilder.add("} catch (Exception e) {\n");
-        codeBlockBuilder.add("    e.printStackTrace();\n");
+        codeBlockBuilder.add("    $T.printStackTrace(e);\n", LogUtils.class);
         codeBlockBuilder.add("}\n");
 
-        // public static final File getStorageDir(final Context context) {}
+        // private static final File getStorageDir(final Context context) {}
         MethodSpec getStorageDirMethod = MethodSpec
                 .methodBuilder(METHOD_GET_STORAGE_DIR)
-                .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
                 .addParameter(TYPE_NAME_CONTEXT, VAR_CONTEXT, Modifier.FINAL)
                 .returns(File.class)
                 .addCode(codeBlockBuilder.build())
@@ -640,13 +708,13 @@ final class Utils {
         codeBlockBuilder.add("        return true;\n");
         codeBlockBuilder.add("    }\n");
         codeBlockBuilder.add("} catch (Exception e) {\n");
-        codeBlockBuilder.add("    e.printStackTrace();\n");
+        codeBlockBuilder.add("    $T.printStackTrace(e);\n", LogUtils.class);
         codeBlockBuilder.add("}\n");
 
-        // public static final Boolean deleteStorageDir(final Context context) {}
+        // private static final Boolean deleteStorageDir(final Context context) {}
         MethodSpec deleteStorageDirMethod = MethodSpec
                 .methodBuilder(METHOD_DELETE_STORAGE_DIR)
-                .addModifiers(Modifier.PUBLIC, Modifier.STATIC, Modifier.FINAL)
+                .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
                 .addParameter(TYPE_NAME_CONTEXT, VAR_CONTEXT, Modifier.FINAL)
                 .returns(Boolean.class)
                 .addCode(codeBlockBuilder.build())
@@ -660,18 +728,48 @@ final class Utils {
 
         // =
 
+        // 构建 deleteStorage 实现代码
+        codeBlockBuilder = CodeBlock.builder();
+        codeBlockBuilder.add("try {\n");
+        codeBlockBuilder.add("    File storage = $N($N);\n", METHOD_GET_STORAGE_DIR, VAR_CONTEXT);
+        codeBlockBuilder.add("    File file = new File(storage, $N);\n", VAR_FILE_NAME);
+        codeBlockBuilder.add("    if (file.exists()) file.delete();\n");
+        codeBlockBuilder.add("    return true;\n");
+        codeBlockBuilder.add("} catch (Exception e) {\n");
+        codeBlockBuilder.add("    $T.printStackTrace(e);\n", LogUtils.class);
+        codeBlockBuilder.add("}\n");
+
+        // private static final Boolean deleteStorage(final Context context, final String fileName) {}
+        MethodSpec deleteStorageMethod = MethodSpec
+                .methodBuilder(METHOD_DELETE_STORAGE)
+                .addModifiers(Modifier.PRIVATE, Modifier.STATIC, Modifier.FINAL)
+                .addParameter(TYPE_NAME_CONTEXT, VAR_CONTEXT, Modifier.FINAL)
+                .addParameter(String.class, VAR_FILE_NAME, Modifier.FINAL)
+                .returns(Boolean.class)
+                .addCode(codeBlockBuilder.build())
+                .addStatement("return false")
+                .addJavadoc("删除环境存储配置文件\n")
+                .addJavadoc("<p>Delete Environment Storage Configure File\n")
+                .addJavadoc("@param $N {@link Context}\n", VAR_CONTEXT)
+                .addJavadoc("@param fileName 文件名\n")
+                .addJavadoc("@return {@code true} success, {@code false} fail\n")
+                .build();
+        classBuilder.addMethod(deleteStorageMethod);
+
+        // =
+
         // 构建 writeStorage 实现代码
         codeBlockBuilder = CodeBlock.builder();
         codeBlockBuilder.add("if ($N == null || $N == null || $N == null) return false;\n", VAR_CONTEXT, VAR_MODULE_NAME, VAR_ENVIRONMENT);
         codeBlockBuilder.add("$T bw = null;\n", BufferedWriter.class);
         codeBlockBuilder.add("try {\n");
         codeBlockBuilder.add("    File storage = $N($N);\n", METHOD_GET_STORAGE_DIR, VAR_CONTEXT);
-        codeBlockBuilder.add("    File file = new File(storage, $N);\n", VAR_MODULE_NAME);
+        codeBlockBuilder.add("    File file = new File(storage, $N + $N);\n", VAR_MODULE_NAME, JSON_FILE);
         codeBlockBuilder.add("    bw = new BufferedWriter(new $T(file, false));\n", FileWriter.class);
         codeBlockBuilder.add("    bw.write($N.toString());\n", VAR_ENVIRONMENT);
         codeBlockBuilder.add("    return true;\n");
         codeBlockBuilder.add("} catch (Exception e) {\n");
-        codeBlockBuilder.add("    e.printStackTrace();\n");
+        codeBlockBuilder.add("    $T.printStackTrace(e);\n", LogUtils.class);
         codeBlockBuilder.add("} finally {\n");
         codeBlockBuilder.add("    if (bw != null) {\n");
         codeBlockBuilder.add("        try {\n");
@@ -708,7 +806,8 @@ final class Utils {
         codeBlockBuilder.add("$T br = null;\n", BufferedReader.class);
         codeBlockBuilder.add("try {\n");
         codeBlockBuilder.add("    File storage = $N($N);\n", METHOD_GET_STORAGE_DIR, VAR_CONTEXT);
-        codeBlockBuilder.add("    File file = new File(storage, $N);\n", VAR_MODULE_NAME);
+        codeBlockBuilder.add("    File file = new File(storage, $N + $N);\n", VAR_MODULE_NAME, JSON_FILE);
+        codeBlockBuilder.add("    if (!file.exists()) return null;\n");
         codeBlockBuilder.add("    $T builder = new StringBuilder();\n", StringBuilder.class);
         codeBlockBuilder.add("    br = new BufferedReader(new $T(new $T(file)));\n", InputStreamReader.class, FileInputStream.class);
         codeBlockBuilder.add("    String line;\n");
@@ -721,7 +820,7 @@ final class Utils {
         codeBlockBuilder.add("    String alias = jsonObject.getString($S);\n", VAR_ALIAS);
         codeBlockBuilder.add("    return new $T(name, value, alias, $N);\n", EnvironmentBean.class, VAR_MODULE);
         codeBlockBuilder.add("} catch (Exception e) {\n");
-        codeBlockBuilder.add("    e.printStackTrace();\n");
+        codeBlockBuilder.add("    $T.printStackTrace(e);\n", LogUtils.class);
         codeBlockBuilder.add("} finally {\n");
         codeBlockBuilder.add("    if (br != null) {\n");
         codeBlockBuilder.add("        try {\n");

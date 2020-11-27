@@ -21,13 +21,13 @@ ext {
     versions = [
 
             // 版本号
-            versionCode                             : 101,
+            versionCode                             : 102,
             // 版本名
-            versionName                             : '1.0.1',
+            versionName                             : '1.0.2',
             // 支持最小的 SDK
-            minSdkVersion                           : 14,
+            lib_minSdkVersion                       : 14,
             // 支持最小的 SDK
-            app_minSdkVersion                       : 19,
+            app_minSdkVersion                       : 21,
             // 编译 SDK 版本
             compileSdkVersion                       : 30,
             // 向前兼容 SDK 版本
@@ -36,27 +36,28 @@ ext {
             buildToolsVersion                       : '30.0.2',
             // java 版本
             javaVersion                             : JavaVersion.VERSION_1_8,
+            javaVersion_str                         : '1.8',
             // Kotlin 版本
-            kotlin_version                          : '1.4.10',
+            kotlin_version                          : '1.4.20',
 
             // ===========
             // = Dev Lib =
             // ===========
 
             // 版本号
-            dev_app_versionCode                     : 208,
+            dev_app_versionCode                     : 210,
             // 版本名
-            dev_app_versionName                     : '2.0.8',
+            dev_app_versionName                     : '2.1.0',
 
             // 版本号
-            dev_assist_versionCode                  : 104,
+            dev_assist_versionCode                  : 105,
             // 版本名
-            dev_assist_versionName                  : '1.0.4',
+            dev_assist_versionName                  : '1.0.5',
 
             // 版本号
-            dev_base_versionCode                    : 100,
+            dev_base_versionCode                    : 102,
             // 版本名
-            dev_base_versionName                    : '1.0.0',
+            dev_base_versionName                    : '1.0.2',
 
             // 版本号
             dev_base_mvvm_versionCode               : 100,
@@ -64,22 +65,22 @@ ext {
             dev_base_mvvm_versionName               : '1.0.0',
 
             // 版本号
-            dev_java_versionCode                    : 121,
+            dev_java_versionCode                    : 123,
             // 版本名
-            dev_java_version                        : '1.2.1',
+            dev_java_version                        : '1.2.3',
 
             // 版本号
-            dev_widget_versionCode                  : 104,
+            dev_widget_versionCode                  : 105,
             // 版本名
-            dev_widget_versionName                  : '1.0.4',
+            dev_widget_versionName                  : '1.0.5',
 
             // 版本号
-            dev_environment_versionCode             : 100,
+            dev_environment_versionCode             : 101,
             // 版本名
-            dev_environment_version                 : '1.0.0',
-            dev_environment_base_version            : '1.0.0',
-            dev_environment_compiler_version        : '1.0.0',
-            dev_environment_compiler_release_version: '1.0.0',
+            dev_environment_version                 : '1.0.1',
+            dev_environment_base_version            : '1.0.1',
+            dev_environment_compiler_version        : '1.0.1',
+            dev_environment_compiler_release_version: '1.0.1',
     ]
 
     deps = [
@@ -100,6 +101,7 @@ ext {
             'kotlin'  : [
                     stdlib                        : "org.jetbrains.kotlin:kotlin-stdlib:${versions.kotlin_version}",
                     core                          : "androidx.core:core-ktx:1.3.2",
+                    // https://developer.android.com/jetpack/androidx/releases/lifecycle#declaring_dependencies
                     // Lifecycles only (without ViewModel or LiveData)
                     lifecycle_runtime             : "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0",
                     // ViewModel
@@ -121,16 +123,16 @@ ext {
                     appcompat             : "androidx.appcompat:appcompat:1.2.0",
                     appcompat_resources   : "androidx.appcompat:appcompat-resources:1.2.0",
                     support_v4            : "androidx.legacy:legacy-support-v4:1.0.0",
-                    // Android Material 组件使用详解 https://blog.csdn.net/magic0908/article/details/101029876
-                    design                : "com.google.android.material:material:1.2.1",
                     cardview              : "androidx.cardview:cardview:1.0.0",
                     recyclerview          : "androidx.recyclerview:recyclerview:1.1.0",
                     multidex              : "androidx.multidex:multidex:2.0.1",
-                    constraint_layout     : "androidx.constraintlayout:constraintlayout:2.0.2",
+                    constraint_layout     : "androidx.constraintlayout:constraintlayout:2.0.4",
                     viewpager2            : "androidx.viewpager2:viewpager2:1.0.0",
                     sqlite                : "androidx.sqlite:sqlite:2.1.0", // 推荐使用 Room Jetpack 组件
                     // DefaultLifecycleObserver Java8
                     lifecycle_common_java8: "androidx.lifecycle:lifecycle-common-java8:2.2.0",
+                    // Android Material 组件使用详解 https://blog.csdn.net/magic0908/article/details/101029876
+                    design                : "com.google.android.material:material:1.2.1",
             ],
             'lib'     : [
                     // Gson https://github.com/google/gson
@@ -141,7 +143,7 @@ ext {
                     glide                        : "com.github.bumptech.glide:glide:4.11.0",
                     glide_compiler               : "com.github.bumptech.glide:compiler:4.11.0",
                     // Glide 图形库 https://github.com/wasabeef/glide-transformations
-                    glide_transformations        : "jp.wasabeef:glide-transformations:4.1.0",
+                    glide_transformations        : "jp.wasabeef:glide-transformations:4.3.0",
                     // GPU Filters https://github.com/cats-oss/android-gpuimage
                     gpuimage                     : "jp.co.cyberagent.android:gpuimage:2.1.0",
                     // EventBus 事件订阅分发 https://github.com/greenrobot/EventBus
@@ -242,6 +244,8 @@ ext {
                     sqlcipher                    : "net.zetetic:android-database-sqlcipher:4.4.0",
                     // Luban 鲁班图片压缩 https://github.com/Curzibn/Luban
                     luban                        : "top.zibin:Luban:1.1.8",
+                    // Kotlin Luban 图片压缩 https://github.com/forJrking/KLuban
+                    kluban                       : "com.github.forJrking:KLuban:1.0.2",
                     // CalendarView 日历控件 https://github.com/huanghaibin-dev/CalendarView
                     calendarview                 : "com.haibin:calendarview:3.6.9",
                     // xCrash Android 应用崩溃捕获工具 https://github.com/iqiyi/xCrash/blob/master/README.zh-CN.md
@@ -250,7 +254,7 @@ ext {
                     ucrop                        : "com.github.yalantis:ucrop:2.2.6", // 轻量级通用解决方案
                     ucrop_native                 : "com.github.yalantis:ucrop:2.2.6-native", // 支持本机功能
                     // XXPermissions 权限请求框架 https://github.com/getActivity/XXPermissions
-                    xxPermissions                : "com.hjq:xxpermissions:8.8",
+                    xxPermissions                : "com.hjq:xxpermissions:9.2",
 
                     // ========
                     // = 其他 =

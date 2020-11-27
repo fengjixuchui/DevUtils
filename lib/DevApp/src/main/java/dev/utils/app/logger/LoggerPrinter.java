@@ -16,6 +16,8 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.stream.StreamResult;
 import javax.xml.transform.stream.StreamSource;
 
+import dev.utils.DevFinal;
+
 /**
  * detail: 日志输出类 ( 处理方法 )
  * @author Ttt
@@ -215,7 +217,7 @@ final class LoggerPrinter implements IPrinter {
                 logHandle(logConfig, tag, Log.DEBUG, "json content format error");
             }
         } catch (Exception e) {
-            String errorInfo = "null";
+            String errorInfo = DevFinal.NULL_STR;
             if (e != null) {
                 Throwable throwable = e.getCause();
                 if (throwable != null) {
@@ -263,7 +265,7 @@ final class LoggerPrinter implements IPrinter {
             // 打印信息
             logHandle(logConfig, tag, Log.DEBUG, message);
         } catch (Exception e) {
-            String errorInfo = "null";
+            String errorInfo = DevFinal.NULL_STR;
             if (e != null) {
                 Throwable throwable = e.getCause();
                 if (throwable != null) {
@@ -423,7 +425,7 @@ final class LoggerPrinter implements IPrinter {
                 logHandle(logConfig, tag, Log.DEBUG, "json content format error");
             }
         } catch (Exception e) {
-            String errorInfo = "null";
+            String errorInfo = DevFinal.NULL_STR;
             if (e != null) {
                 Throwable throwable = e.getCause();
                 if (throwable != null) {
@@ -470,7 +472,7 @@ final class LoggerPrinter implements IPrinter {
             // 打印信息
             logHandle(logConfig, tag, Log.DEBUG, message);
         } catch (Exception e) {
-            String errorInfo = "null";
+            String errorInfo = DevFinal.NULL_STR;
             if (e != null) {
                 Throwable throwable = e.getCause();
                 if (throwable != null) {
@@ -694,8 +696,6 @@ final class LoggerPrinter implements IPrinter {
         // 进行换行
         logDivider(logType, tag);
 
-        // 手动进行偏移
-        String level = "";
         // 堆栈总数
         int traceCount = trace.length;
         // 获取堆栈偏移量
@@ -714,6 +714,9 @@ final class LoggerPrinter implements IPrinter {
             // 如果打印数小于等于 0, 则直接跳过
             return;
         }
+
+        // 手动进行偏移
+        StringBuilder traceLevel = new StringBuilder();
         // 遍历打印的方法数量 ( 类名、行数、操作的方法名 )
         for (int i = methodCount; i > 0; i--) {
             int stackIndex = i + stackOffset;
@@ -723,7 +726,7 @@ final class LoggerPrinter implements IPrinter {
             // 拼接中间内容、操作的类名、行数、方法名等信息
             StringBuilder builder = new StringBuilder();
             builder.append("║ ");
-            builder.append(level);
+            builder.append(traceLevel);
             builder.append(getSimpleClassName(trace[stackIndex].getClassName()));
             builder.append(".").append(trace[stackIndex].getMethodName());
             builder.append(" (");
@@ -731,7 +734,7 @@ final class LoggerPrinter implements IPrinter {
             builder.append(":");
             builder.append(trace[stackIndex].getLineNumber());
             builder.append(")");
-            level += "   ";
+            traceLevel.append("   ");
             // 打印日志信息
             finalLogPrinter(logType, tag, builder.toString());
         }
@@ -771,7 +774,7 @@ final class LoggerPrinter implements IPrinter {
      * @param msg     日志信息
      */
     private void logContent(final int logType, final String tag, final String msg) {
-        String[] lines = msg.split(System.getProperty("line.separator"));
+        String[] lines = msg.split(DevFinal.NEW_LINE_STR);
         for (String line : lines) {
             finalLogPrinter(logType, tag, LogConstants.HORIZONTAL_DOUBLE_LINE + " " + line);
         }

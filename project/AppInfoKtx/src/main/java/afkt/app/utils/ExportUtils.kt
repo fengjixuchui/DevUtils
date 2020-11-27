@@ -62,8 +62,7 @@ object ExportUtils {
             )
             if (result) {
                 ToastTintUtils.success(
-                    ResourceUtils.getString(R.string.str_export_suc)
-                            + " " + path + fileName
+                    ResourceUtils.getString(R.string.str_export_suc) + " " + path + fileName
                 )
             } else {
                 ToastTintUtils.error(ResourceUtils.getString(R.string.str_export_fail))

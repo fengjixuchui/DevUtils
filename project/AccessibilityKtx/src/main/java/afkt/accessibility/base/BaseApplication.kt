@@ -11,6 +11,7 @@ import android.view.accessibility.AccessibilityEvent
 import android.view.accessibility.AccessibilityNodeInfo
 import androidx.multidex.MultiDexApplication
 import dev.DevUtils
+import dev.utils.DevFinal
 import dev.utils.app.logger.DevLogger
 import dev.utils.app.logger.LogConfig
 import dev.utils.app.logger.LogLevel
@@ -102,16 +103,19 @@ class BaseApplication : MultiDexApplication() {
         info?.let {
             if (it.childCount == 0) {
                 builder
-                    .append(StringUtils.NEW_LINE_STR)
-                    .append(StringUtils.appendSpace(index) + "child widget: " + it.className)
-                    .append(StringUtils.NEW_LINE_STR)
-                    .append(StringUtils.appendSpace(index) + "showDialog: " + it.canOpenPopup())
-                    .append(StringUtils.NEW_LINE_STR)
-                    .append(StringUtils.appendSpace(index) + "windowId: " + it.windowId)
-                    .append(StringUtils.NEW_LINE_STR)
-                    .append(StringUtils.appendSpace(index) + "Text: " + it.text)
-                    .append(StringUtils.NEW_LINE_STR)
-                    .append(StringUtils.appendSpace(index) + "itViewId: " + it.viewIdResourceName)
+                    .append(DevFinal.NEW_LINE_STR)
+                    .append(StringUtils.appendSpace(index)).append("child widget: ")
+                    .append(it.className)
+                    .append(DevFinal.NEW_LINE_STR)
+                    .append(StringUtils.appendSpace(index)).append("showDialog: ")
+                    .append(it.canOpenPopup())
+                    .append(DevFinal.NEW_LINE_STR)
+                    .append(StringUtils.appendSpace(index)).append("windowId: ").append(it.windowId)
+                    .append(DevFinal.NEW_LINE_STR)
+                    .append(StringUtils.appendSpace(index)).append("Text: ").append(it.text)
+                    .append(DevFinal.NEW_LINE_STR)
+                    .append(StringUtils.appendSpace(index)).append("itViewId: ")
+                    .append(it.viewIdResourceName)
             } else {
                 for (i in 0 until it.childCount) {
                     track(it.getChild(i), builder, index + 1)

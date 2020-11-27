@@ -27,6 +27,8 @@ public final class StringUtils {
     public static final String NEW_LINE_STR    = System.getProperty("line.separator");
     // 换行字符串 ( 两行 )
     public static final String NEW_LINE_STR_X2 = NEW_LINE_STR + NEW_LINE_STR;
+    // 空对象字符串
+    public static final String NULL_STR        = "null";
 
     // ==========
     // = String =
@@ -642,6 +644,44 @@ public final class StringUtils {
     // =
 
     /**
+     * 获取字符串 ( 判 null )
+     * @param str 待校验的字符串
+     * @return 校验后的字符串
+     */
+    public static String getString(final String str) {
+        return getString(str, NULL_STR);
+    }
+
+    /**
+     * 获取字符串 ( 判 null )
+     * @param str        待校验的字符串
+     * @param defaultStr 默认字符串
+     * @return 校验后的字符串
+     */
+    public static String getString(final String str, final String defaultStr) {
+        return str != null ? str : defaultStr;
+    }
+
+    /**
+     * 获取字符串 ( 判 null )
+     * @param object 待校验的对象
+     * @return 校验后的字符串
+     */
+    public static String getString(final Object object) {
+        return getString(object, NULL_STR);
+    }
+
+    /**
+     * 获取字符串 ( 判 null )
+     * @param object     待校验的对象
+     * @param defaultStr 默认字符串
+     * @return 校验后的字符串
+     */
+    public static String getString(final Object object, final String defaultStr) {
+        return object != null ? object.toString() : defaultStr;
+    }
+
+    /**
      * 检查字符串
      * @param str 待校验字符串
      * @return 如果待校验字符串为 null, 则返回默认字符串, 如果不为 null, 则返回该字符串
@@ -793,6 +833,61 @@ public final class StringUtils {
     // =
 
     /**
+     * 字符串连接, 将参数列表拼接为一个字符串
+     * @param args 追加数据
+     * @return 拼接后的字符串
+     */
+    public static String concat(final Object... args) {
+        return concatSpiltWith("", args);
+    }
+
+    /**
+     * 字符串连接, 将参数列表拼接为一个字符串
+     * @param split 追加间隔
+     * @param args  追加数据
+     * @return 拼接后的字符串
+     */
+    public static String concatSpiltWith(final String split, final Object... args) {
+        if (args == null) return null;
+        StringBuilder builder = new StringBuilder();
+        if (isEmpty(split)) {
+            for (int i = 0, len = args.length; i < len; i++) {
+                builder.append(args[i]);
+            }
+        } else {
+            for (int i = 0, len = args.length; i < len; i++) {
+                builder.append(args[i]).append(split);
+            }
+        }
+        return builder.toString();
+    }
+
+    /**
+     * 字符串连接, 将参数列表拼接为一个字符串 ( 最后一个不追加间隔 )
+     * @param split 追加间隔
+     * @param args  追加数据
+     * @return 拼接后的字符串
+     */
+    public static String concatSpiltWithIgnoreLast(final String split, final Object... args) {
+        if (args == null) return null;
+        StringBuilder builder = new StringBuilder();
+        int len = args.length;
+        if (len > 0) {
+            if (isEmpty(split)) {
+                for (int i = 0; i < len; i++) {
+                    builder.append(args[i]);
+                }
+            } else {
+                for (int i = 0; i < len - 1; i++) {
+                    builder.append(args[i]).append(split);
+                }
+                builder.append(args[len - 1]);
+            }
+        }
+        return builder.toString();
+    }
+
+    /**
      * StringBuilder 拼接处理
      * @param builder 拼接 Builder
      * @param split   追加间隔
@@ -801,13 +896,14 @@ public final class StringUtils {
      */
     public static StringBuilder appends(final StringBuilder builder, final String split, final Object... args) {
         if (builder != null && args != null) {
-            // 获取间隔字符串, 优化循环判断
-            String str = isEmpty(split) ? "" : split;
-            // 循环处理
-            for (int i = 0, len = args.length; i < len; i++) {
-                builder.append(args[i]); // 拼接数据
-                // 追加间隔
-                builder.append(str);
+            if (isEmpty(split)) {
+                for (int i = 0, len = args.length; i < len; i++) {
+                    builder.append(args[i]);
+                }
+            } else {
+                for (int i = 0, len = args.length; i < len; i++) {
+                    builder.append(args[i]).append(split);
+                }
             }
         }
         return builder;
@@ -822,16 +918,18 @@ public final class StringUtils {
      */
     public static StringBuilder appendsIgnoreLast(final StringBuilder builder, final String split, final Object... args) {
         if (builder != null && args != null) {
-            // 获取间隔字符串, 优化循环判断
-            String str = isEmpty(split) ? "" : split;
             int len = args.length;
             if (len > 0) {
-                // 循环处理
-                for (int i = 0; i < len - 1; i++) {
-                    builder.append(args[i]); // 拼接数据
-                    builder.append(str); // 间隔追加
+                if (isEmpty(split)) {
+                    for (int i = 0; i < len; i++) {
+                        builder.append(args[i]);
+                    }
+                } else {
+                    for (int i = 0; i < len - 1; i++) {
+                        builder.append(args[i]).append(split);
+                    }
+                    builder.append(args[len - 1]);
                 }
-                builder.append(args[len - 1]); // 拼接数据
             }
         }
         return builder;
@@ -1125,31 +1223,6 @@ public final class StringUtils {
             chars[len - i - 1] = ch;
         }
         return new String(chars);
-    }
-
-    /**
-     * 字符串连接, 将参数列表拼接为一个字符串
-     * @param args 追加数据
-     * @return 拼接后的字符串
-     */
-    public static String concat(final Object... args) {
-        return concatSpiltWith("", args);
-    }
-
-    /**
-     * 字符串连接, 将参数列表拼接为一个字符串
-     * @param startStr 开始字符串
-     * @param args     追加数据
-     * @return 拼接后的字符串
-     */
-    public static String concatSpiltWith(final String startStr, final Object... args) {
-        if (args == null) return null;
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0, len = args.length; i < len; i++) {
-            if (i != 0) builder.append(startStr);
-            builder.append(args[i]);
-        }
-        return builder.toString();
     }
 
     /**

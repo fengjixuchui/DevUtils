@@ -222,8 +222,8 @@ object ProjectUtils {
         lists.add(DeviceInfoItem(R.string.str_info_width_dpi, ScreenUtils.getWidthDpi().toString()))
         // =
         val builder = StringBuilder()
-        builder.append("1dp=" + SizeUtils.dipConvertPxf(1f) + "px")
-        builder.append(", 1sp=" + SizeUtils.spConvertPxf(1f) + "px")
+        builder.append("1dp=").append(SizeUtils.dipConvertPxf(1f)).append("px")
+        builder.append(", 1sp=").append(SizeUtils.spConvertPxf(1f)).append("px")
         // 转换 dpi
         lists.add(DeviceInfoItem(R.string.str_info_convert_dpi, builder.toString()))
         return lists

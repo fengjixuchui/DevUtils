@@ -86,7 +86,7 @@ final class DevCacheUtils {
         if (data != null) {
             try {
                 byte[] dateArys = createDateInfo(second).getBytes();
-                return ArrayUtils.arraycopy(dateArys, data);
+                return ArrayUtils.arrayCopy(dateArys, data);
             } catch (Exception e) {
                 LogPrintUtils.eTag(TAG, e, "newByteArrayWithDateInfo");
             }
@@ -102,7 +102,7 @@ final class DevCacheUtils {
      * @return 时间信息字符串
      */
     private static String createDateInfo(final int second) {
-        String currentTime = System.currentTimeMillis() + "";
+        String currentTime = String.valueOf(System.currentTimeMillis());
         while (currentTime.length() < 13) {
             currentTime = "0" + currentTime;
         }

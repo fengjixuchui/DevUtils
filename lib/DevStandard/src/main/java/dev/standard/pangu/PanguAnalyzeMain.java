@@ -9,6 +9,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import dev.utils.JCLogUtils;
 import dev.utils.common.FileIOUtils;
 import dev.utils.common.FileUtils;
 import dev.utils.common.MapUtils;
@@ -106,7 +107,7 @@ final class PanguAnalyzeMain {
                 lists.add(file);
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            JCLogUtils.e("getFileCatalogLists", e);
         }
         return lists;
     }
@@ -167,7 +168,7 @@ final class PanguAnalyzeMain {
                     repeat = false; // 不需要判断重复
                 } else {
                     if (code != null && repeat) {
-                        MapUtils.putToList(sAnnotationRepeatLineMap, file.getName(), (i + 1) + "");
+                        MapUtils.putToList(sAnnotationRepeatLineMap, file.getName(), String.valueOf(i + 1));
                     }
                     // 表示需要检测重复
                     repeat = true;
@@ -203,7 +204,7 @@ final class PanguAnalyzeMain {
                 // 返回 JSON 格式数据 ( 格式化 )
                 return createGson(includeNulls).setPrettyPrinting().create().toJson(data);
             } catch (Exception e) {
-                e.printStackTrace();
+                JCLogUtils.e("toJsonFormat", e);
             }
         }
         return "";

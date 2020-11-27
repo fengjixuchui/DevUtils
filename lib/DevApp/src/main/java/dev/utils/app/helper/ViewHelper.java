@@ -533,12 +533,12 @@ public final class ViewHelper {
 
     /**
      * 设置是否保留字体留白间隙区域
-     * @param view       {@link TextView}
-     * @param includepad 是否保留字体留白间隙区域
+     * @param view           {@link TextView}
+     * @param includePadding 是否保留字体留白间隙区域
      * @return {@link ViewHelper}
      */
-    public ViewHelper setIncludeFontPadding(final View view, final boolean includepad) {
-        TextViewUtils.setIncludeFontPadding(view, includepad);
+    public ViewHelper setIncludeFontPadding(final View view, final boolean includePadding) {
+        TextViewUtils.setIncludeFontPadding(view, includePadding);
         return this;
     }
 
@@ -1739,6 +1739,17 @@ public final class ViewHelper {
     }
 
     // =
+
+    /**
+     * 设置 View Id
+     * @param view {@link View}
+     * @param id   View Id
+     * @return {@link ViewHelper}
+     */
+    public ViewHelper setId(final View view, final int id) {
+        ViewUtils.setId(view, id);
+        return this;
+    }
 
     /**
      * 设置是否限制子 View 在其边界内绘制

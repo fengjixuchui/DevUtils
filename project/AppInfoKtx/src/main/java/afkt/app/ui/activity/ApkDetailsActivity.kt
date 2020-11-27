@@ -15,6 +15,7 @@ import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
+import dev.utils.DevFinal
 import dev.utils.app.AppUtils
 import dev.utils.app.IntentUtils
 import dev.utils.app.ResourceUtils
@@ -25,7 +26,6 @@ import dev.utils.app.logger.DevLogger
 import dev.utils.app.permission.PermissionUtils
 import dev.utils.app.toast.ToastTintUtils
 import dev.utils.common.FileUtils
-import dev.utils.common.StringUtils
 import java.util.*
 
 class ApkDetailsActivity : AppCompatActivity(), View.OnClickListener {
@@ -109,11 +109,12 @@ class ApkDetailsActivity : AppCompatActivity(), View.OnClickListener {
                                     notFoundList: List<String>
                                 ) {
                                     var builder = StringBuilder()
-                                        .append("申请通过的权限" + Arrays.toString(grantedList.toTypedArray()))
-                                        .append(StringUtils.NEW_LINE_STR)
-                                        .append("拒绝的权限" + deniedList.toString())
-                                        .append(StringUtils.NEW_LINE_STR)
-                                        .append("未找到的权限" + notFoundList.toString())
+                                        .append("申请通过的权限")
+                                        .append(Arrays.toString(grantedList.toTypedArray()))
+                                        .append(DevFinal.NEW_LINE_STR)
+                                        .append("拒绝的权限").append(deniedList.toString())
+                                        .append(DevFinal.NEW_LINE_STR)
+                                        .append("未找到的权限").append(notFoundList.toString())
                                     if (deniedList.isNotEmpty()) {
                                         DevLogger.d(builder.toString())
                                         ToastTintUtils.info(ResourceUtils.getString(R.string.str_install_request_tips))

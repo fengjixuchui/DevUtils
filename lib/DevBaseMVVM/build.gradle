@@ -9,15 +9,12 @@ android.defaultConfig {
 }
 
 dependencies {
-    api deps.kotlin.stdlib
-    api deps.kotlin.core
-    api deps.kotlin.lifecycle_runtime
-    api deps.androidx.lifecycle_common_java8
-    api deps.androidx.design
-    api deps.androidx.appcompat
+    api deps.kotlin.lifecycle_viewmodel
+    api deps.kotlin.lifecycle_livedata
+    api deps.kotlin.lifecycle_viewmodel_savedstate
 
     // 编译时使用
-    api project(path: ':DevBase')
+    api project(':DevBase')
 //    // 打包时使用
 //    api deps.dev.dev_base
 }

@@ -249,7 +249,7 @@ public final class LogPrintUtils {
                     printLog(Log.DEBUG, tag, "json content format error");
                 }
             } catch (Exception e) {
-                String errorInfo = "null";
+                String errorInfo = DevFinal.NULL_STR;
                 if (e != null) {
                     Throwable throwable = e.getCause();
                     if (throwable != null) {
@@ -286,7 +286,7 @@ public final class LogPrintUtils {
                 // 打印信息
                 printLog(Log.DEBUG, tag, message);
             } catch (Exception e) {
-                String errorInfo = "null";
+                String errorInfo = DevFinal.NULL_STR;
                 if (e != null) {
                     Throwable throwable = e.getCause();
                     if (throwable != null) {
@@ -361,6 +361,6 @@ public final class LogPrintUtils {
          * @param tag     打印 Tag
          * @param message 日志信息
          */
-        void printLog(final int logType, final String tag, final String message);
+        void printLog(int logType, String tag, String message);
     }
 }

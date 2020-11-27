@@ -28,7 +28,6 @@
             AccessibilityService 在 API < 18 的时候使用 AccessibilityService
             <uses-permission android:name="android.permission.BIND_ACCESSIBILITY_SERVICE" />
         -->
-
         <service
             android:name="afkt.accessibility.service.AccessibilityListenerService"
             android:enabled="true"
