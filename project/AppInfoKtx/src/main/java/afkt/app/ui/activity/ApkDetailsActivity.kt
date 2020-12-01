@@ -65,9 +65,7 @@ class ApkDetailsActivity : AppCompatActivity(), View.OnClickListener {
             // 对应 ActionBar.DISPLAY_SHOW_TITLE
             actionBar.setDisplayShowTitleEnabled(false)
             // 设置点击事件
-            binding.vidAadToolbar.setNavigationOnClickListener {
-                finish()
-            }
+            binding.vidAadToolbar.setNavigationOnClickListener { finish() }
         }
 
         // 获取 APP 信息

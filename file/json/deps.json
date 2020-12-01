@@ -20,7 +20,9 @@
         "lifecycle_viewmodel_savedstate": "androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0",
         "room_runtime": "androidx.room:room-runtime:2.2.5",
         "room_compiler": "androidx.room:room-compiler:2.2.5",
-        "room_ktx": "androidx.room:room-ktx:2.2.5"
+        "room_ktx": "androidx.room:room-ktx:2.2.5",
+        "work_runtime_ktx": "androidx.work:work-runtime-ktx:2.4.0",
+        "datastore_preferences": "androidx.datastore:datastore-preferences:1.0.0-alpha03"
     },
     "androidx": {
         "appcompat": "androidx.appcompat:appcompat:1.2.0",
@@ -33,6 +35,7 @@
         "viewpager2": "androidx.viewpager2:viewpager2:1.0.0",
         "sqlite": "androidx.sqlite:sqlite:2.1.0",
         "lifecycle_common_java8": "androidx.lifecycle:lifecycle-common-java8:2.2.0",
+        "work_runtime": "androidx.work:work-runtime:2.4.0",
         "design": "com.google.android.material:material:1.2.1"
     },
     "lib": {

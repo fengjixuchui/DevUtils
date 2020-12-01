@@ -139,6 +139,8 @@
 
 * [Material Designer 的低版本兼容实现 ActivityOptionsCompat](https://www.cnblogs.com/tianzhijiexian/p/4087917.html)
 
+* [探索 Android 自定义控件：基础图形](https://www.jianshu.com/p/9fb81d77f782)
+
 #### 功能、效果
 
 * [Android 插件化系列第 动态加载技术之 apk 换肤](https://www.jianshu.com/p/d1c6e67f7889)
