@@ -22,7 +22,7 @@ public interface IImageEngine {
      * @param <TranscodeType> 泛型
      * @author Ttt
      */
-    interface ImageCallBack<TranscodeType> {
+    interface ImageCallback<TranscodeType> {
 
         /**
          * 获取转码类型
@@ -46,10 +46,10 @@ public interface IImageEngine {
     }
 
     /**
-     * detail: Bitmap CallBack
+     * detail: Bitmap Callback
      * @author Ttt
      */
-    abstract class BitmapCallBack implements ImageCallBack<Bitmap> {
+    abstract class BitmapCallback implements ImageCallback<Bitmap> {
 
         @Override
         public final Class getTranscodeType() {
@@ -64,10 +64,10 @@ public interface IImageEngine {
     }
 
     /**
-     * detail: Drawable CallBack
+     * detail: Drawable Callback
      * @author Ttt
      */
-    abstract class DrawableCallBack implements ImageCallBack<Drawable> {
+    abstract class DrawableCallback implements ImageCallback<Drawable> {
 
         @Override
         public final Class getTranscodeType() {
@@ -122,18 +122,18 @@ public interface IImageEngine {
 
     /**
      * 图片加载
-     * @param uri           Image Uri
-     * @param imageCallback 图片加载回调
+     * @param uri      Image Uri
+     * @param callback 图片加载回调
      */
-    void loadImage(String uri, ImageCallBack imageCallback);
+    void loadImage(String uri, ImageCallback callback);
 
     /**
      * 图片加载
-     * @param uri           Image Uri
-     * @param imageCallback 图片加载回调
-     * @param config        {@link ImageConfig} 加载配置
+     * @param uri      Image Uri
+     * @param callback 图片加载回调
+     * @param config   {@link ImageConfig} 加载配置
      */
-    void loadImage(String uri, ImageCallBack imageCallback, ImageConfig config);
+    void loadImage(String uri, ImageCallback callback, ImageConfig config);
 
     // ===========
     // = 其他方法 =

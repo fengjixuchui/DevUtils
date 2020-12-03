@@ -81,7 +81,7 @@ public class QRCodeScanActivity extends BaseActivity<ActivityScanShapeBinding> i
         binding.vidAssScanview.startAnim();
         try {
             // 添加回调
-            binding.vidAssSurface.getHolder().addCallback(mHolderCallBack);
+            binding.vidAssSurface.getHolder().addCallback(mHolderCallback);
         } catch (Exception e) {
         }
     }
@@ -172,7 +172,7 @@ public class QRCodeScanActivity extends BaseActivity<ActivityScanShapeBinding> i
     // 摄像头辅助类
     private CameraAssist cameraAssist = new CameraAssist();
 
-    private SurfaceHolder.Callback mHolderCallBack = new SurfaceHolder.Callback() {
+    private SurfaceHolder.Callback mHolderCallback = new SurfaceHolder.Callback() {
         @Override
         public void surfaceCreated(SurfaceHolder holder) {
             // 检查权限
@@ -409,14 +409,14 @@ public class QRCodeScanActivity extends BaseActivity<ActivityScanShapeBinding> i
 
         /**
          * 构造函数
-         * @param decodeConfig    解析配置
-         * @param decodeMode      解析类型
-         * @param cameraAssist    Camera 辅助类
-         * @param previewCallback 预览回调
-         * @param decodeResult    解码结果回调
+         * @param decodeConfig 解析配置
+         * @param decodeMode   解析类型
+         * @param cameraAssist Camera 辅助类
+         * @param callback     预览回调
+         * @param decodeResult 解码结果回调
          */
         CaptureHandler(DecodeConfig decodeConfig, @DecodeFormat.DecodeMode int decodeMode,
-                       CameraAssist cameraAssist, PreviewCallback previewCallback, DecodeResult decodeResult) {
+                       CameraAssist cameraAssist, PreviewCallback callback, DecodeResult decodeResult) {
             this.mState = State.SUCCESS;
             // 初始化解码线程
             this.mDecodeThread = new DecodeThread(decodeConfig, decodeMode);
@@ -424,7 +424,7 @@ public class QRCodeScanActivity extends BaseActivity<ActivityScanShapeBinding> i
             // 初始化辅助类, 并开始预览
             this.mCameraAssist = cameraAssist;
             this.mCameraAssist.startPreview();
-            this.mPreviewCallback = previewCallback;
+            this.mPreviewCallback = callback;
             this.mDecodeResult = decodeResult;
             // 设置预览解码线程
             restartPreviewAndDecode();
@@ -525,7 +525,7 @@ public class QRCodeScanActivity extends BaseActivity<ActivityScanShapeBinding> i
             // 获取图片 Bitmap
             Bitmap selectBitmap = ImageUtils.decodeFile(imgPath);
             // 解析图片
-            ZXingQRCodeUtils.decodeQRCode(selectBitmap, new ZXingQRCodeUtils.QRScanCallBack() {
+            ZXingQRCodeUtils.decodeQRCode(selectBitmap, new ZXingQRCodeUtils.QRScanCallback() {
                 @Override
                 public void onResult(boolean success, Result result, Exception e) {
                     HandlerUtils.postRunnable(new Runnable() {

@@ -303,7 +303,7 @@ allprojects {
 | 方法 | 注释 |
 | :- | :- |
 | init | 初始化操作 ( 内部已调用 ) |
-| setCallBack | 设置文件记录回调 |
+| setCallback | 设置文件记录回调 |
 | record | 日志记录 |
 | isHandler | 判断是否处理日志记录 |
 | setHandler | 设置是否处理日志记录 |
@@ -1782,6 +1782,8 @@ allprojects {
 | getContext | 获取 Context |
 | getActivity | 获取 View context 所属的 Activity |
 | inflate | 获取 View |
+| getId | 获取 View Id |
+| setId | 设置 View Id |
 | getParent | 获取指定 View 父布局 |
 | getContentView | 获取 android.R.id.content View |
 | getRootParent | 获取指定 View 根布局 ( 最底层布局 ) |
@@ -2647,6 +2649,7 @@ allprojects {
 | requestFocus | View 请求获取焦点 |
 | clearFocus | View 清除焦点 |
 | requestLayoutParent | View 请求更新 |
+| setId | 设置 View Id |
 | setClipChildren | 设置是否限制子 View 在其边界内绘制 |
 | setLayoutParams | 设置 View LayoutParams |
 | setFocusableInTouchMode | 设置 View 是否在触摸模式下获得焦点 |
@@ -2993,7 +2996,7 @@ allprojects {
 | getAppPermissionToSet | 获取 APP 注册的权限 |
 | getAppPermission | 获取 APP 注册的权限 |
 | permission | 申请权限初始化 |
-| callBack | 设置回调方法 |
+| callback | 设置回调方法 |
 | setRequestPermissionsResult | 设置是否需要在 Activity 的 onRequestPermissionsResult 回调中, 调用 PermissionUtils.onRequestPermissionsResult(this); |
 | request | 请求权限 |
 | onRequestPermissionsResult | 请求权限回调 ( 需要在 Activity 的 onRequestPermissionsResult 回调中, 调用 PermissionUtils.onRequestPermissionsResult(this); ) |
@@ -3675,7 +3678,7 @@ allprojects {
 | 方法 | 注释 |
 | :- | :- |
 | setInsertInfo | 设置插入信息 |
-| setCallBack | 设置文件记录回调 |
+| setCallback | 设置文件记录回调 |
 | saveErrorLog | 保存异常日志 |
 | saveLog | 保存日志 |
 

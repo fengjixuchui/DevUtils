@@ -1401,22 +1401,22 @@ public final class DevHelper {
 
     /**
      * 获取网络时间 ( 默认使用百度链接 )
-     * @param timeCallBack 请求时间回调接口
+     * @param callback 请求时间回调接口
      * @return {@link DevHelper}
      */
-    public DevHelper getNetTime(final HttpURLConnectionUtils.TimeCallBack timeCallBack) {
-        HttpURLConnectionUtils.getNetTime(timeCallBack);
+    public DevHelper getNetTime(final HttpURLConnectionUtils.TimeCallback callback) {
+        HttpURLConnectionUtils.getNetTime(callback);
         return this;
     }
 
     /**
      * 获取网络时间
-     * @param urlStr       请求地址
-     * @param timeCallBack 请求时间回调接口
+     * @param urlStr   请求地址
+     * @param callback 请求时间回调接口
      * @return {@link DevHelper}
      */
-    public DevHelper getNetTime(final String urlStr, final HttpURLConnectionUtils.TimeCallBack timeCallBack) {
-        HttpURLConnectionUtils.getNetTime(urlStr, timeCallBack);
+    public DevHelper getNetTime(final String urlStr, final HttpURLConnectionUtils.TimeCallback callback) {
+        HttpURLConnectionUtils.getNetTime(urlStr, callback);
         return this;
     }
 
@@ -1427,22 +1427,22 @@ public final class DevHelper {
     /**
      * 设置等待一段时间后, 通知方法 ( 异步 )
      * @param keepTimeMillis 堵塞时间 ( 毫秒 )
-     * @param endCallback    结束回调通知
+     * @param callback       结束回调通知
      * @return {@link DevHelper}
      */
-    public DevHelper waitForEndAsync(final long keepTimeMillis, final TimeKeeper.OnEndCallback endCallback) {
-        mTimeKeeper.waitForEndAsync(keepTimeMillis, endCallback);
+    public DevHelper waitForEndAsync(final long keepTimeMillis, final TimeKeeper.OnEndCallback callback) {
+        mTimeKeeper.waitForEndAsync(keepTimeMillis, callback);
         return this;
     }
 
     /**
      * 设置等待一段时间后, 通知方法 ( 同步 )
      * @param keepTimeMillis 堵塞时间 ( 毫秒 )
-     * @param endCallback    结束回调通知
+     * @param callback       结束回调通知
      * @return {@link DevHelper}
      */
-    public DevHelper waitForEnd(final long keepTimeMillis, final TimeKeeper.OnEndCallback endCallback) {
-        mTimeKeeper.waitForEnd(keepTimeMillis, endCallback);
+    public DevHelper waitForEnd(final long keepTimeMillis, final TimeKeeper.OnEndCallback callback) {
+        mTimeKeeper.waitForEnd(keepTimeMillis, callback);
         return this;
     }
 

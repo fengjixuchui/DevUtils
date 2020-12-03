@@ -23,9 +23,9 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-//        lifecycleScope.launch {
-//            DataStoreUse.use(baseContext)
-//        }
+        lifecycleScope.launch {
+            DataStoreUse.use(baseContext)
+        }
 
         binding.title = "DataBinding Title"
 
