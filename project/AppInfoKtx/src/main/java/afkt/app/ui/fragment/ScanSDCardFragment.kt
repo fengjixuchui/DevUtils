@@ -239,7 +239,8 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
         PermissionUtils.permission(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ).callBack(object : PermissionUtils.PermissionCallBack {
+        ).callback(object :
+            PermissionUtils.PermissionCallback {
             override fun onGranted() {
                 ScanSDCardUtils.instance.query(refresh) // 扫描 SDCard
             }

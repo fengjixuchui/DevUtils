@@ -96,7 +96,8 @@ class ApkDetailsActivity : AppCompatActivity(), View.OnClickListener {
                         } else {
                             PermissionUtils.permission(
                                 Manifest.permission.REQUEST_INSTALL_PACKAGES
-                            ).callBack(object : PermissionUtils.PermissionCallBack {
+                            ).callback(object :
+                                PermissionUtils.PermissionCallback {
                                 override fun onGranted() {
                                     AppUtils.installApp(sourceDir) // 安装 APK
                                 }
