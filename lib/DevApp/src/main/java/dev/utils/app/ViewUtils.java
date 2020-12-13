@@ -285,7 +285,7 @@ public final class ViewUtils {
     public static <T extends View> T getRootParent(final View view) {
         if (view != null) {
             try {
-                View root = null;
+                View       root   = null;
                 ViewParent parent = view.getParent();
                 while (parent instanceof View) {
                     root = (View) parent;

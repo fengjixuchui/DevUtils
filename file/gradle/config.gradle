@@ -39,26 +39,26 @@ ext {
             // 向前兼容 SDK 版本
             targetSdkVersion                        : 30,
             // 构建工具版本
-            buildToolsVersion                       : '30.0.2',
+            buildToolsVersion                       : '30.0.3',
             // java 版本
             javaVersion                             : JavaVersion.VERSION_1_8,
             javaVersion_str                         : '1.8',
             // Kotlin 版本
-            kotlin_version                          : '1.4.20',
+            kotlin_version                          : '1.4.21',
 
             // ===========
             // = Dev Lib =
             // ===========
 
             // 版本号
-            dev_app_versionCode                     : 210,
+            dev_app_versionCode                     : 211,
             // 版本名
-            dev_app_versionName                     : '2.1.0',
+            dev_app_versionName                     : '2.1.1',
 
             // 版本号
-            dev_assist_versionCode                  : 105,
+            dev_assist_versionCode                  : 106,
             // 版本名
-            dev_assist_versionName                  : '1.0.5',
+            dev_assist_versionName                  : '1.0.6',
 
             // 版本号
             dev_base_versionCode                    : 102,
@@ -71,22 +71,22 @@ ext {
             dev_base_mvvm_versionName               : '1.0.0',
 
             // 版本号
-            dev_java_versionCode                    : 123,
+            dev_java_versionCode                    : 124,
             // 版本名
-            dev_java_version                        : '1.2.3',
+            dev_java_version                        : '1.2.4',
 
             // 版本号
-            dev_widget_versionCode                  : 105,
+            dev_widget_versionCode                  : 106,
             // 版本名
-            dev_widget_versionName                  : '1.0.5',
+            dev_widget_versionName                  : '1.0.6',
 
             // 版本号
-            dev_environment_versionCode             : 101,
+            dev_environment_versionCode             : 102,
             // 版本名
-            dev_environment_version                 : '1.0.1',
-            dev_environment_base_version            : '1.0.1',
-            dev_environment_compiler_version        : '1.0.1',
-            dev_environment_compiler_release_version: '1.0.1',
+            dev_environment_version                 : '1.0.2',
+            dev_environment_base_version            : '1.0.2',
+            dev_environment_compiler_version        : '1.0.2',
+            dev_environment_compiler_release_version: '1.0.2',
     ]
 
     deps = [

@@ -76,7 +76,7 @@ public final class NoteDatabase extends AbsGreenDatabase {
             // encrypted SQLCipher database
             database = helper.getEncryptedWritableDb(password);
         }
-        DaoMaster daoMaster = new DaoMaster(database);
+        DaoMaster  daoMaster  = new DaoMaster(database);
         DaoSession daoSession = daoMaster.newSession();
         return new NoteDatabase(helper, database, daoMaster, daoSession);
     }

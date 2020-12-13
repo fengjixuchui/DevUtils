@@ -137,7 +137,7 @@ public class Note {
             if (daoSession == null) {
                 throw new DaoException("Entity is detached from DAO context");
             }
-            NotePictureDao targetDao = daoSession.getNotePictureDao();
+            NotePictureDao    targetDao   = daoSession.getNotePictureDao();
             List<NotePicture> picturesNew = targetDao._queryNote_Pictures(id);
             synchronized (this) {
                 if (pictures == null) {

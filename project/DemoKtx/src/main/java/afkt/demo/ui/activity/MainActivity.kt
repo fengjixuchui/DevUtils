@@ -24,7 +24,7 @@ class MainActivity : BaseActivity<ActivityMainBinding>() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            DataStoreUse.use(baseContext)
+            DataStoreUse.use(this@MainActivity)
         }
 
         binding.title = "DataBinding Title"

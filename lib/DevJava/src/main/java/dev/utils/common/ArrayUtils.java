@@ -3160,7 +3160,7 @@ public final class ArrayUtils {
             int len = data.length;
             if (len > 0) {
                 int index = 0;
-                int temp = data[index];
+                int temp  = data[index];
                 for (int i = 1; i < len; i++) {
                     int value = data[i];
                     if (value < temp) {
@@ -3183,8 +3183,8 @@ public final class ArrayUtils {
         if (data != null) {
             int len = data.length;
             if (len > 0) {
-                int index = 0;
-                long temp = data[index];
+                int  index = 0;
+                long temp  = data[index];
                 for (int i = 1; i < len; i++) {
                     long value = data[i];
                     if (value < temp) {
@@ -3207,8 +3207,8 @@ public final class ArrayUtils {
         if (data != null) {
             int len = data.length;
             if (len > 0) {
-                int index = 0;
-                float temp = data[index];
+                int   index = 0;
+                float temp  = data[index];
                 for (int i = 1; i < len; i++) {
                     float value = data[i];
                     if (value < temp) {
@@ -3231,8 +3231,8 @@ public final class ArrayUtils {
         if (data != null) {
             int len = data.length;
             if (len > 0) {
-                int index = 0;
-                double temp = data[index];
+                int    index = 0;
+                double temp  = data[index];
                 for (int i = 1; i < len; i++) {
                     double value = data[i];
                     if (value < temp) {
@@ -3260,7 +3260,7 @@ public final class ArrayUtils {
             int len = data.length;
             if (len > 0) {
                 int index = 0;
-                int temp = data[index];
+                int temp  = data[index];
                 for (int i = 1; i < len; i++) {
                     int value = data[i];
                     if (value > temp) {
@@ -3283,8 +3283,8 @@ public final class ArrayUtils {
         if (data != null) {
             int len = data.length;
             if (len > 0) {
-                int index = 0;
-                long temp = data[index];
+                int  index = 0;
+                long temp  = data[index];
                 for (int i = 1; i < len; i++) {
                     long value = data[i];
                     if (value > temp) {
@@ -3307,8 +3307,8 @@ public final class ArrayUtils {
         if (data != null) {
             int len = data.length;
             if (len > 0) {
-                int index = 0;
-                float temp = data[index];
+                int   index = 0;
+                float temp  = data[index];
                 for (int i = 1; i < len; i++) {
                     float value = data[i];
                     if (value > temp) {
@@ -3331,8 +3331,8 @@ public final class ArrayUtils {
         if (data != null) {
             int len = data.length;
             if (len > 0) {
-                int index = 0;
-                double temp = data[index];
+                int    index = 0;
+                double temp  = data[index];
                 for (int i = 1; i < len; i++) {
                     double value = data[i];
                     if (value > temp) {
