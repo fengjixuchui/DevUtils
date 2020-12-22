@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:2.1.1'
+implementation 'com.afkt:DevAppX:2.1.2'
 ```
 
 ## 目录结构
