@@ -22,8 +22,12 @@ import gen.greendao.NotePictureDao;
  */
 public final class NoteDatabase extends AbsGreenDatabase {
 
-    public NoteDatabase(UpgradeHelper helper, Database database, DaoMaster daoMaster,
-                        DaoSession daoSession) {
+    public NoteDatabase(
+            UpgradeHelper helper,
+            Database database,
+            DaoMaster daoMaster,
+            DaoSession daoSession
+    ) {
         this.mHelper = helper;
         this.mDatabase = database;
         this.mDaoMaster = daoMaster;
@@ -59,7 +63,10 @@ public final class NoteDatabase extends AbsGreenDatabase {
      * @param password 数据库解密密码
      * @return {@link NoteDatabase}
      */
-    public static NoteDatabase database(final String dbName, final String password) {
+    public static NoteDatabase database(
+            final String dbName,
+            final String password
+    ) {
         if (TextUtils.isEmpty(dbName)) return null;
 
         // Database
@@ -119,16 +126,27 @@ public final class NoteDatabase extends AbsGreenDatabase {
      */
     private static class UpgradeHelper extends DaoMaster.OpenHelper {
 
-        public UpgradeHelper(Context context, String name) {
+        public UpgradeHelper(
+                Context context,
+                String name
+        ) {
             super(context, name);
         }
 
-        public UpgradeHelper(Context context, String name, SQLiteDatabase.CursorFactory factory) {
+        public UpgradeHelper(
+                Context context,
+                String name,
+                SQLiteDatabase.CursorFactory factory
+        ) {
             super(context, name, factory);
         }
 
         @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        public void onUpgrade(
+                SQLiteDatabase db,
+                int oldVersion,
+                int newVersion
+        ) {
             DevLogger.dTag(TAG, "oldVersion: %s, newVersion: %s", oldVersion, newVersion);
             MigrationHelper.migrate(db, NoteDao.class, NotePictureDao.class);
         }

@@ -20,7 +20,11 @@ public class NotePicture {
     private Long   noteId;
 
     @Generated(hash = 1669203543)
-    public NotePicture(Long id, @NotNull String picture, Long noteId) {
+    public NotePicture(
+            Long id,
+            @NotNull String picture,
+            Long noteId
+    ) {
         this.id = id;
         this.picture = picture;
         this.noteId = noteId;

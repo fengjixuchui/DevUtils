@@ -19,7 +19,14 @@ public class FilePartItem {
     // 分片字节结束索引
     public final long end;
 
-    public FilePartItem(int partIndex, int partCount, long partByteLength, long fileByteLength, long start, long end) {
+    public FilePartItem(
+            int partIndex,
+            int partCount,
+            long partByteLength,
+            long fileByteLength,
+            long start,
+            long end
+    ) {
         this.partIndex = partIndex;
         this.partCount = partCount;
         this.partByteLength = partByteLength;

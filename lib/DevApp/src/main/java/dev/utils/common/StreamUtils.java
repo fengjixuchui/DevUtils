@@ -128,7 +128,10 @@ public final class StreamUtils {
      * @param charsetName 编码格式
      * @return 指定编码字符串
      */
-    public static String inputStreamToString(final InputStream inputStream, final String charsetName) {
+    public static String inputStreamToString(
+            final InputStream inputStream,
+            final String charsetName
+    ) {
         if (inputStream == null || StringUtils.isSpace(charsetName)) return null;
         try {
             return new String(inputStreamToBytes(inputStream), charsetName);
@@ -144,7 +147,10 @@ public final class StreamUtils {
      * @param charsetName 编码格式
      * @return {@link InputStream}
      */
-    public static InputStream stringToInputStream(final String string, final String charsetName) {
+    public static InputStream stringToInputStream(
+            final String string,
+            final String charsetName
+    ) {
         if (string == null || StringUtils.isSpace(charsetName)) return null;
         try {
             return new ByteArrayInputStream(string.getBytes(charsetName));
@@ -160,7 +166,10 @@ public final class StreamUtils {
      * @param charsetName  编码格式
      * @return 指定编码字符串
      */
-    public static String outputStreamToString(final OutputStream outputStream, final String charsetName) {
+    public static String outputStreamToString(
+            final OutputStream outputStream,
+            final String charsetName
+    ) {
         if (outputStream == null || StringUtils.isSpace(charsetName)) return null;
         try {
             return new String(outputStreamToBytes(outputStream), charsetName);
@@ -176,7 +185,10 @@ public final class StreamUtils {
      * @param charsetName 编码格式
      * @return {@link OutputStream}
      */
-    public static OutputStream stringToOutputStream(final String string, final String charsetName) {
+    public static OutputStream stringToOutputStream(
+            final String string,
+            final String charsetName
+    ) {
         if (string == null || StringUtils.isSpace(charsetName)) return null;
         try {
             return bytesToOutputStream(string.getBytes(charsetName));

@@ -73,7 +73,10 @@ public final class FileBreadthFirstSearchUtils {
      */
     private class FileQueue {
 
-        FileQueue(File file, FileItem fileItem) {
+        FileQueue(
+                File file,
+                FileItem fileItem
+        ) {
             this.file = file;
             this.fileItem = fileItem;
         }
@@ -111,7 +114,11 @@ public final class FileBreadthFirstSearchUtils {
          * @param startTime    开始扫描时间
          * @param endTime      扫描结束时间
          */
-        void onEndListener(FileItem rootFileItem, long startTime, long endTime);
+        void onEndListener(
+                FileItem rootFileItem,
+                long startTime,
+                long endTime
+        );
     }
 
     // 搜索处理接口
@@ -136,7 +143,11 @@ public final class FileBreadthFirstSearchUtils {
         }
 
         @Override
-        public void onEndListener(FileItem rootFileItem, long startTime, long endTime) {
+        public void onEndListener(
+                FileItem rootFileItem,
+                long startTime,
+                long endTime
+        ) {
             // 表示非搜索中
             mIsRunning = false;
             // 触发回调
@@ -315,7 +326,10 @@ public final class FileBreadthFirstSearchUtils {
      * @param file     文件
      * @param fileItem 所在文件夹信息对象 ( 上一级目录 )
      */
-    private void queryFile(final File file, final FileItem fileItem) {
+    private void queryFile(
+            final File file,
+            final FileItem fileItem
+    ) {
         try {
             if (mIsStop) {
                 return;

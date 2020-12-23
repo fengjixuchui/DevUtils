@@ -24,12 +24,19 @@ public abstract class AbstractCallback<T> {
         this.mValue = value;
     }
 
-    public AbstractCallback(T value, Object object) {
+    public AbstractCallback(
+            T value,
+            Object object
+    ) {
         this.mValue = value;
         this.mObject = object;
     }
 
-    public AbstractCallback(T value, Object object, String tag) {
+    public AbstractCallback(
+            T value,
+            Object object,
+            String tag
+    ) {
         this.mValue = value;
         this.mObject = object;
         this.mTag = tag;

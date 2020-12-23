@@ -111,7 +111,10 @@ public final class AppCommonUtils {
      * @param formatArgs 格式化参数
      * @return 格式化后的字符串
      */
-    public static String getFormatRes(@StringRes final int resId, final Object... formatArgs) {
+    public static String getFormatRes(
+            @StringRes final int resId,
+            final Object... formatArgs
+    ) {
         return getFormatRes(false, resId, formatArgs);
     }
 
@@ -122,7 +125,11 @@ public final class AppCommonUtils {
      * @param formatArgs 格式化参数
      * @return 格式化后的字符串
      */
-    public static String getFormatRes(final boolean errorMsg, @StringRes final int resId, final Object... formatArgs) {
+    public static String getFormatRes(
+            final boolean errorMsg,
+            @StringRes final int resId,
+            final Object... formatArgs
+    ) {
         try {
             if (formatArgs != null && formatArgs.length != 0) {
                 return ResourceUtils.getString(resId, formatArgs);

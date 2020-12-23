@@ -142,7 +142,10 @@ public final class CameraUtils {
      * @param isFrontCamera {@code true} 前置 ( 屏幕面 ), {@code false} 后置 ( 手机背面 )
      * @return {@link android.hardware.Camera}
      */
-    public static Camera initCamera(Camera camera, final boolean isFrontCamera) {
+    public static Camera initCamera(
+            Camera camera,
+            final boolean isFrontCamera
+    ) {
         // 如果之前存在摄像头数据, 则释放资源
         if (camera != null) {
             freeCameraResource(camera);

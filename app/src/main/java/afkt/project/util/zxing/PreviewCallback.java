@@ -35,14 +35,20 @@ public class PreviewCallback implements Camera.PreviewCallback {
      * @param what           通知 What
      * @return {@link PreviewCallback}
      */
-    public PreviewCallback setHandler(Handler previewHandler, int what) {
+    public PreviewCallback setHandler(
+            Handler previewHandler,
+            int what
+    ) {
         this.mPreviewHandler = previewHandler;
         this.mWhat = what;
         return this;
     }
 
     @Override
-    public void onPreviewFrame(byte[] data, Camera camera) {
+    public void onPreviewFrame(
+            byte[] data,
+            Camera camera
+    ) {
         Handler thePreviewHandler = mPreviewHandler;
         if (mSize != null && thePreviewHandler != null) {
             Message message = thePreviewHandler.obtainMessage(mWhat, mSize.width, mSize.height, data);

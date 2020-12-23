@@ -29,7 +29,10 @@ public final class LoadingRendererFactory {
     private LoadingRendererFactory() {
     }
 
-    public static LoadingRenderer createLoadingRenderer(Context context, int loadingRendererId) throws Exception {
+    public static LoadingRenderer createLoadingRenderer(
+            Context context,
+            int loadingRendererId
+    ) throws Exception {
         Class<?>         loadingRendererClazz = LOADING_RENDERERS.get(loadingRendererId);
         Constructor<?>[] constructors         = loadingRendererClazz.getDeclaredConstructors();
         for (Constructor<?> constructor : constructors) {

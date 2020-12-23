@@ -46,7 +46,10 @@ public abstract class LoadingRenderer {
     }
 
     @Deprecated
-    protected void draw(Canvas canvas, Rect bounds) {
+    protected void draw(
+            Canvas canvas,
+            Rect bounds
+    ) {
     }
 
     protected void draw(Canvas canvas) {

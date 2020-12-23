@@ -34,7 +34,10 @@ public interface NoteDao {
 
     @Transaction
     @Query("SELECT * FROM NoteTable LIMIT :limit OFFSET :offset")
-    List<NoteAndPicture> getNoteAndPictureLists(int limit, int offset);
+    List<NoteAndPicture> getNoteAndPictureLists(
+            int limit,
+            int offset
+    );
 
     // =
 

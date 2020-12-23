@@ -78,7 +78,11 @@ public class WrapActivity extends BaseActivity<ActivityWrapBinding> {
         }
     }
 
-    private BaseTextView createView(String text, ViewGroup.LayoutParams layoutParams, GradientDrawable drawable) {
+    private BaseTextView createView(
+            String text,
+            ViewGroup.LayoutParams layoutParams,
+            GradientDrawable drawable
+    ) {
         return QuickHelper.get(new BaseTextView(this))
                 .setLayoutParams(layoutParams)
                 .setPadding(30, 15, 30, 15)

@@ -43,7 +43,13 @@ public class Note {
     public Note() {
     }
 
-    public Note(Long id, String text, String comment, Date date, NoteType type) {
+    public Note(
+            Long id,
+            String text,
+            String comment,
+            Date date,
+            NoteType type
+    ) {
         this.id = id;
         this.text = text;
         this.comment = comment;

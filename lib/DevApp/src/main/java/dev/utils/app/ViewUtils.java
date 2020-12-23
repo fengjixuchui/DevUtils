@@ -138,7 +138,10 @@ public final class ViewUtils {
      * @param root     {@link ViewGroup}
      * @return {@link View}
      */
-    public static View inflate(@LayoutRes final int resource, final ViewGroup root) {
+    public static View inflate(
+            @LayoutRes final int resource,
+            final ViewGroup root
+    ) {
         return inflate(resource, root, root != null);
     }
 
@@ -149,7 +152,11 @@ public final class ViewUtils {
      * @param attachToRoot 是否添加到 root 上
      * @return {@link View}
      */
-    public static View inflate(@LayoutRes final int resource, final ViewGroup root, final boolean attachToRoot) {
+    public static View inflate(
+            @LayoutRes final int resource,
+            final ViewGroup root,
+            final boolean attachToRoot
+    ) {
         try {
             return LayoutInflater.from(DevUtils.getContext()).inflate(resource, root, attachToRoot);
         } catch (Exception e) {
@@ -164,7 +171,10 @@ public final class ViewUtils {
      * @param resource R.layout.id
      * @return {@link View}
      */
-    public static View inflate(final Context context, @LayoutRes final int resource) {
+    public static View inflate(
+            final Context context,
+            @LayoutRes final int resource
+    ) {
         return inflate(context, resource, null, false);
     }
 
@@ -175,7 +185,11 @@ public final class ViewUtils {
      * @param root     {@link ViewGroup}
      * @return {@link View}
      */
-    public static View inflate(final Context context, @LayoutRes final int resource, final ViewGroup root) {
+    public static View inflate(
+            final Context context,
+            @LayoutRes final int resource,
+            final ViewGroup root
+    ) {
         return inflate(context, resource, root, root != null);
     }
 
@@ -190,7 +204,12 @@ public final class ViewUtils {
      * @param attachToRoot 是否添加到 root 上
      * @return {@link View}
      */
-    public static View inflate(final Context context, @LayoutRes final int resource, final ViewGroup root, final boolean attachToRoot) {
+    public static View inflate(
+            final Context context,
+            @LayoutRes final int resource,
+            final ViewGroup root,
+            final boolean attachToRoot
+    ) {
         try {
             return LayoutInflater.from(context).inflate(resource, root, attachToRoot);
         } catch (Exception e) {
@@ -217,7 +236,10 @@ public final class ViewUtils {
      * @param id   View Id
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setId(final View view, final int id) {
+    public static boolean setId(
+            final View view,
+            final int id
+    ) {
         if (view != null) {
             view.setId(id);
             return true;
@@ -319,7 +341,10 @@ public final class ViewUtils {
      * @param clipChildren {@code true} yes, {@code false} no
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setClipChildren(final ViewGroup viewGroup, final boolean clipChildren) {
+    public static boolean setClipChildren(
+            final ViewGroup viewGroup,
+            final boolean clipChildren
+    ) {
         if (viewGroup != null) {
             viewGroup.setClipChildren(clipChildren);
             return true;
@@ -369,7 +394,10 @@ public final class ViewUtils {
      * @param <T>       泛型
      * @return {@link View}
      */
-    public static <T extends View> T getChildAt(final ViewGroup viewGroup, final int index) {
+    public static <T extends View> T getChildAt(
+            final ViewGroup viewGroup,
+            final int index
+    ) {
         if (viewGroup != null && index >= 0) {
             try {
                 return (T) viewGroup.getChildAt(index);
@@ -431,7 +459,10 @@ public final class ViewUtils {
      * @param params LayoutParams
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setLayoutParams(final View view, final ViewGroup.LayoutParams params) {
+    public static boolean setLayoutParams(
+            final View view,
+            final ViewGroup.LayoutParams params
+    ) {
         if (view != null) {
             try {
                 view.setLayoutParams(params);
@@ -454,7 +485,10 @@ public final class ViewUtils {
      * @param <T>  泛型
      * @return {@link View}
      */
-    public static <T extends View> T findViewById(final View view, @IdRes final int id) {
+    public static <T extends View> T findViewById(
+            final View view,
+            @IdRes final int id
+    ) {
         if (view != null) {
             try {
                 return view.findViewById(id);
@@ -472,7 +506,10 @@ public final class ViewUtils {
      * @param <T>    泛型
      * @return {@link View}
      */
-    public static <T extends View> T findViewById(final Window window, @IdRes final int id) {
+    public static <T extends View> T findViewById(
+            final Window window,
+            @IdRes final int id
+    ) {
         if (window != null) {
             try {
                 return window.findViewById(id);
@@ -490,7 +527,10 @@ public final class ViewUtils {
      * @param <T>      泛型
      * @return {@link View}
      */
-    public static <T extends View> T findViewById(final Activity activity, @IdRes final int id) {
+    public static <T extends View> T findViewById(
+            final Activity activity,
+            @IdRes final int id
+    ) {
         if (activity != null) {
             try {
                 return activity.findViewById(id);
@@ -595,7 +635,11 @@ public final class ViewUtils {
      * @param height View 高度
      * @return {@link View}
      */
-    public static View setWidthHeight(final View view, final int width, final int height) {
+    public static View setWidthHeight(
+            final View view,
+            final int width,
+            final int height
+    ) {
         return setWidthHeight(view, width, height, true);
     }
 
@@ -607,7 +651,12 @@ public final class ViewUtils {
      * @param nullNewLP 如果 LayoutParams 为 null 是否创建新的
      * @return {@link View}
      */
-    public static View setWidthHeight(final View view, final int width, final int height, final boolean nullNewLP) {
+    public static View setWidthHeight(
+            final View view,
+            final int width,
+            final int height,
+            final boolean nullNewLP
+    ) {
         if (view != null) {
             try {
                 ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
@@ -646,7 +695,10 @@ public final class ViewUtils {
      * @param width View 宽度
      * @return {@link View}
      */
-    public static View setWidth(final View view, final int width) {
+    public static View setWidth(
+            final View view,
+            final int width
+    ) {
         return setWidth(view, width, true);
     }
 
@@ -657,7 +709,11 @@ public final class ViewUtils {
      * @param nullNewLP 如果 LayoutParams 为 null 是否创建新的
      * @return {@link View}
      */
-    public static View setWidth(final View view, final int width, final boolean nullNewLP) {
+    public static View setWidth(
+            final View view,
+            final int width,
+            final boolean nullNewLP
+    ) {
         if (view != null) {
             try {
                 ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
@@ -695,7 +751,10 @@ public final class ViewUtils {
      * @param height View 高度
      * @return {@link View}
      */
-    public static View setHeight(final View view, final int height) {
+    public static View setHeight(
+            final View view,
+            final int height
+    ) {
         return setHeight(view, height, true);
     }
 
@@ -706,7 +765,11 @@ public final class ViewUtils {
      * @param nullNewLP 如果 LayoutParams 为 null 是否创建新的
      * @return {@link View}
      */
-    public static View setHeight(final View view, final int height, final boolean nullNewLP) {
+    public static View setHeight(
+            final View view,
+            final int height,
+            final boolean nullNewLP
+    ) {
         if (view != null) {
             try {
                 ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
@@ -745,7 +808,10 @@ public final class ViewUtils {
      * @param minHeight 最小高度
      * @return {@link View}
      */
-    public static View setMinimumHeight(final View view, final int minHeight) {
+    public static View setMinimumHeight(
+            final View view,
+            final int minHeight
+    ) {
         if (view != null) {
             view.setMinimumHeight(minHeight);
         }
@@ -771,7 +837,10 @@ public final class ViewUtils {
      * @param minWidth 最小宽度
      * @return {@link View}
      */
-    public static View setMinimumWidth(final View view, final int minWidth) {
+    public static View setMinimumWidth(
+            final View view,
+            final int minWidth
+    ) {
         if (view != null) {
             view.setMinimumWidth(minWidth);
         }
@@ -798,7 +867,10 @@ public final class ViewUtils {
      * @param alpha 透明度
      * @return {@link View}
      */
-    public static View setAlpha(final View view, @FloatRange(from = 0.0, to = 1.0) final float alpha) {
+    public static View setAlpha(
+            final View view,
+            @FloatRange(from = 0.0, to = 1.0) final float alpha
+    ) {
         if (view != null) {
             view.setAlpha(alpha);
         }
@@ -823,7 +895,10 @@ public final class ViewUtils {
      * @param object Tag
      * @return {@link View}
      */
-    public static View setTag(final View view, final Object object) {
+    public static View setTag(
+            final View view,
+            final Object object
+    ) {
         if (view != null) {
             view.setTag(object);
         }
@@ -842,7 +917,11 @@ public final class ViewUtils {
      * @param y    Y 轴开始坐标
      * @return {@link View}
      */
-    public static View scrollTo(final View view, final int x, final int y) {
+    public static View scrollTo(
+            final View view,
+            final int x,
+            final int y
+    ) {
         if (view != null) view.scrollTo(x, y);
         return view;
     }
@@ -857,7 +936,11 @@ public final class ViewUtils {
      * @param y    Y 轴开始坐标
      * @return {@link View}
      */
-    public static View scrollBy(final View view, final int x, final int y) {
+    public static View scrollBy(
+            final View view,
+            final int x,
+            final int y
+    ) {
         if (view != null) view.scrollBy(x, y);
         return view;
     }
@@ -868,7 +951,10 @@ public final class ViewUtils {
      * @param value X 轴坐标
      * @return {@link View}
      */
-    public static View setScrollX(final View view, final int value) {
+    public static View setScrollX(
+            final View view,
+            final int value
+    ) {
         if (view != null) view.setScrollX(value);
         return view;
     }
@@ -879,7 +965,10 @@ public final class ViewUtils {
      * @param value Y 轴坐标
      * @return {@link View}
      */
-    public static View setScrollY(final View view, final int value) {
+    public static View setScrollY(
+            final View view,
+            final int value
+    ) {
         if (view != null) view.setScrollY(value);
         return view;
     }
@@ -917,7 +1006,10 @@ public final class ViewUtils {
      * @param <T>          泛型
      * @return {@link ViewGroup}
      */
-    public static <T extends ViewGroup> T setDescendantFocusability(final T viewGroup, final int focusability) {
+    public static <T extends ViewGroup> T setDescendantFocusability(
+            final T viewGroup,
+            final int focusability
+    ) {
         try {
             if (viewGroup != null) viewGroup.setDescendantFocusability(focusability);
         } catch (Exception e) {
@@ -937,7 +1029,10 @@ public final class ViewUtils {
      * @param <T>            泛型
      * @return {@link View}
      */
-    public static <T extends View> T setOverScrollMode(final T view, final int overScrollMode) {
+    public static <T extends View> T setOverScrollMode(
+            final T view,
+            final int overScrollMode
+    ) {
         try {
             if (view != null) view.setOverScrollMode(overScrollMode);
         } catch (Exception e) {
@@ -963,7 +1058,10 @@ public final class ViewUtils {
      * @param horizontalScrollBarEnabled {@code true} yes, {@code false} no
      * @return {@link View}
      */
-    public static View setHorizontalScrollBarEnabled(final View view, final boolean horizontalScrollBarEnabled) {
+    public static View setHorizontalScrollBarEnabled(
+            final View view,
+            final boolean horizontalScrollBarEnabled
+    ) {
         if (view != null) view.setHorizontalScrollBarEnabled(horizontalScrollBarEnabled);
         return view;
     }
@@ -983,7 +1081,10 @@ public final class ViewUtils {
      * @param verticalScrollBarEnabled {@code true} yes, {@code false} no
      * @return {@link View}
      */
-    public static View setVerticalScrollBarEnabled(final View view, final boolean verticalScrollBarEnabled) {
+    public static View setVerticalScrollBarEnabled(
+            final View view,
+            final boolean verticalScrollBarEnabled
+    ) {
         if (view != null) view.setVerticalScrollBarEnabled(verticalScrollBarEnabled);
         return view;
     }
@@ -1009,7 +1110,10 @@ public final class ViewUtils {
      * @param isScrollContainer 是否需要滚动效应
      * @return {@link View}
      */
-    public static View setScrollContainer(final View view, final boolean isScrollContainer) {
+    public static View setScrollContainer(
+            final View view,
+            final boolean isScrollContainer
+    ) {
         if (view != null) {
             view.setScrollContainer(isScrollContainer);
         }
@@ -1036,7 +1140,10 @@ public final class ViewUtils {
      * @param nextFocusForwardId 下一个获取焦点的 View id
      * @return {@link View}
      */
-    public static View setNextFocusForwardId(final View view, @IdRes final int nextFocusForwardId) {
+    public static View setNextFocusForwardId(
+            final View view,
+            @IdRes final int nextFocusForwardId
+    ) {
         if (view != null) {
             view.setNextFocusForwardId(nextFocusForwardId);
         }
@@ -1063,7 +1170,10 @@ public final class ViewUtils {
      * @param nextFocusDownId 下一个获取焦点的 View id
      * @return {@link View}
      */
-    public static View setNextFocusDownId(final View view, @IdRes final int nextFocusDownId) {
+    public static View setNextFocusDownId(
+            final View view,
+            @IdRes final int nextFocusDownId
+    ) {
         if (view != null) {
             view.setNextFocusDownId(nextFocusDownId);
         }
@@ -1090,7 +1200,10 @@ public final class ViewUtils {
      * @param nextFocusLeftId 下一个获取焦点的 View id
      * @return {@link View}
      */
-    public static View setNextFocusLeftId(final View view, @IdRes final int nextFocusLeftId) {
+    public static View setNextFocusLeftId(
+            final View view,
+            @IdRes final int nextFocusLeftId
+    ) {
         if (view != null) {
             view.setNextFocusLeftId(nextFocusLeftId);
         }
@@ -1117,7 +1230,10 @@ public final class ViewUtils {
      * @param nextFocusRightId 下一个获取焦点的 View id
      * @return {@link View}
      */
-    public static View setNextFocusRightId(final View view, @IdRes final int nextFocusRightId) {
+    public static View setNextFocusRightId(
+            final View view,
+            @IdRes final int nextFocusRightId
+    ) {
         if (view != null) {
             view.setNextFocusRightId(nextFocusRightId);
         }
@@ -1144,7 +1260,10 @@ public final class ViewUtils {
      * @param nextFocusUpId 下一个获取焦点的 View id
      * @return {@link View}
      */
-    public static View setNextFocusUpId(final View view, @IdRes final int nextFocusUpId) {
+    public static View setNextFocusUpId(
+            final View view,
+            @IdRes final int nextFocusUpId
+    ) {
         if (view != null) {
             view.setNextFocusUpId(nextFocusUpId);
         }
@@ -1171,7 +1290,10 @@ public final class ViewUtils {
      * @param rotation 旋转度数
      * @return {@link View}
      */
-    public static View setRotation(final View view, final float rotation) {
+    public static View setRotation(
+            final View view,
+            final float rotation
+    ) {
         if (view != null) {
             view.setRotation(rotation);
         }
@@ -1198,7 +1320,10 @@ public final class ViewUtils {
      * @param rotationX 水平旋转度数
      * @return {@link View}
      */
-    public static View setRotationX(final View view, final float rotationX) {
+    public static View setRotationX(
+            final View view,
+            final float rotationX
+    ) {
         if (view != null) {
             view.setRotationX(rotationX);
         }
@@ -1225,7 +1350,10 @@ public final class ViewUtils {
      * @param rotationY 竖直旋转度数
      * @return {@link View}
      */
-    public static View setRotationY(final View view, final float rotationY) {
+    public static View setRotationY(
+            final View view,
+            final float rotationY
+    ) {
         if (view != null) {
             view.setRotationY(rotationY);
         }
@@ -1252,7 +1380,10 @@ public final class ViewUtils {
      * @param scaleX 水平方向缩放比例
      * @return {@link View}
      */
-    public static View setScaleX(final View view, final float scaleX) {
+    public static View setScaleX(
+            final View view,
+            final float scaleX
+    ) {
         if (view != null) {
             view.setScaleX(scaleX);
         }
@@ -1279,7 +1410,10 @@ public final class ViewUtils {
      * @param scaleY 竖直方向缩放比例
      * @return {@link View}
      */
-    public static View setScaleY(final View view, final float scaleY) {
+    public static View setScaleY(
+            final View view,
+            final float scaleY
+    ) {
         if (view != null) {
             view.setScaleY(scaleY);
         }
@@ -1308,7 +1442,10 @@ public final class ViewUtils {
      * @return {@link View}
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public static View setTextAlignment(final View view, final int textAlignment) {
+    public static View setTextAlignment(
+            final View view,
+            final int textAlignment
+    ) {
         if (view != null) {
             view.setTextAlignment(textAlignment);
         }
@@ -1337,7 +1474,10 @@ public final class ViewUtils {
      * @return {@link View}
      */
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
-    public static View setTextDirection(final View view, final int textDirection) {
+    public static View setTextDirection(
+            final View view,
+            final int textDirection
+    ) {
         if (view != null) {
             view.setTextDirection(textDirection);
         }
@@ -1364,7 +1504,10 @@ public final class ViewUtils {
      * @param pivotX 水平方向偏转量
      * @return {@link View}
      */
-    public static View setPivotX(final View view, final float pivotX) {
+    public static View setPivotX(
+            final View view,
+            final float pivotX
+    ) {
         if (view != null) {
             view.setPivotX(pivotX);
         }
@@ -1391,7 +1534,10 @@ public final class ViewUtils {
      * @param pivotY 竖直方向偏转量
      * @return {@link View}
      */
-    public static View setPivotY(final View view, final float pivotY) {
+    public static View setPivotY(
+            final View view,
+            final float pivotY
+    ) {
         if (view != null) {
             view.setPivotY(pivotY);
         }
@@ -1418,7 +1564,10 @@ public final class ViewUtils {
      * @param translationX 水平方向的移动距离
      * @return {@link View}
      */
-    public static View setTranslationX(final View view, final float translationX) {
+    public static View setTranslationX(
+            final View view,
+            final float translationX
+    ) {
         if (view != null) {
             view.setTranslationX(translationX);
         }
@@ -1445,7 +1594,10 @@ public final class ViewUtils {
      * @param translationY 竖直方向的移动距离
      * @return {@link View}
      */
-    public static View setTranslationY(final View view, final float translationY) {
+    public static View setTranslationY(
+            final View view,
+            final float translationY
+    ) {
         if (view != null) {
             view.setTranslationY(translationY);
         }
@@ -1473,7 +1625,11 @@ public final class ViewUtils {
      * @param paint     {@link Paint}
      * @return {@link View}
      */
-    public static View setLayerType(final View view, final int layerType, final Paint paint) {
+    public static View setLayerType(
+            final View view,
+            final int layerType,
+            final Paint paint
+    ) {
         if (view != null) {
             view.setLayerType(layerType, paint);
         }
@@ -1586,7 +1742,10 @@ public final class ViewUtils {
      * @param views                View[]
      * @return {@code true} 可获取, {@code false} 不可获取
      */
-    public static boolean setFocusableInTouchMode(final boolean focusableInTouchMode, final View... views) {
+    public static boolean setFocusableInTouchMode(
+            final boolean focusableInTouchMode,
+            final View... views
+    ) {
         if (views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 View view = views[i];
@@ -1618,7 +1777,10 @@ public final class ViewUtils {
      * @param views     View[]
      * @return {@code true} 可获取, {@code false} 不可获取
      */
-    public static boolean setFocusable(final boolean focusable, final View... views) {
+    public static boolean setFocusable(
+            final boolean focusable,
+            final View... views
+    ) {
         if (views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 View view = views[i];
@@ -1668,7 +1830,10 @@ public final class ViewUtils {
      * @param views    View[]
      * @return {@code true} 选中, {@code false} 非选中
      */
-    public static boolean setSelected(final boolean selected, final View... views) {
+    public static boolean setSelected(
+            final boolean selected,
+            final View... views
+    ) {
         if (views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 View view = views[i];
@@ -1718,7 +1883,10 @@ public final class ViewUtils {
      * @param views   View[]
      * @return {@code true} 启用, {@code false} 禁用
      */
-    public static boolean setEnabled(final boolean enabled, final View... views) {
+    public static boolean setEnabled(
+            final boolean enabled,
+            final View... views
+    ) {
         if (views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 View view = views[i];
@@ -1768,7 +1936,10 @@ public final class ViewUtils {
      * @param views     View[]
      * @return {@code true} 可点击, {@code false} 不可点击
      */
-    public static boolean setClickable(final boolean clickable, final View... views) {
+    public static boolean setClickable(
+            final boolean clickable,
+            final View... views
+    ) {
         if (views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 View view = views[i];
@@ -1818,7 +1989,10 @@ public final class ViewUtils {
      * @param views         View[]
      * @return {@code true} 可长按, {@code false} 不可长按
      */
-    public static boolean setLongClickable(final boolean longClickable, final View... views) {
+    public static boolean setLongClickable(
+            final boolean longClickable,
+            final View... views
+    ) {
         if (views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 View view = views[i];
@@ -1898,7 +2072,10 @@ public final class ViewUtils {
      * @param defaultValue view 为 null 默认值
      * @return {@code true} yes, {@code false} no
      */
-    public static boolean isVisibility(final View view, final boolean defaultValue) {
+    public static boolean isVisibility(
+            final View view,
+            final boolean defaultValue
+    ) {
         if (view != null) {
             return (view.getVisibility() == View.VISIBLE);
         }
@@ -1940,7 +2117,10 @@ public final class ViewUtils {
      * @param defaultValue view 为 null 默认值
      * @return {@code true} yes, {@code false} no
      */
-    public static boolean isVisibilityIN(final View view, final boolean defaultValue) {
+    public static boolean isVisibilityIN(
+            final View view,
+            final boolean defaultValue
+    ) {
         if (view != null) {
             return (view.getVisibility() == View.INVISIBLE);
         }
@@ -1982,7 +2162,10 @@ public final class ViewUtils {
      * @param defaultValue view 为 null 默认值
      * @return {@code true} yes, {@code false} no
      */
-    public static boolean isVisibilityGone(final View view, final boolean defaultValue) {
+    public static boolean isVisibilityGone(
+            final View view,
+            final boolean defaultValue
+    ) {
         if (view != null) {
             return (view.getVisibility() == View.GONE);
         }
@@ -2035,7 +2218,10 @@ public final class ViewUtils {
      * @param view         {@link View}
      * @return isVisibility
      */
-    public static boolean setVisibility(final boolean isVisibility, final View view) {
+    public static boolean setVisibility(
+            final boolean isVisibility,
+            final View view
+    ) {
         if (view != null) {
             view.setVisibility(isVisibility ? View.VISIBLE : View.GONE);
         }
@@ -2048,7 +2234,10 @@ public final class ViewUtils {
      * @param view         {@link View}
      * @return isVisibility 是否传入 {@link View#VISIBLE}
      */
-    public static boolean setVisibility(final int isVisibility, final View view) {
+    public static boolean setVisibility(
+            final int isVisibility,
+            final View view
+    ) {
         if (view != null) {
             view.setVisibility(isVisibility);
         }
@@ -2063,7 +2252,10 @@ public final class ViewUtils {
      * @param views        View[]
      * @return isVisibility 是否传入 {@link View#VISIBLE}
      */
-    public static boolean setVisibilitys(final boolean isVisibility, final View... views) {
+    public static boolean setVisibilitys(
+            final boolean isVisibility,
+            final View... views
+    ) {
         return setVisibilitys(getVisibility(isVisibility), views);
     }
 
@@ -2073,7 +2265,10 @@ public final class ViewUtils {
      * @param views        View[]
      * @return isVisibility 是否传入 {@link View#VISIBLE}
      */
-    public static boolean setVisibilitys(final int isVisibility, final View... views) {
+    public static boolean setVisibilitys(
+            final int isVisibility,
+            final View... views
+    ) {
         if (views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 View view = views[i];
@@ -2093,7 +2288,10 @@ public final class ViewUtils {
      * @param views View[]
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean toggleVisibilitys(final View view, final View... views) {
+    public static boolean toggleVisibilitys(
+            final View view,
+            final View... views
+    ) {
         if (view != null) {
             view.setVisibility(View.VISIBLE);
         }
@@ -2107,7 +2305,10 @@ public final class ViewUtils {
      * @param views    View[]
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean toggleVisibilitys(final View[] viewArys, final View... views) {
+    public static boolean toggleVisibilitys(
+            final View[] viewArys,
+            final View... views
+    ) {
         return toggleVisibilitys(View.GONE, viewArys, views);
     }
 
@@ -2118,7 +2319,11 @@ public final class ViewUtils {
      * @param views    View[]
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean toggleVisibilitys(final int state, final View[] viewArys, final View... views) {
+    public static boolean toggleVisibilitys(
+            final int state,
+            final View[] viewArys,
+            final View... views
+    ) {
         // 默认显示
         setVisibilitys(View.VISIBLE, viewArys);
         // 根据状态处理
@@ -2135,7 +2340,11 @@ public final class ViewUtils {
      * @param views    View[]
      * @return isVisibility
      */
-    public static boolean reverseVisibilitys(final int state, final View[] viewArys, final View... views) {
+    public static boolean reverseVisibilitys(
+            final int state,
+            final View[] viewArys,
+            final View... views
+    ) {
         return reverseVisibilitys(state == View.VISIBLE, viewArys, views);
     }
 
@@ -2146,7 +2355,11 @@ public final class ViewUtils {
      * @param views        View[]
      * @return isVisibility
      */
-    public static boolean reverseVisibilitys(final boolean isVisibility, final View[] viewArys, final View... views) {
+    public static boolean reverseVisibilitys(
+            final boolean isVisibility,
+            final View[] viewArys,
+            final View... views
+    ) {
         // 默认处理第一个数组
         setVisibilitys(isVisibility, viewArys);
         // 根据状态处理
@@ -2161,7 +2374,11 @@ public final class ViewUtils {
      * @param views View[]
      * @return isVisibility
      */
-    public static boolean reverseVisibilitys(final int state, final View view, final View... views) {
+    public static boolean reverseVisibilitys(
+            final int state,
+            final View view,
+            final View... views
+    ) {
         return reverseVisibilitys(state == View.VISIBLE, view, views);
     }
 
@@ -2172,7 +2389,11 @@ public final class ViewUtils {
      * @param views        View[]
      * @return isVisibility
      */
-    public static boolean reverseVisibilitys(final boolean isVisibility, final View view, final View... views) {
+    public static boolean reverseVisibilitys(
+            final boolean isVisibility,
+            final View view,
+            final View... views
+    ) {
         // 默认处理第一个 View
         setVisibilitys(isVisibility, view);
         // 根据状态处理
@@ -2189,7 +2410,11 @@ public final class ViewUtils {
      * @param view         {@link View}
      * @return isChange
      */
-    public static boolean toggleView(final boolean isChange, final int isVisibility, final View view) {
+    public static boolean toggleView(
+            final boolean isChange,
+            final int isVisibility,
+            final View view
+    ) {
         if (isChange && view != null) {
             view.setVisibility(isVisibility);
         }
@@ -2203,7 +2428,11 @@ public final class ViewUtils {
      * @param views        View[]
      * @return isChange
      */
-    public static boolean toggleViews(final boolean isChange, final int isVisibility, final View... views) {
+    public static boolean toggleViews(
+            final boolean isChange,
+            final int isVisibility,
+            final View... views
+    ) {
         if (isChange && views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 View view = views[i];
@@ -2243,7 +2472,10 @@ public final class ViewUtils {
      * @param view 待判断 {@link View}
      * @return {@code true} yes, {@code false} no
      */
-    public static boolean isTouchInView(final MotionEvent ev, final View view) {
+    public static boolean isTouchInView(
+            final MotionEvent ev,
+            final View view
+    ) {
         if (ev != null && view != null) {
             int[] locations = new int[2];
             view.getLocationOnScreen(locations);
@@ -2261,7 +2493,10 @@ public final class ViewUtils {
      * @param allParent 是否全部父布局 View 都请求
      * @return {@link View}
      */
-    public static View requestLayoutParent(final View view, final boolean allParent) {
+    public static View requestLayoutParent(
+            final View view,
+            final boolean allParent
+    ) {
         if (view != null) {
             ViewParent parent = view.getParent();
             while (parent instanceof View) {
@@ -2310,7 +2545,10 @@ public final class ViewUtils {
      * @param specifiedWidth 指定宽度
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean measureView(final View view, final int specifiedWidth) {
+    public static boolean measureView(
+            final View view,
+            final int specifiedWidth
+    ) {
         return WidgetUtils.measureView(view, specifiedWidth);
     }
 
@@ -2321,7 +2559,11 @@ public final class ViewUtils {
      * @param specifiedHeight 指定高度
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean measureView(final View view, final int specifiedWidth, final int specifiedHeight) {
+    public static boolean measureView(
+            final View view,
+            final int specifiedWidth,
+            final int specifiedHeight
+    ) {
         return WidgetUtils.measureView(view, specifiedWidth, specifiedHeight);
     }
 
@@ -2344,7 +2586,10 @@ public final class ViewUtils {
      * @param isReflection 是否使用反射
      * @return Layout Gravity
      */
-    public static int getLayoutGravity(final View view, final boolean isReflection) {
+    public static int getLayoutGravity(
+            final View view,
+            final boolean isReflection
+    ) {
         if (view != null && view.getLayoutParams() != null) {
             try {
                 ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
@@ -2378,7 +2623,10 @@ public final class ViewUtils {
      * @param gravity Gravity
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setLayoutGravity(final View view, final int gravity) {
+    public static boolean setLayoutGravity(
+            final View view,
+            final int gravity
+    ) {
         return setLayoutGravity(view, gravity, true);
     }
 
@@ -2389,7 +2637,11 @@ public final class ViewUtils {
      * @param isReflection 是否使用反射
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setLayoutGravity(final View view, final int gravity, final boolean isReflection) {
+    public static boolean setLayoutGravity(
+            final View view,
+            final int gravity,
+            final boolean isReflection
+    ) {
         if (view != null && view.getLayoutParams() != null) {
             try {
                 ViewGroup.LayoutParams layoutParams = view.getLayoutParams();
@@ -2492,7 +2744,10 @@ public final class ViewUtils {
      * @param leftMargin Left Margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMarginLeft(final View view, final int leftMargin) {
+    public static boolean setMarginLeft(
+            final View view,
+            final int leftMargin
+    ) {
         return setMarginLeft(view, leftMargin, true);
     }
 
@@ -2503,7 +2758,11 @@ public final class ViewUtils {
      * @param reset      是否重置清空其他 margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMarginLeft(final View view, final int leftMargin, final boolean reset) {
+    public static boolean setMarginLeft(
+            final View view,
+            final int leftMargin,
+            final boolean reset
+    ) {
         if (reset) return setMargin(view, leftMargin, 0, 0, 0);
         int[] margin = getMargin(view);
         return setMargin(view, leftMargin, margin[1], margin[2], margin[3]);
@@ -2515,7 +2774,10 @@ public final class ViewUtils {
      * @param topMargin Top Margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMarginTop(final View view, final int topMargin) {
+    public static boolean setMarginTop(
+            final View view,
+            final int topMargin
+    ) {
         return setMarginTop(view, topMargin, true);
     }
 
@@ -2526,7 +2788,11 @@ public final class ViewUtils {
      * @param reset     是否重置清空其他 margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMarginTop(final View view, final int topMargin, final boolean reset) {
+    public static boolean setMarginTop(
+            final View view,
+            final int topMargin,
+            final boolean reset
+    ) {
         if (reset) return setMargin(view, 0, topMargin, 0, 0);
         int[] margin = getMargin(view);
         return setMargin(view, margin[0], topMargin, margin[2], margin[3]);
@@ -2538,7 +2804,10 @@ public final class ViewUtils {
      * @param rightMargin Right Margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMarginRight(final View view, final int rightMargin) {
+    public static boolean setMarginRight(
+            final View view,
+            final int rightMargin
+    ) {
         return setMarginRight(view, rightMargin, true);
     }
 
@@ -2549,7 +2818,11 @@ public final class ViewUtils {
      * @param reset       是否重置清空其他 margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMarginRight(final View view, final int rightMargin, final boolean reset) {
+    public static boolean setMarginRight(
+            final View view,
+            final int rightMargin,
+            final boolean reset
+    ) {
         if (reset) return setMargin(view, 0, 0, rightMargin, 0);
         int[] margin = getMargin(view);
         return setMargin(view, margin[0], margin[1], rightMargin, margin[3]);
@@ -2561,7 +2834,10 @@ public final class ViewUtils {
      * @param bottomMargin Bottom Margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMarginBottom(final View view, final int bottomMargin) {
+    public static boolean setMarginBottom(
+            final View view,
+            final int bottomMargin
+    ) {
         return setMarginBottom(view, bottomMargin, true);
     }
 
@@ -2572,7 +2848,11 @@ public final class ViewUtils {
      * @param reset        是否重置清空其他 margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMarginBottom(final View view, final int bottomMargin, final boolean reset) {
+    public static boolean setMarginBottom(
+            final View view,
+            final int bottomMargin,
+            final boolean reset
+    ) {
         if (reset) return setMargin(view, 0, 0, 0, bottomMargin);
         int[] margin = getMargin(view);
         return setMargin(view, margin[0], margin[1], margin[2], bottomMargin);
@@ -2585,7 +2865,11 @@ public final class ViewUtils {
      * @param topBottom Top and bottom Margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMargin(final View view, final int leftRight, final int topBottom) {
+    public static boolean setMargin(
+            final View view,
+            final int leftRight,
+            final int topBottom
+    ) {
         return setMargin(view, leftRight, topBottom, leftRight, topBottom);
     }
 
@@ -2595,7 +2879,10 @@ public final class ViewUtils {
      * @param margin Margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMargin(final View view, final int margin) {
+    public static boolean setMargin(
+            final View view,
+            final int margin
+    ) {
         return setMargin(view, margin, margin, margin, margin);
     }
 
@@ -2608,7 +2895,13 @@ public final class ViewUtils {
      * @param bottom Bottom Margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMargin(final View view, final int left, final int top, final int right, final int bottom) {
+    public static boolean setMargin(
+            final View view,
+            final int left,
+            final int top,
+            final int right,
+            final int bottom
+    ) {
         if (view != null && view.getLayoutParams() != null) {
             if (view.getLayoutParams() instanceof ViewGroup.MarginLayoutParams) {
                 ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) view.getLayoutParams();
@@ -2629,7 +2922,11 @@ public final class ViewUtils {
      * @param topBottom Top and bottom Margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMargin(final View[] views, final int leftRight, final int topBottom) {
+    public static boolean setMargin(
+            final View[] views,
+            final int leftRight,
+            final int topBottom
+    ) {
         return setMargin(views, leftRight, topBottom, leftRight, topBottom);
     }
 
@@ -2639,7 +2936,10 @@ public final class ViewUtils {
      * @param margin Margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMargin(final View[] views, final int margin) {
+    public static boolean setMargin(
+            final View[] views,
+            final int margin
+    ) {
         return setMargin(views, margin, margin, margin, margin);
     }
 
@@ -2652,7 +2952,13 @@ public final class ViewUtils {
      * @param bottom Bottom Margin
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setMargin(final View[] views, final int left, final int top, final int right, final int bottom) {
+    public static boolean setMargin(
+            final View[] views,
+            final int left,
+            final int top,
+            final int right,
+            final int bottom
+    ) {
         if (views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 setMargin(views[i], left, top, right, bottom);
@@ -2726,7 +3032,10 @@ public final class ViewUtils {
      * @param leftPadding Left Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPaddingLeft(final View view, final int leftPadding) {
+    public static boolean setPaddingLeft(
+            final View view,
+            final int leftPadding
+    ) {
         return setPaddingLeft(view, leftPadding, true);
     }
 
@@ -2737,7 +3046,11 @@ public final class ViewUtils {
      * @param reset       是否重置清空其他 Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPaddingLeft(final View view, final int leftPadding, final boolean reset) {
+    public static boolean setPaddingLeft(
+            final View view,
+            final int leftPadding,
+            final boolean reset
+    ) {
         if (reset) return setPadding(view, leftPadding, 0, 0, 0);
         int[] padding = getPadding(view);
         return setPadding(view, leftPadding, padding[1], padding[2], padding[3]);
@@ -2749,7 +3062,10 @@ public final class ViewUtils {
      * @param topPadding Top Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPaddingTop(final View view, final int topPadding) {
+    public static boolean setPaddingTop(
+            final View view,
+            final int topPadding
+    ) {
         return setPaddingTop(view, topPadding, true);
     }
 
@@ -2760,7 +3076,11 @@ public final class ViewUtils {
      * @param reset      是否重置清空其他 Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPaddingTop(final View view, final int topPadding, final boolean reset) {
+    public static boolean setPaddingTop(
+            final View view,
+            final int topPadding,
+            final boolean reset
+    ) {
         if (reset) return setPadding(view, 0, topPadding, 0, 0);
         int[] padding = getPadding(view);
         return setPadding(view, padding[0], topPadding, padding[2], padding[3]);
@@ -2772,7 +3092,10 @@ public final class ViewUtils {
      * @param rightPadding Right Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPaddingRight(final View view, final int rightPadding) {
+    public static boolean setPaddingRight(
+            final View view,
+            final int rightPadding
+    ) {
         return setPaddingRight(view, rightPadding, true);
     }
 
@@ -2783,7 +3106,11 @@ public final class ViewUtils {
      * @param reset        是否重置清空其他 Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPaddingRight(final View view, final int rightPadding, final boolean reset) {
+    public static boolean setPaddingRight(
+            final View view,
+            final int rightPadding,
+            final boolean reset
+    ) {
         if (reset) return setPadding(view, 0, 0, rightPadding, 0);
         int[] padding = getPadding(view);
         return setPadding(view, padding[0], padding[1], rightPadding, padding[3]);
@@ -2795,7 +3122,10 @@ public final class ViewUtils {
      * @param bottomPadding Bottom Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPaddingBottom(final View view, final int bottomPadding) {
+    public static boolean setPaddingBottom(
+            final View view,
+            final int bottomPadding
+    ) {
         return setPaddingBottom(view, bottomPadding, true);
     }
 
@@ -2806,7 +3136,11 @@ public final class ViewUtils {
      * @param reset         是否重置清空其他 Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPaddingBottom(final View view, final int bottomPadding, final boolean reset) {
+    public static boolean setPaddingBottom(
+            final View view,
+            final int bottomPadding,
+            final boolean reset
+    ) {
         if (reset) return setPadding(view, 0, 0, 0, bottomPadding);
         int[] padding = getPadding(view);
         return setPadding(view, padding[0], padding[1], padding[2], bottomPadding);
@@ -2819,7 +3153,11 @@ public final class ViewUtils {
      * @param topBottom Top and bottom Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPadding(final View view, final int leftRight, final int topBottom) {
+    public static boolean setPadding(
+            final View view,
+            final int leftRight,
+            final int topBottom
+    ) {
         return setPadding(view, leftRight, topBottom, leftRight, topBottom);
     }
 
@@ -2829,7 +3167,10 @@ public final class ViewUtils {
      * @param padding Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPadding(final View view, final int padding) {
+    public static boolean setPadding(
+            final View view,
+            final int padding
+    ) {
         return setPadding(view, padding, padding, padding, padding);
     }
 
@@ -2842,7 +3183,13 @@ public final class ViewUtils {
      * @param bottom Bottom Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPadding(final View view, final int left, final int top, final int right, final int bottom) {
+    public static boolean setPadding(
+            final View view,
+            final int left,
+            final int top,
+            final int right,
+            final int bottom
+    ) {
         if (view != null) {
             view.setPadding(left, top, right, bottom);
             return true;
@@ -2859,7 +3206,11 @@ public final class ViewUtils {
      * @param topBottom Top and bottom Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPadding(final View[] views, final int leftRight, final int topBottom) {
+    public static boolean setPadding(
+            final View[] views,
+            final int leftRight,
+            final int topBottom
+    ) {
         return setPadding(views, leftRight, topBottom, leftRight, topBottom);
     }
 
@@ -2869,7 +3220,10 @@ public final class ViewUtils {
      * @param padding Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPadding(final View[] views, final int padding) {
+    public static boolean setPadding(
+            final View[] views,
+            final int padding
+    ) {
         return setPadding(views, padding, padding, padding, padding);
     }
 
@@ -2882,7 +3236,13 @@ public final class ViewUtils {
      * @param bottom Bottom Padding
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean setPadding(final View[] views, final int left, final int top, final int right, final int bottom) {
+    public static boolean setPadding(
+            final View[] views,
+            final int left,
+            final int top,
+            final int right,
+            final int bottom
+    ) {
         if (views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 setPadding(views[i], left, top, right, bottom);
@@ -2902,7 +3262,10 @@ public final class ViewUtils {
      * @param verb 布局位置
      * @return {@link View}
      */
-    public static View addRule(final View view, final int verb) {
+    public static View addRule(
+            final View view,
+            final int verb
+    ) {
         return addRule(view, verb, -1);
     }
 
@@ -2913,7 +3276,11 @@ public final class ViewUtils {
      * @param subject 关联 View id
      * @return {@link View}
      */
-    public static View addRule(final View view, final int verb, final int subject) {
+    public static View addRule(
+            final View view,
+            final int verb,
+            final int subject
+    ) {
         if (view != null) {
             try {
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
@@ -2932,7 +3299,10 @@ public final class ViewUtils {
      * @param verb 布局位置
      * @return {@link View}
      */
-    public static View removeRule(final View view, final int verb) {
+    public static View removeRule(
+            final View view,
+            final int verb
+    ) {
         if (view != null) {
             try {
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
@@ -2955,7 +3325,10 @@ public final class ViewUtils {
      * @param verb 布局位置
      * @return 关联 View id
      */
-    public static int getRule(final View view, final int verb) {
+    public static int getRule(
+            final View view,
+            final int verb
+    ) {
         if (view != null) {
             try {
                 RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
@@ -2979,7 +3352,10 @@ public final class ViewUtils {
      * @param views View[]
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean addRules(final int verb, final View... views) {
+    public static boolean addRules(
+            final int verb,
+            final View... views
+    ) {
         return addRules(verb, -1, views);
     }
 
@@ -2990,7 +3366,11 @@ public final class ViewUtils {
      * @param views   View[]
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean addRules(final int verb, final int subject, final View... views) {
+    public static boolean addRules(
+            final int verb,
+            final int subject,
+            final View... views
+    ) {
         if (views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 addRule(views[i], verb, subject);
@@ -3006,7 +3386,10 @@ public final class ViewUtils {
      * @param views View[]
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean removeRules(final int verb, final View... views) {
+    public static boolean removeRules(
+            final int verb,
+            final View... views
+    ) {
         if (views != null) {
             for (int i = 0, len = views.length; i < len; i++) {
                 removeRule(views[i], verb);
@@ -3026,7 +3409,10 @@ public final class ViewUtils {
      * @param animation {@link Animation}
      * @return {@link View}
      */
-    public static View setAnimation(final View view, final Animation animation) {
+    public static View setAnimation(
+            final View view,
+            final Animation animation
+    ) {
         return AnimationUtils.setAnimation(view, animation);
     }
 
@@ -3054,7 +3440,10 @@ public final class ViewUtils {
      * @param animation {@link Animation}
      * @return {@link View}
      */
-    public static View startAnimation(final View view, final Animation animation) {
+    public static View startAnimation(
+            final View view,
+            final Animation animation
+    ) {
         return AnimationUtils.startAnimation(view, animation);
     }
 
@@ -3097,7 +3486,10 @@ public final class ViewUtils {
      * @param background 背景图片
      * @return {@link View}
      */
-    public static View setBackground(final View view, final Drawable background) {
+    public static View setBackground(
+            final View view,
+            final Drawable background
+    ) {
         if (view != null) {
             try {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
@@ -3118,7 +3510,10 @@ public final class ViewUtils {
      * @param color 背景颜色
      * @return {@link View}
      */
-    public static View setBackgroundColor(final View view, @ColorInt final int color) {
+    public static View setBackgroundColor(
+            final View view,
+            @ColorInt final int color
+    ) {
         if (view != null) {
             try {
                 view.setBackgroundColor(color);
@@ -3135,7 +3530,10 @@ public final class ViewUtils {
      * @param resId resource identifier
      * @return {@link View}
      */
-    public static View setBackgroundResource(final View view, @DrawableRes final int resId) {
+    public static View setBackgroundResource(
+            final View view,
+            @DrawableRes final int resId
+    ) {
         if (view != null) {
             try {
                 view.setBackgroundResource(resId);
@@ -3153,7 +3551,10 @@ public final class ViewUtils {
      * @return {@link View}
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static View setBackgroundTintList(final View view, final ColorStateList tint) {
+    public static View setBackgroundTintList(
+            final View view,
+            final ColorStateList tint
+    ) {
         if (view != null) {
             try {
                 view.setBackgroundTintList(tint);
@@ -3171,7 +3572,10 @@ public final class ViewUtils {
      * @return {@link View}
      */
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    public static View setBackgroundTintMode(final View view, final PorterDuff.Mode tintMode) {
+    public static View setBackgroundTintMode(
+            final View view,
+            final PorterDuff.Mode tintMode
+    ) {
         if (view != null) {
             try {
                 view.setBackgroundTintMode(tintMode);
@@ -3193,7 +3597,10 @@ public final class ViewUtils {
      * @return {@link View}
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static View setForeground(final View view, final Drawable foreground) {
+    public static View setForeground(
+            final View view,
+            final Drawable foreground
+    ) {
         if (view != null) {
             try {
                 view.setForeground(foreground);
@@ -3211,7 +3618,10 @@ public final class ViewUtils {
      * @return {@link View}
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static View setForegroundGravity(final View view, final int gravity) {
+    public static View setForegroundGravity(
+            final View view,
+            final int gravity
+    ) {
         if (view != null) {
             try {
                 view.setForegroundGravity(gravity);
@@ -3229,7 +3639,10 @@ public final class ViewUtils {
      * @return {@link View}
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static View setForegroundTintList(final View view, final ColorStateList tint) {
+    public static View setForegroundTintList(
+            final View view,
+            final ColorStateList tint
+    ) {
         if (view != null) {
             try {
                 view.setForegroundTintList(tint);
@@ -3247,7 +3660,10 @@ public final class ViewUtils {
      * @return {@link View}
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
-    public static View setForegroundTintMode(final View view, final PorterDuff.Mode tintMode) {
+    public static View setForegroundTintMode(
+            final View view,
+            final PorterDuff.Mode tintMode
+    ) {
         if (view != null) {
             try {
                 view.setForegroundTintMode(tintMode);
@@ -3350,7 +3766,10 @@ public final class ViewUtils {
      * @param color 颜色值
      * @return {@link View}
      */
-    public static View setColorFilter(final View view, @ColorInt final int color) {
+    public static View setColorFilter(
+            final View view,
+            @ColorInt final int color
+    ) {
         return setColorFilter(view, getBackground(view), color);
     }
 
@@ -3361,7 +3780,11 @@ public final class ViewUtils {
      * @param color    颜色值
      * @return {@link View}
      */
-    public static View setColorFilter(final View view, final Drawable drawable, @ColorInt final int color) {
+    public static View setColorFilter(
+            final View view,
+            final Drawable drawable,
+            @ColorInt final int color
+    ) {
         try {
             setBackground(view, ImageUtils.setColorFilter(drawable, color));
         } catch (Exception e) {
@@ -3378,7 +3801,10 @@ public final class ViewUtils {
      * @param colorFilter 颜色过滤 ( 效果 )
      * @return {@link View}
      */
-    public static View setColorFilter(final View view, final ColorFilter colorFilter) {
+    public static View setColorFilter(
+            final View view,
+            final ColorFilter colorFilter
+    ) {
         return setColorFilter(view, getBackground(view), colorFilter);
     }
 
@@ -3389,7 +3815,11 @@ public final class ViewUtils {
      * @param colorFilter 颜色过滤 ( 效果 )
      * @return {@link View}
      */
-    public static View setColorFilter(final View view, final Drawable drawable, final ColorFilter colorFilter) {
+    public static View setColorFilter(
+            final View view,
+            final Drawable drawable,
+            final ColorFilter colorFilter
+    ) {
         try {
             setBackground(view, ImageUtils.setColorFilter(drawable, colorFilter));
         } catch (Exception e) {

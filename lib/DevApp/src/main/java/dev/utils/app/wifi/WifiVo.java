@@ -47,7 +47,10 @@ public class WifiVo implements Parcelable {
      * @param isAppend   {@code true} 添加引号, {@code false} 删除引号
      * @return {@link WifiVo}
      */
-    public static WifiVo createWifiVo(final ScanResult scanResult, final boolean isAppend) {
+    public static WifiVo createWifiVo(
+            final ScanResult scanResult,
+            final boolean isAppend
+    ) {
         if (scanResult != null) {
             try {
                 // 防止 Wifi 名长度为 0
@@ -86,7 +89,10 @@ public class WifiVo implements Parcelable {
      * @param listScanResults 扫描返回的数据
      * @return {@code true} success, {@code false} fail
      */
-    public static boolean scanWifiVos(final List<WifiVo> listWifiVos, final List<ScanResult> listScanResults) {
+    public static boolean scanWifiVos(
+            final List<WifiVo> listWifiVos,
+            final List<ScanResult> listScanResults
+    ) {
         if (listWifiVos == null || listScanResults == null) return false;
         // 清空旧数据
         listWifiVos.clear();
@@ -138,7 +144,10 @@ public class WifiVo implements Parcelable {
     }
 
     @Override
-    public void writeToParcel(final Parcel dest, final int flags) {
+    public void writeToParcel(
+            final Parcel dest,
+            final int flags
+    ) {
         dest.writeString(wifiSSID);
         dest.writeString(wifiPwd);
         dest.writeInt(wifiType);

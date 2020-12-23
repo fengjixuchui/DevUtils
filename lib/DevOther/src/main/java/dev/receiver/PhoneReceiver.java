@@ -47,7 +47,10 @@ public final class PhoneReceiver extends BroadcastReceiver {
     private static final String IDLE    = "IDLE";
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(
+            Context context,
+            Intent intent
+    ) {
         try {
             String action = intent.getAction();
             // 打印当前触发的广播
@@ -159,7 +162,10 @@ public final class PhoneReceiver extends BroadcastReceiver {
          * @param state  通话状态
          * @param number 通话号码
          */
-        void onPhoneStateChanged(CallState state, String number);
+        void onPhoneStateChanged(
+                CallState state,
+                String number
+        );
     }
 
     /**

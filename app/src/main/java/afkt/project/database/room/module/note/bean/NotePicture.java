@@ -28,13 +28,20 @@ public class NotePicture {
     // ===========
 
     @Ignore
-    public NotePicture(@NonNull Long noteId, String picture) {
+    public NotePicture(
+            @NonNull Long noteId,
+            String picture
+    ) {
         this.id = (long) UUID.randomUUID().hashCode();
         this.noteId = noteId;
         this.picture = picture;
     }
 
-    public NotePicture(@NonNull Long id, @NonNull Long noteId, String picture) {
+    public NotePicture(
+            @NonNull Long id,
+            @NonNull Long noteId,
+            String picture
+    ) {
         this.id = id;
         this.noteId = noteId;
         this.picture = picture;

@@ -55,7 +55,10 @@ public abstract class NoteDatabase extends AbsRoomDatabase {
      * @param password 数据库解密密码
      * @return {@link RoomDatabase}
      */
-    public static NoteDatabase database(final String dbName, final String password) {
+    public static NoteDatabase database(
+            final String dbName,
+            final String password
+    ) {
         if (TextUtils.isEmpty(dbName)) return null;
 
         NoteDatabase database = Room.databaseBuilder(

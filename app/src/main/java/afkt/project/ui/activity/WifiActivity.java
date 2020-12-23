@@ -74,7 +74,11 @@ public class WifiActivity extends BaseActivity<BaseViewRecyclerviewBinding> {
         binding.vidBvrRecy.setAdapter(buttonAdapter);
         buttonAdapter.setOnItemChildClickListener(new OnItemChildClickListener() {
             @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+            public void onItemChildClick(
+                    BaseQuickAdapter adapter,
+                    View view,
+                    int position
+            ) {
                 ButtonValue buttonValue = buttonAdapter.getItem(position);
                 switch (buttonValue.type) {
                     case ButtonValue.BTN_WIFI_OPEN:
@@ -145,7 +149,11 @@ public class WifiActivity extends BaseActivity<BaseViewRecyclerviewBinding> {
                                     }
 
                                     @Override
-                                    public void onDenied(List<String> grantedList, List<String> deniedList, List<String> notFoundList) {
+                                    public void onDenied(
+                                            List<String> grantedList,
+                                            List<String> deniedList,
+                                            List<String> notFoundList
+                                    ) {
                                         ToastTintUtils.warning("开启热点需要定位权限");
                                     }
                                 }).request(mActivity);
@@ -260,7 +268,10 @@ public class WifiActivity extends BaseActivity<BaseViewRecyclerviewBinding> {
             }
 
             @Override
-            public void onTrigger(int what, Message message) { // Wifi 在连接过程的状态返回
+            public void onTrigger(
+                    int what,
+                    Message message
+            ) { // Wifi 在连接过程的状态返回
                 String ssid = (String) message.obj;
                 // 判断连接状态
                 switch (what) {

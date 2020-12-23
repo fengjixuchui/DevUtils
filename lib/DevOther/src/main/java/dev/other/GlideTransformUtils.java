@@ -49,7 +49,12 @@ public final class GlideTransformUtils {
         }
 
         @Override
-        protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+        protected Bitmap transform(
+                BitmapPool pool,
+                Bitmap toTransform,
+                int outWidth,
+                int outHeight
+        ) {
             Matrix matrix = new Matrix();
             matrix.postRotate(rotateRotationAngle);
             return Bitmap.createBitmap(toTransform, 0, 0,
@@ -68,11 +73,19 @@ public final class GlideTransformUtils {
     public static class GlideCircleTransform extends BitmapTransformation {
 
         @Override
-        protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+        protected Bitmap transform(
+                BitmapPool pool,
+                Bitmap toTransform,
+                int outWidth,
+                int outHeight
+        ) {
             return circleCrop(pool, toTransform);
         }
 
-        private Bitmap circleCrop(BitmapPool pool, Bitmap source) {
+        private Bitmap circleCrop(
+                BitmapPool pool,
+                Bitmap source
+        ) {
             if (source == null) return null;
 
             int size = Math.min(source.getWidth(), source.getHeight());
@@ -114,11 +127,19 @@ public final class GlideTransformUtils {
         }
 
         @Override
-        protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
+        protected Bitmap transform(
+                BitmapPool pool,
+                Bitmap toTransform,
+                int outWidth,
+                int outHeight
+        ) {
             return roundCrop(pool, toTransform);
         }
 
-        private Bitmap roundCrop(BitmapPool pool, Bitmap source) {
+        private Bitmap roundCrop(
+                BitmapPool pool,
+                Bitmap source
+        ) {
             if (source == null) return null;
 
             Bitmap result = pool.get(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_4444);
@@ -154,7 +175,12 @@ public final class GlideTransformUtils {
         }
 
         @Override
-        protected Bitmap transform(@NonNull BitmapPool pool, @NonNull Bitmap toTransform, int outWidth, int outHeight) {
+        protected Bitmap transform(
+                @NonNull BitmapPool pool,
+                @NonNull Bitmap toTransform,
+                int outWidth,
+                int outHeight
+        ) {
             Bitmap bitmap = TransformationUtils.centerCrop(pool, toTransform, outWidth, outHeight);
             return blurBitmap(mContext, bitmap, 20, outWidth, outHeight);
         }
@@ -172,7 +198,13 @@ public final class GlideTransformUtils {
          * @return 模糊处理后的 Bitmap
          */
         @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-        public Bitmap blurBitmap(Context context, Bitmap image, float blurRadius, int outWidth, int outHeight) {
+        public Bitmap blurBitmap(
+                Context context,
+                Bitmap image,
+                float blurRadius,
+                int outWidth,
+                int outHeight
+        ) {
             // 将缩小后的图片做为预渲染的图片
             Bitmap inputBitmap = Bitmap.createScaledBitmap(image, outWidth, outHeight, false);
             // 创建一张渲染后的输出图片

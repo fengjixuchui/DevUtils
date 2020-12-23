@@ -100,7 +100,10 @@ public class FilterItem {
     // 滤镜类型
     public final FilterType filterType;
 
-    public FilterItem(String filterName, FilterType filterType) {
+    public FilterItem(
+            String filterName,
+            FilterType filterType
+    ) {
         this.filterName = filterName;
         this.filterType = filterType;
     }

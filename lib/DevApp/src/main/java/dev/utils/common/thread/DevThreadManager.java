@@ -88,7 +88,10 @@ public final class DevThreadManager {
      * @param key   线程配置 key
      * @param value 线程配置 value
      */
-    public static void putConfig(final String key, final Object value) {
+    public static void putConfig(
+            final String key,
+            final Object value
+    ) {
         sConfigMaps.put(key, value);
     }
 

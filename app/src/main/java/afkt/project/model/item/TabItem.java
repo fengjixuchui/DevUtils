@@ -13,12 +13,19 @@ public class TabItem<T> {
     // 对象参数
     private T      object;
 
-    public TabItem(String title, int type) {
+    public TabItem(
+            String title,
+            int type
+    ) {
         this.title = title;
         this.type = type;
     }
 
-    public TabItem(String title, int type, T object) {
+    public TabItem(
+            String title,
+            int type,
+            T object
+    ) {
         this.title = title;
         this.type = type;
         this.object = object;

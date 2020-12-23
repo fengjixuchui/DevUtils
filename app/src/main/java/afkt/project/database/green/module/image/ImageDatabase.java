@@ -32,7 +32,10 @@ public class ImageDatabase extends AbsGreenDatabase {
      * @param password 数据库解密密码
      * @return {@link ImageDatabase}
      */
-    public static ImageDatabase database(final String dbName, final String password) {
+    public static ImageDatabase database(
+            final String dbName,
+            final String password
+    ) {
         return null;
     }
 

@@ -19,7 +19,10 @@ public class ModuleBean implements Serializable {
     // 模块下的环境集合
     private final List<EnvironmentBean> environments = new ArrayList<>();
 
-    public ModuleBean(String name, String alias) {
+    public ModuleBean(
+            String name,
+            String alias
+    ) {
         this.name = name;
         this.alias = alias;
     }
