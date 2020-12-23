@@ -5,5 +5,7 @@ package afkt.project.database.room.module.note.bean;
  * @author Ttt
  */
 public enum NoteType {
-    TEXT, PICTURE, ALL
+    TEXT,
+    PICTURE,
+    ALL
 }
