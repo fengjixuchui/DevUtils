@@ -87,7 +87,10 @@ class QuerySuffixDialog(context: Context?) :
             })
         }
 
-        override fun convert(holder: BaseViewHolder, item: String) {
+        override fun convert(
+            holder: BaseViewHolder,
+            item: String
+        ) {
             holder.setText(R.id.vid_aiqs_suffix_tv, item)
                 .setImageResource(
                     R.id.vid_aiqs_igview,

@@ -53,7 +53,10 @@ object AppListUtils {
      * @param type [TypeEnum]
      * @param refresh 是否刷新
      */
-    fun getAppLists(type: TypeEnum, refresh: Boolean) {
+    fun getAppLists(
+        type: TypeEnum,
+        refresh: Boolean
+    ) {
         when (type) {
             TypeEnum.APP_USER -> getAppLists(AppType.USER, refresh)
             TypeEnum.APP_SYSTEM -> getAppLists(AppType.SYSTEM, refresh)
@@ -75,7 +78,10 @@ object AppListUtils {
      * @param appType [AppType]
      * @param refresh 是否刷新
      */
-    private fun getAppLists(appType: AppType, refresh: Boolean) {
+    private fun getAppLists(
+        appType: AppType,
+        refresh: Boolean
+    ) {
         var state: Boolean? = sMapStates[appType]
         // 加载中则不处理
         if (state != null && state) {
@@ -116,7 +122,10 @@ object AppListUtils {
             collator.strength = Collator.PRIMARY
         }
 
-        override fun compare(a_app: AppInfoBean, b_app: AppInfoBean): Int {
+        override fun compare(
+            a_app: AppInfoBean,
+            b_app: AppInfoBean
+        ): Int {
             if (a_app != null && b_app != null) {
                 when (sortType) {
                     0 -> { // 按应用名称

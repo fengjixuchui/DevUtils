@@ -22,7 +22,11 @@ class AppListAdapter(data: MutableList<AppInfoBean>?) :
 
     init {
         setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+            override fun onItemClick(
+                adapter: BaseQuickAdapter<*, *>,
+                view: View,
+                position: Int
+            ) {
                 (data?.get(position) as AppInfoBean)?.let {
                     if (AppUtils.isInstalledApp(it.appPackName)) {
                         var intent = Intent(context, AppDetailsActivity::class.java)
@@ -36,7 +40,10 @@ class AppListAdapter(data: MutableList<AppInfoBean>?) :
         })
     }
 
-    override fun convert(holder: BaseViewHolder, item: AppInfoBean) {
+    override fun convert(
+        holder: BaseViewHolder,
+        item: AppInfoBean
+    ) {
         holder.setText(R.id.vid_aia_name_tv, item.appName)
             .setText(R.id.vid_aia_pack_tv, item.appPackName)
             .setImageDrawable(R.id.vid_aia_igview, item.appIcon)

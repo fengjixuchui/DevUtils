@@ -28,7 +28,10 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
         return R.layout.fragment_setting
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.vidFsAppsortLinear.setOnClickListener { AppSortDialog(context).show() }
         binding.vidFsScanapkLinear.setOnClickListener { QuerySuffixDialog(context).show() }

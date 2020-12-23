@@ -186,7 +186,10 @@ public final class AccessibilityListenerService extends AccessibilityService {
          * @param event   {@link AccessibilityEvent}
          * @param service {@link AccessibilityListenerService}
          */
-        public abstract void onAccessibilityEvent(AccessibilityEvent event, AccessibilityListenerService service);
+        public abstract void onAccessibilityEvent(
+                AccessibilityEvent event,
+                AccessibilityListenerService service
+        );
 
         /**
          * 系统想要中断 AccessibilityService 返给的响应时会调用
@@ -223,7 +226,11 @@ public final class AccessibilityListenerService extends AccessibilityService {
     }
 
     @Override
-    public int onStartCommand(Intent intent, int flags, int startId) {
+    public int onStartCommand(
+            Intent intent,
+            int flags,
+            int startId
+    ) {
         LogPrintUtils.dTag(TAG, "onStartCommand");
         initTrackerWindowManager();
 

@@ -24,7 +24,10 @@ class ParentFragment : DevBaseViewBindingFragment<FragmentParentBinding>() {
         return null
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         arguments?.let {
@@ -46,7 +49,10 @@ class ParentFragment : DevBaseViewBindingFragment<FragmentParentBinding>() {
     }
 
     companion object {
-        fun get(position: Int, max: Int): DevBaseViewBindingFragment<FragmentParentBinding> {
+        fun get(
+            position: Int,
+            max: Int
+        ): DevBaseViewBindingFragment<FragmentParentBinding> {
             val fragment = ParentFragment()
             val bundle = Bundle()
             bundle.putInt(DevFinal.POSITION, position)
@@ -55,7 +61,12 @@ class ParentFragment : DevBaseViewBindingFragment<FragmentParentBinding>() {
             return fragment
         }
 
-        fun commit(manager: FragmentManager, id: Int, position: Int, max: Int) {
+        fun commit(
+            manager: FragmentManager,
+            id: Int,
+            position: Int,
+            max: Int
+        ) {
             val transaction: FragmentTransaction = manager.beginTransaction()
             transaction.add(id, get(position, max))
             transaction.commit()

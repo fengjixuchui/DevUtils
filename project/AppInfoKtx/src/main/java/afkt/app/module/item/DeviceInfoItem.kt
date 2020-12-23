@@ -6,7 +6,10 @@ import androidx.annotation.StringRes
  * detail: 设备信息 Item
  * @author Ttt
  */
-class DeviceInfoItem(@StringRes resId: Int, value: String) {
+class DeviceInfoItem(
+    @StringRes resId: Int,
+    value: String
+) {
 
     // 提示文案
     @StringRes

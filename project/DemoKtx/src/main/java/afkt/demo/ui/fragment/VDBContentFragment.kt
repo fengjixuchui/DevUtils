@@ -25,7 +25,10 @@ class VDBContentFragment : DevBaseContentViewDataBindingFragment<FragmentVdbCont
         return null
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         // 设置图片

@@ -20,7 +20,11 @@ class InfoAdapter(data: MutableList<DeviceInfoItem>?) :
 
     init {
         setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+            override fun onItemClick(
+                adapter: BaseQuickAdapter<*, *>,
+                view: View,
+                position: Int
+            ) {
                 (data?.get(position) as DeviceInfoItem)?.let {
                     val txt: String = DeviceInfoBean.copyString(it)
                     // 复制到剪切板
@@ -32,7 +36,10 @@ class InfoAdapter(data: MutableList<DeviceInfoItem>?) :
         })
     }
 
-    override fun convert(holder: BaseViewHolder, item: DeviceInfoItem) {
+    override fun convert(
+        holder: BaseViewHolder,
+        item: DeviceInfoItem
+    ) {
         holder.setText(R.id.vid_aidi_value_tv, item.value)
             .setText(R.id.vid_aidi_key_tv, ResourceUtils.getString(item.resId))
     }

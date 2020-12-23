@@ -49,7 +49,11 @@ object ExportUtils {
      * @param appInfoBean App 信息
      * @param info 导出信息
      */
-    private fun exportInfo(isApp: Boolean, appInfoBean: AppInfoBean, info: String?) {
+    private fun exportInfo(
+        isApp: Boolean,
+        appInfoBean: AppInfoBean,
+        info: String?
+    ) {
         HandlerUtils.postRunnable {
             val path = if (isApp) PathConfig.AEP_APPMSG_PATH else PathConfig.AEP_APKMSG_PATH
             // 应用名_包名_版本名.txt
@@ -94,7 +98,10 @@ object ExportUtils {
      * @param appInfoBean App 信息
      * @param info 导出信息
      */
-    private fun exportApp(appInfoBean: AppInfoBean, callback: Callback?) {
+    private fun exportApp(
+        appInfoBean: AppInfoBean,
+        callback: Callback?
+    ) {
         DevThreadManager.getInstance(3).execute {
             // 应用名_包名_版本名.apk
             var fileName =

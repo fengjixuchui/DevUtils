@@ -25,7 +25,11 @@ class ApkListAdapter(data: MutableList<FileApkItem>?) :
 
     init {
         setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+            override fun onItemClick(
+                adapter: BaseQuickAdapter<*, *>,
+                view: View,
+                position: Int
+            ) {
                 (data?.get(position) as FileApkItem)?.let {
                     if (FileUtils.isFileExists(it.uri)) {
                         var intent = Intent(context, ApkDetailsActivity::class.java)
@@ -39,7 +43,10 @@ class ApkListAdapter(data: MutableList<FileApkItem>?) :
         })
     }
 
-    override fun convert(holder: BaseViewHolder, item: FileApkItem) {
+    override fun convert(
+        holder: BaseViewHolder,
+        item: FileApkItem
+    ) {
         var appInfoBean = item.appInfoBean
         holder.setText(R.id.vid_aia_name_tv, appInfoBean.appName)
             .setText(R.id.vid_aia_pack_tv, appInfoBean.appPackName)

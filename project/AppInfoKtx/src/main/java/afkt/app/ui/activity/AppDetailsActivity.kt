@@ -84,7 +84,10 @@ class AppDetailsActivity : AppCompatActivity(), View.OnClickListener {
         )
         binding.vidAadRecy.adapter =
             KeyValueAdapter(lists).setListener(object : KeyValueAdapter.Listener {
-                override fun onItemClick(item: KeyValueBean, position: Int): Boolean {
+                override fun onItemClick(
+                    item: KeyValueBean,
+                    position: Int
+                ): Boolean {
                     return when (position) {
                         0 -> {
                             if (!AppUtils.launchAppDetails(appInfoBean.appPackName, "")) {

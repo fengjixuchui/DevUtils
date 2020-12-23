@@ -19,7 +19,11 @@ class KeyValueAdapter(data: MutableList<KeyValueBean>) :
 
     init {
         setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
+            override fun onItemClick(
+                adapter: BaseQuickAdapter<*, *>,
+                view: View,
+                position: Int
+            ) {
                 data?.get(position)?.let {
                     if (listener != null && listener!!.onItemClick(it, position)) {
                         return
@@ -34,7 +38,10 @@ class KeyValueAdapter(data: MutableList<KeyValueBean>) :
         })
     }
 
-    override fun convert(holder: BaseViewHolder, item: KeyValueBean) {
+    override fun convert(
+        holder: BaseViewHolder,
+        item: KeyValueBean
+    ) {
         holder.setText(R.id.vid_aikv_key_tv, item.key)
             .setText(R.id.vid_aikv_value_tv, item.value)
     }
@@ -44,7 +51,10 @@ class KeyValueAdapter(data: MutableList<KeyValueBean>) :
     private var listener: Listener? = null
 
     interface Listener {
-        fun onItemClick(item: KeyValueBean, position: Int): Boolean
+        fun onItemClick(
+            item: KeyValueBean,
+            position: Int
+        ): Boolean
     }
 
     fun setListener(listener: Listener): KeyValueAdapter {

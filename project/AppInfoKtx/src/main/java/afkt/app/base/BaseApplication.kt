@@ -64,7 +64,11 @@ class BaseApplication : MultiDexApplication() {
                 )
             }
 
-            override fun uncaughtException(context: Context?, thread: Thread?, ex: Throwable?) {
+            override fun uncaughtException(
+                context: Context?,
+                thread: Thread?,
+                ex: Throwable?
+            ) {
                 // 关闭 APP
                 ActivityUtils.getManager().exitApplication()
             }
@@ -72,15 +76,27 @@ class BaseApplication : MultiDexApplication() {
 
         // 全局状态布局配置
         val global = StateLayout.Global(object : StateLayout.Listener {
-            override fun onRemove(layout: StateLayout, type: Int, removeView: Boolean) {
+            override fun onRemove(
+                layout: StateLayout,
+                type: Int,
+                removeView: Boolean
+            ) {
                 if (removeView) layout.gone()
             }
 
-            override fun onNotFound(layout: StateLayout, type: Int) {
+            override fun onNotFound(
+                layout: StateLayout,
+                type: Int
+            ) {
                 layout.gone()
             }
 
-            override fun onChange(layout: StateLayout, type: Int, oldType: Int, view: View) {
+            override fun onChange(
+                layout: StateLayout,
+                type: Int,
+                oldType: Int,
+                view: View
+            ) {
                 when (type) {
                     ViewAssist.TYPE_ING -> {
                     }

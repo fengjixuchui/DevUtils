@@ -11,7 +11,10 @@ import dev.base.expand.viewdata.DevBaseViewDataBindingFragment
  */
 abstract class BaseFragment<VDB : ViewDataBinding> : DevBaseViewDataBindingFragment<VDB>() {
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
         // 初始化顺序 ( 按顺序调用方法 )
         initOrder()

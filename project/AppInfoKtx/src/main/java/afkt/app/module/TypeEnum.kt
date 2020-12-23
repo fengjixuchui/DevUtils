@@ -7,7 +7,10 @@ import androidx.annotation.StringRes
  * detail: Navigation Type
  * @author Ttt
  */
-enum class TypeEnum(tag: Int, @StringRes titleId: Int) {
+enum class TypeEnum(
+    tag: Int,
+    @StringRes titleId: Int
+) {
 
     NONE(-1, R.string.str_empty),
 

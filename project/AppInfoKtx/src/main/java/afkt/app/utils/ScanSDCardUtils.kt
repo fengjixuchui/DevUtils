@@ -54,7 +54,8 @@ class ScanSDCardUtils private constructor() {
 
             override fun onEndListener(
                 rootFileItem: FileBreadthFirstSearchUtils.FileItem?,
-                startTime: Long, endTime: Long
+                startTime: Long,
+                endTime: Long
             ) {
                 var diff = endTime - startTime
                 DevLogger.d("搜索耗时: $diff ms")
@@ -114,7 +115,10 @@ class ScanSDCardUtils private constructor() {
     }
 
     private class ApkListsComparator : Comparator<FileApkItem> {
-        override fun compare(a_apk: FileApkItem, b_apk: FileApkItem): Int {
+        override fun compare(
+            a_apk: FileApkItem,
+            b_apk: FileApkItem
+        ): Int {
             return if (a_apk != null && b_apk != null) {
                 if (a_apk.lastModified === b_apk.lastModified) {
                     0 // 安装时间相等

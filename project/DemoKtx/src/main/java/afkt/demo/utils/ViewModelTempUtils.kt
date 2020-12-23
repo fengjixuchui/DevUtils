@@ -21,7 +21,11 @@ object ViewModelTempUtils {
      * @param owner [LifecycleOwner]
      * @param viewModel [ApplicationViewModel]
      */
-    fun observe(tag: String, owner: LifecycleOwner, viewModel: ApplicationViewModel?) {
+    fun observe(
+        tag: String,
+        owner: LifecycleOwner,
+        viewModel: ApplicationViewModel?
+    ) {
         viewModel?.let {
             // 进行监听
             viewModel.number.observe(owner, {
@@ -36,7 +40,11 @@ object ViewModelTempUtils {
      * @param owner [LifecycleOwner]
      * @param viewModel [ApplicationViewModel]
      */
-    fun observe(tag: String, owner: LifecycleOwner, viewModel: ActivityViewModel?) {
+    fun observe(
+        tag: String,
+        owner: LifecycleOwner,
+        viewModel: ActivityViewModel?
+    ) {
         viewModel?.let {
             // 进行监听
             viewModel.number.observe(owner, {
@@ -51,7 +59,11 @@ object ViewModelTempUtils {
      * @param owner [LifecycleOwner]
      * @param viewModel [ApplicationViewModel]
      */
-    fun observe(tag: String, owner: LifecycleOwner, viewModel: FragmentViewModel?) {
+    fun observe(
+        tag: String,
+        owner: LifecycleOwner,
+        viewModel: FragmentViewModel?
+    ) {
         viewModel?.let {
             // 进行监听
             viewModel.number.observe(owner, {

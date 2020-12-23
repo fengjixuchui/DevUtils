@@ -48,7 +48,10 @@ class InfoFragment : BaseFragment<FragmentInfoBinding>() {
         type = value?.let { TypeEnum.get(it) }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.root.setEnableRefresh(false)
             .setEnableLoadMore(false)

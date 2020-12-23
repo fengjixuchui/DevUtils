@@ -7,7 +7,10 @@ import dev.utils.app.info.AppInfoBean
  * detail: 应用列表搜索事件
  * @author Ttt
  */
-class AppListEvent(appType: AppInfoBean.AppType, lists: ArrayList<AppInfoBean>) {
+class AppListEvent(
+    appType: AppInfoBean.AppType,
+    lists: ArrayList<AppInfoBean>
+) {
 
     val type: TypeEnum
     val lists: ArrayList<AppInfoBean> = lists

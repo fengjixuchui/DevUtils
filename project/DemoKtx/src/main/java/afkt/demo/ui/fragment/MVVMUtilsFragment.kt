@@ -30,7 +30,10 @@ class MVVMUtilsFragment :
         return null
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
 
         initViewModel()
@@ -73,7 +76,12 @@ class MVVMUtilsFragment :
             return fragment
         }
 
-        fun commit(manager: FragmentManager, id: Int, position: Int, max: Int) {
+        fun commit(
+            manager: FragmentManager,
+            id: Int,
+            position: Int,
+            max: Int
+        ) {
             val transaction: FragmentTransaction = manager.beginTransaction()
             transaction.add(id, get(position, max))
             transaction.commit()

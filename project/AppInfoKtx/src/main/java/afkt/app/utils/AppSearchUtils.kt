@@ -16,7 +16,10 @@ object AppSearchUtils {
      * @param lists 数据源
      * @param searchContent 筛选关键字
      */
-    fun filterAppList(lists: List<AppInfoBean>, searchContent: String): ArrayList<AppInfoBean> {
+    fun filterAppList(
+        lists: List<AppInfoBean>,
+        searchContent: String
+    ): ArrayList<AppInfoBean> {
         var filter = ArrayList<AppInfoBean>()
         for (item in lists) {
             if (StringUtils.isContains(
@@ -35,7 +38,10 @@ object AppSearchUtils {
      * @param lists 数据源
      * @param searchContent 筛选关键字
      */
-    fun filterApkList(lists: List<FileApkItem>, searchContent: String): ArrayList<FileApkItem> {
+    fun filterApkList(
+        lists: List<FileApkItem>,
+        searchContent: String
+    ): ArrayList<FileApkItem> {
         var filter = ArrayList<FileApkItem>()
         for (item in lists) {
             if (StringUtils.isContains(

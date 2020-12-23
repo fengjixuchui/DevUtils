@@ -17,7 +17,8 @@ import dev.utils.app.ScreenUtils
  * @author Ttt
  */
 class QuerySuffixEditDialog(
-    context: Context, onClickListener: View.OnClickListener
+    context: Context,
+    onClickListener: View.OnClickListener
 ) : Dialog(context, R.style.Theme_Light_FullScreenDialogOperate) {
 
     private var binding: DialogQuerySuffixEditBinding

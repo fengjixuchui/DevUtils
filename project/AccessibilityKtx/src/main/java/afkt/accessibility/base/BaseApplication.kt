@@ -99,7 +99,11 @@ class BaseApplication : MultiDexApplication() {
     /**
      * 追踪节点信息
      */
-    private fun track(info: AccessibilityNodeInfo?, builder: StringBuilder, index: Int) {
+    private fun track(
+        info: AccessibilityNodeInfo?,
+        builder: StringBuilder,
+        index: Int
+    ) {
         info?.let {
             if (it.childCount == 0) {
                 builder

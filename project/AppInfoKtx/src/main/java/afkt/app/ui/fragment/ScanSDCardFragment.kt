@@ -49,7 +49,10 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
         return R.layout.fragment_app
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.vidFaRefresh.setEnableLoadMore(false)
 
@@ -59,10 +62,17 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
         )
         // 设置监听
         binding.vidFaState.setListener(object : StateLayout.Listener {
-            override fun onRemove(layout: StateLayout, type: Int, removeView: Boolean) {
+            override fun onRemove(
+                layout: StateLayout,
+                type: Int,
+                removeView: Boolean
+            ) {
             }
 
-            override fun onNotFound(layout: StateLayout, type: Int) {
+            override fun onNotFound(
+                layout: StateLayout,
+                type: Int
+            ) {
                 if (type == ViewAssist.TYPE_SUCCESS) {
                     ViewUtils.reverseVisibilitys(true, binding.vidFaRefresh, binding.vidFaState)
                     whorlView?.stop()
@@ -70,7 +80,12 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
                 }
             }
 
-            override fun onChange(layout: StateLayout, type: Int, oldType: Int, view: View) {
+            override fun onChange(
+                layout: StateLayout,
+                type: Int,
+                oldType: Int,
+                view: View
+            ) {
                 if (ViewUtils.reverseVisibilitys(
                         type == ViewAssist.TYPE_SUCCESS,
                         binding.vidFaRefresh, binding.vidFaState
@@ -127,7 +142,10 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
                 return false
             }
 
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            override fun onSwiped(
+                viewHolder: RecyclerView.ViewHolder,
+                direction: Int
+            ) {
                 if (direction == ItemTouchHelper.LEFT || direction == ItemTouchHelper.RIGHT) {
                     var adapter: ApkListAdapter? = binding.vidFaRefresh.getAdapter()
                     try {

@@ -10,7 +10,10 @@ import java.util.*
  * detail: 设备参数实体类
  * @author Ttt
  */
-class DeviceInfoBean(key: String?, value: String?) : KeyValueBean(key, value) {
+class DeviceInfoBean(
+    key: String?,
+    value: String?
+) : KeyValueBean(key, value) {
 
     companion object {
 

@@ -58,7 +58,10 @@ class AppListFragment : BaseFragment<FragmentAppBinding>() {
         type = value?.let { TypeEnum.get(it) }
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+    override fun onViewCreated(
+        view: View,
+        savedInstanceState: Bundle?
+    ) {
         super.onViewCreated(view, savedInstanceState)
         binding.vidFaRefresh.setEnableLoadMore(false)
 
@@ -68,10 +71,17 @@ class AppListFragment : BaseFragment<FragmentAppBinding>() {
         )
         // 设置监听
         binding.vidFaState.setListener(object : StateLayout.Listener {
-            override fun onRemove(layout: StateLayout, type: Int, removeView: Boolean) {
+            override fun onRemove(
+                layout: StateLayout,
+                type: Int,
+                removeView: Boolean
+            ) {
             }
 
-            override fun onNotFound(layout: StateLayout, type: Int) {
+            override fun onNotFound(
+                layout: StateLayout,
+                type: Int
+            ) {
                 if (type == ViewAssist.TYPE_SUCCESS) {
                     ViewUtils.reverseVisibilitys(true, binding.vidFaRefresh, binding.vidFaState)
                     whorlView?.stop()
@@ -79,7 +89,12 @@ class AppListFragment : BaseFragment<FragmentAppBinding>() {
                 }
             }
 
-            override fun onChange(layout: StateLayout, type: Int, oldType: Int, view: View) {
+            override fun onChange(
+                layout: StateLayout,
+                type: Int,
+                oldType: Int,
+                view: View
+            ) {
                 if (ViewUtils.reverseVisibilitys(
                         type == ViewAssist.TYPE_SUCCESS,
                         binding.vidFaRefresh, binding.vidFaState
