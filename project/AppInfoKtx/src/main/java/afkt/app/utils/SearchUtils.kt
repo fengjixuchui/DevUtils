@@ -1,8 +1,7 @@
 package afkt.app.utils
 
 import afkt.app.module.event.StartSearchEvent
-import android.os.Handler
-import android.os.Message
+import dev.utils.app.assist.DelayAssist
 
 /**
  * detail: 搜索工具类
@@ -10,43 +9,22 @@ import android.os.Message
  */
 object SearchUtils {
 
-    private val WHAT_SEARCH = Integer.MAX_VALUE
-
-    // 搜索线程
-    private var sSearchTask: Runnable? = null
+    // 延迟触发辅助类
+    private val assist = DelayAssist(350) {
+        EventBusUtils.post(StartSearchEvent())
+    }
 
     /**
      * 移除搜索任务
      */
     fun removeSearchTask() {
-        sHandler.removeCallbacks(getSearchRunnable())
+        assist.remove()
     }
 
     /**
      * 开始搜索任务
      */
     fun startSearchTask() {
-        sHandler.removeCallbacks(getSearchRunnable())
-        sHandler.postDelayed(getSearchRunnable(), 350)
-    }
-
-    // =
-
-    private fun getSearchRunnable(): Runnable {
-        if (sSearchTask == null) {
-            sSearchTask = Runnable {
-                sHandler.sendEmptyMessage(WHAT_SEARCH)
-            }
-        }
-        return sSearchTask as Runnable
-    }
-
-    private val sHandler: Handler = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            super.handleMessage(msg)
-            when (msg.what) {
-                WHAT_SEARCH -> EventBusUtils.post(StartSearchEvent())
-            }
-        }
+        assist.post()
     }
 }
