@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Rect;
 import android.os.Handler;
+import android.os.Looper;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,12 +36,14 @@ public final class KeyBoardUtils {
     // 日志 TAG
     private static final String TAG = KeyBoardUtils.class.getSimpleName();
 
+    // 主线程 Handler
+    private static      Handler sMainHandler     = new Handler(Looper.getMainLooper());
     // 默认延迟时间 ( 毫秒 )
-    private static      long DELAY_MILLIS     = 300;
+    private static      long    DELAY_MILLIS     = 300;
     // 键盘显示
-    public static final int  KEYBOARD_DISPLAY = 930;
+    public static final int     KEYBOARD_DISPLAY = 930;
     // 键盘隐藏
-    public static final int  KEYBOARD_HIDE    = 931;
+    public static final int     KEYBOARD_HIDE    = 931;
 
     /**
      * 设置延迟时间
@@ -122,421 +125,6 @@ public final class KeyBoardUtils {
                 LogPrintUtils.eTag(TAG, e, "setSoftInputMode");
             }
             return true;
-        }
-        return false;
-    }
-
-    // =============
-    // = 打开软键盘 =
-    // =============
-
-    /**
-     * 打开软键盘
-     * @param editText {@link EditText}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean openKeyboard(final EditText editText) {
-        if (editText != null) {
-            try {
-                InputMethodManager imm = AppUtils.getInputMethodManager();
-                imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
-                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
-                return true;
-            } catch (Exception e) {
-                LogPrintUtils.eTag(TAG, e, "openKeyboard");
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 打开软键盘
-     * @param editText {@link EditText}
-     * @param handler  {@link Handler}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean openKeyboard(
-            final EditText editText,
-            final Handler handler
-    ) {
-        return openKeyboard(editText, handler, DELAY_MILLIS);
-    }
-
-    /**
-     * 打开软键盘
-     * @param editText    {@link EditText}
-     * @param handler     {@link Handler}
-     * @param delayMillis 延迟时间 ( 毫秒 )
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean openKeyboard(
-            final EditText editText,
-            final Handler handler,
-            final long delayMillis
-    ) {
-        if (editText != null && handler != null) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        editText.requestFocus();
-                        editText.setSelection(editText.getText().toString().length());
-                    } catch (Exception e) {
-                    }
-                    openKeyboard(editText);
-                }
-            }, delayMillis);
-            return true;
-        }
-        return false;
-    }
-
-    // =
-
-    /**
-     * 打开软键盘
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean openKeyboard() {
-        try {
-            InputMethodManager imm = AppUtils.getInputMethodManager();
-            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-            return true;
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "openKeyboard");
-        }
-        return false;
-    }
-
-    /**
-     * 打开软键盘
-     * @param handler {@link Handler}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean openKeyboard(final Handler handler) {
-        return openKeyboard(handler, DELAY_MILLIS);
-    }
-
-    /**
-     * 打开软键盘
-     * @param handler     {@link Handler}
-     * @param delayMillis 延迟时间 ( 毫秒 )
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean openKeyboard(
-            final Handler handler,
-            final long delayMillis
-    ) {
-        if (handler != null) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    openKeyboard();
-                }
-            }, delayMillis);
-            return true;
-        }
-        return false;
-    }
-
-    // =============
-    // = 关闭软键盘 =
-    // =============
-
-    /**
-     * 关闭软键盘
-     * @param editText {@link EditText}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard(final EditText editText) {
-        if (editText != null) {
-            try {
-                InputMethodManager imm = AppUtils.getInputMethodManager();
-                imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
-                return true;
-            } catch (Exception e) {
-                LogPrintUtils.eTag(TAG, e, "closeKeyboard");
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 关闭软键盘
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard() {
-        try {
-            InputMethodManager imm = AppUtils.getInputMethodManager();
-            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
-            return true;
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "closeKeyboard");
-        }
-        return false;
-    }
-
-    /**
-     * 关闭软键盘
-     * @param activity {@link Activity}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard(final Activity activity) {
-        if (activity != null) {
-            try {
-                InputMethodManager imm = AppUtils.getInputMethodManager();
-                imm.hideSoftInputFromWindow(activity.getWindow().peekDecorView().getWindowToken(), 0);
-                return true;
-            } catch (Exception e) {
-                LogPrintUtils.eTag(TAG, e, "closeKeyboard");
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 关闭 dialog 中打开的键盘
-     * @param dialog {@link Dialog}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard(final Dialog dialog) {
-        if (dialog != null) {
-            try {
-                InputMethodManager imm = AppUtils.getInputMethodManager();
-                imm.hideSoftInputFromWindow(dialog.getWindow().peekDecorView().getWindowToken(), 0);
-                return true;
-            } catch (Exception e) {
-                LogPrintUtils.eTag(TAG, e, "closeKeyboard");
-            }
-        }
-        return false;
-    }
-
-    // =
-
-    /**
-     * 关闭软键盘
-     * @param editText {@link EditText}
-     * @param dialog   {@link Dialog}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyBoardSpecial(
-            final EditText editText,
-            final Dialog dialog
-    ) {
-        try {
-            closeKeyboard();
-            closeKeyboard(editText);
-            closeKeyboard(dialog);
-            return true;
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "closeKeyBoardSpecial");
-        }
-        return false;
-    }
-
-    /**
-     * 关闭软键盘
-     * @param editText {@link EditText}
-     * @param dialog   {@link Dialog}
-     * @param handler  {@link Handler}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyBoardSpecial(
-            final EditText editText,
-            final Dialog dialog,
-            final Handler handler
-    ) {
-        return closeKeyBoardSpecial(editText, dialog, handler, DELAY_MILLIS);
-    }
-
-    /**
-     * 关闭软键盘
-     * @param editText    {@link EditText}
-     * @param dialog      {@link Dialog}
-     * @param handler     {@link Handler}
-     * @param delayMillis 延迟时间 ( 毫秒 )
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyBoardSpecial(
-            final EditText editText,
-            final Dialog dialog,
-            final Handler handler,
-            final long delayMillis
-    ) {
-        if (handler != null) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    closeKeyBoardSpecial(editText, dialog);
-                }
-            }, delayMillis);
-            return true;
-        }
-        return false;
-    }
-
-    // =
-
-    /**
-     * 关闭软键盘
-     * @param editText {@link EditText}
-     * @param handler  {@link Handler}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard(
-            final EditText editText,
-            final Handler handler
-    ) {
-        return closeKeyboard(editText, handler, DELAY_MILLIS);
-    }
-
-    /**
-     * 关闭软键盘
-     * @param editText    {@link EditText}
-     * @param handler     {@link Handler}
-     * @param delayMillis 延迟时间 ( 毫秒 )
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard(
-            final EditText editText,
-            final Handler handler,
-            final long delayMillis
-    ) {
-        if (editText != null && handler != null) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    closeKeyboard(editText);
-                }
-            }, delayMillis);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * 关闭软键盘
-     * @param handler {@link Handler}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard(final Handler handler) {
-        return closeKeyboard(handler, DELAY_MILLIS);
-    }
-
-    /**
-     * 关闭软键盘
-     * @param handler     {@link Handler}
-     * @param delayMillis 延迟时间 ( 毫秒 )
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard(
-            final Handler handler,
-            final long delayMillis
-    ) {
-        if (handler != null) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    closeKeyboard();
-                }
-            }, delayMillis);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * 关闭软键盘
-     * @param activity {@link Activity}
-     * @param handler  {@link Handler}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard(
-            final Activity activity,
-            final Handler handler
-    ) {
-        return closeKeyboard(activity, handler, DELAY_MILLIS);
-    }
-
-    /**
-     * 关闭软键盘
-     * @param activity    {@link Activity}
-     * @param handler     {@link Handler}
-     * @param delayMillis 延迟时间 ( 毫秒 )
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard(
-            final Activity activity,
-            final Handler handler,
-            final long delayMillis
-    ) {
-        if (activity != null && handler != null) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    closeKeyboard(activity);
-                }
-            }, delayMillis);
-            return true;
-        }
-        return false;
-    }
-
-    /**
-     * 关闭软键盘
-     * @param dialog  {@link Dialog}
-     * @param handler {@link Handler}
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard(
-            final Dialog dialog,
-            final Handler handler
-    ) {
-        return closeKeyboard(dialog, handler, DELAY_MILLIS);
-    }
-
-    /**
-     * 关闭软键盘
-     * @param dialog      {@link Dialog}
-     * @param handler     {@link Handler}
-     * @param delayMillis 延迟时间 ( 毫秒 )
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean closeKeyboard(
-            final Dialog dialog,
-            final Handler handler,
-            final long delayMillis
-    ) {
-        if (dialog != null && handler != null) {
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    closeKeyboard(dialog);
-                }
-            }, delayMillis);
-            return true;
-        }
-        return false;
-    }
-
-    // =
-
-    // 下面暂时无法使用, 缺少判断键盘是否显示, 否则和自动切换无区别
-    // InputMethodManager.isActive() ( 无法获取 )
-    // Activity.getWindow().getAttributes().softInputMode ( 有些版本可以, 不适用 )
-
-    /**
-     * 自动切换键盘状态, 如果键盘显示了则隐藏, 隐藏着显示
-     * @return {@code true} success, {@code false} fail
-     */
-    public static boolean toggleKeyboard() {
-        try {
-            InputMethodManager imm = AppUtils.getInputMethodManager();
-            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-            return true;
-        } catch (Exception e) {
-            LogPrintUtils.eTag(TAG, e, "toggleKeyboard");
         }
         return false;
     }
@@ -744,5 +332,377 @@ public final class KeyBoardUtils {
         } catch (Exception e) {
         }
         return;
+    }
+
+    /**
+     * 自动切换键盘状态, 如果键盘显示则隐藏反之显示
+     * <pre>
+     *     // 无法获取键盘是否打开 ( 不准确 )
+     *     InputMethodManager.isActive()
+     *     // 获取状态有些版本可以, 不适用
+     *     Activity.getWindow().getAttributes().softInputMode
+     *     <p></p>
+     *     可以配合 {@link #isSoftInputVisible(Activity)} 判断是否显示输入法
+     * </pre>
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean toggleKeyboard() {
+        try {
+            InputMethodManager imm = AppUtils.getInputMethodManager();
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+            return true;
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "toggleKeyboard");
+        }
+        return false;
+    }
+
+    // =============
+    // = 打开软键盘 =
+    // =============
+
+    /**
+     * 打开软键盘
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean openKeyboard() {
+        try {
+            InputMethodManager imm = AppUtils.getInputMethodManager();
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            return true;
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "openKeyboard");
+        }
+        return false;
+    }
+
+    /**
+     * 延时打开软键盘
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean openKeyboardDelay() {
+        return openKeyboardDelay(DELAY_MILLIS);
+    }
+
+    /**
+     * 延时打开软键盘
+     * @param delayMillis 延迟时间 ( 毫秒 )
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean openKeyboardDelay(final long delayMillis) {
+        sMainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                openKeyboard();
+            }
+        }, delayMillis);
+        return true;
+    }
+
+    // =
+
+    /**
+     * 打开软键盘
+     * @param editText {@link EditText}
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean openKeyboard(final EditText editText) {
+        if (editText != null) {
+            try {
+                InputMethodManager imm = AppUtils.getInputMethodManager();
+                imm.showSoftInput(editText, InputMethodManager.SHOW_FORCED);
+                imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, InputMethodManager.HIDE_IMPLICIT_ONLY);
+                return true;
+            } catch (Exception e) {
+                LogPrintUtils.eTag(TAG, e, "openKeyboard");
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 延时打开软键盘
+     * @param editText {@link EditText}
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean openKeyboardDelay(final EditText editText) {
+        return openKeyboardDelay(editText, DELAY_MILLIS);
+    }
+
+    /**
+     * 延时打开软键盘
+     * @param editText    {@link EditText}
+     * @param delayMillis 延迟时间 ( 毫秒 )
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean openKeyboardDelay(
+            final EditText editText,
+            final long delayMillis
+    ) {
+        if (editText != null) {
+            sMainHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        editText.requestFocus();
+                        editText.setSelection(editText.getText().toString().length());
+                    } catch (Exception e) {
+                    }
+                    openKeyboard(editText);
+                }
+            }, delayMillis);
+            return true;
+        }
+        return false;
+    }
+
+    // =============
+    // = 关闭软键盘 =
+    // =============
+
+    /**
+     * 关闭软键盘
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboard() {
+        try {
+            InputMethodManager imm = AppUtils.getInputMethodManager();
+            imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+            return true;
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "closeKeyboard");
+        }
+        return false;
+    }
+
+    /**
+     * 关闭软键盘
+     * @param editText {@link EditText}
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboard(final EditText editText) {
+        if (editText != null) {
+            try {
+                InputMethodManager imm = AppUtils.getInputMethodManager();
+                imm.hideSoftInputFromWindow(editText.getWindowToken(), 0);
+                return true;
+            } catch (Exception e) {
+                LogPrintUtils.eTag(TAG, e, "closeKeyboard");
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 关闭软键盘
+     * @param activity {@link Activity}
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboard(final Activity activity) {
+        if (activity != null) {
+            try {
+                InputMethodManager imm = AppUtils.getInputMethodManager();
+                imm.hideSoftInputFromWindow(activity.getWindow().peekDecorView().getWindowToken(), 0);
+                return true;
+            } catch (Exception e) {
+                LogPrintUtils.eTag(TAG, e, "closeKeyboard");
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 关闭 dialog 中打开的键盘
+     * @param dialog {@link Dialog}
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboard(final Dialog dialog) {
+        if (dialog != null) {
+            try {
+                InputMethodManager imm = AppUtils.getInputMethodManager();
+                imm.hideSoftInputFromWindow(dialog.getWindow().peekDecorView().getWindowToken(), 0);
+                return true;
+            } catch (Exception e) {
+                LogPrintUtils.eTag(TAG, e, "closeKeyboard");
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 关闭软键盘
+     * @param editText {@link EditText}
+     * @param dialog   {@link Dialog}
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyBoardSpecial(
+            final EditText editText,
+            final Dialog dialog
+    ) {
+        try {
+            closeKeyboard();
+            closeKeyboard(editText);
+            closeKeyboard(dialog);
+            return true;
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "closeKeyBoardSpecial");
+        }
+        return false;
+    }
+
+    // ===========
+    // = 延时关闭 =
+    // ===========
+
+    /**
+     * 延时关闭软键盘
+     * @param editText {@link EditText}
+     * @param dialog   {@link Dialog}
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyBoardSpecialDelay(
+            final EditText editText,
+            final Dialog dialog
+    ) {
+        return closeKeyBoardSpecialDelay(editText, dialog, DELAY_MILLIS);
+    }
+
+    /**
+     * 延时关闭软键盘
+     * @param editText    {@link EditText}
+     * @param dialog      {@link Dialog}
+     * @param delayMillis 延迟时间 ( 毫秒 )
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyBoardSpecialDelay(
+            final EditText editText,
+            final Dialog dialog,
+            final long delayMillis
+    ) {
+        sMainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                closeKeyBoardSpecial(editText, dialog);
+            }
+        }, delayMillis);
+        return true;
+    }
+
+    // =
+
+    /**
+     * 延时关闭软键盘
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboardDelay() {
+        return closeKeyboardDelay(DELAY_MILLIS);
+    }
+
+    /**
+     * 延时关闭软键盘
+     * @param delayMillis 延迟时间 ( 毫秒 )
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboardDelay(final long delayMillis) {
+        sMainHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                closeKeyboard();
+            }
+        }, delayMillis);
+        return true;
+    }
+
+    /**
+     * 延时关闭软键盘
+     * @param editText {@link EditText}
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboardDelay(final EditText editText) {
+        return closeKeyboardDelay(editText, DELAY_MILLIS);
+    }
+
+    /**
+     * 延时关闭软键盘
+     * @param editText    {@link EditText}
+     * @param delayMillis 延迟时间 ( 毫秒 )
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboardDelay(
+            final EditText editText,
+            final long delayMillis
+    ) {
+        if (editText != null) {
+            sMainHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    closeKeyboard(editText);
+                }
+            }, delayMillis);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 延时关闭软键盘
+     * @param activity {@link Activity}
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboardDelay(final Activity activity) {
+        return closeKeyboardDelay(activity, DELAY_MILLIS);
+    }
+
+    /**
+     * 延时关闭软键盘
+     * @param activity    {@link Activity}
+     * @param delayMillis 延迟时间 ( 毫秒 )
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboardDelay(
+            final Activity activity,
+            final long delayMillis
+    ) {
+        if (activity != null) {
+            sMainHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    closeKeyboard(activity);
+                }
+            }, delayMillis);
+            return true;
+        }
+        return false;
+    }
+
+    /**
+     * 延时关闭软键盘
+     * @param dialog {@link Dialog}
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboardDelay(final Dialog dialog) {
+        return closeKeyboardDelay(dialog, DELAY_MILLIS);
+    }
+
+    /**
+     * 延时关闭软键盘
+     * @param dialog      {@link Dialog}
+     * @param delayMillis 延迟时间 ( 毫秒 )
+     * @return {@code true} success, {@code false} fail
+     */
+    public static boolean closeKeyboardDelay(
+            final Dialog dialog,
+            final long delayMillis
+    ) {
+        if (dialog != null) {
+            sMainHandler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    closeKeyboard(dialog);
+                }
+            }, delayMillis);
+            return true;
+        }
+        return false;
     }
 }

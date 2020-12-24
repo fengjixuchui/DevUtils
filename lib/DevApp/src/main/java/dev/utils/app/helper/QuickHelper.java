@@ -10,7 +10,6 @@ import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.os.Handler;
 import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.KeyListener;
@@ -2618,26 +2617,21 @@ public final class QuickHelper {
     }
 
     /**
-     * 打开软键盘
-     * @param handler {@link Handler}
+     * 延时打开软键盘
      * @return {@link QuickHelper}
      */
-    public QuickHelper openKeyboard(final Handler handler) {
-        KeyBoardUtils.openKeyboard(targetEditText(), handler);
+    public QuickHelper openKeyboardDelay() {
+        KeyBoardUtils.openKeyboardDelay(targetEditText());
         return this;
     }
 
     /**
-     * 打开软键盘
-     * @param handler     {@link Handler}
+     * 延时打开软键盘
      * @param delayMillis 延迟时间 ( 毫秒 )
      * @return {@link QuickHelper}
      */
-    public QuickHelper openKeyboard(
-            final Handler handler,
-            final int delayMillis
-    ) {
-        KeyBoardUtils.openKeyboard(targetEditText(), handler, delayMillis);
+    public QuickHelper openKeyboardDelay(final int delayMillis) {
+        KeyBoardUtils.openKeyboardDelay(targetEditText(), delayMillis);
         return this;
     }
 
@@ -2665,32 +2659,26 @@ public final class QuickHelper {
     }
 
     /**
-     * 关闭软键盘
-     * @param dialog  {@link Dialog}
-     * @param handler {@link Handler}
+     * 延时关闭软键盘
+     * @param dialog {@link Dialog}
      * @return {@link QuickHelper}
      */
-    public QuickHelper closeKeyBoardSpecial(
-            final Dialog dialog,
-            final Handler handler
-    ) {
-        KeyBoardUtils.closeKeyBoardSpecial(targetEditText(), dialog, handler);
+    public QuickHelper closeKeyBoardSpecialDelay(final Dialog dialog) {
+        KeyBoardUtils.closeKeyBoardSpecialDelay(targetEditText(), dialog);
         return this;
     }
 
     /**
-     * 关闭软键盘
+     * 延时关闭软键盘
      * @param dialog      {@link Dialog}
-     * @param handler     {@link Handler}
      * @param delayMillis 延迟时间 ( 毫秒 )
      * @return {@link QuickHelper}
      */
-    public QuickHelper closeKeyBoardSpecial(
+    public QuickHelper closeKeyBoardSpecialDelay(
             final Dialog dialog,
-            final Handler handler,
             final int delayMillis
     ) {
-        KeyBoardUtils.closeKeyBoardSpecial(targetEditText(), dialog, handler, delayMillis);
+        KeyBoardUtils.closeKeyBoardSpecialDelay(targetEditText(), dialog, delayMillis);
         return this;
     }
 
