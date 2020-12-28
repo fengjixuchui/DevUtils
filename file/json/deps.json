@@ -1,7 +1,7 @@
 {
     "dev": {
-        "dev_app_x": "com.afkt:DevAppX:2.1.2",
-        "dev_assist": "com.afkt:DevAssist:1.0.6",
+        "dev_app_x": "com.afkt:DevAppX:2.1.3",
+        "dev_assist": "com.afkt:DevAssist:1.0.7",
         "dev_base": "com.afkt:DevBase:1.0.2",
         "dev_base_mvvm": "com.afkt:DevBaseMVVM:1.0.0",
         "dev_java": "com.afkt:DevJava:1.2.4",

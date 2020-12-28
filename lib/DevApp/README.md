@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:2.1.2'
+implementation 'com.afkt:DevAppX:2.1.3'
 ```
 
 ## 目录结构
@@ -379,6 +379,7 @@ allprojects {
 | getAlarmManager | 获取 AlarmManager |
 | getLocationManager | 获取 LocationManager |
 | getVibrator | 获取 Vibrator |
+| getWallpaperManager | 获取 WallpaperManager |
 | getSystemService | 获取 SystemService |
 | getPackageManager | 获取 PackageManager |
 | getApplicationInfo | 获取 ApplicationInfo |
@@ -870,15 +871,18 @@ allprojects {
 | :- | :- |
 | setDelayMillis | 设置延迟时间 |
 | setSoftInputMode | 设置 Window 软键盘是否显示 |
-| openKeyboard | 打开软键盘 |
-| closeKeyboard | 关闭软键盘 |
-| closeKeyBoardSpecial | 关闭软键盘 |
-| toggleKeyboard | 自动切换键盘状态, 如果键盘显示了则隐藏, 隐藏着显示 |
 | judgeView | 设置某个 View 内所有非 EditText 的子 View OnTouchListener 事件 |
 | isSoftInputVisible | 判断软键盘是否可见 |
 | registerSoftInputChangedListener | 注册软键盘改变监听 |
 | registerSoftInputChangedListener2 | 注册软键盘改变监听 |
 | fixSoftInputLeaks | 修复软键盘内存泄漏 在 Activity.onDestroy() 中使用 |
+| toggleKeyboard | 自动切换键盘状态, 如果键盘显示则隐藏反之显示 |
+| openKeyboard | 打开软键盘 |
+| openKeyboardDelay | 延时打开软键盘 |
+| closeKeyboard | 关闭软键盘 |
+| closeKeyBoardSpecial | 关闭软键盘 |
+| closeKeyBoardSpecialDelay | 延时关闭软键盘 |
+| closeKeyboardDelay | 延时关闭软键盘 |
 
 
 * **锁屏管理工具类 ( 锁屏、禁用锁屏, 判断是否锁屏 ) ->** [KeyguardUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/KeyguardUtils.java)
@@ -1959,6 +1963,33 @@ allprojects {
 | setColorFilter | View 着色处理 |
 
 
+* **壁纸工具类 ->** [WallpaperUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/WallpaperUtils.java)
+
+| 方法 | 注释 |
+| :- | :- |
+| isWallpaperSupported | 是否支持壁纸 |
+| isSetWallpaperAllowed | 是否支持设置壁纸 |
+| hasResourceWallpaper | 判断当前壁纸是否使用给定的资源 Id |
+| forgetLoadedWallpaper | 删除所有内部引用到最后加载的壁纸 |
+| clear | 删除壁纸 ( 恢复为系统内置桌面壁纸 ) |
+| clearWallpaper | 删除壁纸 ( 恢复为系统内置壁纸 ) |
+| getWallpaperId | 获取当前壁纸 Id |
+| getWallpaperInfo | 获取动态壁纸信息 |
+| getWallpaperColors | 获取壁纸颜色信息 |
+| getDesiredMinimumHeight | 获取壁纸所需最小高度 |
+| getDesiredMinimumWidth | 获取壁纸所需最小宽度 |
+| getBuiltInDrawable | 获取系统内置静态壁纸 ( 桌面壁纸 ) |
+| getDrawable | 获取当前壁纸 ( 桌面壁纸 ) |
+| getFastDrawable | 获取当前壁纸 ( 桌面壁纸 ) |
+| peekDrawable | 获取当前壁纸 ( 桌面壁纸 ) |
+| peekFastDrawable | 获取当前壁纸 ( 桌面壁纸 ) |
+| setBitmap | 通过 Bitmap 设置壁纸 ( 桌面壁纸 ) |
+| setResource | 通过 res 设置壁纸 |
+| setStream | 通过 InputStream 设置壁纸 |
+| setUri | 通过 Uri 设置壁纸 ( 跳转到设置页 ) |
+| callback | 非适配 ROM 则触发回调 |
+
+
 * **控件工具类 ->** [WidgetUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/WidgetUtils.java)
 
 | 方法 | 注释 |
@@ -2024,6 +2055,17 @@ allprojects {
 | playBeepSoundAndVibrate | 进行播放声音, 并且震动 |
 | close | 关闭震动、提示声, 并释放资源 |
 | buildMediaPlayer | 创建 MediaPlayer 对象 |
+
+
+* **延迟触发辅助类 ->** [DelayAssist.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/assist/DelayAssist.java)
+
+| 方法 | 注释 |
+| :- | :- |
+| remove | 移除消息 |
+| post | 发送消息 ( 功能由该方法实现 ) |
+| setDelayMillis | 设置搜索延迟时间 |
+| setCallback | 设置搜索回调接口 |
+| callback | 回调方法 |
 
 
 * **Activity 无操作定时辅助类 ->** [InactivityTimerAssist.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/assist/InactivityTimerAssist.java)
@@ -2285,12 +2327,15 @@ allprojects {
 | closePopupWindows | 关闭多个 PopupWindow |
 | autoCloseDialog | 自动关闭 dialog |
 | autoClosePopupWindow | 自动关闭 PopupWindow |
-| openKeyboard | 打开软键盘 |
-| closeKeyboard | 关闭软键盘 |
-| closeKeyBoardSpecial | 关闭软键盘 |
 | judgeView | 设置某个 View 内所有非 EditText 的子 View OnTouchListener 事件 |
 | registerSoftInputChangedListener | 注册软键盘改变监听 |
 | registerSoftInputChangedListener2 | 注册软键盘改变监听 |
+| openKeyboard | 打开软键盘 |
+| openKeyboardDelay | 延时打开软键盘 |
+| closeKeyboard | 关闭软键盘 |
+| closeKeyBoardSpecial | 关闭软键盘 |
+| closeKeyBoardSpecialDelay | 延时关闭软键盘 |
+| closeKeyboardDelay | 延时关闭软键盘 |
 | applyLanguage | 修改系统语言 (APP 多语言, 单独改变 APP 语言 ) |
 | setOnClicks | 设置点击事件 |
 | setOnLongClicks | 设置长按事件 |
@@ -2497,8 +2542,10 @@ allprojects {
 | smoothScrollBy | 滚动到指定位置 ( 有滚动过程, 相对于上次移动的最后位置移动 ) |
 | fullScroll | 滚动方向 ( 有滚动过程 ) |
 | openKeyboard | 打开软键盘 |
+| openKeyboardDelay | 延时打开软键盘 |
 | closeKeyboard | 关闭软键盘 |
 | closeKeyBoardSpecial | 关闭软键盘 |
+| closeKeyBoardSpecialDelay | 延时关闭软键盘 |
 | forceGetViewSize | 在 onCreate 中获取视图的尺寸 ( 需回调 onGetSizeListener 接口, 在 onGetSize 中获取 View 宽高 ) |
 
 
