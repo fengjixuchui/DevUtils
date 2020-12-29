@@ -143,8 +143,9 @@ public class DevVideoPlayerControl
         // =
         if (mSurfaceView != null) {
             // 如果等于 null, 或者不在显示中, 则跳过
-            if (mSurfaceHolder.getSurface() == null || !mSurfaceHolder.getSurface().isValid())
+            if (mSurfaceHolder.getSurface() == null || !mSurfaceHolder.getSurface().isValid()) {
                 return;
+            }
 
             try {
                 MediaPlayer mPlayer = DevMediaManager.getInstance().getMediaPlayer();
@@ -298,7 +299,8 @@ public class DevVideoPlayerControl
             }
 
             @Override
-            public void setMediaConfig(MediaPlayer mediaPlayer) throws Exception {
+            public void setMediaConfig(MediaPlayer mediaPlayer)
+                    throws Exception {
                 mediaPlayer.setDataSource(playUri);
             }
         };

@@ -446,7 +446,8 @@ public final class RandomUtils {
     public static int nextIntRange(
             final int origin,
             final int bound
-    ) throws IllegalArgumentException {
+    )
+            throws IllegalArgumentException {
         if (origin > bound) {
             throw new IllegalArgumentException("bound must be greater than origin");
         } else if (origin == bound) {
@@ -475,7 +476,8 @@ public final class RandomUtils {
     public static long nextLongRange(
             final long origin,
             final long bound
-    ) throws IllegalArgumentException {
+    )
+            throws IllegalArgumentException {
         if (origin > bound) {
             throw new IllegalArgumentException("bound must be greater than origin");
         } else if (origin == bound) {
@@ -485,16 +487,20 @@ public final class RandomUtils {
         long   r      = random.nextLong();
         long   n      = bound - origin, m = n - 1;
         if ((n & m) == 0L) // power of two
+        {
             r = (r & m) + origin;
-        else if (n > 0L) {  // reject over-represented candidates
+        } else if (n > 0L) {  // reject over-represented candidates
             for (long u = r >>> 1;            // ensure nonnegative
                  u + m - (r = u % n) < 0L;    // rejection check
                  u = random.nextLong() >>> 1) // retry
+            {
                 ;
+            }
             r += origin;
         } else {              // range not representable as long
-            while (r < origin || r >= bound)
+            while (r < origin || r >= bound) {
                 r = random.nextLong();
+            }
         }
         return r;
     }
@@ -509,7 +515,8 @@ public final class RandomUtils {
     public static double nextDoubleRange(
             final double origin,
             final double bound
-    ) throws IllegalArgumentException {
+    )
+            throws IllegalArgumentException {
         if (origin > bound) {
             throw new IllegalArgumentException("bound must be greater than origin");
         } else if (origin == bound) {
@@ -518,7 +525,9 @@ public final class RandomUtils {
         double r = new Random().nextDouble();
         r = r * (bound - origin) + origin;
         if (r >= bound) // correct for rounding
+        {
             r = Double.longBitsToDouble(Double.doubleToLongBits(bound) - 1);
+        }
         return r;
     }
 

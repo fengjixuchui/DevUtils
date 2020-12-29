@@ -222,8 +222,9 @@ public final class AccessibilityListenerService
     public static final String               COMMAND_CLOSE = "COMMAND_CLOSE";
 
     private void initTrackerWindowManager() {
-        if (mTrackerWindowManager == null)
+        if (mTrackerWindowManager == null) {
             mTrackerWindowManager = new TrackerWindowManager(this);
+        }
     }
 
     @Override
@@ -237,10 +238,11 @@ public final class AccessibilityListenerService
 
         String command = intent.getStringExtra(COMMAND);
         if (command != null) {
-            if (command.equals(COMMAND_OPEN))
+            if (command.equals(COMMAND_OPEN)) {
                 mTrackerWindowManager.addView();
-            else if (command.equals(COMMAND_CLOSE))
+            } else if (command.equals(COMMAND_CLOSE)) {
                 mTrackerWindowManager.removeView();
+            }
         }
 
         return super.onStartCommand(intent, flags, startId);
