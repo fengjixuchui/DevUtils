@@ -28,7 +28,8 @@ import dev.utils.app.toast.ToastTintUtils
 import dev.utils.common.FileUtils
 import java.util.*
 
-class ApkDetailsActivity : AppCompatActivity(), View.OnClickListener {
+class ApkDetailsActivity : AppCompatActivity(),
+    View.OnClickListener {
 
     private lateinit var binding: ActivityApkDetailsBinding
 

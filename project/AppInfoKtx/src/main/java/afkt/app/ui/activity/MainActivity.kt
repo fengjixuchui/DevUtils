@@ -28,7 +28,8 @@ import dev.utils.app.toast.ToastTintUtils
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
-class MainActivity : AppCompatActivity(), View.OnClickListener {
+class MainActivity : AppCompatActivity(),
+    View.OnClickListener {
 
     // = View =
 

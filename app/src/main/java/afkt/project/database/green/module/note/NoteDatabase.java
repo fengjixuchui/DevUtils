@@ -20,7 +20,8 @@ import gen.greendao.NotePictureDao;
  * detail: Note 数据库
  * @author Ttt
  */
-public final class NoteDatabase extends AbsGreenDatabase {
+public final class NoteDatabase
+        extends AbsGreenDatabase {
 
     public NoteDatabase(
             UpgradeHelper helper,
@@ -124,7 +125,8 @@ public final class NoteDatabase extends AbsGreenDatabase {
      *     所以, 在正式的项目中, 你还应该做一层封装, 来实现数据库的安全升级
      * </pre>
      */
-    private static class UpgradeHelper extends DaoMaster.OpenHelper {
+    private static class UpgradeHelper
+            extends DaoMaster.OpenHelper {
 
         public UpgradeHelper(
                 Context context,

@@ -15,7 +15,8 @@ import gen.greendao.DaoSession;
  *     参考 {@link NoteDatabase}
  * </pre>
  */
-public class ImageDatabase extends AbsGreenDatabase {
+public class ImageDatabase
+        extends AbsGreenDatabase {
 
     /**
      * 创建数据库

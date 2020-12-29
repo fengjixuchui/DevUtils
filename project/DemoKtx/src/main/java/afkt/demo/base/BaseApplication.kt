@@ -8,7 +8,8 @@ import dev.utils.app.logger.DevLogger
 import dev.utils.app.logger.LogConfig
 import dev.utils.app.logger.LogLevel
 
-class BaseApplication : MultiDexApplication(), ViewModelStoreOwner {
+class BaseApplication : MultiDexApplication(),
+    ViewModelStoreOwner {
 
     // 日志 TAG
     private val TAG = "DemoKtx_TAG"

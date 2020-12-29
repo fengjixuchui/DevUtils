@@ -25,7 +25,8 @@ import dev.DevUtils;
  */
 @Database(entities = {Note.class, NotePicture.class}, version = 1) // , exportSchema = false
 @TypeConverters({NoteConverter.class})
-public abstract class NoteDatabase extends AbsRoomDatabase {
+public abstract class NoteDatabase
+        extends AbsRoomDatabase {
 
     /**
      * 获取 {@link Note} Dao

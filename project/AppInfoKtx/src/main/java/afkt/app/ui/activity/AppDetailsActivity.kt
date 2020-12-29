@@ -20,7 +20,8 @@ import dev.utils.app.info.KeyValueBean
 import dev.utils.app.logger.DevLogger
 import dev.utils.app.toast.ToastTintUtils
 
-class AppDetailsActivity : AppCompatActivity(), View.OnClickListener {
+class AppDetailsActivity : AppCompatActivity(),
+    View.OnClickListener {
 
     private lateinit var binding: ActivityAppDetailsBinding
 
