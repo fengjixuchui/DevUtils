@@ -1,6 +1,6 @@
 package dev.utils.app;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
 import android.app.WallpaperColors;
 import android.app.WallpaperInfo;
 import android.app.WallpaperManager;
@@ -13,6 +13,7 @@ import android.os.Build;
 
 import androidx.annotation.RawRes;
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RequiresPermission;
 
 import java.io.InputStream;
 
@@ -50,7 +51,12 @@ public final class WallpaperUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.M)
     public static boolean isWallpaperSupported() {
-        return AppUtils.getWallpaperManager().isWallpaperSupported();
+        try {
+            return AppUtils.getWallpaperManager().isWallpaperSupported();
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "isWallpaperSupported");
+        }
+        return false;
     }
 
     /**
@@ -59,7 +65,12 @@ public final class WallpaperUtils {
      */
     @RequiresApi(api = Build.VERSION_CODES.N)
     public static boolean isSetWallpaperAllowed() {
-        return AppUtils.getWallpaperManager().isSetWallpaperAllowed();
+        try {
+            return AppUtils.getWallpaperManager().isSetWallpaperAllowed();
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "isSetWallpaperAllowed");
+        }
+        return false;
     }
 
     /**
@@ -95,7 +106,7 @@ public final class WallpaperUtils {
      * 删除壁纸 ( 恢复为系统内置桌面壁纸 )
      * @return {@code true} success, {@code false} fail
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     public static boolean clear() {
         try {
             AppUtils.getWallpaperManager().clear();
@@ -111,8 +122,8 @@ public final class WallpaperUtils {
      * @param which {@link WallpaperManager#FLAG_SYSTEM} or {@link WallpaperManager#FLAG_LOCK}
      * @return {@code true} success, {@code false} fail
      */
-    @SuppressLint("MissingPermission")
     @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     public static boolean clear(final int which) {
         try {
             AppUtils.getWallpaperManager().clear(which);
@@ -127,8 +138,8 @@ public final class WallpaperUtils {
      * 删除壁纸 ( 恢复为系统内置壁纸 )
      * @return {@code true} success, {@code false} fail
      */
-    @SuppressLint("MissingPermission")
     @RequiresApi(api = Build.VERSION_CODES.P)
+    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     public static boolean clearWallpaper() {
         try {
             AppUtils.getWallpaperManager().clearWallpaper();
@@ -267,7 +278,7 @@ public final class WallpaperUtils {
      * </pre>
      * @return {@link Drawable}
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     public static Drawable getFastDrawable() {
         try {
             return AppUtils.getWallpaperManager().getFastDrawable();
@@ -300,7 +311,7 @@ public final class WallpaperUtils {
      * </pre>
      * @return {@link Drawable}
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.READ_EXTERNAL_STORAGE)
     public static Drawable peekFastDrawable() {
         try {
             return AppUtils.getWallpaperManager().peekFastDrawable();
@@ -319,7 +330,7 @@ public final class WallpaperUtils {
      * @param bitmap {@link Bitmap}
      * @return {@code true} success, {@code false} fail
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     public static boolean setBitmap(final Bitmap bitmap) {
         try {
             AppUtils.getWallpaperManager().setBitmap(bitmap);
@@ -336,8 +347,8 @@ public final class WallpaperUtils {
      * @param which  {@link WallpaperManager#FLAG_SYSTEM} or {@link WallpaperManager#FLAG_LOCK}
      * @return {@code true} success, {@code false} fail
      */
-    @SuppressLint("MissingPermission")
     @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     public static boolean setBitmap(
             final Bitmap bitmap,
             final int which
@@ -356,7 +367,7 @@ public final class WallpaperUtils {
      * @param resId resource identifier
      * @return {@code true} success, {@code false} fail
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     public static boolean setResource(@RawRes final int resId) {
         try {
             AppUtils.getWallpaperManager().setResource(resId);
@@ -373,8 +384,8 @@ public final class WallpaperUtils {
      * @param which {@link WallpaperManager#FLAG_SYSTEM} or {@link WallpaperManager#FLAG_LOCK}
      * @return {@code true} success, {@code false} fail
      */
-    @SuppressLint("MissingPermission")
     @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     public static boolean setResource(
             @RawRes final int resId,
             final int which
@@ -393,7 +404,7 @@ public final class WallpaperUtils {
      * @param inputStream bitmapData InputStream
      * @return {@code true} success, {@code false} fail
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     public static boolean setStream(final InputStream inputStream) {
         try {
             AppUtils.getWallpaperManager().setStream(inputStream);
@@ -410,8 +421,8 @@ public final class WallpaperUtils {
      * @param which       {@link WallpaperManager#FLAG_SYSTEM} or {@link WallpaperManager#FLAG_LOCK}
      * @return {@code true} success, {@code false} fail
      */
-    @SuppressLint("MissingPermission")
     @RequiresApi(api = Build.VERSION_CODES.N)
+    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     public static boolean setStream(
             final InputStream inputStream,
             final int which
@@ -447,6 +458,7 @@ public final class WallpaperUtils {
      * @param uri {@link Uri}
      * @return {@code true} success, {@code false} fail
      */
+    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     public static boolean setUri(final Uri uri) {
         return setUri(uri, null);
     }
@@ -457,6 +469,7 @@ public final class WallpaperUtils {
      * @param callback {@link OnOtherCallback}
      * @return {@code true} success, {@code false} fail
      */
+    @RequiresPermission(Manifest.permission.SET_WALLPAPER)
     public static boolean setUri(
             final Uri uri,
             final OnOtherCallback callback

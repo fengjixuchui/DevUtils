@@ -1,5 +1,6 @@
 package dev.utils.app;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.res.Configuration;
 import android.net.wifi.WifiInfo;
@@ -9,6 +10,7 @@ import android.provider.Settings;
 import android.text.TextUtils;
 
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RequiresPermission;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -490,7 +492,7 @@ public final class DeviceUtils {
      * </pre>
      * @return 设备 MAC 地址
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
     public static String getMacAddress() {
         String macAddress = getMacAddressByWifiInfo();
         if (!DEFAULT_MAC_ADDRESS.equals(macAddress)) {
@@ -515,7 +517,7 @@ public final class DeviceUtils {
      * 获取 MAC 地址
      * @return MAC 地址
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
     private static String getMacAddressByWifiInfo() {
         try {
             @SuppressLint("WifiManagerLeak")
@@ -534,7 +536,6 @@ public final class DeviceUtils {
      * 获取 MAC 地址
      * @return MAC 地址
      */
-    @SuppressLint("MissingPermission")
     private static String getMacAddressByNetworkInterface() {
         try {
             Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces();
@@ -653,6 +654,7 @@ public final class DeviceUtils {
      *               重启到 Fastboot 模式 bootloader
      * @return {@code true} success, {@code false} fail
      */
+    @RequiresPermission(Manifest.permission.REBOOT)
     public static boolean reboot(final String reason) {
         return ADBUtils.reboot(reason);
     }

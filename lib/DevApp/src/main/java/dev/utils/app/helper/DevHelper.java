@@ -1,6 +1,6 @@
 package dev.utils.app.helper;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.Notification;
@@ -18,6 +18,7 @@ import android.widget.PopupWindow;
 
 import androidx.annotation.IntRange;
 import androidx.annotation.RawRes;
+import androidx.annotation.RequiresPermission;
 import androidx.fragment.app.DialogFragment;
 
 import java.io.Closeable;
@@ -1432,7 +1433,7 @@ public final class DevHelper {
      * @param milliseconds 震动时长 ( 毫秒 )
      * @return {@link DevHelper}
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.VIBRATE)
     public DevHelper vibrate(final long milliseconds) {
         VibrationUtils.vibrate(milliseconds);
         return this;
@@ -1445,7 +1446,7 @@ public final class DevHelper {
      *                -1 表示只震动一次, 非 -1 表示从 pattern 数组指定下标开始重复震动
      * @return {@link DevHelper}
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.VIBRATE)
     public DevHelper vibrate(
             final long[] pattern,
             final int repeat
@@ -1458,7 +1459,7 @@ public final class DevHelper {
      * 取消震动
      * @return {@link DevHelper}
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.VIBRATE)
     public DevHelper cancel() {
         VibrationUtils.cancel();
         return this;

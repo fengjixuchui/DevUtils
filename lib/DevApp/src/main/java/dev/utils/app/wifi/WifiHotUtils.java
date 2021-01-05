@@ -1,6 +1,6 @@
 package dev.utils.app.wifi;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.net.DhcpInfo;
@@ -10,6 +10,7 @@ import android.os.Build;
 import android.text.TextUtils;
 
 import androidx.annotation.RequiresApi;
+import androidx.annotation.RequiresPermission;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -116,7 +117,10 @@ public final class WifiHotUtils {
      * @param wifiConfig Wifi 配置
      * @return {@code true} success, {@code false} fail
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(allOf = {
+            Manifest.permission.CHANGE_WIFI_STATE,
+            Manifest.permission.ACCESS_FINE_LOCATION
+    })
     public boolean startWifiAp(final WifiConfiguration wifiConfig) {
         this.mAPWifiConfig = wifiConfig;
         // 大于 8.0
@@ -417,7 +421,7 @@ public final class WifiHotUtils {
      * 获取热点主机 IP 地址
      * @return 热点主机 IP 地址
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.ACCESS_WIFI_STATE)
     public String getHotspotServiceIp() {
         try {
             // 获取网关信息

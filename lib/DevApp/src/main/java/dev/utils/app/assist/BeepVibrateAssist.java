@@ -1,12 +1,13 @@
 package dev.utils.app.assist;
 
-import android.annotation.SuppressLint;
+import android.Manifest;
 import android.app.Activity;
 import android.content.res.AssetFileDescriptor;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 
 import androidx.annotation.RawRes;
+import androidx.annotation.RequiresPermission;
 
 import java.io.Closeable;
 
@@ -165,7 +166,7 @@ public final class BeepVibrateAssist
      * 进行播放声音, 并且震动
      * @return {@code true} success, {@code false} fail
      */
-    @SuppressLint("MissingPermission")
+    @RequiresPermission(Manifest.permission.VIBRATE)
     public synchronized boolean playBeepSoundAndVibrate() {
         // 判断是否允许播放
         if (shouldBeep() && mMediaPlayer != null) {
