@@ -1,37 +1,26 @@
 package afkt.app.base
 
-import afkt.app.utils.EventBusUtils
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.viewbinding.ViewBinding
 import dev.base.expand.viewbinding.DevBaseViewBindingFragment
 
 abstract class BaseFragment<VB : ViewBinding> : DevBaseViewBindingFragment<VB>() {
+
+    val viewModel by activityViewModels<AppViewModel>()
+
+    val dataStore = AppDataStore()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        readArguments()
-        if (isRegister()) EventBusUtils.register(this)
+        dataStore.initDataStore(arguments = arguments)
         return super.onCreateView(inflater, container, savedInstanceState)
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        if (isRegister()) EventBusUtils.unregister(this)
-    }
-
-    // 是否注册 EventBus
-    open fun isRegister(): Boolean {
-        return true
-    }
-
-    // 读取传参数据
-    open fun readArguments() {
     }
 
     // ===================

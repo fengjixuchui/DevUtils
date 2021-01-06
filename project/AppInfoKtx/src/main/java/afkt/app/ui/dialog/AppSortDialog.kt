@@ -1,10 +1,9 @@
 package afkt.app.ui.dialog
 
 import afkt.app.R
+import afkt.app.base.AppViewModel
 import afkt.app.base.Constants
 import afkt.app.databinding.DialogAppSortBinding
-import afkt.app.module.event.SortEvent
-import afkt.app.utils.EventBusUtils
 import afkt.app.utils.ProjectUtils
 import android.app.Dialog
 import android.content.Context
@@ -18,7 +17,10 @@ import dev.utils.app.share.SharedUtils
  * detail: App 排序 Dialog
  * @author Ttt
  */
-class AppSortDialog(context: Context?) :
+class AppSortDialog(
+    viewModel: AppViewModel,
+    context: Context?
+) :
     Dialog(context!!, R.style.Theme_Light_FullScreenDialogOperate) {
 
     private var binding: DialogAppSortBinding
@@ -51,7 +53,7 @@ class AppSortDialog(context: Context?) :
                 if (i != sortPos) {
                     SharedUtils.put(Constants.Key.KEY_APP_SORT, i)
                     // 发送应用排序变更通知事件
-                    EventBusUtils.post(SortEvent())
+                    viewModel.appSort.postValue(true)
                 }
                 cancel()
             }

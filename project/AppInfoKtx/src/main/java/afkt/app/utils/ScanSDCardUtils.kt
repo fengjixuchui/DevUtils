@@ -1,7 +1,7 @@
 package afkt.app.utils
 
-import afkt.app.module.event.ScanSDCardEvent
-import afkt.app.module.item.FileApkItem
+import afkt.app.module.FileApkItem
+import afkt.app.module.ScanSDCardEvent
 import dev.utils.app.PathUtils
 import dev.utils.app.info.AppInfoUtils
 import dev.utils.app.logger.DevLogger

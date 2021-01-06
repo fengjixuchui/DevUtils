@@ -1,6 +1,6 @@
 package afkt.app.utils
 
-import afkt.app.module.event.StartSearchEvent
+import afkt.app.module.StartSearchEvent
 import dev.utils.app.assist.DelayAssist
 
 /**

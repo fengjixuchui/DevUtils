@@ -2,11 +2,9 @@ package afkt.app.ui.fragment
 
 import afkt.app.R
 import afkt.app.base.BaseFragment
-import afkt.app.base.Constants
+import afkt.app.base.setDataStore
 import afkt.app.databinding.FragmentAppBinding
-import afkt.app.module.ActionEnum
-import afkt.app.module.TypeEnum
-import afkt.app.module.event.*
+import afkt.app.module.*
 import afkt.app.ui.adapter.AppListAdapter
 import afkt.app.utils.AppListUtils
 import afkt.app.utils.AppSearchUtils
@@ -31,32 +29,14 @@ class AppListFragment : BaseFragment<FragmentAppBinding>() {
     companion object {
         fun get(type: TypeEnum): BaseFragment<FragmentAppBinding> {
             val fragment = AppListFragment()
-            val bundle = Bundle()
-            bundle.putInt(Constants.Key.KEY_VALUE, type.tag)
-            fragment.setArguments(bundle)
+            fragment.setDataStore(type)
             return fragment
         }
     }
 
-    // = View =
-
     private var whorlView: WhorlView? = null
 
-    // = Object =
-
-    private var type: TypeEnum? = null
-    private var searchContent: String = ""
-
-    override fun baseContentId(): Int {
-        return R.layout.fragment_app
-    }
-
-    override fun readArguments() {
-        super.readArguments()
-
-        var value = arguments?.getInt(Constants.Key.KEY_VALUE)
-        type = value?.let { TypeEnum.get(it) }
-    }
+    override fun baseContentId() = R.layout.fragment_app
 
     override fun onViewCreated(
         view: View,
@@ -112,12 +92,12 @@ class AppListFragment : BaseFragment<FragmentAppBinding>() {
                         // 无数据处理
                         if (type == ViewAssist.TYPE_EMPTY_DATA) {
                             binding.vidFaRefresh.finishRefresh()
-                            var tips = if (searchContent.isEmpty()) {
+                            var tips = if (dataStore.searchContent.isEmpty()) {
                                 ResourceUtils.getString(R.string.str_search_noresult_tips_1)
                             } else {
                                 ResourceUtils.getString(
                                     R.string.str_search_noresult_tips,
-                                    HtmlUtils.addHtmlColor(searchContent, "#359AFF")
+                                    HtmlUtils.addHtmlColor(dataStore.searchContent, "#359AFF")
                                 )
                             }
                             TextViewUtils.setHtmlText(
@@ -132,7 +112,7 @@ class AppListFragment : BaseFragment<FragmentAppBinding>() {
 
         // 设置刷新事件
         binding.vidFaRefresh.setOnRefreshListener(OnRefreshListener {
-            type?.let { AppListUtils.getAppLists(it, true) }
+            AppListUtils.getAppLists(dataStore.typeEnum, true)
         })
     }
 
@@ -143,8 +123,8 @@ class AppListFragment : BaseFragment<FragmentAppBinding>() {
     @Subscribe(threadMode = ThreadMode.BACKGROUND, sticky = true)
     fun onEvent(event: FragmentEvent) {
         event.type?.let {
-            if (it == type) {
-                searchContent = "" // 切换 Fragment 重置搜索内容
+            if (it == dataStore.typeEnum) {
+                dataStore.searchContent = "" // 切换 Fragment 重置搜索内容
                 AppListUtils.getAppLists(it) // 加载列表
                 EventBusUtils.removeStickyEvent(FragmentEvent::class.java)
             }
@@ -154,11 +134,11 @@ class AppListFragment : BaseFragment<FragmentAppBinding>() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: AppListEvent) {
         event.type?.let {
-            if (it == type) {
-                var lists = if (searchContent.isEmpty()) {
+            if (it == dataStore.typeEnum) {
+                var lists = if (dataStore.searchContent.isEmpty()) {
                     event.lists
                 } else {
-                    AppSearchUtils.filterAppList(event.lists, searchContent)
+                    AppSearchUtils.filterAppList(event.lists, dataStore.searchContent)
                 }
                 if (lists.isEmpty()) {
                     binding.vidFaState.showEmptyData()
@@ -175,9 +155,9 @@ class AppListFragment : BaseFragment<FragmentAppBinding>() {
         event.type?.let {
             when (event.action) {
                 ActionEnum.COLLAPSE -> { // 搜索合并
-                    if (it == type) {
-                        if (searchContent.isNotEmpty()) { // 输入内容才刷新列表
-                            searchContent = ""
+                    if (it == dataStore.typeEnum) {
+                        if (dataStore.searchContent.isNotEmpty()) { // 输入内容才刷新列表
+                            dataStore.searchContent = ""
                             AppListUtils.getAppLists(it) // 加载列表
                         }
                     }
@@ -185,8 +165,8 @@ class AppListFragment : BaseFragment<FragmentAppBinding>() {
                 ActionEnum.EXPAND -> { // 搜索展开
                 }
                 ActionEnum.CONTENT -> { // 搜索输入内容
-                    if (it == type) {
-                        searchContent = event.content
+                    if (it == dataStore.typeEnum) {
+                        dataStore.searchContent = event.content
                         AppListUtils.getAppLists(it) // 加载列表
                     }
                 }
@@ -197,16 +177,15 @@ class AppListFragment : BaseFragment<FragmentAppBinding>() {
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: RefreshEvent) {
         event.type?.let {
-            if (it == type) binding.vidFaRefresh.getRefreshLayout()?.autoRefresh()
+            if (it == dataStore.typeEnum) binding.vidFaRefresh.getRefreshLayout()?.autoRefresh()
         }
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEvent(event: TopEvent) {
         event.type?.let {
-            if (it == type) {
+            if (it == dataStore.typeEnum) {
                 ListViewUtils.smoothScrollToTop(binding.vidFaRefresh.getRecyclerView())
-                //ListViewUtils.scrollToTop(binding.vidFaRefresh.getRecyclerView())
             }
         }
     }

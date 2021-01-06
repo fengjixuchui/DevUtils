@@ -9,8 +9,8 @@ android {
 dependencies {
     implementation project(':DevApp')
     implementation project(':DevAssist')
-    implementation project(':DevBase')
     implementation project(':DevBase2')
+    implementation project(':DevBaseMVVM')
     implementation project(':DevWidget')
 
     // =============

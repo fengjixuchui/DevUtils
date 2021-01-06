@@ -2,8 +2,8 @@ package afkt.app.base
 
 import afkt.app.BuildConfig
 import afkt.app.R
-import afkt.app.base.config.AppConfig
-import afkt.app.base.config.PathConfig
+import afkt.app.module.AppConfig
+import afkt.app.module.PathConfig
 import android.content.Context
 import android.os.Build
 import android.os.StrictMode

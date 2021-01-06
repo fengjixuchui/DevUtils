@@ -2,7 +2,7 @@ package afkt.app.ui.adapter
 
 import afkt.app.R
 import afkt.app.base.Constants
-import afkt.app.module.item.FileApkItem
+import afkt.app.module.FileApkItem
 import afkt.app.ui.activity.ApkDetailsActivity
 import android.content.Intent
 import android.view.View

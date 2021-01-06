@@ -1,10 +1,9 @@
 package afkt.app.ui.activity
 
 import afkt.app.R
+import afkt.app.base.AppViewModel
 import afkt.app.databinding.ActivityMainBinding
-import afkt.app.module.ActionEnum
-import afkt.app.module.TypeEnum
-import afkt.app.module.event.*
+import afkt.app.module.*
 import afkt.app.ui.fragment.AppListFragment
 import afkt.app.ui.fragment.InfoFragment
 import afkt.app.ui.fragment.ScanSDCardFragment
@@ -15,6 +14,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
@@ -34,6 +34,8 @@ class MainActivity : AppCompatActivity(),
     // = View =
 
     private lateinit var binding: ActivityMainBinding
+
+    private val viewModel by viewModels<AppViewModel>()
 
     private var searchView: SearchView? = null
 
@@ -241,7 +243,7 @@ class MainActivity : AppCompatActivity(),
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.bma_refresh -> EventBusUtils.post(RefreshEvent(mFragmentType))
-            R.id.bmd_export_item -> EventBusUtils.post(ExportEvent(mFragmentType))
+            R.id.bmd_export_item -> viewModel.exportInfo.postValue(mFragmentType)
         }
         return true
     }

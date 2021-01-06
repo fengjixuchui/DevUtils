@@ -3,9 +3,7 @@ package afkt.app.ui.fragment
 import afkt.app.R
 import afkt.app.base.BaseFragment
 import afkt.app.databinding.FragmentAppBinding
-import afkt.app.module.ActionEnum
-import afkt.app.module.TypeEnum
-import afkt.app.module.event.*
+import afkt.app.module.*
 import afkt.app.ui.adapter.ApkListAdapter
 import afkt.app.utils.AppSearchUtils
 import afkt.app.utils.EventBusUtils

@@ -1,8 +1,35 @@
-package afkt.app.base.config
+package afkt.app.module
 
 import dev.utils.app.PathUtils
 import dev.utils.common.FileUtils
 import java.io.File
+
+/**
+ * detail: App 配置
+ * @author Ttt
+ */
+object AppConfig {
+
+    // ===========
+    // = 项目信息 =
+    // ===========
+
+    // 项目名
+    const val BASE_NAME = "AppInfoKtx"
+
+    // 缩写标识 - 小写
+    const val BASE_NAME_SHORT = "aiktx"
+
+    // 缩写标识 - 大写
+    const val BASE_NAME_SHORT_CAP = "AIKTX"
+
+    // ===========
+    // = 其他配置 =
+    // ===========
+
+    // 项目日志 TAG
+    const val LOG_TAG = BASE_NAME + "_Log"
+}
 
 /**
  * detail: 文件路径配置
@@ -31,8 +58,6 @@ object PathConfig {
 
     // 错误日志路径
     val AEP_ERROR_PATH = AEP_PATH + "Error" + File.separator
-
-    // =
 
     /**
      * 初始化创建文件夹

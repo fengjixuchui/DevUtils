@@ -1,8 +1,8 @@
 package afkt.app.ui.adapter
 
 import afkt.app.R
-import afkt.app.module.bean.DeviceInfoBean
-import afkt.app.module.item.DeviceInfoItem
+import afkt.app.module.DeviceInfoBean
+import afkt.app.module.DeviceInfoItem
 import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener

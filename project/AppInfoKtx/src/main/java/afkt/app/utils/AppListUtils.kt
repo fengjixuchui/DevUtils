@@ -1,7 +1,7 @@
 package afkt.app.utils
 
+import afkt.app.module.AppListEvent
 import afkt.app.module.TypeEnum
-import afkt.app.module.event.AppListEvent
 import dev.utils.app.info.AppInfoBean
 import dev.utils.app.info.AppInfoBean.AppType
 import dev.utils.app.info.AppInfoUtils

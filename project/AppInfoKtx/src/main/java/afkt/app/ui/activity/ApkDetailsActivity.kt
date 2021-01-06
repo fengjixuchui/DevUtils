@@ -3,7 +3,7 @@ package afkt.app.ui.activity
 import afkt.app.R
 import afkt.app.base.Constants
 import afkt.app.databinding.ActivityApkDetailsBinding
-import afkt.app.module.event.FileDeleteEvent
+import afkt.app.module.FileDeleteEvent
 import afkt.app.ui.adapter.KeyValueAdapter
 import afkt.app.utils.EventBusUtils
 import afkt.app.utils.ExportUtils

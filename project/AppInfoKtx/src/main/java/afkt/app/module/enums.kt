@@ -4,12 +4,28 @@ import afkt.app.R
 import androidx.annotation.StringRes
 
 /**
+ * detail: 操作行为类型
+ * @author Ttt
+ */
+enum class ActionEnum {
+
+    // 搜索合并
+    COLLAPSE,
+
+    // 搜索展开
+    EXPAND,
+
+    // 搜索输入内容
+    CONTENT,
+}
+
+/**
  * detail: Navigation Type
  * @author Ttt
  */
 enum class TypeEnum(
-    tag: Int,
-    @StringRes titleId: Int
+    val tag: Int,
+    @StringRes val titleId: Int
 ) {
 
     NONE(-1, R.string.str_empty),
@@ -34,11 +50,6 @@ enum class TypeEnum(
 
     ;
 
-    val tag: Int = tag
-
-    @StringRes
-    val titleId: Int = titleId
-
     companion object {
 
         /**
@@ -46,14 +57,14 @@ enum class TypeEnum(
          * @param tag Tag
          */
         fun get(tag: Int): TypeEnum {
-            when (tag) {
-                0 -> return APP_USER
-                1 -> return APP_SYSTEM
-                2 -> return DEVICE_INFO
-                3 -> return SCREEN_INFO
-                4 -> return QUERY_APK
-                5 -> return SETTING
-                else -> return NONE
+            return when (tag) {
+                0 -> APP_USER
+                1 -> APP_SYSTEM
+                2 -> DEVICE_INFO
+                3 -> SCREEN_INFO
+                4 -> QUERY_APK
+                5 -> SETTING
+                else -> NONE
             }
         }
     }

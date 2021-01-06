@@ -1,10 +1,11 @@
 package afkt.app.utils
 
 import afkt.app.R
+import afkt.app.base.AppViewModel
 import afkt.app.base.Constants
+import afkt.app.module.DeviceInfo
+import afkt.app.module.DeviceInfoItem
 import afkt.app.module.TypeEnum
-import afkt.app.module.event.InfoEvent
-import afkt.app.module.item.DeviceInfoItem
 import android.os.Build
 import com.google.gson.GsonBuilder
 import dev.utils.app.*
@@ -40,20 +41,21 @@ object ProjectUtils {
 
     /**
      * 获取设备信息
+     * @param viewModel [AppViewModel]
      */
-    fun getDeviceInfos() {
+    fun getDeviceInfo(viewModel: AppViewModel) {
         DevThreadManager.getInstance(2).execute(Runnable {
             var lists: ArrayList<DeviceInfoItem> = ArrayList()
             try {
-                lists = _getDeviceInfos()
+                lists = _getDeviceInfo()
             } catch (e: Exception) {
                 DevLogger.e(e)
             }
-            EventBusUtils.post(InfoEvent(TypeEnum.DEVICE_INFO, lists))
+            viewModel.deviceInfo.postValue(DeviceInfo(TypeEnum.DEVICE_INFO, lists))
         })
     }
 
-    private fun _getDeviceInfos(): ArrayList<DeviceInfoItem> {
+    private fun _getDeviceInfo(): ArrayList<DeviceInfoItem> {
         val lists = ArrayList<DeviceInfoItem>()
         // 设备信息
         val map = DeviceUtils.getDeviceInfo()
@@ -156,20 +158,21 @@ object ProjectUtils {
 
     /**
      * 获取手机屏幕信息
+     * @param viewModel [AppViewModel]
      */
-    fun getScreenInfos() {
+    fun getScreenInfo(viewModel: AppViewModel) {
         DevThreadManager.getInstance(2).execute(Runnable {
             var lists: ArrayList<DeviceInfoItem> = ArrayList()
             try {
-                lists = _getScreenInfos()
+                lists = _getScreenInfo()
             } catch (e: Exception) {
                 DevLogger.e(e)
             }
-            EventBusUtils.post(InfoEvent(TypeEnum.SCREEN_INFO, lists))
+            viewModel.screenInfo.postValue(DeviceInfo(TypeEnum.SCREEN_INFO, lists))
         })
     }
 
-    private fun _getScreenInfos(): ArrayList<DeviceInfoItem> {
+    private fun _getScreenInfo(): ArrayList<DeviceInfoItem> {
         val lists = ArrayList<DeviceInfoItem>()
         // 设备信息
         val map = DeviceUtils.getDeviceInfo()
