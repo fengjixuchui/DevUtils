@@ -1,7 +1,7 @@
 package afkt.accessibility.base
 
 import afkt.accessibility.BuildConfig
-import afkt.accessibility.module.event.ActivityChangedEvent
+import afkt.accessibility.base.model.ActivityChangedEvent
 import afkt.accessibility.service.AccessibilityListenerService
 import afkt.accessibility.service.AccessibilityListenerService.AccessibilityListener
 import afkt.accessibility.utils.EventBusUtils

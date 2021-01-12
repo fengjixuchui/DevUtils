@@ -1,4 +1,4 @@
-package afkt.accessibility.module.event
+package afkt.accessibility.base.model
 
 /**
  * detail: Activity 改变通知事件

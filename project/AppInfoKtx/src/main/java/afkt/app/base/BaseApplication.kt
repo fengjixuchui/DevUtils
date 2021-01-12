@@ -2,13 +2,12 @@ package afkt.app.base
 
 import afkt.app.BuildConfig
 import afkt.app.R
-import afkt.app.module.AppConfig
-import afkt.app.module.PathConfig
+import afkt.app.base.model.AppConfig
+import afkt.app.base.model.PathConfig
 import android.content.Context
-import android.os.Build
-import android.os.StrictMode
-import android.os.StrictMode.VmPolicy
 import android.view.View
+import androidx.lifecycle.ViewModelStore
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.multidex.MultiDexApplication
 import dev.DevUtils
 import dev.utils.app.ActivityUtils
@@ -20,12 +19,21 @@ import dev.utils.common.DateUtils
 import dev.utils.common.FileRecordUtils
 import dev.widget.assist.ViewAssist
 import dev.widget.function.StateLayout
-import me.jessyan.autosize.AutoSizeConfig
 
-class BaseApplication : MultiDexApplication() {
+class BaseApplication : MultiDexApplication(),
+    ViewModelStoreOwner {
+
+    // ViewModelStore
+    private lateinit var mAppViewModelStore: ViewModelStore
+
+    override fun getViewModelStore(): ViewModelStore {
+        return mAppViewModelStore
+    }
 
     override fun onCreate() {
         super.onCreate()
+
+        mAppViewModelStore = ViewModelStore()
 
         if (BuildConfig.DEBUG) {
             // 初始化 Logger 配置
@@ -43,16 +51,6 @@ class BaseApplication : MultiDexApplication() {
 
         // 初始化文件夹
         PathConfig.createFolder()
-
-        // 可不调用, 默认开启 DP 转换
-        AutoSizeConfig.getInstance().unitsManager.isSupportDP = true
-
-        // Android 7.0 系统解决拍照的问题
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-            val builder = VmPolicy.Builder()
-            StrictMode.setVmPolicy(builder.build())
-            builder.detectFileUriExposure()
-        }
 
         // 捕获异常处理
         CrashUtils.getInstance().init(this, object : CrashUtils.CrashCatchListener {

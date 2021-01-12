@@ -1,16 +1,14 @@
 package afkt.app.ui.activity
 
 import afkt.app.R
-import afkt.app.base.Constants
+import afkt.app.base.BaseActivity
 import afkt.app.databinding.ActivityAppDetailsBinding
 import afkt.app.ui.adapter.KeyValueAdapter
 import afkt.app.utils.ExportUtils
-import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.app.AppCompatActivity
+import dev.utils.DevFinal
 import dev.utils.app.AppUtils
 import dev.utils.app.ResourceUtils
 import dev.utils.app.helper.ViewHelper
@@ -20,27 +18,18 @@ import dev.utils.app.info.KeyValueBean
 import dev.utils.app.logger.DevLogger
 import dev.utils.app.toast.ToastTintUtils
 
-class AppDetailsActivity : AppCompatActivity(),
-    View.OnClickListener {
+class AppDetailsActivity : BaseActivity<ActivityAppDetailsBinding>() {
 
-    private lateinit var binding: ActivityAppDetailsBinding
+    // APP 信息 Item
+    private var appInfoItem: AppInfoItem? = null
 
-    // = Object =
+    override fun baseContentId(): Int = R.layout.activity_app_details
 
-    private var appInfoItem: AppInfoItem? = null // APP 信息 Item
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityAppDetailsBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        init()
-    }
-
-    fun init() {
+    override fun initValue() {
+        super.initValue()
         try {
             appInfoItem =
-                AppInfoUtils.getAppInfoItem(getIntent().getStringExtra(Constants.Key.KEY_PACKNAME))
+                AppInfoUtils.getAppInfoItem(intent.getStringExtra(DevFinal.PACKNAME))
         } catch (e: Exception) {
             DevLogger.e(e)
         }
@@ -49,18 +38,15 @@ class AppDetailsActivity : AppCompatActivity(),
             finish()
             return
         }
-
         setSupportActionBar(binding.vidAadToolbar)
-        val actionBar: ActionBar? = supportActionBar
-        if (actionBar != null) {
+        supportActionBar?.let {
             // 给左上角图标的左边加上一个返回的图标
-            actionBar.setDisplayHomeAsUpEnabled(true)
+            it.setDisplayHomeAsUpEnabled(true)
             // 对应 ActionBar.DISPLAY_SHOW_TITLE
-            actionBar.setDisplayShowTitleEnabled(false)
+            it.setDisplayShowTitleEnabled(false)
             // 设置点击事件
             binding.vidAadToolbar.setNavigationOnClickListener { finish() }
         }
-
         // 获取 APP 信息
         val appInfoBean = appInfoItem!!.appInfoBean
         ViewHelper.get()
@@ -68,7 +54,7 @@ class AppDetailsActivity : AppCompatActivity(),
             .setText(binding.vidAadNameTv, appInfoBean.appName) // 设置 app 名
             .setText(binding.vidAadVnameTv, appInfoBean.versionName) // 设置 app 版本
 
-        var lists = appInfoItem!!.listKeyValues
+        val lists = appInfoItem!!.listKeyValues
         lists.add(
             0,
             KeyValueBean.get(

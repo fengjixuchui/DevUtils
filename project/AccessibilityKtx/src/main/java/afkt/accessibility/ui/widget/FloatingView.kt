@@ -1,7 +1,7 @@
 package afkt.accessibility.ui.widget
 
 import afkt.accessibility.R
-import afkt.accessibility.module.event.ActivityChangedEvent
+import afkt.accessibility.base.model.ActivityChangedEvent
 import afkt.accessibility.service.AccessibilityListenerService
 import afkt.accessibility.utils.EventBusUtils
 import android.content.Context

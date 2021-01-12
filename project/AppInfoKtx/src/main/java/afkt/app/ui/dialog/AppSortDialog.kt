@@ -2,13 +2,13 @@ package afkt.app.ui.dialog
 
 import afkt.app.R
 import afkt.app.base.AppViewModel
-import afkt.app.base.Constants
 import afkt.app.databinding.DialogAppSortBinding
 import afkt.app.utils.ProjectUtils
 import android.app.Dialog
 import android.content.Context
 import android.view.*
 import android.widget.RadioButton
+import dev.utils.DevFinal
 import dev.utils.app.ResourceUtils
 import dev.utils.app.ScreenUtils
 import dev.utils.app.share.SharedUtils
@@ -51,9 +51,9 @@ class AppSortDialog(
             radioButton.setOnClickListener { // 获取选中索引
                 val sortPos: Int = ProjectUtils.getAppSortType()
                 if (i != sortPos) {
-                    SharedUtils.put(Constants.Key.KEY_APP_SORT, i)
+                    SharedUtils.put(DevFinal.SORT, i)
                     // 发送应用排序变更通知事件
-                    viewModel.appSort.postValue(true)
+                    viewModel.postAppSort()
                 }
                 cancel()
             }

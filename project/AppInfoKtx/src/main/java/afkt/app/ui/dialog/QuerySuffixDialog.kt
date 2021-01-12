@@ -6,10 +6,8 @@ import afkt.app.utils.QuerySuffixUtils
 import android.app.Dialog
 import android.content.Context
 import android.view.Gravity
-import android.view.View
 import android.view.WindowManager
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemChildClickListener
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import dev.utils.app.ResourceUtils
 import dev.utils.app.ScreenUtils
@@ -47,8 +45,8 @@ class QuerySuffixDialog(context: Context?) :
         setCanceledOnTouchOutside(false)
 
         // 初始化适配器并绑定
-        var adapter = QuerySuffixAdapter()
-        binding.vidDqsRecycleview.setAdapter(adapter)
+        val adapter = QuerySuffixAdapter()
+        binding.vidDqsRecycleview.adapter = adapter
         adapter.refreshData()
 
         binding.vidDqsCloseTv.setOnClickListener {
@@ -67,24 +65,18 @@ class QuerySuffixDialog(context: Context?) :
 
         init {
             addChildClickViewIds(R.id.vid_aiqs_framelayout)
-            setOnItemChildClickListener(object : OnItemChildClickListener {
-                override fun onItemChildClick(
-                    adapter: BaseQuickAdapter<*, *>,
-                    view: View,
-                    position: Int
-                ) {
-                    var item: String = data[position]
-                    if (item.isEmpty()) {
-                        QuerySuffixEditDialog(context, View.OnClickListener {
-                            refreshData()
-                        }).show()
-                    } else {
-                        maps.remove(item)
-                        QuerySuffixUtils.refresh(maps)
+            setOnItemChildClickListener { _, _, position ->
+                val item: String = data[position]
+                if (item.isEmpty()) {
+                    QuerySuffixEditDialog(context) {
                         refreshData()
-                    }
+                    }.show()
+                } else {
+                    maps.remove(item)
+                    QuerySuffixUtils.refresh(maps)
+                    refreshData()
                 }
-            })
+            }
         }
 
         override fun convert(
@@ -112,7 +104,7 @@ class QuerySuffixDialog(context: Context?) :
         /**
          * 读取数据
          */
-        private fun readData(): ArrayList<String>? {
+        private fun readData(): ArrayList<String> {
             maps = LinkedHashMap(QuerySuffixUtils.querySuffixMap)
             val lists = ArrayList<String>(maps.keys)
             lists.add("")

@@ -2,16 +2,17 @@ package afkt.app.utils
 
 import afkt.app.R
 import afkt.app.base.AppViewModel
-import afkt.app.base.Constants
-import afkt.app.module.DeviceInfo
-import afkt.app.module.DeviceInfoItem
-import afkt.app.module.TypeEnum
+import afkt.app.base.model.DeviceInfo
+import afkt.app.base.model.DeviceInfoItem
+import afkt.app.base.model.TypeEnum
 import android.os.Build
 import com.google.gson.GsonBuilder
+import dev.utils.DevFinal
 import dev.utils.app.*
 import dev.utils.app.logger.DevLogger
 import dev.utils.app.share.SharedUtils
 import dev.utils.common.thread.DevThreadManager
+import kotlin.math.max
 
 /**
  * detail: 项目工具类
@@ -32,11 +33,18 @@ object ProjectUtils {
     }
 
     /**
+     * 重置排序类型索引
+     */
+    fun resetAppSortType() {
+        SharedUtils.put(DevFinal.SORT, 0)
+    }
+
+    /**
      * 获取排序类型索引
      */
     fun getAppSortType(): Int {
-        var sortPos = SharedUtils.getInt(Constants.Key.KEY_APP_SORT)
-        return Math.max(sortPos, 0)
+        val sortPos = SharedUtils.getInt(DevFinal.SORT)
+        return max(sortPos, 0)
     }
 
     /**
@@ -44,15 +52,15 @@ object ProjectUtils {
      * @param viewModel [AppViewModel]
      */
     fun getDeviceInfo(viewModel: AppViewModel) {
-        DevThreadManager.getInstance(2).execute(Runnable {
+        DevThreadManager.getInstance(2).execute {
             var lists: ArrayList<DeviceInfoItem> = ArrayList()
             try {
                 lists = _getDeviceInfo()
             } catch (e: Exception) {
                 DevLogger.e(e)
             }
-            viewModel.deviceInfo.postValue(DeviceInfo(TypeEnum.DEVICE_INFO, lists))
-        })
+            viewModel.postDeviceInfo(DeviceInfo(TypeEnum.DEVICE_INFO, lists))
+        }
     }
 
     private fun _getDeviceInfo(): ArrayList<DeviceInfoItem> {
@@ -161,21 +169,19 @@ object ProjectUtils {
      * @param viewModel [AppViewModel]
      */
     fun getScreenInfo(viewModel: AppViewModel) {
-        DevThreadManager.getInstance(2).execute(Runnable {
+        DevThreadManager.getInstance(2).execute {
             var lists: ArrayList<DeviceInfoItem> = ArrayList()
             try {
                 lists = _getScreenInfo()
             } catch (e: Exception) {
                 DevLogger.e(e)
             }
-            viewModel.screenInfo.postValue(DeviceInfo(TypeEnum.SCREEN_INFO, lists))
-        })
+            viewModel.postScreenInfo(DeviceInfo(TypeEnum.SCREEN_INFO, lists))
+        }
     }
 
     private fun _getScreenInfo(): ArrayList<DeviceInfoItem> {
         val lists = ArrayList<DeviceInfoItem>()
-        // 设备信息
-        val map = DeviceUtils.getDeviceInfo()
         // 屏幕尺寸 ( 英寸 )
         lists.add(DeviceInfoItem(R.string.str_info_screen, ScreenUtils.getScreenSizeOfDevice()))
         // 屏幕分辨率

@@ -1,7 +1,7 @@
 package afkt.app.utils
 
 import afkt.app.R
-import afkt.app.module.PathConfig
+import afkt.app.base.model.PathConfig
 import android.content.Intent
 import android.net.Uri
 import dev.utils.app.AppUtils
@@ -57,10 +57,10 @@ object ExportUtils {
         HandlerUtils.postRunnable {
             val path = if (isApp) PathConfig.AEP_APPMSG_PATH else PathConfig.AEP_APKMSG_PATH
             // 应用名_包名_版本名.txt
-            var fileName =
+            val fileName =
                 appInfoBean.appName + "_" + appInfoBean.appPackName + "_" + appInfoBean.versionName + ".txt"
             // 导出数据
-            var result = FileUtils.saveFile(
+            val result = FileUtils.saveFile(
                 FileUtils.getFile(path, fileName),
                 info?.toByteArray()
             )
@@ -94,9 +94,8 @@ object ExportUtils {
 
     /**
      * 导出信息
-     * @param isApp 是否 app
      * @param appInfoBean App 信息
-     * @param info 导出信息
+     * @param callback 导出回调
      */
     private fun exportApp(
         appInfoBean: AppInfoBean,
@@ -104,7 +103,7 @@ object ExportUtils {
     ) {
         DevThreadManager.getInstance(3).execute {
             // 应用名_包名_版本名.apk
-            var fileName =
+            val fileName =
                 appInfoBean.appName + "_" + appInfoBean.appPackName + "_" + appInfoBean.versionName + ".apk"
 
             val destFile = FileUtils.getFile(PathConfig.AEP_APK_PATH, fileName)
@@ -119,7 +118,7 @@ object ExportUtils {
             // 提示导出中
             ToastTintUtils.normal(ResourceUtils.getString(R.string.str_export_ing))
             // 导出应用
-            var result = FileUtils.copyFile(
+            val result = FileUtils.copyFile(
                 appInfoBean.sourceDir, destPath, true
             )
             if (result) {

@@ -1,7 +1,7 @@
 package afkt.app.utils
 
-import afkt.app.base.Constants
 import com.google.gson.Gson
+import dev.utils.DevFinal
 import dev.utils.app.share.SharedUtils
 import java.util.*
 
@@ -15,7 +15,7 @@ object QuerySuffixUtils {
      * 默认配置
      */
     private val dfConfig: String?
-        private get() {
+        get() {
             val maps = LinkedHashMap<String, String>()
             maps["apk"] = "apk"
             maps["apk.1"] = "apk.1"
@@ -28,21 +28,21 @@ object QuerySuffixUtils {
      * 重置处理
      */
     fun reset() {
-        SharedUtils.remove(Constants.Key.KEY_QUERY_SUFFIX)
+        SharedUtils.remove(DevFinal.SUFFIX)
     }
 
     /**
      * 刷新配置
      */
     fun refresh(maps: LinkedHashMap<String, String>?) {
-        SharedUtils.put(Constants.Key.KEY_QUERY_SUFFIX, Gson().toJson(maps))
+        SharedUtils.put(DevFinal.SUFFIX, Gson().toJson(maps))
     }
 
     /**
      * 获取搜索后缀
      */
-    val querySuffixStr: String?
-        get() = SharedUtils.getString(Constants.Key.KEY_QUERY_SUFFIX) ?: dfConfig
+    private val querySuffixStr: String?
+        get() = SharedUtils.getString(DevFinal.SUFFIX) ?: dfConfig
 
     /**
      * 获取搜索后缀

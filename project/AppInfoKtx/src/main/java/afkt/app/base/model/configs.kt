@@ -1,4 +1,4 @@
-package afkt.app.module
+package afkt.app.base.model
 
 import dev.utils.app.PathUtils
 import dev.utils.common.FileUtils
@@ -63,7 +63,6 @@ object PathConfig {
      * 初始化创建文件夹
      */
     fun createFolder() {
-        // 默认创建的文件夹路径
         FileUtils.createFolderByPaths(
             AEP_APPMSG_PATH,
             AEP_APKMSG_PATH,

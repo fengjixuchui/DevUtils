@@ -1,7 +1,6 @@
 package afkt.app.ui.adapter
 
 import afkt.app.R
-import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
@@ -18,22 +17,16 @@ class KeyValueAdapter(data: MutableList<KeyValueBean>) :
     BaseQuickAdapter<KeyValueBean, BaseViewHolder>(R.layout.adapter_item_key_value, data) {
 
     init {
-        setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(
-                adapter: BaseQuickAdapter<*, *>,
-                view: View,
-                position: Int
-            ) {
-                data?.get(position)?.let {
-                    if (listener != null && listener!!.onItemClick(it, position)) {
-                        return
-                    }
-                    val txt: String = it.toString()
-                    // 复制到剪切板
-                    ClipboardUtils.copyText(txt)
-                    // 进行提示
-                    ToastTintUtils.success(ResourceUtils.getString(R.string.str_copy_suc) + ", " + txt)
+        setOnItemClickListener(OnItemClickListener { _, _, position ->
+            data[position].run {
+                if (listener != null && listener!!.onItemClick(this, position)) {
+                    return@OnItemClickListener
                 }
+                val txt: String = toString()
+                // 复制到剪切板
+                ClipboardUtils.copyText(txt)
+                // 进行提示
+                ToastTintUtils.success(ResourceUtils.getString(R.string.str_copy_suc) + ", " + txt)
             }
         })
     }

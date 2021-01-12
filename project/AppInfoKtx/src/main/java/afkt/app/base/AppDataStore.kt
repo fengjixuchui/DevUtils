@@ -1,12 +1,13 @@
 package afkt.app.base
 
-import afkt.app.module.TypeEnum
+import afkt.app.base.model.TypeEnum
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import dev.utils.DevFinal
 
 class AppDataStore {
 
+    // Fragment 类型
     var typeEnum: TypeEnum = TypeEnum.NONE
 
     fun initDataStore(arguments: Bundle?) {

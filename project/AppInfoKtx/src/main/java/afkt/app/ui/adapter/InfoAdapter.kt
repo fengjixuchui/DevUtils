@@ -1,11 +1,9 @@
 package afkt.app.ui.adapter
 
 import afkt.app.R
-import afkt.app.module.DeviceInfoBean
-import afkt.app.module.DeviceInfoItem
-import android.view.View
+import afkt.app.base.model.DeviceInfoBean
+import afkt.app.base.model.DeviceInfoItem
 import com.chad.library.adapter.base.BaseQuickAdapter
-import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import dev.utils.app.ClipboardUtils
 import dev.utils.app.ResourceUtils
@@ -19,21 +17,15 @@ class InfoAdapter(data: MutableList<DeviceInfoItem>?) :
     BaseQuickAdapter<DeviceInfoItem, BaseViewHolder>(R.layout.adapter_item_device_info, data) {
 
     init {
-        setOnItemClickListener(object : OnItemClickListener {
-            override fun onItemClick(
-                adapter: BaseQuickAdapter<*, *>,
-                view: View,
-                position: Int
-            ) {
-                (data?.get(position) as DeviceInfoItem)?.let {
-                    val txt: String = DeviceInfoBean.copyString(it)
-                    // 复制到剪切板
-                    ClipboardUtils.copyText(txt)
-                    // 进行提示
-                    ToastTintUtils.success(ResourceUtils.getString(R.string.str_copy_suc) + ", " + txt)
-                }
+        setOnItemClickListener { _, _, position ->
+            (data?.get(position) as DeviceInfoItem).run {
+                val txt: String = DeviceInfoBean.copyString(this)
+                // 复制到剪切板
+                ClipboardUtils.copyText(txt)
+                // 进行提示
+                ToastTintUtils.success(ResourceUtils.getString(R.string.str_copy_suc) + ", " + txt)
             }
-        })
+        }
     }
 
     override fun convert(

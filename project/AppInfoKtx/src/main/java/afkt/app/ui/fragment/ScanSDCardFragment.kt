@@ -2,20 +2,20 @@ package afkt.app.ui.fragment
 
 import afkt.app.R
 import afkt.app.base.BaseFragment
+import afkt.app.base.model.ActionEnum
+import afkt.app.base.model.FileApkItem
+import afkt.app.base.model.TypeEnum
 import afkt.app.databinding.FragmentAppBinding
-import afkt.app.module.*
 import afkt.app.ui.adapter.ApkListAdapter
 import afkt.app.utils.AppSearchUtils
-import afkt.app.utils.EventBusUtils
 import afkt.app.utils.ScanSDCardUtils
 import android.Manifest
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
-import com.scwang.smart.refresh.layout.listener.OnRefreshListener
 import com.tt.whorlviewlibrary.WhorlView
+import dev.callback.common.DevCallback
 import dev.utils.DevFinal
 import dev.utils.app.ListViewUtils
 import dev.utils.app.ResourceUtils
@@ -28,30 +28,27 @@ import dev.utils.common.FileUtils
 import dev.utils.common.HtmlUtils
 import dev.widget.assist.ViewAssist
 import dev.widget.function.StateLayout
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import java.util.*
 
 class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
 
-    // = View =
-
     private var whorlView: WhorlView? = null
 
-    // = Object =
-
     private var type = TypeEnum.QUERY_APK
-    private var searchContent: String = ""
 
-    override fun baseContentId(): Int {
-        return R.layout.fragment_app
-    }
+    override fun baseContentId(): Int = R.layout.fragment_app
 
     override fun onViewCreated(
         view: View,
         savedInstanceState: Bundle?
     ) {
         super.onViewCreated(view, savedInstanceState)
+        // 设置扫描回调
+        ScanSDCardUtils.instance.setCallback(object : DevCallback<ArrayList<FileApkItem>>() {
+            override fun callback(value: ArrayList<FileApkItem>?) {
+                viewModel.postSDCardScan(value!!)
+            }
+        })
         binding.vidFaRefresh.setEnableLoadMore(false)
 
         whorlView = ViewUtils.findViewById(
@@ -93,7 +90,7 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
                     binding.vidFaRefresh.finishRefresh()
                 } else {
                     if (type == ViewAssist.TYPE_ING) {
-                        if (whorlView != null && !whorlView!!.isCircling()) {
+                        if (whorlView != null && !whorlView!!.isCircling) {
                             whorlView?.start()
                         }
                     } else {
@@ -101,16 +98,16 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
                         // 无数据处理
                         if (type == ViewAssist.TYPE_EMPTY_DATA) {
                             binding.vidFaRefresh.finishRefresh()
-                            var tips = if (searchContent.isEmpty()) {
+                            val tips = if (dataStore.searchContent.isEmpty()) {
                                 ResourceUtils.getString(R.string.str_search_noresult_tips_1)
                             } else {
                                 ResourceUtils.getString(
                                     R.string.str_search_noresult_tips,
-                                    HtmlUtils.addHtmlColor(searchContent, "#359AFF")
+                                    HtmlUtils.addHtmlColor(dataStore.searchContent, "#359AFF")
                                 )
                             }
                             TextViewUtils.setHtmlText(
-                                view.findViewById<TextView>(R.id.vid_slnd_tips_tv), tips
+                                view.findViewById(R.id.vid_slnd_tips_tv), tips
                             )
                         }
                     }
@@ -118,13 +115,11 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
             }
         })
         binding.vidFaState.showIng()
-
         // 设置刷新事件
-        binding.vidFaRefresh.setOnRefreshListener(OnRefreshListener {
-            type?.let { requestReadWrite(true) }
-        })
-
-        var itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
+        binding.vidFaRefresh.setOnRefreshListener {
+            requestReadWrite(true)
+        }
+        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.Callback() {
             override fun getMovementFlags(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder
@@ -145,7 +140,7 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
                 direction: Int
             ) {
                 if (direction == ItemTouchHelper.LEFT || direction == ItemTouchHelper.RIGHT) {
-                    var adapter: ApkListAdapter? = binding.vidFaRefresh.getAdapter()
+                    val adapter: ApkListAdapter? = binding.vidFaRefresh.getAdapter()
                     try {
                         val position = viewHolder.adapterPosition
                         FileUtils.deleteFile(adapter?.getItem(position)?.uri)
@@ -164,44 +159,16 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
         itemTouchHelper.attachToRecyclerView(binding.vidFaRefresh.getRecyclerView())
     }
 
-    // ===========
-    // = 事件相关 =
-    // ===========
+    override fun initObserve() {
+        super.initObserve()
 
-    @Subscribe(threadMode = ThreadMode.BACKGROUND, sticky = true)
-    fun onEvent(event: FragmentEvent) {
-        event.type?.let {
-            if (it == type) {
-                searchContent = "" // 切换 Fragment 重置搜索内容
-                requestReadWrite()
-                EventBusUtils.removeStickyEvent(FragmentEvent::class.java)
-            }
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: ScanSDCardEvent) {
-        var lists = if (searchContent.isEmpty()) {
-            event.lists
-        } else {
-            AppSearchUtils.filterApkList(event.lists, searchContent)
-        }
-        if (lists.isEmpty()) {
-            binding.vidFaState.showEmptyData()
-        } else {
-            binding.vidFaRefresh.setAdapter(ApkListAdapter(lists))
-            binding.vidFaState.showSuccess()
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: SearchEvent) {
-        event.type?.let {
-            when (event.action) {
+        // 搜索监听
+        viewModel.searchEvent.observe(this) {
+            when (it.action) {
                 ActionEnum.COLLAPSE -> { // 搜索合并
-                    if (it == type) {
-                        if (searchContent.isNotEmpty()) { // 输入内容才刷新列表
-                            searchContent = ""
+                    if (it.type == type) {
+                        if (dataStore.searchContent.isNotEmpty()) { // 输入内容才刷新列表
+                            dataStore.searchContent = ""
                             requestReadWrite()
                         }
                     }
@@ -209,41 +176,58 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
                 ActionEnum.EXPAND -> { // 搜索展开
                 }
                 ActionEnum.CONTENT -> { // 搜索输入内容
-                    if (it == type) {
-                        searchContent = event.content
+                    if (it.type == type) {
+                        dataStore.searchContent = it.content
                         requestReadWrite()
                     }
                 }
             }
         }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: RefreshEvent) {
-        event.type?.let {
-            if (it == type) binding.vidFaRefresh.getRefreshLayout()?.autoRefresh()
+        // Fragment 切换监听
+        viewModel.fragmentChange.observe(this) {
+            if (it == type) {
+                dataStore.searchContent = "" // 切换 Fragment 重置搜索内容
+                requestReadWrite()
+            }
+        }
+        // 回到顶部
+        viewModel.backTopEvent.observe(this) {
+            if (it == dataStore.typeEnum) {
+                ListViewUtils.smoothScrollToTop(binding.vidFaRefresh.getRecyclerView())
+            }
+        }
+        // 刷新操作
+        viewModel.refresh.observe(this) {
+            if (it == dataStore.typeEnum) {
+                binding.vidFaRefresh.getRefreshLayout()?.autoRefresh()
+            }
+        }
+        // 文件扫描
+        viewModel.sdCardScan.observe(this) {
+            val lists = if (dataStore.searchContent.isEmpty()) {
+                it
+            } else {
+                AppSearchUtils.filterApkList(it, dataStore.searchContent)
+            }
+            if (lists.isEmpty()) {
+                binding.vidFaState.showEmptyData()
+            } else {
+                binding.vidFaRefresh.setAdapter(ApkListAdapter(lists))
+                binding.vidFaState.showSuccess()
+            }
+        }
+        // 文件删除
+        globalViewModel?.let {
+            it.fileDelete.observe(this) {
+                binding.vidFaRefresh.getRecyclerView()?.adapter?.notifyDataSetChanged()
+            }
         }
     }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: TopEvent) {
-        event.type?.let {
-            if (it == type) ListViewUtils.smoothScrollToTop(binding.vidFaRefresh.getRecyclerView())
-            //ListViewUtils.scrollToTop(binding.vidFaRefresh.recyclerView)
-        }
-    }
-
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEvent(event: FileDeleteEvent) {
-        binding.vidFaRefresh.getRecyclerView()?.adapter?.notifyDataSetChanged()
-    }
-
-    // =
 
     /**
      * 请求读写权限
      */
-    fun requestReadWrite() {
+    private fun requestReadWrite() {
         requestReadWrite(false)
     }
 
@@ -251,7 +235,7 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
      * 请求读写权限
      * @param refresh 是否刷新
      */
-    fun requestReadWrite(refresh: Boolean) {
+    private fun requestReadWrite(refresh: Boolean) {
         PermissionUtils.permission(
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE
@@ -266,8 +250,8 @@ class ScanSDCardFragment : BaseFragment<FragmentAppBinding>() {
                 deniedList: List<String>,
                 notFoundList: List<String>
             ) {
-                var builder = StringBuilder()
-                    .append("申请通过的权限").append(Arrays.toString(grantedList.toTypedArray()))
+                val builder = StringBuilder()
+                    .append("申请通过的权限").append(grantedList.toTypedArray().contentToString())
                     .append(DevFinal.NEW_LINE_STR)
                     .append("拒绝的权限").append(deniedList.toString())
                     .append(DevFinal.NEW_LINE_STR)

@@ -2,11 +2,11 @@ package afkt.app.ui.fragment
 
 import afkt.app.R
 import afkt.app.base.BaseFragment
+import afkt.app.base.model.DeviceInfoBean
+import afkt.app.base.model.PathConfig
+import afkt.app.base.model.TypeEnum
 import afkt.app.base.setDataStore
 import afkt.app.databinding.FragmentInfoBinding
-import afkt.app.module.DeviceInfoBean
-import afkt.app.module.PathConfig
-import afkt.app.module.TypeEnum
 import afkt.app.ui.adapter.InfoAdapter
 import afkt.app.utils.ProjectUtils
 import android.os.Bundle
@@ -34,23 +34,21 @@ class InfoFragment : BaseFragment<FragmentInfoBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.root.setEnableRefresh(false)
             .setEnableLoadMore(false)
-
         viewModel.infoObserve(viewLifecycleOwner, {
             if (it.type == dataStore.typeEnum) {
                 binding.root.setAdapter(InfoAdapter(it.lists))
             }
         })
-
-        viewModel.exportInfo.observe(viewLifecycleOwner, {
+        viewModel.exportEvent.observe(viewLifecycleOwner, {
             if (it == dataStore.typeEnum) {
                 if (binding.root.getAdapter<InfoAdapter>() != null) {
-                    var adapter: InfoAdapter? = binding.root.getAdapter()
+                    val adapter: InfoAdapter? = binding.root.getAdapter()
                     if (adapter?.data != null) {
-                        val content: String? = DeviceInfoBean.jsonString(adapter?.data)
-                        var fileName =
+                        val content: String? = DeviceInfoBean.jsonString(adapter.data)
+                        val fileName =
                             if (TypeEnum.DEVICE_INFO == it) "device_info.txt" else "screen_info.txt"
                         // 导出数据
-                        var result = FileUtils.saveFile(
+                        val result = FileUtils.saveFile(
                             FileUtils.getFile(PathConfig.AEP_PATH, fileName),
                             content?.toByteArray()
                         )
@@ -63,7 +61,6 @@ class InfoFragment : BaseFragment<FragmentInfoBinding>() {
                 }
             }
         })
-
         when (dataStore.typeEnum) {
             TypeEnum.DEVICE_INFO -> ProjectUtils.getDeviceInfo(viewModel)
             TypeEnum.SCREEN_INFO -> ProjectUtils.getScreenInfo(viewModel)

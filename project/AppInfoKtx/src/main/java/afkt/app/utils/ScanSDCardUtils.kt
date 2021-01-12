@@ -1,7 +1,7 @@
 package afkt.app.utils
 
-import afkt.app.module.FileApkItem
-import afkt.app.module.ScanSDCardEvent
+import afkt.app.base.model.FileApkItem
+import dev.callback.common.DevCallback
 import dev.utils.app.PathUtils
 import dev.utils.app.info.AppInfoUtils
 import dev.utils.app.logger.DevLogger
@@ -36,6 +36,17 @@ class ScanSDCardUtils private constructor() {
     // 转换后的数据
     private var data: ArrayList<FileApkItem>? = null
 
+    // 搜索回调
+    private var sCallback: DevCallback<ArrayList<FileApkItem>>? = null
+
+    /**
+     * 设置搜索回调
+     * @param callback [DevCallback]
+     */
+    fun setCallback(callback: DevCallback<ArrayList<FileApkItem>>) {
+        sCallback = callback
+    }
+
     init {
         utils = FileBreadthFirstSearchUtils(object : FileBreadthFirstSearchUtils.SearchHandler {
             override fun isHandlerFile(file: File?): Boolean {
@@ -43,7 +54,7 @@ class ScanSDCardUtils private constructor() {
             }
 
             override fun isAddToList(file: File): Boolean {
-                if (querySuffixArray != null && file.exists()) {
+                if (file.exists()) {
                     if (StringUtils.isEndsWith(true, file.name, *querySuffixArray)) {
                         files.add(file)
                         return true
@@ -57,16 +68,17 @@ class ScanSDCardUtils private constructor() {
                 startTime: Long,
                 endTime: Long
             ) {
-                var diff = endTime - startTime
+                val diff = endTime - startTime
                 DevLogger.d("搜索耗时: $diff ms")
-                var lists = convertList()
+                val lists = convertList()
                 Collections.sort(lists, ApkListsComparator())
                 data = lists
-                EventBusUtils.post(ScanSDCardEvent(lists))
+                sCallback?.callback(lists)
             }
         })
-        utils.setQueueSameTimeNumber(DevThreadManager.getInstance(2).calcThreads)
-            .setDelayTime(100L)
+        utils.setQueueSameTimeNumber(
+            DevThreadManager.getInstance(2).calcThreads
+        ).delayTime = 100L
     }
 
     /**
@@ -82,7 +94,7 @@ class ScanSDCardUtils private constructor() {
      */
     fun query(refresh: Boolean) {
         if (data != null && !refresh) {
-            EventBusUtils.post(ScanSDCardEvent(data!!))
+            sCallback?.callback(data)
             return
         }
         if (utils.isRunning) return
@@ -99,7 +111,7 @@ class ScanSDCardUtils private constructor() {
      * 转换处理
      */
     private fun convertList(): ArrayList<FileApkItem> {
-        var lists = ArrayList<FileApkItem>()
+        val lists = ArrayList<FileApkItem>()
         for (file in files) {
             val appInfoBean = AppInfoUtils.getAppInfoBeanToPath(file.path)
             appInfoBean?.let {
@@ -119,7 +131,7 @@ class ScanSDCardUtils private constructor() {
             a_apk: FileApkItem,
             b_apk: FileApkItem
         ): Int {
-            return if (a_apk != null && b_apk != null) {
+            return if (b_apk != null) {
                 if (a_apk.lastModified === b_apk.lastModified) {
                     0 // 安装时间相等
                 } else { // 近期安装的在最前面
