@@ -33,41 +33,41 @@ public final class AppInfoItem {
     private static final String TAG = AppInfoItem.class.getSimpleName();
 
     @Keep // APP 基本信息实体类
-    private AppInfoBean        appInfoBean;
+    private AppInfoBean     appInfoBean;
     @Keep // APP MD5 签名
-    private String             appMD5;
+    private String          appMD5;
     @Keep // APP SHA1 签名
-    private String             appSHA1;
+    private String          appSHA1;
     @Keep // APP SHA256 签名
-    private String             appSHA256;
+    private String          appSHA256;
     @Keep // APP 最低支持 Android SDK 版本
-    private int                minSdkVersion    = -1;
+    private int             minSdkVersion    = -1;
     @Keep // APP 兼容 SDK 版本
-    private int                targetSdkVersion = -1;
+    private int             targetSdkVersion = -1;
     @Keep // APP 安装包大小
-    private String             apkLength;
+    private String          apkLength;
     @Keep // 证书对象
-    private X509Certificate    cert;
+    private X509Certificate cert;
     @Keep // 证书生成日期
-    private Date               notBefore;
+    private Date            notBefore;
     @Keep // 证书有效期
-    private Date               notAfter;
+    private Date            notAfter;
     @Keep // 证书是否过期
-    private boolean            effective;
+    private boolean         effective;
     @Keep // 证书发布方
-    private String             certPrincipal;
+    private String          certPrincipal;
     @Keep // 证书版本号
-    private String             certVersion;
+    private String          certVersion;
     @Keep // 证书算法名称
-    private String             certSigAlgName;
+    private String          certSigAlgName;
     @Keep // 证书算法 OID
-    private String             certSigAlgOID;
+    private String          certSigAlgOID;
     @Keep // 证书机器码
-    private String             certSerialnumber;
+    private String          certSerialnumber;
     @Keep // 证书 DER 编码
-    private String             certDERCode;
+    private String          certDERCode;
     @Keep // APP 参数集
-    private List<KeyValueBean> listKeyValues    = new ArrayList<>();
+    private List<KeyValue>  listKeyValues    = new ArrayList<>();
 
     /**
      * 获取 AppInfoItem
@@ -157,43 +157,43 @@ public final class AppInfoItem {
         // = 保存集合 =
 
         // APP 包名
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_packname, appInfoBean.getAppPackName()));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_packname, appInfoBean.getAppPackName()));
         // APP MD5 签名
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_md5, appMD5));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_md5, appMD5));
         // APP 版本号 ( 主要用于 APP 内部版本判断 int 类型 )
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_version_code, String.valueOf(appInfoBean.getVersionCode())));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_version_code, String.valueOf(appInfoBean.getVersionCode())));
         // APP 版本名 ( 主要用于对用户显示版本信息 )
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_version_name, appInfoBean.getVersionName()));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_version_name, appInfoBean.getVersionName()));
         // APP SHA1
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_sha1, appSHA1));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_sha1, appSHA1));
         // APP SHA256
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_sha256, appSHA256));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_sha256, appSHA256));
         // APP 首次安装时间
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_first_install_time, sdf.format(packageInfo.firstInstallTime)));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_first_install_time, sdf.format(packageInfo.firstInstallTime)));
         // 获取最后一次更新时间
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_last_update_time, sdf.format(packageInfo.lastUpdateTime)));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_last_update_time, sdf.format(packageInfo.lastUpdateTime)));
         // APP 最低支持 Android SDK 版本
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_minsdkversion, minSdkVersion + " ( " + AppCommonUtils.convertSDKVersion(minSdkVersion) + "+ )"));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_minsdkversion, minSdkVersion + " ( " + AppCommonUtils.convertSDKVersion(minSdkVersion) + "+ )"));
         // APP 兼容 SDK 版本
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_targetsdkversion, targetSdkVersion + " ( " + AppCommonUtils.convertSDKVersion(targetSdkVersion) + "+ )"));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_targetsdkversion, targetSdkVersion + " ( " + AppCommonUtils.convertSDKVersion(targetSdkVersion) + "+ )"));
         // APK 大小
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_apk_length, apkLength));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_apk_length, apkLength));
         // 证书有效期
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_effective, effectiveStr));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_effective, effectiveStr));
         // 判断是否过期
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_iseffective, effective ? context.getString(R.string.dev_str_overdue) : context.getString(R.string.dev_str_notoverdue)));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_iseffective, effective ? context.getString(R.string.dev_str_overdue) : context.getString(R.string.dev_str_notoverdue)));
         // 证书发布方
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_principal, certPrincipal));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_principal, certPrincipal));
         // 证书版本号
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_version, certVersion));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_version, certVersion));
         // 证书算法名称
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_sigalgname, certSigAlgName));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_sigalgname, certSigAlgName));
         // 证书算法 OID
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_sigalgoid, certSigAlgOID));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_sigalgoid, certSigAlgOID));
         // 证书机器码
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_dercode, certSerialnumber));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_dercode, certSerialnumber));
         // 证书 DER 编码
-        listKeyValues.add(KeyValueBean.get(R.string.dev_str_serialnumber, certDERCode));
+        listKeyValues.add(KeyValue.get(R.string.dev_str_serialnumber, certDERCode));
     }
 
     /**
@@ -208,7 +208,7 @@ public final class AppInfoItem {
      * 获取 List 信息键对值集合
      * @return APP 信息键对值集合
      */
-    public List<KeyValueBean> getListKeyValues() {
+    public List<KeyValue> getListKeyValues() {
         return listKeyValues;
     }
 

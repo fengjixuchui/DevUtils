@@ -6,15 +6,15 @@ import com.chad.library.adapter.base.listener.OnItemClickListener
 import com.chad.library.adapter.base.viewholder.BaseViewHolder
 import dev.utils.app.ClipboardUtils
 import dev.utils.app.ResourceUtils
-import dev.utils.app.info.KeyValueBean
+import dev.utils.app.info.KeyValue
 import dev.utils.app.toast.ToastTintUtils
 
 /**
  * detail: 键值对 Adapter
  * @author Ttt
  */
-class KeyValueAdapter(data: MutableList<KeyValueBean>) :
-    BaseQuickAdapter<KeyValueBean, BaseViewHolder>(R.layout.adapter_item_key_value, data) {
+class KeyValueAdapter(data: MutableList<KeyValue>) :
+    BaseQuickAdapter<KeyValue, BaseViewHolder>(R.layout.adapter_item_key_value, data) {
 
     init {
         setOnItemClickListener(OnItemClickListener { _, _, position ->
@@ -33,7 +33,7 @@ class KeyValueAdapter(data: MutableList<KeyValueBean>) :
 
     override fun convert(
         holder: BaseViewHolder,
-        item: KeyValueBean
+        item: KeyValue
     ) {
         holder.setText(R.id.vid_aikv_key_tv, item.key)
             .setText(R.id.vid_aikv_value_tv, item.value)
@@ -45,7 +45,7 @@ class KeyValueAdapter(data: MutableList<KeyValueBean>) :
 
     interface Listener {
         fun onItemClick(
-            item: KeyValueBean,
+            item: KeyValue,
             position: Int
         ): Boolean
     }

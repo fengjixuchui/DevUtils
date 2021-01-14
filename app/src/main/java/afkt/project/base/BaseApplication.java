@@ -1,7 +1,6 @@
 package afkt.project.base;
 
 import android.content.Context;
-import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 import android.view.View;
@@ -15,10 +14,13 @@ import afkt.project.base.config.PathConfig;
 import afkt.project.function.http.RetrofitUtils;
 import dev.DevUtils;
 import dev.assist.WebViewAssist;
+import dev.engine.image.DevImageEngine;
+import dev.engine.image.GlideEngineImpl;
+import dev.engine.json.DevJSONEngine;
+import dev.engine.json.GsonEngineImpl;
+import dev.engine.log.DevLogEngine;
+import dev.engine.log.LoggerEngineImpl;
 import dev.environment.DevEnvironment;
-import dev.environment.bean.EnvironmentBean;
-import dev.environment.bean.ModuleBean;
-import dev.environment.listener.OnEnvironmentChangeListener;
 import dev.other.GlideUtils;
 import dev.other.MMKVUtils;
 import dev.utils.DevFinal;
@@ -151,7 +153,7 @@ public class BaseApplication
         builder.append("\nDevJava 版本: ").append(DevUtils.getDevJavaVersion());
         builder.append("\n时间: ").append(DateUtils.getDateNow());
         builder.append("\n初始化耗时(毫秒): ").append(timeCounter.duration());
-        DevLogger.i(builder.toString());
+        DevLogEngine.getEngine().i(builder.toString());
     }
 
     // =============
@@ -176,6 +178,8 @@ public class BaseApplication
         initCrash();
         // 初始化 WebView 辅助类全局配置
         initWebViewBuilder();
+        // 初始化引擎
+        initEngine();
         // 初始化其他 lib
         initOther();
     }
@@ -265,23 +269,31 @@ public class BaseApplication
                 .setDatabasePath(PathUtils.getInternal().getAppCachePath("db")) // 数据库缓存路径
                 .setRenderPriority(WebSettings.RenderPriority.HIGH) // 渲染优先级高
                 .setLayoutAlgorithm(WebSettings.LayoutAlgorithm.TEXT_AUTOSIZING) // 基础布局算法
-                .setOnApplyListener(new WebViewAssist.Builder.OnApplyListener() {
-                    @Override
-                    public void onApply(
-                            WebViewAssist webViewAssist,
-                            WebViewAssist.Builder builder
-                    ) {
-                        DevLogger.d("WebViewAssist Builder onApply");
-                        if (webViewAssist != null) {
-//                            // 自己控制配置
-//                            WebSettings webSettings = webViewAssist.getSettings();
-//                            if (webSettings != null) {
-//                                webSettings.setAllowFileAccess(true);
-//                            }
-                        }
-                    }
+                .setOnApplyListener((webViewAssist, builder1) -> {
+                    DevLogEngine.getEngine().d("WebViewAssist Builder onApply");
+//                    if (webViewAssist != null) {
+//                        // 自己控制配置
+//                        WebSettings webSettings = webViewAssist.getSettings();
+//                        if (webSettings != null) {
+//                            webSettings.setAllowFileAccess(true);
+//                        }
+//                    }
                 });
         WebViewAssist.setGlobalBuilder(builder);
+    }
+
+    /**
+     * 初始化引擎
+     */
+    private void initEngine() {
+        DevLogEngine.setEngine(new LoggerEngineImpl() {
+            @Override
+            public boolean isPrintLog() {
+                return DevUtils.isDebug();
+            }
+        });
+        DevJSONEngine.setEngine(new GsonEngineImpl());
+        DevImageEngine.setEngine(new GlideEngineImpl());
     }
 
     /**
@@ -303,42 +315,26 @@ public class BaseApplication
         RetrofitUtils.getInstance().initRetrofit();
 
         // 环境 ( 服务器地址 ) 改变通知
-        DevEnvironment.addOnEnvironmentChangeListener(new OnEnvironmentChangeListener() {
-            @Override
-            public void onEnvironmentChanged(
-                    ModuleBean module,
-                    EnvironmentBean oldEnvironment,
-                    EnvironmentBean newEnvironment
-            ) {
-                // 改变地址重新初始化
-                RetrofitUtils.getInstance().initRetrofit().resetAPIService();
-            }
+        DevEnvironment.addOnEnvironmentChangeListener((module, oldEnvironment, newEnvironment) -> {
+            // 改变地址重新初始化
+            RetrofitUtils.getInstance().initRetrofit().resetAPIService();
         });
 
         // 截图监听
-        ScreenshotUtils.getInstance().setListener(new ScreenshotUtils.OnScreenshotListener() {
-            @Override
-            public void onScreenshot(
-                    Uri contentUri,
-                    boolean selfChange,
-                    long rowId,
-                    String dataPath,
-                    long dateTaken
-            ) {
-                StringBuilder builder = new StringBuilder();
-                builder.append("截图监听回调");
-                builder.append(DevFinal.NEW_LINE_STR);
-                builder.append("contentUri: ").append(contentUri);
-                builder.append(DevFinal.NEW_LINE_STR);
-                builder.append("selfChange: ").append(selfChange);
-                builder.append(DevFinal.NEW_LINE_STR);
-                builder.append("rowId: ").append(rowId);
-                builder.append(DevFinal.NEW_LINE_STR);
-                builder.append("dataPath: ").append(dataPath);
-                builder.append(DevFinal.NEW_LINE_STR);
-                builder.append("dateTaken: ").append(dateTaken).append(" ( ").append(DateUtils.formatTime(dateTaken, DateUtils.yyyyMMddHHmmss)).append(" )");
-                DevLogger.d(builder.toString());
-            }
+        ScreenshotUtils.getInstance().setListener((contentUri, selfChange, rowId, dataPath, dateTaken) -> {
+            StringBuilder builder = new StringBuilder();
+            builder.append("截图监听回调");
+            builder.append(DevFinal.NEW_LINE_STR);
+            builder.append("contentUri: ").append(contentUri);
+            builder.append(DevFinal.NEW_LINE_STR);
+            builder.append("selfChange: ").append(selfChange);
+            builder.append(DevFinal.NEW_LINE_STR);
+            builder.append("rowId: ").append(rowId);
+            builder.append(DevFinal.NEW_LINE_STR);
+            builder.append("dataPath: ").append(dataPath);
+            builder.append(DevFinal.NEW_LINE_STR);
+            builder.append("dateTaken: ").append(dateTaken).append(" ( ").append(DateUtils.formatTime(dateTaken, DateUtils.yyyyMMddHHmmss)).append(" )");
+            DevLogEngine.getEngine().d(builder.toString());
         }).startListen();
     }
 }

@@ -4,7 +4,7 @@ import afkt.app.utils.ProjectUtils
 import androidx.annotation.StringRes
 import dev.utils.app.ResourceUtils
 import dev.utils.app.info.AppInfoBean
-import dev.utils.app.info.KeyValueBean
+import dev.utils.app.info.KeyValue
 import java.io.File
 import java.util.*
 
@@ -15,7 +15,7 @@ import java.util.*
 class DeviceInfoBean(
     key: String?,
     value: String?
-) : KeyValueBean(key, value) {
+) : KeyValue(key, value) {
 
     companion object {
 

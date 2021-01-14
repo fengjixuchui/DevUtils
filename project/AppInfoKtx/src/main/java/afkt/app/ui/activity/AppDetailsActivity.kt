@@ -14,7 +14,7 @@ import dev.utils.app.ResourceUtils
 import dev.utils.app.helper.ViewHelper
 import dev.utils.app.info.AppInfoItem
 import dev.utils.app.info.AppInfoUtils
-import dev.utils.app.info.KeyValueBean
+import dev.utils.app.info.KeyValue
 import dev.utils.app.logger.DevLogger
 import dev.utils.app.toast.ToastTintUtils
 
@@ -57,14 +57,14 @@ class AppDetailsActivity : BaseActivity<ActivityAppDetailsBinding>() {
         val lists = appInfoItem!!.listKeyValues
         lists.add(
             0,
-            KeyValueBean.get(
+            KeyValue.get(
                 R.string.str_app_market,
                 ResourceUtils.getString(R.string.str_goto_app_market)
             )
         )
         lists.add(
             1,
-            KeyValueBean.get(
+            KeyValue.get(
                 R.string.str_app_details_setting,
                 ResourceUtils.getString(R.string.str_goto_app_details_setting)
             )
@@ -72,7 +72,7 @@ class AppDetailsActivity : BaseActivity<ActivityAppDetailsBinding>() {
         binding.vidAadRecy.adapter =
             KeyValueAdapter(lists).setListener(object : KeyValueAdapter.Listener {
                 override fun onItemClick(
-                    item: KeyValueBean,
+                    item: KeyValue,
                     position: Int
                 ): Boolean {
                     return when (position) {

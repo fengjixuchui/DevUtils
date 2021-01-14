@@ -9,7 +9,7 @@ import org.greenrobot.greendao.database.Database;
 import afkt.project.database.green.MigrationHelper;
 import afkt.project.database.green.able.AbsGreenDatabase;
 import dev.DevUtils;
-import dev.utils.app.logger.DevLogger;
+import dev.engine.log.DevLogEngine;
 import dev.utils.common.StringUtils;
 import gen.greendao.DaoMaster;
 import gen.greendao.DaoSession;
@@ -149,7 +149,7 @@ public final class NoteDatabase
                 int oldVersion,
                 int newVersion
         ) {
-            DevLogger.dTag(TAG, "oldVersion: %s, newVersion: %s", oldVersion, newVersion);
+            DevLogEngine.getEngine().dTag(TAG, "oldVersion: %s, newVersion: %s", oldVersion, newVersion);
             MigrationHelper.migrate(db, NoteDao.class, NotePictureDao.class);
         }
     }
