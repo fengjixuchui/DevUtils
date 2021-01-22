@@ -1,4 +1,4 @@
-# Lib
+# About
 
 该目录主要存储 DevUtils project 全部 lib module，封装快捷使用的工具类及 API 方法调用，隐藏内部逻辑判断对外提供便捷辅助类、统一回调类、Bean、Event 以及 Engine 兼容框架等
 
@@ -14,7 +14,6 @@
    - DevBaseMVVM                           | MVVM ( ViewDataBinding + ViewModel ) 基类库
    - DevJava                               | Java 工具类库 ( 不依赖 android api )
    - DevOther                              | 第三方库封装、以及部分特殊工具类等, 方便 copy 封装类使用
-   - DevStandard                           | 项目规范统一检测、生成替换等
    - DevWidget                             | 自定义 View UI 库
    - Environment                           | 环境配置切换库
       - DevEnvironment                     | 环境切换可视化 UI 操作

@@ -49,6 +49,24 @@ final class Config {
     // DevUtils Lib 项目本地路径
     public static final String DEV_UTILS_LOCAL_PATH = USER_DIR + File.separator + DEV_UTILS_DIR_NAME;
 
+    // ====================
+    // = DevUtils Project =
+    // ====================
+
+    // DevUtils Project 文件名
+    public static final String PROJECT_DIR_NAME   = "project";
+    // DevUtils Project 项目本地路径
+    public static final String PROJECT_LOCAL_PATH = USER_DIR + File.separator + PROJECT_DIR_NAME;
+
+    // ========================
+    // = DevUtils Interesting =
+    // ========================
+
+    // DevUtils Interesting 文件名
+    public static final String INTERESTING_DIR_NAME   = "interesting";
+    // DevUtils Interesting 项目本地路径
+    public static final String INTERESTING_LOCAL_PATH = USER_DIR + File.separator + INTERESTING_DIR_NAME;
+
     // =======
     // = Map =
     // =======
@@ -61,6 +79,10 @@ final class Config {
     public static final Map<String, String> sDevUtilsCatalogMap     = new HashMap<>();
     // DevUtils Lib 忽略目录
     public static final List<String>        sDevUtilsIgnoreCatalogs = new ArrayList<>();
+    // DevUtils Project 文件目录注释
+    public static final Map<String, String> sProjectCatalogMap      = new HashMap<>();
+    // DevUtils Interesting 文件目录注释
+    public static final Map<String, String> sInterestingCatalogMap  = new HashMap<>();
 
     static {
 
@@ -70,9 +92,7 @@ final class Config {
 
         sAndroidCatalogMap.put("Android", "根目录");
         sAndroidCatalogMap.put(".360RePlugin", "Android 插件化开发 - 360 RePlugin 框架");
-        sAndroidCatalogMap.put(".AndroidScreenMatch", "Android 屏幕适配生成对应的尺寸文件");
         sAndroidCatalogMap.put(".AndroidVideoClip", "Android 视频裁剪 (含裁剪 View)");
-        sAndroidCatalogMap.put(".AppInfoPro", "AppInfoPro (APP 信息提取器)");
         sAndroidCatalogMap.put(".AutoLockScreenPro", "AutoLockScreenPro - 推送自动锁屏");
         sAndroidCatalogMap.put(".BuglyHotfix", "Android 热修复 - Bugly");
         sAndroidCatalogMap.put(".PlaySeekbar", "视频裁剪自定义 View");
@@ -100,7 +120,6 @@ final class Config {
         sDevUtilsCatalogMap.put(".DevBaseMVVM", "MVVM ( ViewDataBinding + ViewModel ) 基类库");
         sDevUtilsCatalogMap.put(".DevJava", "Java 工具类库 ( 不依赖 android api )");
         sDevUtilsCatalogMap.put(".DevOther", "第三方库封装、以及部分特殊工具类等, 方便 copy 封装类使用");
-        sDevUtilsCatalogMap.put(".DevStandard", "项目规范统一检测、生成替换等");
         sDevUtilsCatalogMap.put(".DevWidget", "自定义 View UI 库");
         sDevUtilsCatalogMap.put(".Environment", "环境配置切换库");
         sDevUtilsCatalogMap.put(".Environment.DevEnvironment", "环境切换可视化 UI 操作");
@@ -119,7 +138,23 @@ final class Config {
         sDevUtilsIgnoreCatalogs.add("DevBaseMVVM");
         sDevUtilsIgnoreCatalogs.add("DevJava");
         sDevUtilsIgnoreCatalogs.add("DevOther");
-        sDevUtilsIgnoreCatalogs.add("DevStandard");
         sDevUtilsIgnoreCatalogs.add("DevWidget");
+
+        // ====================
+        // = DevUtils Project =
+        // ====================
+
+        sProjectCatalogMap.put("project", "根目录");
+        sProjectCatalogMap.put(".AccessibilityKtx", "Android 无障碍使用 ( Activity 栈 )");
+        sProjectCatalogMap.put(".AppInfoKtx", "APP 信息提取器");
+        sProjectCatalogMap.put(".DemoKtx", "临时测试代码、库调用调试 Demo");
+
+        // ========================
+        // = DevUtils Interesting =
+        // ========================
+
+        sInterestingCatalogMap.put("interesting", "根目录");
+        sInterestingCatalogMap.put(".DevScreenMatch", "Android 屏幕适配生成对应的尺寸文件");
+        sInterestingCatalogMap.put(".DevStandard", "项目规范统一检测、生成替换等");
     }
 }
