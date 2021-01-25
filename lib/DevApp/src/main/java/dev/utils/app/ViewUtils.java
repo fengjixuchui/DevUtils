@@ -1049,7 +1049,7 @@ public final class ViewUtils {
      * @return {@code true} yes, {@code false} no
      */
     public static boolean isHorizontalScrollBarEnabled(final View view) {
-        return (view != null) ? view.isHorizontalScrollBarEnabled() : false;
+        return (view != null) && view.isHorizontalScrollBarEnabled();
     }
 
     /**
@@ -1072,7 +1072,7 @@ public final class ViewUtils {
      * @return {@code true} yes, {@code false} no
      */
     public static boolean isVerticalScrollBarEnabled(final View view) {
-        return (view != null) ? view.isVerticalScrollBarEnabled() : false;
+        return (view != null) && view.isVerticalScrollBarEnabled();
     }
 
     /**
@@ -2035,7 +2035,7 @@ public final class ViewUtils {
      * @return {@code true} yes, {@code false} no
      */
     public static boolean isShown(final View view) {
-        return (view != null) ? view.isShown() : false;
+        return (view != null) && view.isShown();
     }
 
     /**

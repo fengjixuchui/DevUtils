@@ -32,17 +32,17 @@ final class GenerateDPValueFiles {
     private static final String ADAPTATION_FILE = "/values/dimens.xml";
 
     // 基准 dp 如: 360dp
-    private              double            BASE_DP               = 360;
+    private final        double            BASE_DP               = 360;
     // 生成的 values 目录格式 ( 代码中替换 XXX 字符串 )
-    private              String            LETTER_REPLACE        = "XXX";
+    private final        String            LETTER_REPLACE        = "XXX";
     // values-w410dp 这个目录需要删除
-    private              String            VALUES_OLD_FOLDER     = "values-wXXXdp";
+    private final        String            VALUES_OLD_FOLDER     = "values-wXXXdp";
     // values-sw410dp
-    private              String            VALUES_NEW_FOLDER     = "values-swXXXdp";
+    private final        String            VALUES_NEW_FOLDER     = "values-swXXXdp";
     // 是否删除旧的目录格式
     private final        boolean           DELETE_ANOTHER_FOLDER = true;
     // 去重复的数据集合
-    private              HashSet<Double>   DATA_SET              = new HashSet<>();
+    private final        HashSet<Double>   DATA_SET              = new HashSet<>();
     // 对应的 dp 值
     private static final ArrayList<String> listDPs               = new ArrayList<>();
 

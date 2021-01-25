@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:2.1.4'
+implementation 'com.afkt:DevAppX:2.1.5'
 ```
 
 ## 目录结构
@@ -327,11 +327,6 @@ allprojects {
 
 | 方法 | 注释 |
 | :- | :- |
-| getAppDeviceInfo | 获取应用、设备信息 |
-| refreshAppDeviceInfo | 刷新应用、设备信息 |
-| getUUID | 获取设备唯一 UUID |
-| getUUIDDevice | 获取设备唯一 UUID ( 使用硬件信息拼凑出来的 ) |
-| getFormatRes | 获取 R.string 资源的格式化字符串 |
 | getSDKVersion | 获取 SDK 版本 |
 | isFroyo | 是否在 2.2 版本及以上 |
 | isGingerbread | 是否在 2.3 版本及以上 |
@@ -645,6 +640,10 @@ allprojects {
 
 | 方法 | 注释 |
 | :- | :- |
+| getAppDeviceInfo | 获取应用、设备信息 |
+| refreshAppDeviceInfo | 刷新应用、设备信息 |
+| getUUID | 获取设备唯一 UUID |
+| getUUIDDevice | 获取设备唯一 UUID ( 使用硬件信息拼凑出来的 ) |
 | getDeviceInfo | 获取设备信息 |
 | handlerDeviceInfo | 处理设备信息 |
 | getBoard | 获取设备基板名称 |
@@ -1769,6 +1768,34 @@ allprojects {
 | isDownloadsDocument | 判读 Uri authority 是否为 Downloads Provider |
 | isMediaDocument | 判断 Uri authority 是否为 Media Provider |
 | isGooglePhotosUri | 判断 Uri authority 是否为 Google Photos Provider |
+
+
+* **版本工具类 ->** [VersionUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/VersionUtils.java)
+
+| 方法 | 注释 |
+| :- | :- |
+| getSDKVersion | 获取 SDK 版本 |
+| isFroyo | 是否在 2.2 版本及以上 |
+| isGingerbread | 是否在 2.3 版本及以上 |
+| isGingerbreadMR1 | 是否在 2.3.3 版本及以上 |
+| isHoneycomb | 是否在 3.0 版本及以上 |
+| isHoneycombMR1 | 是否在 3.1 版本及以上 |
+| isIceCreamSandwich | 是否在 4.0 版本及以上 |
+| isIceCreamSandwichMR1 | 是否在 4.0.3 版本及以上 |
+| isJellyBean | 是否在 4.1 版本及以上 |
+| isJellyBeanMR1 | 是否在 4.2 版本及以上 |
+| isJellyBeanMR2 | 是否在 4.3 版本及以上 |
+| isKitkat | 是否在 4.4.2 版本及以上 |
+| isLollipop | 是否在 5.0.1 版本及以上 |
+| isM | 是否在 6.0 版本及以上 |
+| isN | 是否在 7.0 版本及以上 |
+| isN_MR1 | 是否在 7.1.1 版本及以上 |
+| isO | 是否在 8.0 版本及以上 |
+| isO_MR1 | 是否在 8.1 版本及以上 |
+| isP | 是否在 9.0 版本及以上 |
+| isQ | 是否在 10.0 版本及以上 |
+| isR | 是否在 11.0 版本及以上 |
+| convertSDKVersion | 转换 SDK 版本 convertSDKVersion(14) = Android 4.0.0-2 |
 
 
 * **震动相关工具类 ->** [VibrationUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/VibrationUtils.java)
@@ -2970,13 +2997,13 @@ allprojects {
 | printAppPermission | 打印 APP 注册的权限 |
 
 
-* **键对值实体类 ->** [KeyValueBean.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/info/KeyValueBean.java)
+* **键对值实体类 ->** [KeyValue.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/info/KeyValue.java)
 
 | 方法 | 注释 |
 | :- | :- |
 | getKey | 获取 key |
 | getValue | 获取 value |
-| get | 通过 resId 设置 key, 并且初始化 KeyValueBean |
+| get | 通过 resId 设置 key |
 
 
 ## <span id="devutilsapplogger">**`dev.utils.app.logger`**</span>

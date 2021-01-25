@@ -24,11 +24,11 @@ final class PanguAnalyzeMain {
     // 代码间距等规范处理
     private static final Pangu                     sPangu                   = new Pangu();
     // 判断是否覆盖文件内容
-    private static       boolean                   sCoverText               = true;
+    private static final boolean                   sCoverText               = true;
     // 代码注释空格间距异常记录
-    private static       Map<String, String>       sAnnotationSpaceMap      = new HashMap<>();
+    private static final Map<String, String>       sAnnotationSpaceMap      = new HashMap<>();
     // 代码注释重复换行记录
-    private static       Map<String, List<String>> sAnnotationRepeatLineMap = new HashMap<>();
+    private static final Map<String, List<String>> sAnnotationRepeatLineMap = new HashMap<>();
 
     public static void main(String[] args) {
         String path = "";
@@ -39,28 +39,26 @@ final class PanguAnalyzeMain {
             public boolean filter(File file) {
                 // 获取完整路径
                 String absolutePath = file.getAbsolutePath();
-                if (absolutePath.indexOf("\\.git") == -1
-                        && absolutePath.indexOf("\\.idea") == -1
-                        && absolutePath.indexOf("\\.gradlew") == -1
-                        && absolutePath.indexOf("\\wrapper") == -1
-                        && absolutePath.indexOf("\\.gradle") == -1
-                        && absolutePath.indexOf("\\build") == -1
-                        && !FileUtils.isAudioFormats(file)
-                        && !FileUtils.isVideoFormats(file)
-                        && !FileUtils.isImageFormats(file)
-                        && !absolutePath.endsWith("LICENSE")
-                        && !absolutePath.endsWith(".zip")
-                        && !absolutePath.endsWith(".rar")
-                        && !absolutePath.endsWith(".iml")) {
-//                        && absolutePath.endsWith(".xml")
-//                            && absolutePath.endsWith(".properties")
-//                            && absolutePath.endsWith(".pro")
-//                            && absolutePath.endsWith(".gradle")
-//                            && absolutePath.endsWith(".gradle")
-//                            && absolutePath.endsWith(".java")
-                    return false;
-                }
-                return true;
+//                        && absolutePath.endsWith(".properties")
+//                        && absolutePath.endsWith(".pro")
+//                        && absolutePath.endsWith(".gradle")
+//                        && absolutePath.endsWith(".gradle")
+//                        && absolutePath.endsWith(".java")
+
+                return absolutePath.indexOf("\\.git") != -1
+                        || absolutePath.indexOf("\\.idea") != -1
+                        || absolutePath.indexOf("\\.gradlew") != -1
+                        || absolutePath.indexOf("\\wrapper") != -1
+                        || absolutePath.indexOf("\\.gradle") != -1
+                        || absolutePath.indexOf("\\build") != -1
+                        || FileUtils.isAudioFormats(file)
+                        || FileUtils.isVideoFormats(file)
+                        || FileUtils.isImageFormats(file)
+                        || absolutePath.endsWith("LICENSE")
+                        || absolutePath.endsWith(".zip")
+                        || absolutePath.endsWith(".rar")
+                        || absolutePath.endsWith(".iml")
+                        && absolutePath.endsWith(".xml");
             }
         });
         System.out.println("处理结束");

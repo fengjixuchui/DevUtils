@@ -57,7 +57,7 @@ class ParentFragment : DevBaseViewBindingFragment<FragmentParentBinding>() {
             val bundle = Bundle()
             bundle.putInt(DevFinal.POSITION, position)
             bundle.putInt(DevFinal.MAX, max)
-            fragment.setArguments(bundle)
+            fragment.arguments = bundle
             return fragment
         }
 

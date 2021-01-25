@@ -86,7 +86,7 @@ public class ColorSortMain {
     static final class SAXXml {
 
         // colors.xml 文件地址
-        private String xmlPath;
+        private final String xmlPath;
 
         private SAXXml(String xmlPath) {
             this.xmlPath = xmlPath;
@@ -114,12 +114,12 @@ public class ColorSortMain {
         class SAXDemoHandel
                 extends DefaultHandler {
 
-            private String                     colorKey;
-            private String                     colorValue;
+            private       String                     colorKey;
+            private       String                     colorValue;
             // 解析事件
-            private DocumentListener           listener;
+            private final DocumentListener           listener;
             // 解析集合
-            private List<ColorUtils.ColorInfo> lists = new ArrayList<>();
+            private final List<ColorUtils.ColorInfo> lists = new ArrayList<>();
 
             public SAXDemoHandel(DocumentListener listener) {
                 this.listener = listener;

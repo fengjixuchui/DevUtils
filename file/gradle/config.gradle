@@ -51,9 +51,9 @@ ext {
             // ===========
 
             // 版本号
-            dev_app_versionCode                     : 214,
+            dev_app_versionCode                     : 215,
             // 版本名
-            dev_app_versionName                     : '2.1.4',
+            dev_app_versionName                     : '2.1.5',
 
             // 版本号
             dev_assist_versionCode                  : 107,
@@ -61,24 +61,24 @@ ext {
             dev_assist_versionName                  : '1.0.7',
 
             // 版本号
-            dev_base_versionCode                    : 102,
+            dev_base_versionCode                    : 103,
             // 版本名
-            dev_base_versionName                    : '1.0.2',
+            dev_base_versionName                    : '1.0.3',
 
             // 版本号
-            dev_base_mvvm_versionCode               : 100,
+            dev_base_mvvm_versionCode               : 101,
             // 版本名
-            dev_base_mvvm_versionName               : '1.0.0',
+            dev_base_mvvm_versionName               : '1.0.1',
 
             // 版本号
-            dev_java_versionCode                    : 125,
+            dev_java_versionCode                    : 126,
             // 版本名
-            dev_java_version                        : '1.2.5',
+            dev_java_version                        : '1.2.6',
 
             // 版本号
-            dev_widget_versionCode                  : 106,
+            dev_widget_versionCode                  : 107,
             // 版本名
-            dev_widget_versionName                  : '1.0.6',
+            dev_widget_versionName                  : '1.0.7',
 
             // 版本号
             dev_environment_versionCode             : 102,
@@ -110,6 +110,8 @@ ext {
                     // https://developer.android.com/jetpack/androidx/releases/lifecycle#declaring_dependencies
                     // Lifecycles only (without ViewModel or LiveData)
                     lifecycle_runtime             : "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0",
+                    // Lifecycles extensions
+                    lifecycle_extensions          : "androidx.lifecycle:lifecycle-extensions:2.2.0",
                     // ViewModel
                     lifecycle_viewmodel           : "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0",
                     // LiveData
