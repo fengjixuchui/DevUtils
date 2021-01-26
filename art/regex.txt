@@ -18,8 +18,24 @@ ping www.bintray.com
 
 
 
+===========
+= Analyze =
+===========
+
+
 
 Missing permissions
 
+
+
+Unused assignment
+
+
+
+lambda alternative
+
+
+
+anonymous type can be replaced with lambda
 
 
