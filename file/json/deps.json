@@ -39,7 +39,8 @@
         "lifecycle_common_java8": "androidx.lifecycle:lifecycle-common-java8:2.2.0",
         "work_runtime": "androidx.work:work-runtime:2.5.0-beta02",
         "design": "com.google.android.material:material:1.2.1",
-        "fragment": "androidx.fragment:fragment:1.2.5"
+        "fragment": "androidx.fragment:fragment:1.2.5",
+        "palette": "androidx.palette:palette:1.0.0"
     },
     "lib": {
         "gson": "com.google.code.gson:gson:2.8.6",
