@@ -3,7 +3,7 @@ package afkt.app.utils
 import afkt.app.R
 import afkt.app.base.model.PathConfig
 import android.content.Intent
-import android.net.Uri
+import dev.DevUtils
 import dev.utils.app.AppUtils
 import dev.utils.app.HandlerUtils
 import dev.utils.app.ResourceUtils
@@ -166,10 +166,10 @@ object ExportUtils {
             val intent = Intent()
             intent.action = Intent.ACTION_SEND
             intent.type = "*/*"
-            intent.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(file))
-            AppUtils.startActivity(intent)
+            intent.putExtra(Intent.EXTRA_STREAM, DevUtils.getUriForFile(file))
+            if (AppUtils.startActivity(intent)) return
         } catch (e: java.lang.Exception) {
-            ToastTintUtils.error(ResourceUtils.getString(R.string.str_share_fail))
         }
+        ToastTintUtils.error(ResourceUtils.getString(R.string.str_share_fail))
     }
 }

@@ -111,13 +111,18 @@
         "ucrop": "com.github.yalantis:ucrop:2.2.6",
         "ucrop_native": "com.github.yalantis:ucrop:2.2.6-native",
         "xxPermissions": "com.hjq:xxpermissions:9.2",
-        "glance": "com.glance.guolindev:glance:1.0.0-alpha02",
+        "progressmanager": "me.jessyan:progressmanager:1.5.0",
         "arouter_api": "com.alibaba:arouter-api:1.5.0",
         "arouter_compiler": "com.alibaba:arouter-compiler:1.2.2",
-        "leakcanary": "com.squareup.leakcanary:leakcanary-android:2.4",
+        "javapoet": "com.squareup:javapoet:1.13.0",
+        "auto_service": "com.google.auto.service:auto-service:1.0-rc7",
+        "leakcanary": "com.squareup.leakcanary:leakcanary-android:2.6",
         "blockcanary_android": "com.github.markzhai:blockcanary-android:1.5.0",
         "blockcanary_no_op": "com.github.markzhai:blockcanary-no-op:1.5.0",
-        "javapoet": "com.squareup:javapoet:1.13.0",
-        "auto_service": "com.google.auto.service:auto-service:1.0-rc7"
+        "glance": "com.glance.guolindev:glance:1.0.0-alpha02",
+        "uetool": "me.ele:uetool:1.2.9",
+        "uetool_no_op": "me.ele:uetool-no-op:1.2.9",
+        "dokitx": "com.didichuxing.doraemonkit:dokitx:3.3.5",
+        "dokitx_no_op": "com.didichuxing.doraemonkit:dokitx-no-op:3.3.5"
     }
 }
