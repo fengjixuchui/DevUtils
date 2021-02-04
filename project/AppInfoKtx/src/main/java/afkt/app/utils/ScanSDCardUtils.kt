@@ -1,7 +1,7 @@
 package afkt.app.utils
 
 import afkt.app.base.model.FileApkItem
-import dev.callback.common.DevCallback
+import dev.callback.DevCallback
 import dev.utils.app.PathUtils
 import dev.utils.app.info.AppInfoUtils
 import dev.utils.app.logger.DevLogger

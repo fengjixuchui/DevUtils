@@ -20,7 +20,7 @@ import androidx.appcompat.widget.SearchView
 import androidx.core.view.GravityCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
-import dev.callback.common.DevCallback
+import dev.callback.DevCallback
 import dev.utils.app.ClickUtils
 import dev.utils.app.ResourceUtils
 import dev.utils.app.ViewUtils

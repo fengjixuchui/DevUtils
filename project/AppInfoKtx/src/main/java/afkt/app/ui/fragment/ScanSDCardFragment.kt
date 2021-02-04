@@ -15,7 +15,7 @@ import android.view.View
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.tt.whorlviewlibrary.WhorlView
-import dev.callback.common.DevCallback
+import dev.callback.DevCallback
 import dev.utils.DevFinal
 import dev.utils.app.ListViewUtils
 import dev.utils.app.ResourceUtils

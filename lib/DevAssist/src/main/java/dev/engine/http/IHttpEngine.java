@@ -57,7 +57,7 @@ public interface IHttpEngine {
     }
 
     /**
-     * detail: Request Call Operate
+     * detail: Request Call
      * @author Ttt
      */
     interface Call {
@@ -164,9 +164,9 @@ public interface IHttpEngine {
      * @param callback {@link RequestCallback}
      * @return {@link Call}
      */
-    Call newCall(
-            Request request,
-            RequestCallback callback
+    <Req extends Request, Resp extends Response> Call newCall(
+            Req request,
+            RequestCallback<Resp> callback
     );
 
     // ===========
