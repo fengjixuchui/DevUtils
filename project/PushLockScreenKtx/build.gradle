@@ -1,0 +1,31 @@
+apply from: rootProject.file(files.build_app_gradle)
+
+android {
+    defaultConfig {
+        applicationId "afkt.lock"
+
+        ndk {
+            // 选择要添加的对应 cpu 类型的 .so 库
+            abiFilters 'armeabi', 'armeabi-v7a', 'arm64-v8a'
+            // 还可以添加 'x86', 'x86_64', 'mips', 'mips64'
+        }
+
+        manifestPlaceholders = [
+                JPUSH_PKGNAME: applicationId,
+                JPUSH_APPKEY : "88fc986aa504bd99f3e40092",
+                JPUSH_CHANNEL: "dev-install-debug",
+        ]
+    }
+}
+
+dependencies {
+    implementation project(':DevApp')
+    implementation project(':DevBaseMVVM')
+
+    // ===========
+    // = 极光推送 =
+    // ===========
+
+    implementation 'cn.jiguang.sdk:jpush:3.8.5'
+    implementation 'cn.jiguang.sdk:jcore:2.5.5'
+}
