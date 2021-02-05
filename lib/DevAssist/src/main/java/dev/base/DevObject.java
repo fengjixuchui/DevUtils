@@ -13,7 +13,7 @@ public class DevObject<T>
         implements Serializable {
 
     // uuid ( 一定程度上唯一 )
-    private final int    mUUID = UUID.randomUUID().hashCode();
+    private final int    mUUID        = UUID.randomUUID().hashCode();
     // Value
     private       T      mValue;
     // 标记 Tag
@@ -22,6 +22,12 @@ public class DevObject<T>
     private       int    mModelId;
     // code String
     private       String mCode;
+    // Type
+    private       int    mType;
+    // State
+    private       int    mState;
+    // Operate id
+    private       long   mOperateUUID = UUID.randomUUID().hashCode();
 
     public DevObject() {
     }
@@ -131,6 +137,69 @@ public class DevObject<T>
         return setCode(String.valueOf(code));
     }
 
+    /**
+     * 获取 Type
+     * @return Type
+     */
+    public int getType() {
+        return mType;
+    }
+
+    /**
+     * 设置 Type
+     * @param type Type
+     * @return {@link DevObject}
+     */
+    public DevObject<T> setType(final int type) {
+        this.mType = type;
+        return this;
+    }
+
+    /**
+     * 获取 State
+     * @return State
+     */
+    public int getState() {
+        return mState;
+    }
+
+    /**
+     * 设置 State
+     * @param state State
+     * @return {@link DevObject}
+     */
+    public DevObject<T> setState(final int state) {
+        this.mState = state;
+        return this;
+    }
+
+    /**
+     * 获取 Operate UUID
+     * @return Operate UUID
+     */
+    public long getOperateUUID() {
+        return mOperateUUID;
+    }
+
+    /**
+     * 设置 Operate UUID
+     * @param operateUUID operate UUID
+     * @return {@link DevObject}
+     */
+    public DevObject<T> setOperateUUID(final long operateUUID) {
+        this.mOperateUUID = operateUUID;
+        return this;
+    }
+
+    /**
+     * 重置随机 Operate UUID
+     * @return Operate UUID
+     */
+    public long randomOperateUUID() {
+        mOperateUUID = UUID.randomUUID().hashCode();
+        return mOperateUUID;
+    }
+
     // ===========
     // = 判断方法 =
     // ===========
@@ -178,6 +247,33 @@ public class DevObject<T>
      */
     public boolean equalsCode(final String code) {
         return code != null && ObjectUtils.equals(this.mCode, code);
+    }
+
+    /**
+     * 判断 Type 是否一致
+     * @param type 待校验 Type
+     * @return {@code true} yes, {@code false} no
+     */
+    public boolean equalsType(final int type) {
+        return this.mType == type;
+    }
+
+    /**
+     * 判断 State 是否一致
+     * @param state 待校验 State
+     * @return {@code true} yes, {@code false} no
+     */
+    public boolean equalsState(final int state) {
+        return this.mState == state;
+    }
+
+    /**
+     * 判断 Operate UUID 是否一致
+     * @param operateUUID 待校验 Operate UUID
+     * @return {@code true} yes, {@code false} no
+     */
+    public boolean equalsOperateUUID(final long operateUUID) {
+        return this.mOperateUUID == operateUUID;
     }
 
     // ===========
