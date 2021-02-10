@@ -69,6 +69,30 @@
                 android:textSize="@dimen/un_sp_15" />
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/vid_fs_storage_linear"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selector_bg_item_r3"
+            android:orientation="vertical"
+            android:paddingLeft="@dimen/un_dp_18"
+            android:paddingTop="@dimen/un_dp_15"
+            android:paddingBottom="@dimen/un_dp_15">
+
+            <TextView
+                style="@style/AppTheme.Base_TextView"
+                android:text="@string/str_manage_storage"
+                android:textSize="@dimen/un_sp_16" />
+
+            <TextView
+                android:id="@+id/vid_fs_storage_tv"
+                style="@style/AppTheme.Base_TextView"
+                android:layout_marginTop="@dimen/un_dp_3"
+                android:text="@string/str_manage_storage_enable"
+                android:textColor="@color/color_808080"
+                android:textSize="@dimen/un_sp_15" />
+        </LinearLayout>
+
         <TextView
             style="@style/AppTheme.Base_TextView"
             android:layout_marginLeft="@dimen/un_dp_18"

@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:2.1.5'
+implementation 'com.afkt:DevAppX:2.1.6'
 ```
 
 ## 目录结构
@@ -374,6 +374,7 @@ allprojects {
 | getAlarmManager | 获取 AlarmManager |
 | getLocationManager | 获取 LocationManager |
 | getVibrator | 获取 Vibrator |
+| getDevicePolicyManager | 获取 DevicePolicyManager |
 | getWallpaperManager | 获取 WallpaperManager |
 | getSystemService | 获取 SystemService |
 | getPackageManager | 获取 PackageManager |
@@ -634,6 +635,28 @@ allprojects {
 | getAppDbPath | 获取应用内部存储数据库路径 ( path /data/data/package/databases/name ) |
 | startExportDatabase | 导出数据库 |
 | startImportDatabase | 导入数据库 |
+
+
+* **设备管理工具类 ->** [DevicePolicyUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/DevicePolicyUtils.java)
+
+| 方法 | 注释 |
+| :- | :- |
+| getInstance | 获取 DevicePolicyUtils 实例 |
+| getDevicePolicyManager | 获取 DevicePolicyManager |
+| isAdminActive | 判断给定的组件是否启动 ( 活跃 ) 中 |
+| getActiveIntent | 获取激活跳转 Intent |
+| activeAdmin | 激活给定的组件 |
+| removeActiveAdmin | 移除激活组件 |
+| startLockPassword | 设置锁屏密码 ( 不需要激活就可以运行 ) |
+| setLockPassword | 设置锁屏密码 |
+| lockNow | 立刻锁屏 |
+| lockByTime | 设置多长时间后锁屏 |
+| wipeData | 清除所有数据 ( 恢复出厂设置 ) |
+| resetPassword | 设置新解锁密码 |
+| setStorageEncryption | 设置存储设备加密 |
+| setCameraDisabled | 设置停用相机 |
+| getComponentName | 获取 ComponentName |
+| setComponentName | 设置 ComponentName |
 
 
 * **设备相关工具类 ->** [DeviceUtils.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/DeviceUtils.java)
@@ -3530,6 +3553,7 @@ allprojects {
 | intToRgbString | 颜色值 转换 RGB 颜色字符串 |
 | intToArgbString | 颜色值 转换 ARGB 颜色字符串 |
 | getRandomColor | 获取随机颜色值 |
+| getRandomColorString | 获取随机颜色值字符串 |
 | judgeColorString | 判断是否为 ARGB 格式的十六进制颜色, 例如: FF990587 |
 | setDark | 颜色加深 ( 单独修改 RGB 值, 不变动透明度 ) |
 | setLight | 颜色变浅, 变亮 ( 单独修改 RGB 值, 不变动透明度 ) |

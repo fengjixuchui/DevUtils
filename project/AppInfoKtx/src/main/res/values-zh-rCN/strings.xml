@@ -40,6 +40,9 @@
     <string name="str_reset_dfsetting_tips">恢复应用默认设置参数</string>
     <string name="str_scan_apk">扫描安装包</string>
     <string name="str_scan_apk_tips">设置扫描安装包文件, 后缀字段</string>
+    <string name="str_manage_storage">管理外部存储</string>
+    <string name="str_manage_storage_enable">启用管理外部存储权限</string>
+    <string name="str_manage_storage_disable">禁用管理外部存储权限</string>
     <string name="str_setting_scan_suffix_suc">设置成功, 如需重新扫描, 请点击刷新</string>
     <string name="str_search">搜索</string>
     <string name="str_set_query_apk_suffix">设置搜索后缀</string>

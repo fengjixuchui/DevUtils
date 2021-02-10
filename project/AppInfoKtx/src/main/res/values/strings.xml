@@ -40,6 +40,9 @@
     <string name="str_reset_dfsetting_tips">restore the application default settings</string>
     <string name="str_scan_apk">scanning apk</string>
     <string name="str_scan_apk_tips">set scan apk file, the suffix field</string>
+    <string name="str_manage_storage">manage external storage</string>
+    <string name="str_manage_storage_enable">enable manage external storage permission</string>
+    <string name="str_manage_storage_disable">disable manage external storage permission</string>
     <string name="str_setting_scan_suffix_suc">set suc, If need to be re scanned, Please click refresh</string>
     <string name="str_search">search</string>
     <string name="str_set_query_apk_suffix">set query suffix</string>

@@ -10,7 +10,7 @@ import afkt.app.utils.ProjectUtils
 import afkt.app.utils.QuerySuffixUtils
 import android.os.Bundle
 import android.view.View
-import dev.utils.app.ResourceUtils
+import dev.utils.app.*
 import dev.utils.app.toast.ToastTintUtils
 
 class SettingFragment : BaseFragment<FragmentSettingBinding>() {
@@ -24,6 +24,11 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
         super.onViewCreated(view, savedInstanceState)
         binding.vidFsAppsortLinear.setOnClickListener { AppSortDialog(viewModel, context).show() }
         binding.vidFsScanapkLinear.setOnClickListener { QuerySuffixDialog(context).show() }
+        binding.vidFsStorageLinear.setOnClickListener {
+            if (VersionUtils.isR()) {
+                AppUtils.startActivity(IntentUtils.getManageAppAllFilesAccessPermissionIntent())
+            }
+        }
         binding.vidFsResetLinear.setOnClickListener {
             ProjectUtils.resetAppSortType() // 重置排序类型索引
             QuerySuffixUtils.reset() // 清空后缀
@@ -43,5 +48,27 @@ class SettingFragment : BaseFragment<FragmentSettingBinding>() {
         // 设置选择排序文案
         binding.vidFsAppsortTv.text =
             ResourceUtils.getStringArray(R.array.array_app_sort)!![ProjectUtils.getAppSortType()]
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        if (
+            ViewUtils.setVisibility(
+                VersionUtils.isR(),
+                binding.vidFsStorageLinear
+            )
+        ) {
+            TextViewUtils.setText(
+                binding.vidFsStorageTv,
+                ResourceUtils.getString(
+                    if (PathUtils.isExternalStorageManager()) {
+                        R.string.str_manage_storage_disable
+                    } else {
+                        R.string.str_manage_storage_enable
+                    }
+                )
+            )
+        }
     }
 }

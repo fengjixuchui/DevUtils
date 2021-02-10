@@ -26,7 +26,7 @@ public class RequestState<T> {
     private DevState<T> mState = new DevState<>();
 
     public RequestState() {
-        mState.setState(REQUEST_NORMAL);
+        setRequestNormal();
     }
 
     // ===============
@@ -38,7 +38,7 @@ public class RequestState<T> {
      * @return 请求类型
      */
     public T getType() {
-        return mState.getValue();
+        return mState.getObject();
     }
 
     /**
@@ -47,7 +47,7 @@ public class RequestState<T> {
      * @return {@link RequestState}
      */
     public RequestState<T> setType(final T type) {
-        mState.setValue(type);
+        mState.setObject(type);
         return this;
     }
 
@@ -57,7 +57,7 @@ public class RequestState<T> {
      * @return {@code true} yes, {@code false} no
      */
     public boolean equalsType(final T type) {
-        return mState.equalsValue(type);
+        return mState.equalsObject(type);
     }
 
     // =
@@ -67,7 +67,7 @@ public class RequestState<T> {
      * @return 请求 UUID
      */
     public long getRequestUUID() {
-        return mState.getOperateUUID();
+        return mState.getTokenUUID();
     }
 
     /**
@@ -75,7 +75,7 @@ public class RequestState<T> {
      * @return 请求 UUID
      */
     public long randomRequestUUID() {
-        return mState.randomOperateUUID();
+        return mState.randomTokenUUID();
     }
 
     /**
@@ -84,7 +84,7 @@ public class RequestState<T> {
      * @return {@code true} yes, {@code false} no
      */
     public boolean equalsRequestUUID(final long uuid) {
-        return mState.equalsOperateUUID(uuid);
+        return mState.equalsTokenUUID(uuid);
     }
 
     // =
