@@ -10,16 +10,23 @@ import java.security.NoSuchAlgorithmException;
  * <pre>
  *     Gradle 缓存目录文件命名规则
  *     @see <a href="https://www.cnblogs.com/rainboy2010/p/7062279.html"/>
+ *     @see <a href="https://services.gradle.org/distributions"/>
+ *     Android Gradle 插件版本说明
+ *     @see <a href="https://developer.android.google.cn/studio/releases/gradle-plugin"/>
+ *     <p></p>
+ *     快捷搜索、下载地址:
+ *     distributionUrl=https\://services.gradle.org/distributions/gradle-6.5-all.zip
+ *     C:\Users\Administrator\.gradle\wrapper\dists
  * </pre>
  */
 class GradleMain {
 
     public static void main(String[] args) {
-        String data = getFileName("https://services.gradle.org/distributions/gradle-4.1-all.zip");
-        System.out.println(data); // bzyivzo6n839fup2jbap0tjew
+        String data = getGradleFileName("https://services.gradle.org/distributions/gradle-6.5-all.zip");
+        System.out.println(data); // 2oz4ud9k3tuxjg84bbf55q0tn
     }
 
-    public static String getFileName(final String distributionUrl) {
+    private static String getGradleFileName(final String distributionUrl) {
         try {
             MessageDigest messageDigest = MessageDigest.getInstance("MD5");
             messageDigest.update(distributionUrl.getBytes());

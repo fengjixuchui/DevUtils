@@ -5,7 +5,7 @@ dependencies {
 	// dev_app_x
 	implementation 'com.afkt:DevAppX:2.1.6'
 	// dev_assist
-	implementation 'com.afkt:DevAssist:1.0.8'
+	implementation 'com.afkt:DevAssist:1.0.9'
 	// dev_base
 	implementation 'com.afkt:DevBase:1.0.3'
 	// dev_base_mvvm
@@ -46,7 +46,7 @@ dependencies {
 	// room_ktx
 	implementation 'androidx.room:room-ktx:2.2.5'
 	// work_runtime_ktx
-	implementation 'androidx.work:work-runtime-ktx:2.5.0-beta02'
+	implementation 'androidx.work:work-runtime-ktx:2.5.0-rc01'
 	// datastore_preferences
 	implementation 'androidx.datastore:datastore-preferences:1.0.0-alpha05'
 	// fragment_ktx
@@ -200,7 +200,7 @@ dependencies {
 	// banner
 	implementation 'com.youth.banner:banner:2.1.0'
 	// mmkv
-	implementation 'com.tencent:mmkv-static:1.2.4'
+	implementation 'com.tencent:mmkv-static:1.2.7'
 	// autosize
 	implementation 'me.jessyan:autosize:1.2.1'
 	// greenDAO
@@ -231,14 +231,14 @@ dependencies {
 	implementation 'com.squareup:javapoet:1.13.0'
 	// auto_service
 	implementation 'com.google.auto.service:auto-service:1.0-rc7'
+	// glance
+	implementation 'com.glance.guolindev:glance:1.0.0'
 	// leakcanary
 	implementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 	// blockcanary_android
 	implementation 'com.github.markzhai:blockcanary-android:1.5.0'
 	// blockcanary_no_op
 	implementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
-	// glance
-	implementation 'com.glance.guolindev:glance:1.0.0-alpha02'
 	// uetool
 	implementation 'me.ele:uetool:1.2.9'
 	// uetool_no_op

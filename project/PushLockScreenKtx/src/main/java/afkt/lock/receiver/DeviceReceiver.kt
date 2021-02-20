@@ -34,7 +34,7 @@ class DeviceReceiver : DeviceAdminReceiver() {
         intent: Intent
     ): CharSequence? {
         DevLogger.dTag(TAG, "[onDisableRequested] 设备管理: ACTION_DEVICE_ADMIN_DISABLE_REQUESTED")
-        return "这是一个可选的消息，警告有关禁止用户的请求"
+        return "这是一个可选的消息, 警告有关禁止用户的请求"
     }
 
     override fun onPasswordChanged(
