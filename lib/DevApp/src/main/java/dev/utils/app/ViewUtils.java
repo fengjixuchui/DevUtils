@@ -794,7 +794,7 @@ public final class ViewUtils {
      * @param view View
      * @return View 最小高度
      */
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public static int getMinimumHeight(final View view) {
         if (view != null) {
             return view.getMinimumHeight();
@@ -823,7 +823,7 @@ public final class ViewUtils {
      * @param view View
      * @return View 最小宽度
      */
-    @RequiresApi(Build.VERSION_CODES.JELLY_BEAN)
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public static int getMinimumWidth(final View view) {
         if (view != null) {
             return view.getMinimumWidth();
