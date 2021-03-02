@@ -3,7 +3,7 @@ dependencies {
 	// = dev =
 
 	// dev_app_x
-	implementation 'com.afkt:DevAppX:2.1.8'
+	implementation 'com.afkt:DevAppX:2.1.9'
 	// dev_assist
 	implementation 'com.afkt:DevAssist:1.0.9'
 	// dev_base
@@ -11,7 +11,7 @@ dependencies {
 	// dev_base_mvvm
 	implementation 'com.afkt:DevBaseMVVM:1.0.2'
 	// dev_java
-	implementation 'com.afkt:DevJava:1.2.8'
+	implementation 'com.afkt:DevJava:1.2.9'
 	// dev_widget_x
 	implementation 'com.afkt:DevWidgetX:1.0.7'
 	// dev_environment

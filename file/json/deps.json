@@ -1,10 +1,10 @@
 {
     "dev": {
-        "dev_app_x": "com.afkt:DevAppX:2.1.8",
+        "dev_app_x": "com.afkt:DevAppX:2.1.9",
         "dev_assist": "com.afkt:DevAssist:1.0.9",
         "dev_base": "com.afkt:DevBase:1.0.4",
         "dev_base_mvvm": "com.afkt:DevBaseMVVM:1.0.2",
-        "dev_java": "com.afkt:DevJava:1.2.8",
+        "dev_java": "com.afkt:DevJava:1.2.9",
         "dev_widget_x": "com.afkt:DevWidgetX:1.0.7",
         "dev_environment": "com.afkt:DevEnvironment:1.0.2",
         "dev_environment_base": "com.afkt:DevEnvironmentBase:1.0.2",
