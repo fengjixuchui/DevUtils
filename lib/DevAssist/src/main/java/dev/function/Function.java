@@ -5,6 +5,7 @@ import java.util.concurrent.Executors;
 
 import dev.base.DevObject;
 import dev.utils.LogPrintUtils;
+import dev.utils.common.StringUtils;
 import dev.utils.common.thread.DevThreadPool;
 
 /**
@@ -64,7 +65,11 @@ public final class Function {
         }
 
         public Operation(final String tag) {
-            this.TAG = tag;
+            if (StringUtils.isNotEmpty(tag)) {
+                this.TAG = tag;
+            } else {
+                this.TAG = Operation.class.getSimpleName();
+            }
         }
 
         // ===============
@@ -118,24 +123,11 @@ public final class Function {
          * @return {@link Operation}
          */
         public Operation tryCatch(final Method method) {
-            return tryCatch(TAG, method);
-        }
-
-        /**
-         * 捕获异常处理
-         * @param tag    输出日志
-         * @param method 执行方法
-         * @return {@link Operation}
-         */
-        public Operation tryCatch(
-                final String tag,
-                final Method method
-        ) {
             if (method != null) {
                 try {
                     method.method(Operation.this);
                 } catch (Throwable e) {
-                    LogPrintUtils.eTag(tag, e, "tryCatch");
+                    LogPrintUtils.eTag(TAG, e, "tryCatch");
                     if (method instanceof Method2) {
                         ((Method2) method).error(Operation.this, e);
                     }
@@ -154,10 +146,29 @@ public final class Function {
          * @return {@link Operation}
          */
         public Operation thread(final Method method) {
+            return thread(method, 0L);
+        }
+
+        /**
+         * 后台线程执行
+         * @param method      执行方法
+         * @param delayMillis 延迟执行时间 ( 毫秒 )
+         * @return {@link Operation}
+         */
+        public Operation thread(
+                final Method method,
+                final long delayMillis
+        ) {
             if (method != null) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        if (delayMillis > 0L) {
+                            try {
+                                Thread.sleep(delayMillis);
+                            } catch (Exception e) {
+                            }
+                        }
                         method.method(Operation.this);
                     }
                 }).start();
@@ -165,13 +176,28 @@ public final class Function {
             return this;
         }
 
+        // =
+
         /**
          * 后台线程池执行
          * @param method 执行方法
          * @return {@link Operation}
          */
         public Operation threadPool(final Method method) {
-            return threadPool(sThreadPool, method);
+            return threadPool(sThreadPool, method, 0L);
+        }
+
+        /**
+         * 后台线程池执行
+         * @param method      执行方法
+         * @param delayMillis 延迟执行时间 ( 毫秒 )
+         * @return {@link Operation}
+         */
+        public Operation threadPool(
+                final Method method,
+                final long delayMillis
+        ) {
+            return threadPool(sThreadPool, method, delayMillis);
         }
 
         /**
@@ -184,10 +210,31 @@ public final class Function {
                 final ExecutorService pool,
                 final Method method
         ) {
+            return threadPool(pool, method, 0L);
+        }
+
+        /**
+         * 后台线程池执行
+         * @param pool        线程池
+         * @param method      执行方法
+         * @param delayMillis 延迟执行时间 ( 毫秒 )
+         * @return {@link Operation}
+         */
+        public Operation threadPool(
+                final ExecutorService pool,
+                final Method method,
+                final long delayMillis
+        ) {
             if (pool != null && method != null) {
                 pool.execute(new Runnable() {
                     @Override
                     public void run() {
+                        if (delayMillis > 0L) {
+                            try {
+                                Thread.sleep(delayMillis);
+                            } catch (Exception e) {
+                            }
+                        }
                         method.method(Operation.this);
                     }
                 });
@@ -205,27 +252,33 @@ public final class Function {
          * @return {@link Operation}
          */
         public Operation threadCatch(final Method method) {
-            return threadCatch(TAG, method);
+            return threadCatch(method, 0L);
         }
 
         /**
          * 后台线程执行
-         * @param tag    日志 TAG
-         * @param method 执行方法
+         * @param method      执行方法
+         * @param delayMillis 延迟执行时间 ( 毫秒 )
          * @return {@link Operation}
          */
         public Operation threadCatch(
-                final String tag,
-                final Method method
+                final Method method,
+                final long delayMillis
         ) {
             if (method != null) {
                 new Thread(new Runnable() {
                     @Override
                     public void run() {
+                        if (delayMillis > 0L) {
+                            try {
+                                Thread.sleep(delayMillis);
+                            } catch (Exception e) {
+                            }
+                        }
                         try {
                             method.method(Operation.this);
                         } catch (Throwable e) {
-                            LogPrintUtils.eTag(tag, e, "threadCatch");
+                            LogPrintUtils.eTag(TAG, e, "threadCatch");
                             if (method instanceof Method2) {
                                 ((Method2) method).error(Operation.this, e);
                             }
@@ -244,20 +297,20 @@ public final class Function {
          * @return {@link Operation}
          */
         public Operation threadPoolCatch(final Method method) {
-            return threadPoolCatch(TAG, sThreadPool, method);
+            return threadPoolCatch(sThreadPool, method, 0L);
         }
 
         /**
          * 后台线程池执行
-         * @param tag    日志 TAG
-         * @param method 执行方法
+         * @param method      执行方法
+         * @param delayMillis 延迟执行时间 ( 毫秒 )
          * @return {@link Operation}
          */
         public Operation threadPoolCatch(
-                final String tag,
-                final Method method
+                final Method method,
+                final long delayMillis
         ) {
-            return threadPoolCatch(tag, sThreadPool, method);
+            return threadPoolCatch(sThreadPool, method, delayMillis);
         }
 
         /**
@@ -270,29 +323,35 @@ public final class Function {
                 final ExecutorService pool,
                 final Method method
         ) {
-            return threadPoolCatch(TAG, pool, method);
+            return threadPoolCatch(pool, method, 0L);
         }
 
         /**
          * 后台线程池执行
-         * @param tag    日志 TAG
-         * @param pool   线程池
-         * @param method 执行方法
+         * @param pool        线程池
+         * @param method      执行方法
+         * @param delayMillis 延迟执行时间 ( 毫秒 )
          * @return {@link Operation}
          */
         public Operation threadPoolCatch(
-                final String tag,
                 final ExecutorService pool,
-                final Method method
+                final Method method,
+                final long delayMillis
         ) {
             if (pool != null && method != null) {
                 pool.execute(new Runnable() {
                     @Override
                     public void run() {
+                        if (delayMillis > 0L) {
+                            try {
+                                Thread.sleep(delayMillis);
+                            } catch (Exception e) {
+                            }
+                        }
                         try {
                             method.method(Operation.this);
                         } catch (Throwable e) {
-                            LogPrintUtils.eTag(tag, e, "threadPoolCatch");
+                            LogPrintUtils.eTag(TAG, e, "threadPoolCatch");
                             if (method instanceof Method2) {
                                 ((Method2) method).error(Operation.this, e);
                             }
@@ -308,6 +367,32 @@ public final class Function {
     // = 快捷方法 =
     // ===========
 
+    /**
+     * 获取 Operation
+     * @return {@link Operation}
+     */
+    public static Operation operation() {
+        return new Operation();
+    }
+
+    /**
+     * 获取 Operation
+     * @param tag 日志 TAG
+     * @return {@link Operation}
+     */
+    public static Operation operation(final String tag) {
+        return new Operation(tag);
+    }
+
+    /**
+     * 设置 Object
+     * @param object {@link DevObject}
+     * @return {@link Operation}
+     */
+    public static Operation object(final DevObject object) {
+        return new Operation().setObject(object);
+    }
+
     // ===========
     // = 捕获异常 =
     // ===========
@@ -319,19 +404,6 @@ public final class Function {
      */
     public static Operation tryCatch(final Method method) {
         return new Operation().tryCatch(method);
-    }
-
-    /**
-     * 捕获异常处理
-     * @param tag    输出日志
-     * @param method 执行方法
-     * @return {@link Operation}
-     */
-    public static Operation tryCatch(
-            final String tag,
-            final Method method
-    ) {
-        return new Operation().tryCatch(tag, method);
     }
 
     // ===========
@@ -348,12 +420,40 @@ public final class Function {
     }
 
     /**
+     * 后台线程执行
+     * @param method      执行方法
+     * @param delayMillis 延迟执行时间 ( 毫秒 )
+     * @return {@link Operation}
+     */
+    public static Operation thread(
+            final Method method,
+            final long delayMillis
+    ) {
+        return new Operation().thread(method, delayMillis);
+    }
+
+    // =
+
+    /**
      * 后台线程池执行
      * @param method 执行方法
      * @return {@link Operation}
      */
     public static Operation threadPool(final Method method) {
         return new Operation().threadPool(method);
+    }
+
+    /**
+     * 后台线程池执行
+     * @param method      执行方法
+     * @param delayMillis 延迟执行时间 ( 毫秒 )
+     * @return {@link Operation}
+     */
+    public static Operation threadPool(
+            final Method method,
+            final long delayMillis
+    ) {
+        return new Operation().threadPool(method, delayMillis);
     }
 
     /**
@@ -367,6 +467,21 @@ public final class Function {
             final Method method
     ) {
         return new Operation().threadPool(pool, method);
+    }
+
+    /**
+     * 后台线程池执行
+     * @param pool        线程池
+     * @param method      执行方法
+     * @param delayMillis 延迟执行时间 ( 毫秒 )
+     * @return {@link Operation}
+     */
+    public static Operation threadPool(
+            final ExecutorService pool,
+            final Method method,
+            final long delayMillis
+    ) {
+        return new Operation().threadPool(pool, method, delayMillis);
     }
 
     // ==================
@@ -384,15 +499,15 @@ public final class Function {
 
     /**
      * 后台线程执行
-     * @param tag    日志 TAG
-     * @param method 执行方法
+     * @param method      执行方法
+     * @param delayMillis 延迟执行时间 ( 毫秒 )
      * @return {@link Operation}
      */
     public static Operation threadCatch(
-            final String tag,
-            final Method method
+            final Method method,
+            final long delayMillis
     ) {
-        return new Operation().threadCatch(tag, method);
+        return new Operation().threadCatch(method, delayMillis);
     }
 
     // =
@@ -408,15 +523,15 @@ public final class Function {
 
     /**
      * 后台线程池执行
-     * @param tag    日志 TAG
-     * @param method 执行方法
+     * @param method      执行方法
+     * @param delayMillis 延迟执行时间 ( 毫秒 )
      * @return {@link Operation}
      */
     public static Operation threadPoolCatch(
-            final String tag,
-            final Method method
+            final Method method,
+            final long delayMillis
     ) {
-        return new Operation().threadPoolCatch(tag, method);
+        return new Operation().threadPoolCatch(method, delayMillis);
     }
 
     /**
@@ -434,16 +549,16 @@ public final class Function {
 
     /**
      * 后台线程池执行
-     * @param tag    日志 TAG
-     * @param pool   线程池
-     * @param method 执行方法
+     * @param pool        线程池
+     * @param method      执行方法
+     * @param delayMillis 延迟执行时间 ( 毫秒 )
      * @return {@link Operation}
      */
     public static Operation threadPoolCatch(
-            final String tag,
             final ExecutorService pool,
-            final Method method
+            final Method method,
+            final long delayMillis
     ) {
-        return new Operation().threadPoolCatch(tag, pool, method);
+        return new Operation().threadPoolCatch(pool, method, delayMillis);
     }
 }

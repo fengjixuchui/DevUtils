@@ -7,7 +7,7 @@ import dev.utils.app.info.AppInfoUtils
 import dev.utils.app.logger.DevLogger
 import dev.utils.common.StringUtils
 import dev.utils.common.assist.search.FileBreadthFirstSearchUtils
-import dev.utils.common.thread.DevThreadManager
+import dev.utils.common.thread.DevThreadPool
 import java.io.File
 import java.util.*
 import kotlin.collections.ArrayList
@@ -77,7 +77,7 @@ class ScanSDCardUtils private constructor() {
             }
         })
         utils.setQueueSameTimeNumber(
-            DevThreadManager.getInstance(2).calcThreads
+            DevThreadPool.getCalcThreads()
         ).delayTime = 100L
     }
 

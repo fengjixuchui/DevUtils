@@ -18,6 +18,10 @@ ping www.bintray.com
 
 
 
+adb logcat > D:/1.txt
+
+
+
 ===========
 = Analyze =
 ===========

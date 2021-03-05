@@ -5,7 +5,7 @@ dependencies {
 	// dev_app_x
 	implementation 'com.afkt:DevAppX:2.1.9'
 	// dev_assist
-	implementation 'com.afkt:DevAssist:1.0.9'
+	implementation 'com.afkt:DevAssist:1.1.0'
 	// dev_base
 	implementation 'com.afkt:DevBase:1.0.4'
 	// dev_base_mvvm
@@ -13,7 +13,7 @@ dependencies {
 	// dev_java
 	implementation 'com.afkt:DevJava:1.2.9'
 	// dev_widget_x
-	implementation 'com.afkt:DevWidgetX:1.0.7'
+	implementation 'com.afkt:DevWidgetX:1.0.8'
 	// dev_environment
 	implementation 'com.afkt:DevEnvironment:1.0.2'
 	// dev_environment_base
@@ -30,27 +30,31 @@ dependencies {
 	// core
 	implementation 'androidx.core:core-ktx:1.3.2'
 	// lifecycle_runtime
-	implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.2.0'
-	// lifecycle_extensions
-	implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
+	implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.3.0'
 	// lifecycle_viewmodel
-	implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0'
+	implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0'
 	// lifecycle_livedata
-	implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.2.0'
+	implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.0'
 	// lifecycle_viewmodel_savedstate
-	implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.2.0'
+	implementation 'androidx.lifecycle:lifecycle-viewmodel-savedstate:2.3.0'
+	// lifecycle_common_java8
+	implementation 'androidx.lifecycle:lifecycle-common-java8:2.3.0'
 	// room_runtime
-	implementation 'androidx.room:room-runtime:2.2.5'
+	implementation 'androidx.room:room-runtime:2.2.6'
 	// room_compiler
-	implementation 'androidx.room:room-compiler:2.2.5'
+	implementation 'androidx.room:room-compiler:2.2.6'
 	// room_ktx
-	implementation 'androidx.room:room-ktx:2.2.5'
+	implementation 'androidx.room:room-ktx:2.2.6'
 	// work_runtime_ktx
-	implementation 'androidx.work:work-runtime-ktx:2.5.0-rc01'
+	implementation 'androidx.work:work-runtime-ktx:2.5.0'
+	// work_runtime
+	implementation 'androidx.work:work-runtime:2.5.0'
 	// datastore_preferences
-	implementation 'androidx.datastore:datastore-preferences:1.0.0-alpha05'
+	implementation 'androidx.datastore:datastore-preferences:1.0.0-alpha06'
 	// fragment_ktx
-	implementation 'androidx.fragment:fragment-ktx:1.2.5'
+	implementation 'androidx.fragment:fragment-ktx:1.3.0'
+	// activity_ktx
+	implementation 'androidx.activity:activity-ktx:1.2.0'
 
 	// = androidx =
 
@@ -58,8 +62,6 @@ dependencies {
 	implementation 'androidx.appcompat:appcompat:1.2.0'
 	// appcompat_resources
 	implementation 'androidx.appcompat:appcompat-resources:1.2.0'
-	// support_v4
-	implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 	// cardview
 	implementation 'androidx.cardview:cardview:1.0.0'
 	// recyclerview
@@ -72,35 +74,33 @@ dependencies {
 	implementation 'androidx.viewpager2:viewpager2:1.0.0'
 	// sqlite
 	implementation 'androidx.sqlite:sqlite:2.1.0'
-	// lifecycle_common_java8
-	implementation 'androidx.lifecycle:lifecycle-common-java8:2.2.0'
-	// work_runtime
-	implementation 'androidx.work:work-runtime:2.5.0-beta02'
 	// design
-	implementation 'com.google.android.material:material:1.2.1'
+	implementation 'com.google.android.material:material:1.3.0'
 	// fragment
-	implementation 'androidx.fragment:fragment:1.2.5'
+	implementation 'androidx.fragment:fragment:1.3.0'
 	// palette
 	implementation 'androidx.palette:palette:1.0.0'
+	// flexbox
+	implementation 'com.google.android:flexbox:2.0.1'
+	// hilt_android
+	implementation 'com.google.dagger:hilt-android:2.28-alpha'
+	// hilt_android_compiler
+	implementation 'com.google.dagger:hilt-android-compiler:2.28-alpha'
 
 	// = lib =
 
 	// gson
 	implementation 'com.google.code.gson:gson:2.8.6'
-	// imageloader
-	implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
 	// glide
-	implementation 'com.github.bumptech.glide:glide:4.11.0'
+	implementation 'com.github.bumptech.glide:glide:4.12.0'
 	// glide_compiler
-	implementation 'com.github.bumptech.glide:compiler:4.11.0'
+	implementation 'com.github.bumptech.glide:compiler:4.12.0'
 	// glide_transformations
 	implementation 'jp.wasabeef:glide-transformations:4.3.0'
-	// gpuimage
-	implementation 'jp.co.cyberagent.android:gpuimage:2.1.0'
 	// eventbus
 	implementation 'org.greenrobot:eventbus:3.2.0'
 	// live_eventbus
-	implementation 'com.jeremyliao:live-event-bus-x:1.7.2'
+	implementation 'com.jeremyliao:live-event-bus-x:1.7.3'
 	// okio
 	implementation 'com.squareup.okio:okio:2.9.0'
 	// okhttp3
@@ -117,10 +117,6 @@ dependencies {
 	implementation 'io.reactivex.rxjava3:rxjava:3.0.7'
 	// rxandroid3
 	implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
-	// okgo
-	implementation 'com.lzy.net:okgo:3.0.4'
-	// okserver
-	implementation 'com.lzy.net:okserver:2.0.5'
 	// networkCaptureSelf
 	implementation 'com.github.DingProg.NetworkCaptureSelf:library:v1.0.1'
 	// networkCaptureSelf_op
@@ -129,22 +125,81 @@ dependencies {
 	implementation 'com.alibaba:fastjson:1.2.73'
 	// fastjson_android
 	implementation 'com.alibaba:fastjson:1.1.72.android'
-	// butterknife
-	implementation 'com.jakewharton:butterknife:10.2.3'
-	// butterknife_compiler
-	implementation 'com.jakewharton:butterknife-compiler:10.2.3'
-	// kotterknife
-	implementation 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
 	// anchors
-	implementation 'com.effective.android:anchors:1.1.2'
+	implementation 'com.effective.android:anchors:1.1.3'
 	// panelSwitchHelper
-	implementation 'com.effective.android:panelSwitchHelper-androidx:1.3.10'
+	implementation 'com.effective.android:panelSwitchHelper-androidx:1.3.13'
 	// pictureSelector
-	implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.5.9'
-	// flexbox
-	implementation 'com.google.android:flexbox:2.0.1'
-	// ratingbar
-	implementation 'com.hedgehog.ratingbar:app:1.1.2'
+	implementation 'com.github.LuckSiege.PictureSelector:picture_library:v2.6.0'
+	// lottie
+	implementation 'com.airbnb.android:lottie:3.6.1'
+	// aria_core
+	implementation 'com.arialyy.aria:core:3.8.15'
+	// aria_compiler
+	implementation 'com.arialyy.aria:compiler:3.8.15'
+	// aria_ftp
+	implementation 'com.arialyy.aria:ftpComponent:3.8.15'
+	// aria_sftp
+	implementation 'com.arialyy.aria:sftpComponent:3.8.15'
+	// aria_m3u8
+	implementation 'com.arialyy.aria:m3u8Component:3.8.15'
+	// zxing_code
+	implementation 'com.google.zxing:core:3.4.1'
+	// zxing_android_code
+	implementation 'com.google.zxing:android-core:3.3.0'
+	// mmkv
+	implementation 'com.tencent:mmkv-static:1.2.7'
+	// autosize
+	implementation 'me.jessyan:autosize:1.2.1'
+	// greenDAO
+	implementation 'org.greenrobot:greendao:3.3.0'
+	// sqlcipher
+	implementation 'net.zetetic:android-database-sqlcipher:4.4.2'
+	// luban
+	implementation 'top.zibin:Luban:1.1.8'
+	// kluban
+	implementation 'com.github.forJrking:KLuban:1.0.5'
+	// xxPermissions
+	implementation 'com.hjq:xxpermissions:9.8'
+	// progressmanager
+	implementation 'me.jessyan:progressmanager:1.5.0'
+	// arouter_api
+	implementation 'com.alibaba:arouter-api:1.5.0'
+	// arouter_compiler
+	implementation 'com.alibaba:arouter-compiler:1.2.2'
+
+	// = aop =
+
+	// javapoet
+	implementation 'com.squareup:javapoet:1.13.0'
+	// auto_service
+	implementation 'com.google.auto.service:auto-service:1.0-rc7'
+
+	// = property =
+
+	// xcrash
+	implementation 'com.iqiyi.xcrash:xcrash-android-lib:3.0.0'
+	// glance
+	implementation 'com.glance.guolindev:glance:1.0.0'
+	// leakcanary
+	implementation 'com.squareup.leakcanary:leakcanary-android:2.6'
+	// blockcanary_android
+	implementation 'com.github.markzhai:blockcanary-android:1.5.0'
+	// blockcanary_no_op
+	implementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
+	// uetool
+	implementation 'me.ele:uetool:1.2.9'
+	// uetool_no_op
+	implementation 'me.ele:uetool-no-op:1.2.9'
+	// dokitx
+	implementation 'com.didichuxing.doraemonkit:dokitx:3.3.5'
+	// dokitx_no_op
+	implementation 'com.didichuxing.doraemonkit:dokitx-no-op:3.3.5'
+
+	// = widget =
+
+	// gpuimage
+	implementation 'jp.co.cyberagent.android:gpuimage:2.1.0'
 	// whorlviewlibrary
 	implementation 'com.tt:whorlviewlibrary:1.0.3'
 	// circleimageview
@@ -153,10 +208,22 @@ dependencies {
 	implementation 'com.contrarywind:Android-PickerView:4.1.9'
 	// photoview
 	implementation 'com.github.chrisbanes:PhotoView:2.3.0'
+	// consecutiveScroller
+	implementation 'com.github.donkingliang:ConsecutiveScroller:4.3.0'
+	// mpAndroidChart
+	implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+	// waveview
+	implementation 'com.gelitenight.waveview:waveview:1.0.0'
+	// banner
+	implementation 'com.youth.banner:banner:2.1.0'
+	// calendarview
+	implementation 'com.haibin:calendarview:3.6.9'
+	// ucrop
+	implementation 'com.github.yalantis:ucrop:2.2.6'
+	// ucrop_native
+	implementation 'com.github.yalantis:ucrop:2.2.6-native'
 	// stickyDecoration
-	implementation 'com.gavin.com.library:stickyDecoration:1.5.2'
-	// lottie
-	implementation 'com.airbnb.android:lottie:3.4.4'
+	implementation 'com.gavin.com.library:stickyDecoration:1.5.3'
 	// smartrefreshlayout
 	implementation 'com.scwang.smart:refresh-layout-kernel:2.0.1'
 	// smartrefresh_header_classics
@@ -177,74 +244,23 @@ dependencies {
 	implementation 'com.scwang.smart:refresh-layout-horizontal:2.0.0'
 	// baserecyclerviewadapterhelper
 	implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:3.0.6'
-	// aria_core
-	implementation 'com.arialyy.aria:core:3.8.14'
-	// aria_compiler
-	implementation 'com.arialyy.aria:compiler:3.8.14'
-	// aria_ftp
-	implementation 'com.arialyy.aria:ftpComponent:3.8.14'
-	// aria_sftp
-	implementation 'com.arialyy.aria:sftpComponent:3.8.14'
-	// aria_m3u8
-	implementation 'com.arialyy.aria:m3u8Component:3.8.14'
-	// zxing_code
-	implementation 'com.google.zxing:core:3.4.1'
-	// zxing_android_code
-	implementation 'com.google.zxing:android-core:3.3.0'
-	// consecutiveScroller
-	implementation 'com.github.donkingliang:ConsecutiveScroller:4.3.0'
-	// mpAndroidChart
-	implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-	// waveview
-	implementation 'com.gelitenight.waveview:waveview:1.0.0'
-	// banner
-	implementation 'com.youth.banner:banner:2.1.0'
-	// mmkv
-	implementation 'com.tencent:mmkv-static:1.2.7'
-	// autosize
-	implementation 'me.jessyan:autosize:1.2.1'
-	// greenDAO
-	implementation 'org.greenrobot:greendao:3.3.0'
-	// sqlcipher
-	implementation 'net.zetetic:android-database-sqlcipher:4.4.0'
-	// luban
-	implementation 'top.zibin:Luban:1.1.8'
-	// kluban
-	implementation 'com.github.forJrking:KLuban:1.0.2'
-	// calendarview
-	implementation 'com.haibin:calendarview:3.6.9'
-	// xcrash
-	implementation 'com.iqiyi.xcrash:xcrash-android-lib:2.4.9'
-	// ucrop
-	implementation 'com.github.yalantis:ucrop:2.2.6'
-	// ucrop_native
-	implementation 'com.github.yalantis:ucrop:2.2.6-native'
-	// xxPermissions
-	implementation 'com.hjq:xxpermissions:9.2'
-	// progressmanager
-	implementation 'me.jessyan:progressmanager:1.5.0'
-	// arouter_api
-	implementation 'com.alibaba:arouter-api:1.5.0'
-	// arouter_compiler
-	implementation 'com.alibaba:arouter-compiler:1.2.2'
-	// javapoet
-	implementation 'com.squareup:javapoet:1.13.0'
-	// auto_service
-	implementation 'com.google.auto.service:auto-service:1.0-rc7'
-	// glance
-	implementation 'com.glance.guolindev:glance:1.0.0'
-	// leakcanary
-	implementation 'com.squareup.leakcanary:leakcanary-android:2.6'
-	// blockcanary_android
-	implementation 'com.github.markzhai:blockcanary-android:1.5.0'
-	// blockcanary_no_op
-	implementation 'com.github.markzhai:blockcanary-no-op:1.5.0'
-	// uetool
-	implementation 'me.ele:uetool:1.2.9'
-	// uetool_no_op
-	implementation 'me.ele:uetool-no-op:1.2.9'
-	// dokitx
-	implementation 'com.didichuxing.doraemonkit:dokitx:3.3.5'
-	// dokitx_no_op
-	implementation 'com.didichuxing.doraemonkit:dokitx-no-op:3.3.5'
+	// qmui
+	implementation 'com.qmuiteam:qmui:2.0.0-alpha10'
+	// ratingbar
+	implementation 'com.hedgehog.ratingbar:app:1.1.2'
+
+	// = deprecated =
+
+	// imageloader
+	implementation 'com.nostra13.universalimageloader:universal-image-loader:1.9.5'
+	// butterknife
+	implementation 'com.jakewharton:butterknife:10.2.3'
+	// butterknife_compiler
+	implementation 'com.jakewharton:butterknife-compiler:10.2.3'
+	// kotterknife
+	implementation 'com.jakewharton:kotterknife:0.1.0-SNAPSHOT'
+	// okgo
+	implementation 'com.lzy.net:okgo:3.0.4'
+	// okserver
+	implementation 'com.lzy.net:okserver:2.0.5'
 }
