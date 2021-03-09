@@ -19,7 +19,9 @@ import dev.engine.image.GlideEngineImpl;
 import dev.engine.json.DevJSONEngine;
 import dev.engine.json.GsonEngineImpl;
 import dev.engine.log.DevLogEngine;
-import dev.engine.log.LoggerEngineImpl;
+import dev.engine.log.DevLoggerEngineImpl;
+import dev.engine.permission.DevPermissionEngine;
+import dev.engine.permission.DevPermissionEngineImpl;
 import dev.environment.DevEnvironment;
 import dev.other.MMKVUtils;
 import dev.utils.DevFinal;
@@ -284,7 +286,7 @@ public class BaseApplication
      * 初始化引擎
      */
     private void initEngine() {
-        DevLogEngine.setEngine(new LoggerEngineImpl() {
+        DevLogEngine.setEngine(new DevLoggerEngineImpl() {
             @Override
             public boolean isPrintLog() {
                 return DevUtils.isDebug();
@@ -292,6 +294,7 @@ public class BaseApplication
         });
         DevJSONEngine.setEngine(new GsonEngineImpl());
         DevImageEngine.setEngine(new GlideEngineImpl());
+        DevPermissionEngine.setEngine(new DevPermissionEngineImpl());
     }
 
     /**

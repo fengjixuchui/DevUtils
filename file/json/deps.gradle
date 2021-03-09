@@ -5,7 +5,7 @@ dependencies {
 	// dev_app_x
 	implementation 'com.afkt:DevAppX:2.1.9'
 	// dev_assist
-	implementation 'com.afkt:DevAssist:1.1.0'
+	implementation 'com.afkt:DevAssist:1.1.1'
 	// dev_base
 	implementation 'com.afkt:DevBase:1.0.4'
 	// dev_base_mvvm
@@ -195,6 +195,10 @@ dependencies {
 	implementation 'com.didichuxing.doraemonkit:dokitx:3.3.5'
 	// dokitx_no_op
 	implementation 'com.didichuxing.doraemonkit:dokitx-no-op:3.3.5'
+	// bugly
+	implementation 'com.tencent.bugly:crashreport:3.3.7'
+	// bugly_ndk
+	implementation 'com.tencent.bugly:nativecrashreport:3.8.0'
 
 	// = widget =
 
