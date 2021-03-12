@@ -1,6 +1,16 @@
 Change Log
 ==========
 
+Version 1.1.3 *(2021-03-12)*
+----------------------------
+
+* `[Add]` DevCompressEngine、DevMediaEngine
+
+Version 1.1.2 *(2021-03-10)*
+----------------------------
+
+* `[Update]` 修改 Engine Config 接口名
+
 Version 1.1.1 *(2021-03-10)*
 ----------------------------
 

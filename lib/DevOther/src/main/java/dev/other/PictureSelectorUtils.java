@@ -1,4 +1,4 @@
-package dev.other.picture;
+package dev.other;
 
 import android.content.Intent;
 import android.text.TextUtils;
@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import dev.DevUtils;
+import dev.engine.media.GlideEngine;
 import dev.utils.LogPrintUtils;
 
 /**
@@ -124,6 +125,17 @@ public final class PictureSelectorUtils {
             PictureFileUtils.deleteCacheDirFile(DevUtils.getContext(), type);
         } catch (Exception e) {
             LogPrintUtils.eTag(TAG, e, "deleteCacheDirFile");
+        }
+    }
+
+    /**
+     * 清空全部缓存
+     */
+    public static void deleteAllCacheDirFile() {
+        try {
+            PictureFileUtils.deleteAllCacheDirFile(DevUtils.getContext());
+        } catch (Exception e) {
+            LogPrintUtils.eTag(TAG, e, "deleteAllCacheDirFile");
         }
     }
 
@@ -304,7 +316,7 @@ public final class PictureSelectorUtils {
             }
             // 判断是否存在选中资源
             if (picConfig.localMedia != null && picConfig.localMedia.size() != 0) {
-                pictureSelectionModel.selectionMedia(picConfig.localMedia);
+                pictureSelectionModel.selectionData(picConfig.localMedia);
             }
             return pictureSelectionModel;
         }
