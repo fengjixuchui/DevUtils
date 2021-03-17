@@ -18,8 +18,9 @@ public interface IPreference {
     enum DataType {
         INTEGER,
         LONG,
-        BOOLEAN,
         FLOAT,
+        DOUBLE,
+        BOOLEAN,
         STRING,
         STRING_SET
     }
@@ -28,6 +29,11 @@ public interface IPreference {
 
     /**
      * 保存数据
+     * <pre>
+     *     注意事项, 进行存储 int、long、float、double 需要明确类型
+     *     例 1、1L、1F、1D 不能存储 long 传入 1 会导致获取数据转换异常
+     *     必须传入 1L 或者定义变量 long value = xxx, 然后传入 value
+     * </pre>
      * @param key   保存的 key
      * @param value 保存的 value
      * @param <T>   泛型
@@ -68,14 +74,16 @@ public interface IPreference {
 
     /**
      * 根据 key 获取数据
-     * @param key  保存的 key
-     * @param type 数据类型
-     * @param <T>  泛型
+     * @param key          保存的 key
+     * @param type         数据类型
+     * @param defaultValue 默认值
+     * @param <T>          泛型
      * @return 存储的数据
      */
     <T> T get(
             String key,
-            DataType type
+            DataType type,
+            Object defaultValue
     );
 
     /**
@@ -131,6 +139,13 @@ public interface IPreference {
     int getInt(String key);
 
     /**
+     * 获取 long 类型的数据
+     * @param key 保存的 key
+     * @return 存储的数据
+     */
+    long getLong(String key);
+
+    /**
      * 获取 float 类型的数据
      * @param key 保存的 key
      * @return 存储的数据
@@ -138,11 +153,11 @@ public interface IPreference {
     float getFloat(String key);
 
     /**
-     * 获取 long 类型的数据
+     * 获取 double 类型的数据
      * @param key 保存的 key
      * @return 存储的数据
      */
-    long getLong(String key);
+    double getDouble(String key);
 
     /**
      * 获取 boolean 类型的数据
@@ -164,4 +179,83 @@ public interface IPreference {
      * @return 存储的数据
      */
     Set<String> getSet(String key);
+
+    // =
+
+    /**
+     * 获取 int 类型的数据
+     * @param key          保存的 key
+     * @param defaultValue 默认值
+     * @return 存储的数据
+     */
+    int getInt(
+            String key,
+            int defaultValue
+    );
+
+    /**
+     * 获取 long 类型的数据
+     * @param key          保存的 key
+     * @param defaultValue 默认值
+     * @return 存储的数据
+     */
+    long getLong(
+            String key,
+            long defaultValue
+    );
+
+    /**
+     * 获取 float 类型的数据
+     * @param key          保存的 key
+     * @param defaultValue 默认值
+     * @return 存储的数据
+     */
+    float getFloat(
+            String key,
+            float defaultValue
+    );
+
+    /**
+     * 获取 double 类型的数据
+     * @param key          保存的 key
+     * @param defaultValue 默认值
+     * @return 存储的数据
+     */
+    double getDouble(
+            String key,
+            double defaultValue
+    );
+
+    /**
+     * 获取 boolean 类型的数据
+     * @param key          保存的 key
+     * @param defaultValue 默认值
+     * @return 存储的数据
+     */
+    boolean getBoolean(
+            String key,
+            boolean defaultValue
+    );
+
+    /**
+     * 获取 String 类型的数据
+     * @param key          保存的 key
+     * @param defaultValue 默认值
+     * @return 存储的数据
+     */
+    String getString(
+            String key,
+            String defaultValue
+    );
+
+    /**
+     * 获取 Set 类型的数据
+     * @param key          保存的 key
+     * @param defaultValue 默认值
+     * @return 存储的数据
+     */
+    Set<String> getSet(
+            String key,
+            Set<String> defaultValue
+    );
 }

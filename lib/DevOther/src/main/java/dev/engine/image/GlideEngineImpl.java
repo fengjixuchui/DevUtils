@@ -21,7 +21,12 @@ import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.target.ImageViewTarget;
 import com.bumptech.glide.request.transition.Transition;
 
+import java.io.File;
+import java.util.List;
+
 import dev.base.DevSource;
+import dev.engine.image.listener.ConvertStorage;
+import dev.engine.image.listener.OnConvertListener;
 import dev.utils.LogPrintUtils;
 import dev.utils.app.image.ImageUtils;
 
@@ -541,6 +546,29 @@ public class GlideEngineImpl
     }
 
     // ===========
+    // = convert =
+    // ===========
+
+    @Override
+    public boolean convertImageFormat(
+            Context context,
+            List<DevSource> sources,
+            OnConvertListener listener
+    ) {
+        return convertImageFormat(context, sources, null, listener);
+    }
+
+    @Override
+    public boolean convertImageFormat(
+            Context context,
+            List<DevSource> sources,
+            ImageConfig config,
+            OnConvertListener listener
+    ) {
+        return priConvertImageFormat(context, sources, config, listener);
+    }
+
+    // ===========
     // = 内部方法 =
     // ===========
 
@@ -932,5 +960,40 @@ public class GlideEngineImpl
         @Override
         public void onLoadCleared(Drawable placeholder) {
         }
+    }
+
+    // =====================
+    // = 转换图片格式并存储 =
+    // =====================
+
+    private static class InnerConvertStorage
+            implements ConvertStorage<ImageConfig> {
+        @Override
+        public File convert(
+                Context context,
+                DevSource source,
+                ImageConfig config,
+                int index,
+                int count
+        ) {
+            return null;
+        }
+    }
+
+    /**
+     * 私有转换图片格式处理方法
+     * @param context
+     * @param sources
+     * @param config
+     * @param listener
+     * @return
+     */
+    private boolean priConvertImageFormat(
+            Context context,
+            List<DevSource> sources,
+            ImageConfig config,
+            OnConvertListener listener
+    ) {
+        return false;
     }
 }

@@ -6,7 +6,7 @@
 //implementation 'com.afkt:DevApp:1.9.4'
 
 // AndroidX
-implementation 'com.afkt:DevAppX:2.1.9'
+implementation 'com.afkt:DevAppX:2.2.1'
 ```
 
 ## 目录结构
@@ -16,7 +16,6 @@ implementation 'com.afkt:DevAppX:2.1.9'
    - app             | APP 相关工具类
       - anim         | 动画工具类
       - assist       | 辅助类
-         - manager   | 管理器 如: TimerManager
       - cache        | 缓存工具类
       - camera1      | 摄像头相关 android.hardware.Camera
       - helper       | 功能 Helper 辅助类
@@ -26,6 +25,7 @@ implementation 'com.afkt:DevAppX:2.1.9'
       - permission   | 权限工具类
       - player       | 多媒体 ( 视频、音频 ) 播放封装
       - share        | SharedPreferences 封装
+      - timer        | 定时器
       - toast        | Toast
          - toaster   | Toaster 处理无通知权限
       - wifi         | Wifi、热点工具类
@@ -97,7 +97,6 @@ allprojects {
    - [app](#devutilsapp)                              | APP 相关工具类
       - [anim](#devutilsappanim)                      | 动画工具类
       - [assist](#devutilsappassist)                  | 辅助类
-         - [manager](#devutilsappassistmanager)       | 管理器 如: TimerManager
       - [cache](#devutilsappcache)                    | 缓存工具类
       - [camera1](#devutilsappcamera1)                | 摄像头相关 android.hardware.Camera
       - [helper](#devutilsapphelper)                  | 功能 Helper 辅助类
@@ -107,6 +106,7 @@ allprojects {
       - [permission](#devutilsapppermission)          | 权限工具类
       - [player](#devutilsappplayer)                  | 多媒体 ( 视频、音频 ) 播放封装
       - [share](#devutilsappshare)                    | SharedPreferences 封装
+      - [timer](#devutilsapptimer)                    | 定时器
       - [toast](#devutilsapptoast)                    | Toast
          - [toaster](#devutilsapptoasttoaster)        | Toaster 处理无通知权限
       - [wifi](#devutilsappwifi)                      | Wifi、热点工具类
@@ -2217,40 +2217,6 @@ allprojects {
 | isAllowChange | 是否允许切屏 |
 
 
-## <span id="devutilsappassistmanager">**`dev.utils.app.assist.manager`**</span>
-
-
-* **定时器工具类 ->** [TimerManager.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/assist/manager/TimerManager.java)
-
-| 方法 | 注释 |
-| :- | :- |
-| gc | 回收定时器资源 |
-| getTimerSize | 获取全部任务总数 |
-| getTimer | 获取属于对应字符串标记的定时器任务 ( 优先获取符合的 ) |
-| getTimers | 获取属于对应字符串标记的定时器任务集合 |
-| closeAll | 关闭全部任务 |
-| closeNotRunTask | 关闭所有未运行的任务 |
-| closeInfiniteTask | 关闭所有无限循环的任务 |
-| closeMark | 关闭所有符合对应的字符串标记的定时器任务 |
-| createTimer | 创建定时器 ( 立即执行、无限循环、通知默认 what ) |
-| getMarkId | 获取标记 id |
-| getMarkStr | 获取标记字符串 |
-| setMarkId | 设置标记 id |
-| setMarkStr | 设置标记字符串 |
-| startTimer | 运行定时器 |
-| closeTimer | 关闭定时器 |
-| isRunTimer | 判断是否运行中 |
-| getTriggerNumber | 获取已经触发的次数 |
-| getTriggerLimit | 获取允许触发的上限次数 |
-| isTriggerEnd | 是否触发结束 ( 到达最大次数 ) |
-| isInfinite | 是否无限循环 |
-| setHandler | 设置通知的 Handler |
-| setNotifyWhat | 设置通知的 what |
-| setNotifyObject | 设置通知的 Object |
-| setTime | 设置时间 |
-| setTriggerLimit | 设置触发次数上限 |
-
-
 ## <span id="devutilsappcache">**`dev.utils.app.cache`**</span>
 
 
@@ -3172,11 +3138,58 @@ allprojects {
 | contains | 是否存在 key |
 | clear | 清除全部数据 |
 | getInt | 获取 int 类型的数据 |
-| getFloat | 获取 float 类型的数据 |
 | getLong | 获取 long 类型的数据 |
+| getFloat | 获取 float 类型的数据 |
+| getDouble | 获取 double 类型的数据 |
 | getBoolean | 获取 boolean 类型的数据 |
 | getString | 获取 String 类型的数据 |
 | getSet | 获取 Set 类型的数据 |
+
+
+## <span id="devutilsapptimer">**`dev.utils.app.timer`**</span>
+
+
+* **定时器 ->** [DevTimer.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/timer/DevTimer.java)
+
+| 方法 | 注释 |
+| :- | :- |
+| getTag | 获取 TAG |
+| getUUID | 获取 UUID HashCode |
+| getDelay | 获取延迟时间 ( 多少毫秒后开始执行 ) |
+| getPeriod | 获取循环时间 ( 每隔多少毫秒执行一次 ) |
+| isRunning | 判断是否运行中 |
+| isMarkSweep | 是否标记清除 |
+| getTriggerNumber | 获取已经触发的次数 |
+| getTriggerLimit | 获取允许触发的上限次数 |
+| isTriggerEnd | 是否触发结束 ( 到达最大次数 ) |
+| isInfinite | 是否无限循环 |
+| setHandler | 设置 UI Handler |
+| setCallback | 设置回调事件 |
+| start | 运行定时器 |
+| stop | 关闭定时器 |
+| setTag | setTag |
+| setDelay | setDelay |
+| setPeriod | setPeriod |
+| getLimit | getLimit |
+| setLimit | setLimit |
+| build | build |
+| callback | 触发回调方法 |
+
+
+* **定时器管理类 ->** [TimerManager.java](https://github.com/afkT/DevUtils/blob/master/lib/DevApp/src/main/java/dev/utils/app/timer/TimerManager.java)
+
+| 方法 | 注释 |
+| :- | :- |
+| addContainsChecker | 添加包含校验 |
+| getSize | 获取全部定时器总数 |
+| recycle | 回收定时器资源 |
+| getTimer | 获取对应 TAG 定时器 ( 优先获取符合的 ) |
+| getTimers | 获取对应 TAG 定时器集合 |
+| closeAll | 关闭全部定时器 |
+| closeAllNotRunning | 关闭所有未运行的定时器 |
+| closeAllInfinite | 关闭所有无限循环的定时器 |
+| closeAllTag | 关闭所有对应 TAG 定时器 |
+| closeAllUUID | 关闭所有对应 UUID 定时器 |
 
 
 ## <span id="devutilsapptoast">**`dev.utils.app.toast`**</span>
